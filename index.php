@@ -5,9 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-
-    <link rel="stylesheet" href="css/home.css" />
-    <link rel="stylesheet" href="css/slide.css" />
+    <link rel="stylesheet" href="./assets/css/home.css" />
+    <link rel="stylesheet" href="./assets/css/slide.css" />
     <!-- font awesome cdn link  -->
     <script
       src="https://kit.fontawesome.com/1b6e53cabd.js"
@@ -17,16 +16,16 @@
   <body>
     <header>
       <div class="section-header">
-        <a href="home.html" class="home"> Toy Shop </a>
+        <a href="index.php" class="home"> Toy Shop </a>
 
         <div class="nav-bar">
-          <a href="home.html">Home</a>
+          <a href="index.php">Home</a>
           <a href="">About</a>
           <a href="">Orders</a>
           <a href="">Shop</a>
           <a href="">Contact</a>
         </div>
-
+  
         <div class="icons">
           <a href="">
             <i class="fa-solid fa-magnifying-glass fa-xl"></i>
@@ -48,9 +47,9 @@
 
     <div class="slide-container">
       <div class="w3-content w3-display-container" style="max-width: 600px">
-        <img class="mySlides" src="images/home-img-1.png" style="width: 80%" />
-        <img class="mySlides" src="images/home-img-2.png" style="width: 80%" />
-        <img class="mySlides" src="images/home-img-3.png" style="width: 80%" />
+        <img class="mySlides" src="./assets/images/home-img-1.png" style="width: 80%" />
+        <img class="mySlides" src="./assets/images/home-img-2.png" style="width: 80%" />
+        <img class="mySlides" src="./assets/images/home-img-3.png" style="width: 80%" />
         <div
           class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle"
           style="width: 100%"
@@ -76,6 +75,7 @@
         </div>
       </div>
     </div>
+    <script src="./js/home.js"></script>
   </body>
-  <script src="js/home.js"></script>
+
 </html>
