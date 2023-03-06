@@ -1,8 +1,7 @@
 header {
   position: sticky;
+  width: 100%;
   top: 0;
-  left: 0;
-  right: 0;
   background-color: white;
   box-shadow: white;
   z-index: 1000;
@@ -62,4 +61,23 @@ header {
 .fa-cart-shopping,
 .fa-user {
   color: black;
+}
+
+.mySlides {
+  display: none;
+}
+.w3-left,
+.w3-right,
+.w3-badge {
+  cursor: pointer;
+}
+.w3-badge {
+  height: 13px;
+  width: 13px;
+  padding: 0;
+}
+
+.slide-container {
+  position: relative;
+  background-image: url("../images/home-bg.png");
 }
