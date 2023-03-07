@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="./assets/css/home.css" />
   <link rel="stylesheet" href="./assets/css/slide.css" />
   <link rel="stylesheet" href="./assets/css/footer.css" />
-
 </head>
 
 <body>
@@ -18,7 +17,7 @@
   include("./home.php");
   include("./components/footer.php");
   ?>
-  
+
   <!-- font awesome cdn link  -->
   <script src="https://kit.fontawesome.com/1b6e53cabd.js" crossorigin="anonymous"></script>
   <script src="./js/home.js"></script>
