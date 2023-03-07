@@ -6,7 +6,7 @@
         <a href="index.php">Home</a>
         <a href="">About</a>
         <a href="orders.php">Orders</a>
-        <a href="">Shop</a>
+        <a href="shop.php">Shop</a>
         <a href="">Contact</a>
     </div>
 
