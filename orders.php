@@ -25,7 +25,7 @@
     ?>
 
     <section class="orders">
-        <h1 class="heading">placed orders</h1>
+        <h1 class="heading">Placed Orders</h1>
         <div class="box-container">
             <div class="box">
                 <p>placed on : <span>Store 1</span></p>
