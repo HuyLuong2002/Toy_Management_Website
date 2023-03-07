@@ -11,9 +11,8 @@
   </head>
   <body>
     <?php
-      include("./components/home.php")
+    include("./components/home.php");
     ?>
-
     <!-- font awesome cdn link  -->
     <script
       src="https://kit.fontawesome.com/1b6e53cabd.js"
