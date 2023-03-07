@@ -7,7 +7,7 @@
           <a href="index.php">Home</a>
           <a href="">About</a>
           <a href="">Orders</a>
-          <a href="">Shop</a>
+          <a href="components/shop.php">Shop</a>
           <a href="">Contact</a>
         </div>
   
