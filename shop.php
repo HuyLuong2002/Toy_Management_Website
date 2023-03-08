@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>shop</title>
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="./assets/css/shop.css">
     <link rel="stylesheet" href="./assets/css/home.css" />
@@ -19,9 +19,7 @@
     ?>
     <section class="products">
         <h1 class="heading">Lastest products</h1>
-
         <div class="box-container">
-
             <form action="" method="post" class="box">
                 <img src="./assets/images/home-img-3.png" alt="">
                 <div class="name">Headphone ASUS</div>
