@@ -71,7 +71,7 @@ header {
   text-decoration: none;
 }
 
-.icons {
+.section-header .icons {
   display: flex;
   align-items: center;
   justify-content: space-between;
