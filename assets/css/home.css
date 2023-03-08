@@ -94,8 +94,20 @@ header {
   display: none;
   width: 100%;
   margin: 0;
-  
+  padding: 3rem 5rem 5rem 5rem;
 }
+
+.w3-left{
+  position: absolute;
+  top: -17.5rem;
+}
+
+.w3-right{
+  position: absolute;
+  right: 0;
+  top: -17.5rem;
+}
+
 .w3-left,
 .w3-right,
 .w3-badge {
