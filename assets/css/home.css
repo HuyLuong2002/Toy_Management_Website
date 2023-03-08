@@ -92,6 +92,8 @@ header {
 /*custom slider for html*/
 .mySlides {
   display: none;
+  width: 100%;
+  margin: 0;
   
 }
 .w3-left,
@@ -100,7 +102,7 @@ header {
   cursor: pointer;
 }
 .w3-badge {
-  height: 13px;
+  height: 17.5px;
   width: 13px;
   padding: 0;
 }
