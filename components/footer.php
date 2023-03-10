@@ -36,6 +36,6 @@
 
    </section>
 
-   <div class="credit">Ông Hoàng tới chơi bro! - Tới cái lồn (Lương) :></div>
+   <div class="credit">@ Copyright 2023</div>
 
 </footer>
