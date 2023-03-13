@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="./assets/css/product_list.css" />
   <link rel="stylesheet" href="./assets/css/slide.css" />
   <link rel="stylesheet" href="./assets/css/footer.css" />
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </head>
 
 <body>

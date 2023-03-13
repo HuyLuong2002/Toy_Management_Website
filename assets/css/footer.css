@@ -24,6 +24,7 @@
   font-size: 1rem;
   color: var(--light-color);
   margin-left: 5rem;
+  text-decoration: none;
 }
 
 .footer .grid .box a i {
