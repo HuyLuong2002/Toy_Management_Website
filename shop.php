@@ -21,6 +21,7 @@
         <h1 class="heading">Lastest products</h1>
         <div class="box-container">
             <form action="" method="post" class="box">
+                <button class="fas fa-heart" type="submit" name="add_to_wishlist"></button>
                 <img src="./assets/images/home-img-3.png" alt="">
                 <div class="name">Headphone ASUS</div>
                 <div class="flex">

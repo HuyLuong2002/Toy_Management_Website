@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home</title>
   <link rel="stylesheet" href="./assets/css/home.css" />
-  <link rel="stylesheet" href="./assets/css/product-collection.css" />
-  <link rel="stylesheet" href="./assets/css/product-list.css" />
+  <link rel="stylesheet" href="./assets/css/product_collection.css" />
+  <link rel="stylesheet" href="./assets/css/product_list.css" />
   <link rel="stylesheet" href="./assets/css/slide.css" />
   <link rel="stylesheet" href="./assets/css/footer.css" />
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
