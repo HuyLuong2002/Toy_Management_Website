@@ -11,7 +11,10 @@ function currentDiv(n) {
 
 function showDivs(n) {
   var i;
-  var x = document.getElementsByClassName("mySlides");
+  var x = document.getElementById("slide");
+  x.addEventListener("mousedown", startDrag);
+  x.addEventListener("mouseup", endDrag);
+  x.addEventListener("mousemove", drag);
   var dots = document.getElementsByClassName("demo");
   if (n > x.length) {
     slideIndex = 1;
@@ -28,3 +31,4 @@ function showDivs(n) {
   x[slideIndex - 1].style.display = "block";
   dots[slideIndex - 1].className += " w3-white";
 }
+
