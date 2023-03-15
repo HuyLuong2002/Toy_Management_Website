@@ -4,10 +4,10 @@
 
         <div class="nav-bar">
             <a href="index.php">Home</a>
-            <a href="">About</a>
+            <a href="about.php">About</a>
             <a href="orders.php">Orders</a>
             <a href="shop.php">Shop</a>
-            <a href="">Contact</a>
+            <a href="contact.php">Contact</a>
         </div>
 
         <div class="icons">
