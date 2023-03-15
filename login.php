@@ -14,50 +14,65 @@
 
     <div class="wrapper-form">
         <div class="DarkOverlay"></div>
-        <form class="form">
-            <h1>Log In</h1>
+        <div class="wrap-login-signup">
+            <form class="form" id="form-login">
+                <h1>Log In</h1>
 
-            <label for="nome">UserName:</label>
-            <input type="text" class="infos" id="nome" name="nome">
-            <div class="mario"></div>
-            <label for="email">Password:</label>
-            <input type="email" id="email" name="email">
+                <label for="nome">UserName:</label>
+                <input type="text" class="infos" id="nome" name="nome">
+                <div class="mario"></div>
+                <label for="email">Password:</label>
+                <input type="email" id="email" name="email">
 
-            <div class="wrap-btn">
-                <button type="submit">LogIn</button>
+                <div class="wrap-btn">
+                    <button type="submit">LogIn</button>
 
-                <div>
-                    <i>don't have an account?</i>
-                    <button type="reset" id="limpar">SignUp</button>
+                    <div>
+                        <i>Don't have an account? <a onclick="handleClick(event, '1')">Sign up now</a></i>
+
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
 
-        <form class="form">
-            <h1>Sign Up</h1>
+            <form class="form hide-form" id="form-signup">
+                <h1>Sign Up</h1>
 
-            <label for="nome">UserName:</label>
-            <input type="text" class="infos" id="nome" name="nome">
-            <div class="mario"></div>
-            <label for="email">Password:</label>
-            <input type="email" id="email" name="email">
+                <label for="nome">UserName:</label>
+                <input type="text" class="infos" id="nome" name="nome">
+                <div class="mario"></div>
+                <label for="email">Password:</label>
+                <input type="email" id="email" name="email">
 
-            <div class="mario"></div>
-            <label for="confirm">Confirm Password:</label>
-            <input type="email" id="email" name="email">
+                <div class="mario"></div>
+                <label for="confirm">Confirm Password:</label>
+                <input type="email" id="email" name="email">
+                <div class="wrap-btn">
+                    <button type="submit">SignUp</button>
 
-            <div class="wrap-btn">
-                <button type="submit">LogIn</button>
+                    <div>
+                        <i>Already have an account? <a onclick="handleClick(event, '2')">Log in now</a></i>
 
-                <div>
-                    <i>don't have an account?</i>
-                    <button type="reset" id="limpar">SignUp</button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 
-    <script src="./js/login.js"></script>
+    <script>
+        let formLogin = document.getElementById("form-login")
+        let formSignUp = document.getElementById("form-signup")
+
+        const handleClick = (event, id) => {
+            event.preventDefault();
+            if(id === "1") {
+                formLogin.classList.add("hide-form");
+                formSignUp.classList.remove("hide-form");
+            } else {
+                formLogin.classList.remove("hide-form");
+                formSignUp.classList.add("hide-form");
+            }
+        }
+    </script>
 </body>
 
 </html>
