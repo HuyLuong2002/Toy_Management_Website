@@ -58,9 +58,10 @@ form {
   width: 30rem;
   min-height: 25rem;
   margin: 0 auto;
-  box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.267);
+  /* box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.267); */
   z-index: 16;
   margin-bottom: 5rem;
+  border: 1px solid #ff0;
 }
 
 .hide-form {

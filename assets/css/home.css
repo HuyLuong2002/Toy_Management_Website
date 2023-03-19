@@ -19,6 +19,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  transition: all 0.2s linear;
 }
 
 body {
@@ -49,6 +50,10 @@ header {
   position: relative;
   height: 5rem;
   z-index: 21;
+}
+
+.section-header .fa-times {
+  transform: rotate(360);
 }
 
 .section-header .home {

@@ -23,7 +23,7 @@
                 </a>
             </div>
             <div>
-                <a href="">
+                <a href="cart.php">
                     <i class="fa-solid fa-cart-shopping fa-xl"></i>
                     <span class="icon_status">(0)</span>
                 </a>
