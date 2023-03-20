@@ -11,7 +11,7 @@
 
 <body>
 
-    <h1>Shopping Cart</h1>
+    <a href="index.php">Shopping Cart</a>
 
     <div class="shopping-cart">
 
