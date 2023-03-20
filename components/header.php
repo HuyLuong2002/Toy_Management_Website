@@ -12,8 +12,8 @@
 
         <div class="icons">
             <div>
-                <a href="">
-                    <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+                <a onclick="handleSearch(event)" href="#">
+                    <i class="search fa-solid fa-magnifying-glass fa-xl"></i>
                 </a>
             </div>
             <div>
@@ -23,7 +23,7 @@
                 </a>
             </div>
             <div>
-                <a href="">
+                <a href="cart.php">
                     <i class="fa-solid fa-cart-shopping fa-xl"></i>
                     <span class="icon_status">(0)</span>
                 </a>
@@ -35,4 +35,20 @@
             </div>
         </div>
     </div>
+    <div class="search-bar">
+        <input type="text" placeholder="Nhập sản phẩm muốn tìm kiếm vào đây">
+    </div>
 </header>
+
+<script>
+    let search = document.getElementsByClassName('search')[0];
+    let searchBar = document.getElementsByClassName('search-bar')[0];
+
+    const handleSearch = (event) => {
+            event.preventDefault();
+            search.classList.toggle('fa-times');
+            search.classList.toggle('fa-magnifying-glass');
+            searchBar.classList.toggle("active");
+            
+        }
+</script>
