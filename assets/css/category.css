@@ -46,7 +46,7 @@ body {
 section {
     width: 98%;
     height: 35rem;
-    margin: auto;
+    margin: 0 1rem;
     display: flex;
     align-items: center;
     overflow-x: auto;
@@ -58,26 +58,76 @@ section::-webkit-scrollbar {
 
 section .product {
     min-width: 24%;
-    height: 90%;
-    background: whitesmoke;
+    height: 85%;
+    background: #f1f1f1;
     margin: 0 1rem 0 0;
-    border-radius: 1rem;
     position: relative;
     left: 0;
     transition: 0.5s;
+    border: .5px solid #555;
 }
 
-.product .picture {
+.product .content {
     width: 100%;
-    height: 70%;
-    padding: 1rem;
-    display: flex;
-    overflow: hidden;
-    margin-bottom: 1rem;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.75, 0, 0.85, 1);
+}
+
+.more {
+    display: none;
+}
+
+.more:checked~.content {
+    transform: rotateY(180deg);
+}
+
+.front,
+.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    border-radius: 6px;
+}
+
+.front .inner,
+.back .inner {
+    display: grid;
+    height: 100%;
+    transform: translateZ(80px) scale(0.94);
+}
+
+.front {
+    background-color: #fff;
+    background-position: center center;
+}
+
+.front::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: block;
+    border-radius: 6px;
+    backface-visibility: hidden;
 }
 
 .product .picture img {
     width: 100%;
+    transform: scale(.9);
+}
+
+.product .picture img:hover {
+    transform: scale(1);
+    background-color: #fff;
 }
 
 .details,
@@ -91,36 +141,107 @@ section .product {
     color: #444;
 }
 
-.star-button {
+.front .star-button {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.star-button p.star {
+.front .star-button .star span {
     cursor: pointer;
     margin: 1rem auto;
-    width: 70%;
+    width: 65%;
     font-size: 1.5rem;
     color: #808080;
 }
 
+.star-button .star span:hover {
+    color: #40c9a2;
+}
+
+.back {
+    transform: rotateY(180deg);
+    background-color: #fff;
+    border: 2px solid rgb(240, 240, 240);
+}
+
+.back .inner{
+    grid-template-rows: 2fr 2fr 12fr ;
+}
+
+.back .description {
+    grid-row: 3;
+    font-size: 0.86em;
+    border-radius: 5px;
+    font-weight: 600;
+    line-height: 1.4em;
+    overflow: auto;
+    padding-right: 10px;
+}
+
 .button {
-    /* text-shadow: 0 0 6px rgba(0, 0, 0, 0.3); */
     text-align: center;
     padding: 0 1rem;
     cursor: pointer;
     font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 2.5rem;
     background-color: transparent;
     color: #222;
-    border: 2px solid #808080;
+    border: 1px solid #000;
     border-radius: .3rem;
     transition: 0.3s ease-in-out;
     display: inline-block;
     backface-visibility: hidden;
 }
 
-@media(max-width: 768px) {
+.back .inner .description p {
+    font-size: 1.5rem;
+}
+
+.back .button {
+    justify-self: center;
+}
+
+.button.return {
+    line-height: 2.5rem;
+    color: #40c9a2;
+    border-color: #40c9a2;
+}
+
+.button.return:hover {
+    color: #fff;
+    background-color: #40c9a2;
+}
+
+.button:hover {
+    color: #fff;
+    background-color: #40c9a2;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: lighten(#40c9a2, 20%);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #40c9a2;
+}
+
+@media(max-width: 1100px    ) {
+    section .product {
+        min-width: 35%;
+        margin: 0 1rem 0 0;
+    }
+}
+
+@media(max-width: 780px) {
     .header-category h2 {
         font-size: 25px;
     }
@@ -135,10 +256,18 @@ section .product {
     }
 
     .details p {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
     }
 
     .star-button {
-        font-size: 1.2rem;
+        justify-content: space-around;
+    }
+
+    .star-button .star span {
+        font-size: 1.5rem;
+    }
+
+    .star-button .button {
+        padding: 0 0.7rem;
     }
 }

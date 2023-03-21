@@ -9,7 +9,7 @@ let l = 0;
 let movePer = 25.34;
 let maxMove = 203;
 // mobile_view	
-let mob_view = window.matchMedia("(max-width: 768px)");
+let mob_view = window.matchMedia("(max-width: 780px)");
 if (mob_view.matches) {
     movePer = 50.36;
     maxMove = 504;

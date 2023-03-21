@@ -26,123 +26,303 @@
         </div>
         <section>
             <div class="product">
-                <div class="picture">
-                    <img src="./assets/images/home-img-1.png" alt="">
-                </div>
-                <div class="details">
-                    <p>
-                        <b>Product One</b>
-                    </p>
-                </div>
-                <div class="star-button">
-                    <p class="star">
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                    </p>
-                    <label class="button" aria-hidden="true">Details</label>
-                </div>
-            </div>
-            <div class="product">
-                <div class="picture">
-                    <img src="./assets/images/home-img-2.png" alt="">
-                </div>
-                <div class="details">
-                    <p>
-                        <b>Product Two</b>
-                    </p>
-                </div>
-                <div class="star-button">
-                    <p class="star">
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                    </p>
-                    <label class="button" aria-hidden="true">Details</label>
-                </div>
-            </div>
-            <div class="product">
-                <div class="picture">
-                    <img src="./assets/images/home-img-3.png" alt="">
-                </div>
-                <div class="details">
-                    <p>
-                        <b>Product Three</b>
-                    </p>
-                </div>
-                <div class="star-button">
-                    <p class="star">
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                    </p>
-                    <label class="button" aria-hidden="true">Details</label>
+                <input type="checkbox" id="card1" class="more" aria-hidden="true">
+                <div class="content">
+                    <div class="front">
+                        <div class="inner">
+                            <div class="picture">
+                                <img src="./assets/images/home-img-1.png" alt="">
+                            </div>
+                            <div class="details">
+                                <p>
+                                    <b>Product One</b>
+                                </p>
+                            </div>
+                            <div class="star-button">
+                                <div class="star">
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="far fa-star"></i>
+                                    </span>
+                                </div>
+                                <label for="card1" class="button" aria-hidden="true">Details</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <div class="description">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, accusamus.</p>
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates earum nostrum ipsam
+                                    ullam, reiciendis nam consectetur? Doloribus voluptate architecto possimus perferendis
+                                    tenetur nemo amet temporibus, enim soluta nam, debitis.</p>
+                            </div>
+                            <label for="card1" class="button return" aria-hidden="true">
+                                <i class="fas fa-arrow-left"></i>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="product">
-                <div class="picture">
-                    <img src="./assets/images/icon-1.png" alt="">
-                </div>
-                <div class="details">
-                    <p>
-                        <b>Product Four</b>
-                    </p>
-                </div>
-                <div class="star-button">
-                    <p class="star">
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                    </p>
-                    <label class="button" aria-hidden="true">Details</label>
+                <input type="checkbox" id="card2" class="more" aria-hidden="true">
+                <div class="content">
+                    <div class="front">
+                        <div class="inner">
+                            <div class="picture">
+                                <img src="./assets/images/home-img-2.png" alt="">
+                            </div>
+                            <div class="details">
+                                <p>
+                                    <b>Product One</b>
+                                </p>
+                            </div>
+                            <div class="star-button">
+                                <div class="star">
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="far fa-star"></i>
+                                    </span>
+                                </div>
+                                <label for="card2" class="button" aria-hidden="true">Details</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <div class="description">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, accusamus.</p>
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates earum nostrum ipsam
+                                    ullam, reiciendis nam consectetur? Doloribus voluptate architecto possimus perferendis
+                                    tenetur nemo amet temporibus, enim soluta nam, debitis.</p>
+                            </div>
+                            <label for="card2" class="button return" aria-hidden="true">
+                                <i class="fas fa-arrow-left"></i>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="product">
-                <div class="picture">
-                    <img src="./assets/images/icon-2.png" alt="">
-                </div>
-                <div class="details">
-                    <p>
-                        <b>Product Four</b>
-                    </p>
-                </div>
-                <div class="star-button">
-                    <p class="star">
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                    </p>
-                    <label class="button" aria-hidden="true">Details</label>
+                <input type="checkbox" id="card3" class="more" aria-hidden="true">
+                <div class="content">
+                    <div class="front">
+                        <div class="inner">
+                            <div class="picture">
+                                <img src="./assets/images/home-img-3.png" alt="">
+                            </div>
+                            <div class="details">
+                                <p>
+                                    <b>Product One</b>
+                                </p>
+                            </div>
+                            <div class="star-button">
+                                <div class="star">
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="far fa-star"></i>
+                                    </span>
+                                </div>
+                                <label for="card3" class="button" aria-hidden="true">Details</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <div class="description">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, accusamus.</p>
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates earum nostrum ipsam
+                                    ullam, reiciendis nam consectetur? Doloribus voluptate architecto possimus perferendis
+                                    tenetur nemo amet temporibus, enim soluta nam, debitis.</p>
+                            </div>
+                            <label for="card3" class="button return" aria-hidden="true">
+                                <i class="fas fa-arrow-left"></i>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="product">
-                <div class="picture">
-                    <img src="./assets/images/icon-3.png" alt="">
+                <input type="checkbox" id="card4" class="more" aria-hidden="true">
+                <div class="content">
+                    <div class="front">
+                        <div class="inner">
+                            <div class="picture">
+                                <img src="./assets/images/icon-1.png" alt="">
+                            </div>
+                            <div class="details">
+                                <p>
+                                    <b>Product One</b>
+                                </p>
+                            </div>
+                            <div class="star-button">
+                                <div class="star">
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="far fa-star"></i>
+                                    </span>
+                                </div>
+                                <label for="card4" class="button" aria-hidden="true">Details</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <div class="description">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, accusamus.</p>
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates earum nostrum ipsam
+                                    ullam, reiciendis nam consectetur? Doloribus voluptate architecto possimus perferendis
+                                    tenetur nemo amet temporibus, enim soluta nam, debitis.</p>
+                            </div>
+                            <label for="card4" class="button return" aria-hidden="true">
+                                <i class="fas fa-arrow-left"></i>
+                            </label>
+                        </div>
+                    </div>
                 </div>
-                <div class="details">
-                    <p>
-                        <b>Product Four</b>
-                    </p>
+            </div>
+            <div class="product">
+                <input type="checkbox" id="card5" class="more" aria-hidden="true">
+                <div class="content">
+                    <div class="front">
+                        <div class="inner">
+                            <div class="picture">
+                                <img src="./assets/images/icon-2.png" alt="">
+                            </div>
+                            <div class="details">
+                                <p>
+                                    <b>Product One</b>
+                                </p>
+                            </div>
+                            <div class="star-button">
+                                <div class="star">
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="far fa-star"></i>
+                                    </span>
+                                </div>
+                                <label for="card5" class="button" aria-hidden="true">Details</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <div class="description">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, accusamus.</p>
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates earum nostrum ipsam
+                                    ullam, reiciendis nam consectetur? Doloribus voluptate architecto possimus perferendis
+                                    tenetur nemo amet temporibus, enim soluta nam, debitis.</p>
+                            </div>
+                            <label for="card5" class="button return" aria-hidden="true">
+                                <i class="fas fa-arrow-left"></i>
+                            </label>
+                        </div>
+                    </div>
                 </div>
-                <div class="star-button">
-                    <p class="star">
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                        <strong>&star;</strong>
-                    </p>
-                    <label class="button" aria-hidden="true">Details</label>
+            </div>
+            <div class="product">
+                <input type="checkbox" id="card6" class="more" aria-hidden="true">
+                <div class="content">
+                    <div class="front">
+                        <div class="inner">
+                            <div class="picture">
+                                <img src="./assets/images/icon-3.png" alt="">
+                            </div>
+                            <div class="details">
+                                <p>
+                                    <b>Product One</b>
+                                </p>
+                            </div>
+                            <div class="star-button">
+                                <div class="star">
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span>
+                                        <i class="far fa-star"></i>
+                                    </span>
+                                </div>
+                                <label for="card6" class="button" aria-hidden="true">Details</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <div class="description">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, accusamus.</p>
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates earum nostrum ipsam
+                                    ullam, reiciendis nam consectetur? Doloribus voluptate architecto possimus perferendis
+                                    tenetur nemo amet temporibus, enim soluta nam, debitis.</p>
+                            </div>
+                            <label for="card6" class="button return" aria-hidden="true">
+                                <i class="fas fa-arrow-left"></i>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
