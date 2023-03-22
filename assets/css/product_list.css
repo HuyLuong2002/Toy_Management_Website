@@ -153,10 +153,12 @@
   padding: 0.6rem;
   padding-right: 0.6rem;
   display: inline-block;
+  color: var(--carribean-green);
+
 }
 .product-price:first-of-type /*?*/ {
   text-decoration: line-through;
-  color: var(--carribean-green);
+  color: #999;
 }
 
 .product-img img {
@@ -177,14 +179,16 @@
 
 .product:hover .product-info {
   background: var(--carribean-green);
-  color: white;
 }
 
 .product:hover .product-price:first-of-type {
-  color: black;
+  color: #777;
 }
 
-.product:hover .product-name,
+.product:hover .product-price{
+  color: white;
+}
+
 .product:hover .rating span {
   color: white;
 }

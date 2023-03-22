@@ -29,8 +29,13 @@
                 </a>
             </div>
             <div>
-                <a href="">
-                    <div id="user-btn" class="fa-solid fa-user fa-xl"></div>
+                <a href="" id="user-btn">
+                    <div class="fa-solid fa-user fa-xl"></div>    
+                    <div class="profile">
+                        <h2 class="profile-name">Hi, loz</h2>
+                        <button class="profile-update">update profile</button>
+                        <button class="profile-log">log out</button>
+                    </div>
                 </a>
             </div>
         </div>
@@ -39,6 +44,7 @@
         <input type="text" placeholder="Nhập sản phẩm muốn tìm kiếm vào đây">
     </div>
 </header>
+
 
 <script>
     let search = document.getElementsByClassName('search')[0];
