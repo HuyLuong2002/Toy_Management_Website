@@ -21,7 +21,7 @@
 <body>
 
     <?php
-    include("./components/header.php");
+    include_once("./components/header.php");
     ?>
 
     <section class="orders">

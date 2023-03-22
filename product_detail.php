@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="./assets/css/product_detail.css" />
   </head>
   <body>
-    <?php include "./components/header.php"; ?>
+    <?php include_once "./components/header.php"; ?>
 
     <div class="main-wrapper">
       <div class="main-wrapper-container">
