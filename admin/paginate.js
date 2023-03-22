@@ -3,19 +3,19 @@ let listBar = [
   {
     id: 1,
     title: "DashBoard",
-    href: "id=index.php",
+    href: "index.php",
     icon: "la-igloo"
   },
   {
     id: 2,
     title: "Customers",
-    href: "id=customers",
+    href: "customers.php?id=2",
     icon: "la-users"
   },
   {
     id: 3,
     title: "Products",
-    href: "id=products",
+    href: "products.php?id=3",
     icon: "la-robot"
   },
   {

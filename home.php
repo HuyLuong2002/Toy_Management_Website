@@ -88,24 +88,23 @@ $product = new Product();
             </div>
           </div>
           <a href="#" class="product-name"><?php echo $result_product[1]; ?></a>
-          <?php echo $result_product[11] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$$result_product[3]</p>" : "";
+          <?php echo $result_product[13] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$$result_product[3]</p>" : "";
            ?>
           <p class="product-price product-price-sale"> <?php if (
-            $result_product[11] !== "Không áp dụng"
+            $result_product[13] !== "Không áp dụng"
           ) {
-            $sale_percent = $result_product[15];
-            $sale_price =
-              $result_product[3] - $result_product[3] * ($sale_percent / 100);
+            $sale_percent = $result_product[17];
+            $sale_price = $result_product[3] - ($result_product[3] * ($sale_percent / 100));
             echo '$' . $sale_price;
           } else {
             echo '$' . $result_product[3];
           } ?></p>
         </div>
         <div class="off-info">
-        <?php if ($result_product[11] === "Không áp dụng") {
+        <?php if ($result_product[13] === "Không áp dụng") {
           echo "";
         } else {
-          $sale_percent = $result_product[15];
+          $sale_percent = $result_product[17];
           echo "<h2 class='sm-title'>Sale $sale_percent%</h2>";
         } ?>
           

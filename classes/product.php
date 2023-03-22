@@ -18,7 +18,7 @@ include_once "helpers\\format.php";
   {
     $query =
       "SELECT * FROM product, category, sale WHERE product.category_id = category.id and product.sale_id = sale.id
-      ORDER BY product.id DESC";
+      ORDER BY product.create_date DESC";
     $result = $this->db->select($query);
     return $result;
   }
