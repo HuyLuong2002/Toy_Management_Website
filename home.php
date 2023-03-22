@@ -88,12 +88,9 @@ $product = new Product();
             </div>
           </div>
           <a href="#" class="product-name"><?php echo $result_product[1]; ?></a>
-          <p class="product-price"><?php if (
-            $result_product[11] !== "Không áp dụng"
-          ) {
-            echo '$' . $result_product[3];
-          } ?></p>
-          <p class="product-price"> <?php if (
+          <?php echo $result_product[11] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$$result_product[3]</p>" : "";
+           ?>
+          <p class="product-price product-price-sale"> <?php if (
             $result_product[11] !== "Không áp dụng"
           ) {
             $sale_percent = $result_product[15];

@@ -72,7 +72,7 @@
           <div class="admin-card-single">
             <div>
               <h1>79</h1>
-              <span>Projects</span>
+              <span>Products</span>
             </div>
 
             <div>
@@ -85,6 +85,7 @@
               <h1>124</h1>
               <span>Orders</span>
             </div>
+            
 
             <div>
               <span class="las la-shopping-cart"> </span>

@@ -25,6 +25,8 @@
   background: var(--main-color);
   z-index: 100;
   transition: width 300ms;
+  overflow-y: scroll;
+  
 }
 
 .admin-sidebar-brand {
@@ -40,6 +42,7 @@
 
 .admin-sidebar-menu {
   margin-top: 1rem;
+  /* overflow-y: scroll; */
 }
 
 .admin-sidebar-menu li {
