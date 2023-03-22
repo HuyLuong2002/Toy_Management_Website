@@ -92,7 +92,7 @@ $product = new Product();
             $result_product[11] !== "Không áp dụng"
           ) {
             echo '$' . $result_product[3];
-          } else  ?></p>
+          } ?></p>
           <p class="product-price"> <?php if (
             $result_product[11] !== "Không áp dụng"
           ) {
@@ -100,6 +100,8 @@ $product = new Product();
             $sale_price =
               $result_product[3] - $result_product[3] * ($sale_percent / 100);
             echo '$' . $sale_price;
+          } else {
+            echo '$' . $result_product[3];
           } ?></p>
         </div>
         <div class="off-info">
