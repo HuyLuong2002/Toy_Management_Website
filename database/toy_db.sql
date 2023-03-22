@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th3 16, 2023 lúc 01:34 PM
+-- Thời gian đã tạo: Th3 22, 2023 lúc 09:16 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.28
 
@@ -220,6 +220,7 @@ INSERT INTO `permission` (`id`, `name`) VALUES
 CREATE TABLE `product` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
   `price` varchar(255) NOT NULL,
   `category_id` int(11) NOT NULL,
   `sale_id` int(11) NOT NULL,
@@ -231,8 +232,9 @@ CREATE TABLE `product` (
 -- Đang đổ dữ liệu cho bảng `product`
 --
 
-INSERT INTO `product` (`id`, `name`, `price`, `category_id`, `sale_id`, `review`, `quantity`) VALUES
-(2, 'product 1', '2000', 1, 1, 5, 20);
+INSERT INTO `product` (`id`, `name`, `image`, `price`, `category_id`, `sale_id`, `review`, `quantity`) VALUES
+(2, 'product 1', 'assets\\images\\home-img-1.png', '2000', 1, 1, 5, 20),
+(3, 'Product 2', 'assets\\images\\home-img-2.png', '3000', 1, 2, 3, 20);
 
 -- --------------------------------------------------------
 
@@ -266,7 +268,8 @@ CREATE TABLE `sale` (
 --
 
 INSERT INTO `sale` (`id`, `name`, `create_date`, `start_date`, `end_date`, `percent_sale`, `status`) VALUES
-(1, 'Không áp dụng', '16/03/2023', '18/03/2023', '20/03/2023', 10, 1);
+(1, 'Không áp dụng', '16/03/2023', '18/03/2023', '20/03/2023', 0, 1),
+(2, 'Khuyến mãi', '22/03/2023', '22/03/2023', '25/03/2023', 25, 1);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -403,7 +406,7 @@ ALTER TABLE `permission`
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `provider`
@@ -415,7 +418,7 @@ ALTER TABLE `provider`
 -- AUTO_INCREMENT cho bảng `sale`
 --
 ALTER TABLE `sale`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

@@ -325,6 +325,6 @@
         </div>
       </main>
     </div>
-  <script src="./paginate.js">alert("")</script>
+  <script src="./paginate.js"></script>
   </body>
 </html>
