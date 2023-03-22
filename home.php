@@ -1,3 +1,9 @@
+<?php
+include_once "classes/product.php";
+
+$product = new Product();
+?>
+
 <div id="home">
   <div class="slide-container">
     <div class="swiper-container">
@@ -41,11 +47,18 @@
     </p>
 
     <div class="product-items">
+      <?php $show_product = $product->show_product();
+        if($show_product)
+        {
+          $i = 0;
+          while($result_product  = $show_product->fetch_assoc()) {
+            $i++;
+      ?>
       <!-- Single product -->
       <div class="product">
         <div class="product-content">
           <div class="product-img">
-            <img src="./assets/images/home-img-1.png" alt="" />
+            <img src="<?php echo $result_product["image"] ?>" alt="" />
           </div>
           <div class="product-btns">
             <button class="btn-cart">
@@ -61,7 +74,7 @@
         </div>
         <div class="product-info">
           <div class="product-info-top">
-            <h2 class="sm-title">lifestyle</h2>
+            <h2 class="sm-title"><?php echo $result_product["category_id"] ?></h2>
             <div class="rating">
               <span>
                 <i class="fas fa-star"></i>
@@ -80,8 +93,8 @@
               </span>
             </div>
           </div>
-          <a href="#" class="product-name">Iphone 11</a>
-          <p class="product-price">$ 150.00</p>
+          <a href="#" class="product-name"><?php echo $result_product["name"]  ?></a>
+          <p class="product-price">$<?php echo $result_product["price"]?></p>
           <p class="product-price">$ 133.00</p>
         </div>
         <div class="off-info">
@@ -89,337 +102,10 @@
         </div>
       </div>
       <!-- end of single product -->
-
-      <!-- Single product -->
-      <div class="product">
-        <div class="product-content">
-          <div class="product-img">
-            <img src="./assets/images/home-img-2.png" alt="" />
-          </div>
-          <div class="product-btns">
-            <button class="btn-cart">
-              Add to cart
-              <span><i class="fas fa-plus"> </i> </span>
-            </button>
-
-            <button class="btn-buy">
-              Buy now
-              <span><i class="fas fa-shopping-cart"> </i> </span>
-            </button>
-          </div>
-        </div>
-        <div class="product-info">
-          <div class="product-info-top">
-            <h2 class="sm-title">lifestyle</h2>
-            <div class="rating">
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="far fa-star"></i>
-              </span>
-            </div>
-          </div>
-          <a href="#" class="product-name">Iphone 11</a>
-          <p class="product-price">$ 150.00</p>
-          <p class="product-price">$ 133.00</p>
-        </div>
-      </div>
-      <!-- end of single product -->
-      <!-- Single product -->
-      <div class="product">
-        <div class="product-content">
-          <div class="product-img">
-            <img src="./assets/images/home-img-3.png" alt="" />
-          </div>
-          <div class="product-btns">
-            <button class="btn-cart">
-              Add to cart
-              <span><i class="fas fa-plus"> </i> </span>
-            </button>
-
-            <button class="btn-buy">
-              Buy now
-              <span><i class="fas fa-shopping-cart"> </i> </span>
-            </button>
-          </div>
-        </div>
-        <div class="product-info">
-          <div class="product-info-top">
-            <h2 class="sm-title">lifestyle</h2>
-            <div class="rating">
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="far fa-star"></i>
-              </span>
-            </div>
-          </div>
-          <a href="#" class="product-name">Iphone 11</a>
-          <p class="product-price">$ 150.00</p>
-          <p class="product-price">$ 133.00</p>
-        </div>
-      </div>
-      <!-- end of single product -->
-      <!-- Single product -->
-      <div class="product">
-        <div class="product-content">
-          <div class="product-img">
-            <img src="./assets/images/home-img-1.png" alt="" />
-          </div>
-          <div class="product-btns">
-            <button class="btn-cart">
-              Add to cart
-              <span><i class="fas fa-plus"> </i> </span>
-            </button>
-
-            <button class="btn-buy">
-              Buy now
-              <span><i class="fas fa-shopping-cart"> </i> </span>
-            </button>
-          </div>
-        </div>
-        <div class="product-info">
-          <div class="product-info-top">
-            <h2 class="sm-title">lifestyle</h2>
-            <div class="rating">
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="far fa-star"></i>
-              </span>
-            </div>
-          </div>
-          <a href="#" class="product-name">Iphone 11</a>
-          <p class="product-price">$ 150.00</p>
-          <p class="product-price">$ 133.00</p>
-        </div>
-        <div class="off-info">
-          <h2 class="sm-title">25% off</h2>
-        </div>
-      </div>
-      <!-- end of single product -->
-      <!-- Single product -->
-      <div class="product">
-        <div class="product-content">
-          <div class="product-img">
-            <img src="./assets/images/home-img-1.png" alt="" />
-          </div>
-          <div class="product-btns">
-            <button class="btn-cart">
-              Add to cart
-              <span><i class="fas fa-plus"> </i> </span>
-            </button>
-
-            <button class="btn-buy">
-              Buy now
-              <span><i class="fas fa-shopping-cart"> </i> </span>
-            </button>
-          </div>
-        </div>
-        <div class="product-info">
-          <div class="product-info-top">
-            <h2 class="sm-title">lifestyle</h2>
-            <div class="rating">
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="far fa-star"></i>
-              </span>
-            </div>
-          </div>
-          <a href="#" class="product-name">Iphone 11</a>
-          <p class="product-price">$ 150.00</p>
-          <p class="product-price">$ 133.00</p>
-        </div>
-        <div class="off-info">
-          <h2 class="sm-title">25% off</h2>
-        </div>
-      </div>
-      <!-- end of single product -->
-      <!-- Single product -->
-      <div class="product">
-        <div class="product-content">
-          <div class="product-img">
-            <img src="./assets/images/home-img-2.png" alt="" />
-          </div>
-          <div class="product-btns">
-            <button class="btn-cart">
-              Add to cart
-              <span><i class="fas fa-plus"> </i> </span>
-            </button>
-
-            <button class="btn-buy">
-              Buy now
-              <span><i class="fas fa-shopping-cart"> </i> </span>
-            </button>
-          </div>
-        </div>
-        <div class="product-info">
-          <div class="product-info-top">
-            <h2 class="sm-title">lifestyle</h2>
-            <div class="rating">
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="far fa-star"></i>
-              </span>
-            </div>
-          </div>
-          <a href="#" class="product-name">Iphone 11</a>
-          <p class="product-price">$ 150.00</p>
-          <p class="product-price">$ 133.00</p>
-        </div>
-        <div class="off-info">
-          <h2 class="sm-title">25% off</h2>
-        </div>
-      </div>
-      <!-- end of single product -->
-      <!-- Single product -->
-      <div class="product">
-        <div class="product-content">
-          <div class="product-img">
-            <img src="./assets/images/home-img-3.png" alt="" />
-          </div>
-          <div class="product-btns">
-            <button class="btn-cart">
-              Add to cart
-              <span><i class="fas fa-plus"> </i> </span>
-            </button>
-
-            <button class="btn-buy">
-              Buy now
-              <span><i class="fas fa-shopping-cart"> </i> </span>
-            </button>
-          </div>
-        </div>
-        <div class="product-info">
-          <div class="product-info-top">
-            <h2 class="sm-title">lifestyle</h2>
-            <div class="rating">
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="far fa-star"></i>
-              </span>
-            </div>
-          </div>
-          <a href="#" class="product-name">Iphone 11</a>
-          <p class="product-price">$ 150.00</p>
-          <p class="product-price">$ 133.00</p>
-        </div>
-        <div class="off-info">
-          <h2 class="sm-title">25% off</h2>
-        </div>
-      </div>
-      <!-- end of single product -->
-      <!-- Single product -->
-      <div class="product">
-        <div class="product-content">
-          <div class="product-img">
-            <img src="./assets/images/home-img-3.png" alt="" />
-          </div>
-          <div class="product-btns">
-            <button class="btn-cart">
-              Add to cart
-              <span><i class="fas fa-plus"> </i> </span>
-            </button>
-
-            <button class="btn-buy">
-              Buy now
-              <span><i class="fas fa-shopping-cart"> </i> </span>
-            </button>
-          </div>
-        </div>
-        <div class="product-info">
-          <div class="product-info-top">
-            <h2 class="sm-title">lifestyle</h2>
-            <div class="rating">
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="far fa-star"></i>
-              </span>
-            </div>
-          </div>
-          <a href="#" class="product-name">Iphone 11</a>
-          <p class="product-price">$ 150.00</p>
-          <p class="product-price">$ 133.00</p>
-        </div>
-        <div class="off-info">
-          <h2 class="sm-title">25% off</h2>
-        </div>
-      </div>
-      <!-- end of single product -->
+      <?php
+          }
+        }
+      ?>
     </div>
   </div>
 </div>

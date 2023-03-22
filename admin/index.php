@@ -10,7 +10,7 @@
       rel="stylesheet"
       href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
     />
-    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="admin/css/index.css" />
   </head>
   <body>
     <input type="checkbox" id="nav-toggle">
@@ -38,7 +38,21 @@
           <li>
             <a href="">
               <span class="las la-clipboard-list"> </span>
-              <span> Projects </span>
+              <span> Products </span>
+            </a>
+          </li>
+
+          <li>
+            <a href="">
+              <span class="las la-clipboard-list"> </span>
+              <span> Category </span>
+            </a>
+          </li>
+
+          <li>
+            <a href="">
+              <span class="las la-clipboard-list"> </span>
+              <span> Favorite </span>
             </a>
           </li>
 
@@ -66,9 +80,18 @@
           <li>
             <a href="">
               <span class="las la-clipboard-list"> </span>
-              <span> Tasks </span>
+              <span> Provider </span>
             </a>
           </li>
+
+          <li>
+            <a href="">
+              <span class="las la-clipboard-list"> </span>
+              <span> Permission </span>
+            </a>
+          </li>
+
+
         </ul>
       </div>
     </div>
