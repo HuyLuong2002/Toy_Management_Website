@@ -38,21 +38,7 @@
           <li>
             <a href="">
               <span class="las la-clipboard-list"> </span>
-              <span> Products </span>
-            </a>
-          </li>
-
-          <li>
-            <a href="">
-              <span class="las la-clipboard-list"> </span>
-              <span> Category </span>
-            </a>
-          </li>
-
-          <li>
-            <a href="">
-              <span class="las la-clipboard-list"> </span>
-              <span> Favorite </span>
+              <span> Projects </span>
             </a>
           </li>
 
@@ -80,18 +66,9 @@
           <li>
             <a href="">
               <span class="las la-clipboard-list"> </span>
-              <span> Provider </span>
+              <span> Tasks </span>
             </a>
           </li>
-
-          <li>
-            <a href="">
-              <span class="las la-clipboard-list"> </span>
-              <span> Permission </span>
-            </a>
-          </li>
-
-
         </ul>
       </div>
     </div>
@@ -395,5 +372,6 @@
         </div>
       </main>
     </div>
+  <script src="./paginate.js">alert("")</script>
   </body>
 </html>
