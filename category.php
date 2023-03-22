@@ -14,7 +14,7 @@
 
 <body>
     <?php
-    include("./components/header.php");
+    include_once("./components/header.php");
     ?>
     <div class="category">
         <div class="header-category">

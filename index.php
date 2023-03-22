@@ -17,9 +17,9 @@
 
 <body>
   <?php
-  include("./components/header.php");
-  include("./home.php");
-  include("./components/footer.php");
+  include_once("./components/header.php");
+  include_once("./home.php");
+  include_once("./components/footer.php");
   ?>
 
   <!-- font awesome cdn link  -->

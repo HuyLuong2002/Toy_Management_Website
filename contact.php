@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="./assets/css/contact.css">
 </head>
 <body>
-<?php include "./components/header.php"; ?>
+<?php include_once "./components/header.php"; ?>
     <div class="contact-container">
         <form onsubmit="">
             <h3>GET IN TOUCH</h3>

@@ -10,7 +10,7 @@
       rel="stylesheet"
       href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
     />
-    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="admin/css/index.css" />
   </head>
   <body>
     <input type="checkbox" id="nav-toggle">
@@ -372,5 +372,6 @@
         </div>
       </main>
     </div>
+  <script src="./paginate.js">alert("")</script>
   </body>
 </html>
