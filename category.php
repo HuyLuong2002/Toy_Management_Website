@@ -24,7 +24,7 @@
                 <span id="next">&#155;</span>
             </p>
         </div>
-        <section>
+        <div class="wrapper">
             <div class="product">
                 <input type="checkbox" id="card1" class="more" aria-hidden="true">
                 <div class="content">
@@ -325,7 +325,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </div>
     <script type="text/javascript" src="./js/category.js"></script>
 
