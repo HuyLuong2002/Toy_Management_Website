@@ -349,9 +349,6 @@ tr td:last-child {
     width: calc(100% - 70px);
     left: 70px;
   }
-
-  
-
 }
 
 @media only screen and (max-width: 960px) {
@@ -413,7 +410,6 @@ tr td:last-child {
   .admin-main-content {
     width: 100%;
     margin-left: 0rem;
-
   }
 
   header {
@@ -438,7 +434,7 @@ tr td:last-child {
   }
 
   #nav-toggle:checked + .admin-sidebar .admin-sidebar-brand h2 span:last-child,
-  #nav-toggle:checked + .admin-sidebar  li a span:last-child {
+  #nav-toggle:checked + .admin-sidebar li a span:last-child {
     display: inline;
   }
 

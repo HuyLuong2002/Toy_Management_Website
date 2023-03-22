@@ -1,5 +1,5 @@
 <?php
-include_once ("../config/config.php");
+include_once ("config\config.php");
 ?>
 <?php class Database
 {
@@ -66,5 +66,10 @@ include_once ("../config/config.php");
     } else {
       return false;
     }
+  }
+
+  public function disconnectDB()
+  {
+    mysqli_close($this->link);
   }
 }
