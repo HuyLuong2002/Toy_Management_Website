@@ -19,56 +19,9 @@
         <h2><span class="lab la-reddit"></span> <span>Admin Hub</span></h2>
       </div>
 
-      <div class="admin-sidebar-menu">
-        <ul>
-          <li>
-            <a href="" class="active">
-              <span class="las la-igloo"> </span>
-              <span> Dashboard </span>
-            </a>
-          </li>
+      <div class="admin-sidebar-menu" id="admin-sidebar">
+        <ul id="wrap-admin-side">
 
-          <li>
-            <a href="">
-              <span class="las la-users"> </span>
-              <span> Customers </span>
-            </a>
-          </li>
-
-          <li>
-            <a href="">
-              <span class="las la-clipboard-list"> </span>
-              <span> Projects </span>
-            </a>
-          </li>
-
-          <li>
-            <a href="">
-              <span class="las la-shopping-cart"> </span>
-              <span> Orders </span>
-            </a>
-          </li>
-
-          <li>
-            <a href="">
-              <span class="las la-receipt"> </span>
-              <span> Inventory </span>
-            </a>
-          </li>
-
-          <li>
-            <a href="">
-              <span class="las la-user-circle"> </span>
-              <span> Account </span>
-            </a>
-          </li>
-
-          <li>
-            <a href="">
-              <span class="las la-clipboard-list"> </span>
-              <span> Tasks </span>
-            </a>
-          </li>
         </ul>
       </div>
     </div>
@@ -372,5 +325,6 @@
         </div>
       </main>
     </div>
+  <script src="./paginate.js">alert("")</script>
   </body>
 </html>
