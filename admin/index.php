@@ -10,7 +10,7 @@
       rel="stylesheet"
       href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
     />
-    <link rel="stylesheet" href="admin/css/index.css" />
+    <link rel="stylesheet" href="./css/index.css" />
   </head>
   <body>
     <input type="checkbox" id="nav-toggle">
@@ -20,55 +20,8 @@
       </div>
 
       <div class="admin-sidebar-menu">
-        <ul>
-          <li>
-            <a href="" class="active">
-              <span class="las la-igloo"> </span>
-              <span> Dashboard </span>
-            </a>
-          </li>
-
-          <li>
-            <a href="">
-              <span class="las la-users"> </span>
-              <span> Customers </span>
-            </a>
-          </li>
-
-          <li>
-            <a href="">
-              <span class="las la-clipboard-list"> </span>
-              <span> Projects </span>
-            </a>
-          </li>
-
-          <li>
-            <a href="">
-              <span class="las la-shopping-cart"> </span>
-              <span> Orders </span>
-            </a>
-          </li>
-
-          <li>
-            <a href="">
-              <span class="las la-receipt"> </span>
-              <span> Inventory </span>
-            </a>
-          </li>
-
-          <li>
-            <a href="">
-              <span class="las la-user-circle"> </span>
-              <span> Account </span>
-            </a>
-          </li>
-
-          <li>
-            <a href="">
-              <span class="las la-clipboard-list"> </span>
-              <span> Tasks </span>
-            </a>
-          </li>
+        <ul id="wrap-admin-side">
+          
         </ul>
       </div>
     </div>

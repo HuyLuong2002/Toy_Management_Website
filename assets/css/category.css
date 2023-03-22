@@ -43,7 +43,7 @@ body {
     color: #fff;
 }
 
-section {
+.wrapper {
     width: 98%;
     height: 35rem;
     margin: 0 1rem;
@@ -52,11 +52,11 @@ section {
     overflow-x: auto;
 }
 
-section::-webkit-scrollbar {
+.wrapper::-webkit-scrollbar {
     display: none;
 }
 
-section .product {
+.wrapper .product {
     min-width: 24%;
     height: 85%;
     background: #f1f1f1;
@@ -165,13 +165,13 @@ section .product {
     border: 2px solid rgb(240, 240, 240);
 }
 
-.back .inner{
-    grid-template-rows: 2fr 2fr 12fr ;
+.back .inner {
+    grid-template-rows: 2fr 2fr 12fr;
 }
 
 .back .description {
     grid-row: 3;
-    font-size: 0.86em;
+    /* font-size: 0.86em; */
     border-radius: 5px;
     font-weight: 600;
     line-height: 1.4em;
@@ -226,6 +226,7 @@ section .product {
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
+
 ::-webkit-scrollbar-thumb {
     background: lighten(#40c9a2, 20%);
 }
@@ -234,10 +235,14 @@ section .product {
     background: #40c9a2;
 }
 
-@media(max-width: 1100px    ) {
-    section .product {
+@media(max-width: 1100px) {
+    .wrapper .product {
         min-width: 35%;
         margin: 0 1rem 0 0;
+    }
+
+    .back .inner .description p {
+        font-size: 1.1rem;
     }
 }
 
@@ -250,7 +255,7 @@ section .product {
         font-size: 30px;
     }
 
-    section .product {
+    .wrapper .product {
         min-width: 49%;
         margin: 0 1rem 0 0;
     }
@@ -269,5 +274,15 @@ section .product {
 
     .star-button .button {
         padding: 0 0.7rem;
+    }
+
+    .back .inner .description p {
+        font-size: .9rem;
+    }
+}
+
+@media(max-width:500px) {
+    .back .inner .description p {
+        font-size: .5rem;
     }
 }
