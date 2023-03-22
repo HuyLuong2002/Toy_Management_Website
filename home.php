@@ -47,18 +47,17 @@ $product = new Product();
     </p>
 
     <div class="product-items">
-      <?php $show_product = $product->show_product();
-        if($show_product)
-        {
-          $i = 0;
-          while($result_product  = $show_product->fetch_assoc()) {
-            $i++;
-      ?>
+      <?php
+      $show_product = $product->show_product();
+      if ($show_product) {
+        $i = 0;
+        while ($result_product = $show_product->fetch_array()) {
+          $i++; ?>
       <!-- Single product -->
       <div class="product">
         <div class="product-content">
           <div class="product-img">
-            <img src="<?php echo $result_product["image"] ?>" alt="" />
+            <img src="<?php echo $result_product[2]; ?>" alt="" />
           </div>
           <div class="product-btns">
             <button class="btn-cart">
@@ -74,37 +73,46 @@ $product = new Product();
         </div>
         <div class="product-info">
           <div class="product-info-top">
-            <h2 class="sm-title"><?php echo $result_product["category_id"] ?></h2>
+            <h2 class="sm-title"><?php echo $result_product[9]; ?></h2>
             <div class="rating">
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="fas fa-star"></i>
-              </span>
-              <span>
-                <i class="far fa-star"></i>
-              </span>
+              <?php
+              $rating = $result_product[6];
+              for ($i = 0; $i < 5; $i++) {
+                if ($rating > $i) {
+                  echo '<span><i class="fas fa-star"></i></span>';
+                } else {
+                  echo '<span><i class="far fa-star"></i></span>';
+                }
+              }
+              ?>
             </div>
           </div>
-          <a href="#" class="product-name"><?php echo $result_product["name"]  ?></a>
-          <p class="product-price">$<?php echo $result_product["price"]?></p>
-          <p class="product-price">$ 133.00</p>
+          <a href="#" class="product-name"><?php echo $result_product[1]; ?></a>
+          <p class="product-price">$<?php echo $result_product[3]; ?></p>
+          <p class="product-price"> <?php if (
+            $result_product[11] === "Không áp dụng"
+          ) echo ""; 
+          else {
+            $sale_percent = $result_product[15];
+            $sale_price =
+              $result_product[3] - ($result_product[3] * ($sale_percent/100));
+            echo $sale_price;
+          } ?></p>
         </div>
         <div class="off-info">
-          <h2 class="sm-title">25% off</h2>
+        <?php if ($result_product[11] === "Không áp dụng") {
+          echo "";
+        } else {
+          $sale_percent = $result_product[15];
+          echo "<h2 class='sm-title'>Sale $sale_percent%</h2>";
+        } ?>
+          
         </div>
       </div>
       <!-- end of single product -->
       <?php
-          }
         }
+      }
       ?>
     </div>
   </div>
