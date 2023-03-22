@@ -18,7 +18,7 @@
     
 </head>
 <body>
-    <?php include "./components/header.php"; ?>
+    <?php include_once "./components/header.php"; ?>
 
     <section class="about">
         <div class="about-content">

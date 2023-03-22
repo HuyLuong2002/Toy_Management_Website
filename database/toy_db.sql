@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th3 15, 2023 lúc 09:26 AM
+-- Thời gian đã tạo: Th3 16, 2023 lúc 01:34 PM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.28
 
@@ -29,9 +29,15 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `account` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `gender` varchar(10) NOT NULL,
+  `date_birth` varchar(255) NOT NULL,
+  `place_of_birth` varchar(255) NOT NULL,
   `create_date` varchar(255) NOT NULL,
-  `id_permission` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -39,9 +45,9 @@ CREATE TABLE `account` (
 -- Đang đổ dữ liệu cho bảng `account`
 --
 
-INSERT INTO `account` (`id`, `name`, `create_date`, `id_permission`, `status`) VALUES
-(2, 'ABC', '15/03/2023', 1, 1),
-(3, 'BBC', '15/03/2023', 3, 1);
+INSERT INTO `account` (`id`, `username`, `password`, `firstname`, `lastname`, `gender`, `date_birth`, `place_of_birth`, `create_date`, `permission_id`, `status`) VALUES
+(2, 'ABC', '123456', 'abc', 'cbd', 'Nam', '18/02/2023', 'TPHCM', '15/03/2023', 1, 1),
+(3, 'BBC', '', '', '', '', '', '', '15/03/2023', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -75,19 +81,35 @@ CREATE TABLE `category` (
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Đang đổ dữ liệu cho bảng `category`
+--
+
+INSERT INTO `category` (`id`, `name`) VALUES
+(1, 'Đồ chơi mô hình');
+
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `customer`
+-- Cấu trúc bảng cho bảng `customer_favorite_product`
 --
 
-CREATE TABLE `customer` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `date_birth` varchar(255) NOT NULL,
-  `place_of_birth` varchar(255) NOT NULL,
-  `phone` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL
+CREATE TABLE `customer_favorite_product` (
+  `product_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `detail_enter_product`
+--
+
+CREATE TABLE `detail_enter_product` (
+  `enter_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -143,12 +165,26 @@ INSERT INTO `detail_permission_function` (`permission_id`, `function_id`, `actio
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `enter_product`
+--
+
+CREATE TABLE `enter_product` (
+  `id` int(11) NOT NULL,
+  `enter_date` varchar(255) NOT NULL,
+  `total_quantity` int(11) NOT NULL,
+  `total_price` int(11) NOT NULL,
+  `provider_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `orders`
 --
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
-  `customer_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `date` int(11) NOT NULL,
   `total_price` int(11) NOT NULL,
@@ -186,9 +222,27 @@ CREATE TABLE `product` (
   `name` varchar(255) NOT NULL,
   `price` varchar(255) NOT NULL,
   `category_id` int(11) NOT NULL,
-  `favorite` int(11) NOT NULL,
+  `sale_id` int(11) NOT NULL,
   `review` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `product`
+--
+
+INSERT INTO `product` (`id`, `name`, `price`, `category_id`, `sale_id`, `review`, `quantity`) VALUES
+(2, 'product 1', '2000', 1, 1, 5, 20);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `provider`
+--
+
+CREATE TABLE `provider` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -199,12 +253,20 @@ CREATE TABLE `product` (
 
 CREATE TABLE `sale` (
   `id` int(11) NOT NULL,
-  `name` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `create_date` varchar(255) NOT NULL,
   `start_date` varchar(255) NOT NULL,
   `end_date` varchar(255) NOT NULL,
+  `percent_sale` int(11) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `sale`
+--
+
+INSERT INTO `sale` (`id`, `name`, `create_date`, `start_date`, `end_date`, `percent_sale`, `status`) VALUES
+(1, 'Không áp dụng', '16/03/2023', '18/03/2023', '20/03/2023', 10, 1);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -215,7 +277,7 @@ CREATE TABLE `sale` (
 --
 ALTER TABLE `account`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_permission` (`id_permission`);
+  ADD KEY `id_permission` (`permission_id`);
 
 --
 -- Chỉ mục cho bảng `account_function`
@@ -230,10 +292,18 @@ ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `customer`
+-- Chỉ mục cho bảng `customer_favorite_product`
 --
-ALTER TABLE `customer`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `customer_favorite_product`
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `customer_favorite_product_ibfk_1` (`user_id`);
+
+--
+-- Chỉ mục cho bảng `detail_enter_product`
+--
+ALTER TABLE `detail_enter_product`
+  ADD KEY `enter_id` (`enter_id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Chỉ mục cho bảng `detail_orders`
@@ -250,11 +320,18 @@ ALTER TABLE `detail_permission_function`
   ADD KEY `id_function` (`function_id`) USING BTREE;
 
 --
+-- Chỉ mục cho bảng `enter_product`
+--
+ALTER TABLE `enter_product`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `provider_id` (`provider_id`);
+
+--
 -- Chỉ mục cho bảng `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `customer_id` (`customer_id`);
+  ADD KEY `orders_ibfk_1` (`user_id`);
 
 --
 -- Chỉ mục cho bảng `permission`
@@ -267,7 +344,14 @@ ALTER TABLE `permission`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `category_id` (`category_id`);
+  ADD KEY `category_id` (`category_id`),
+  ADD KEY `sale_id` (`sale_id`);
+
+--
+-- Chỉ mục cho bảng `provider`
+--
+ALTER TABLE `provider`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `sale`
@@ -295,12 +379,12 @@ ALTER TABLE `account_function`
 -- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT cho bảng `customer`
+-- AUTO_INCREMENT cho bảng `enter_product`
 --
-ALTER TABLE `customer`
+ALTER TABLE `enter_product`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -319,13 +403,19 @@ ALTER TABLE `permission`
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT cho bảng `provider`
+--
+ALTER TABLE `provider`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `sale`
 --
 ALTER TABLE `sale`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -335,7 +425,21 @@ ALTER TABLE `sale`
 -- Các ràng buộc cho bảng `account`
 --
 ALTER TABLE `account`
-  ADD CONSTRAINT `account_ibfk_1` FOREIGN KEY (`id_permission`) REFERENCES `permission` (`id`);
+  ADD CONSTRAINT `account_ibfk_1` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`);
+
+--
+-- Các ràng buộc cho bảng `customer_favorite_product`
+--
+ALTER TABLE `customer_favorite_product`
+  ADD CONSTRAINT `customer_favorite_product_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `account` (`id`),
+  ADD CONSTRAINT `customer_favorite_product_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
+
+--
+-- Các ràng buộc cho bảng `detail_enter_product`
+--
+ALTER TABLE `detail_enter_product`
+  ADD CONSTRAINT `detail_enter_product_ibfk_1` FOREIGN KEY (`enter_id`) REFERENCES `enter_product` (`id`),
+  ADD CONSTRAINT `detail_enter_product_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
 
 --
 -- Các ràng buộc cho bảng `detail_orders`
@@ -352,16 +456,23 @@ ALTER TABLE `detail_permission_function`
   ADD CONSTRAINT `detail_permission_function_ibfk_2` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`);
 
 --
+-- Các ràng buộc cho bảng `enter_product`
+--
+ALTER TABLE `enter_product`
+  ADD CONSTRAINT `enter_product_ibfk_1` FOREIGN KEY (`provider_id`) REFERENCES `provider` (`id`);
+
+--
 -- Các ràng buộc cho bảng `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`);
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `account` (`id`);
 
 --
 -- Các ràng buộc cho bảng `product`
 --
 ALTER TABLE `product`
-  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
+  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
+  ADD CONSTRAINT `product_ibfk_2` FOREIGN KEY (`sale_id`) REFERENCES `sale` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
