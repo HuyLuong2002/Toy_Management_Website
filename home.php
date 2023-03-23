@@ -1,5 +1,6 @@
 <?php
-include_once "classes/product.php";
+$filepath = realpath(dirname(__DIR__));
+include_once ($filepath."\Toy_Management_Website\classes\product.php");
 
 $product = new Product();
 ?>
@@ -48,7 +49,7 @@ $product = new Product();
 
     <div class="product-items">
       <?php
-      $show_product = $product->show_product();
+      $show_product = $product->show_product_user();
       if ($show_product) {
         $i = 0;
         while ($result_product = $show_product->fetch_array()) {
@@ -73,7 +74,7 @@ $product = new Product();
         </div>
         <div class="product-info">
           <div class="product-info-top">
-            <h2 class="sm-title"><?php echo $result_product[9]; ?></h2>
+            <h2 class="sm-title"><?php echo $result_product[11]; ?></h2>
             <div class="rating">
               <?php
               $rating = $result_product[6];

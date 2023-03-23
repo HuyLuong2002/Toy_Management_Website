@@ -13,11 +13,13 @@
     <link rel="stylesheet" href="./css/index.css" />
   </head>
   <body>
-    <?php include_once "./components/slidebar.php"; ?>
+    <?php 
+    $filepath = realpath(dirname(__DIR__));
+    include_once ($filepath."\admin\components\slidebar.php"); ?>
 
     <div class="admin-main-content">
-      <?php include_once "./components/header.php";
-            include_once "dashboard.php" ?>
+      <?php include_once ($filepath."\admin\components\header.php");
+            include_once ($filepath."\admin\dashboard.php"); ?>
     </div>
   <script src="./paginate.js"></script>
   </body>

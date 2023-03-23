@@ -1,3 +1,9 @@
+<?php
+$filepath = realpath(dirname(__DIR__));
+include_once $filepath . "\database\connectDB.php";
+include_once $filepath . "\classes\product.php";
+$product = new Product();
+?>
 <main>
         <div class="admin-cards">
           <div class="admin-card-single">
@@ -50,7 +56,7 @@
           <div class="projects">
             <div class="card">
               <div class="card-header">
-                <h3>Recent Projects</h3>
+                <h3>Recent Products</h3>
                 <button>
                   See all <span class="las la-arrow-right"></span>
                 </button>
@@ -61,65 +67,34 @@
                   <table width="100%">
                     <thead>
                       <tr>
-                        <td>Project Title</td>
-                        <td>Department</td>
-                        <td>Status</td>
+                        <td>Product Name</td>
+                        <td>Image</td>
+                        <td>Price</td>
+                        <td>Quantity</td>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td>UI/UX Design</td>
-                        <td>UI Team</td>
+                        <?php
+                        $show_product = $product->show_product();
+                        if ($show_product) {
+                          while (
+                            $result_product = $show_product->fetch_array()
+                          ) { ?>
+                        <td><?php echo $result_product[1]; ?></td>
                         <td>
-                          <span class="status purple"></span>
-                          review
+                            <img src="<?php echo "../" . $result_product[2]; ?>" alt="" width="100px" >
+                        </td>
+                        <td>
+                            <?php echo $result_product[3]; ?>
+                        </td>
+                        <td>
+                            <?php echo $result_product[9]; ?>
                         </td>
                       </tr>
-
-                      <tr>
-                        <td>Web development</td>
-                        <td>Frontend</td>
-                        <td>
-                          <span class="status pink"> </span>
-                          in progress
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td>Ushop app</td>
-                        <td>Mobile Team</td>
-                        <td>
-                          <span class="status orange"></span>
-                          pending
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td>UI/UX Design</td>
-                        <td>UI Team</td>
-                        <td>
-                          <span class="status purple"></span>
-                          review
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td>Web development</td>
-                        <td>Frontend</td>
-                        <td>
-                          <span class="status pink"> </span>
-                          in progress
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td>Ushop app</td>
-                        <td>Mobile Team</td>
-                        <td>
-                          <span class="status orange"></span>
-                          pending
-                        </td>
-                      </tr>
+                      <?php }
+                        }
+                        ?>
                     </tbody>
                   </table>
                 </div>
@@ -137,48 +112,6 @@
               </div>
 
               <div class="card-body">
-                <div class="customer">
-                  <div class="info">
-                    <img
-                      src="assets/images/pic-1.png"
-                      width="40px"
-                      height="40px"
-                      alt=""
-                    />
-                    <div>
-                      <h4>Lewis S. Cunningham</h4>
-                      <small>CEO Excerpt</small>
-                    </div>
-                  </div>
-
-                  <div class="contact">
-                    <span class="las la-user-circle"> </span>
-                    <span class="las la-comment"> </span>
-                    <span class="las la-phone"> </span>
-                  </div>
-                </div>
-
-                <div class="customer">
-                  <div class="info">
-                    <img
-                      src="assets/images/pic-1.png"
-                      width="40px"
-                      height="40px"
-                      alt=""
-                    />
-                    <div>
-                      <h4>Lewis S. Cunningham</h4>
-                      <small>CEO Excerpt</small>
-                    </div>
-                  </div>
-
-                  <div class="contact">
-                    <span class="las la-user-circle"> </span>
-                    <span class="las la-comment"> </span>
-                    <span class="las la-phone"> </span>
-                  </div>
-                </div>
-
                 <div class="customer">
                   <div class="info">
                     <img

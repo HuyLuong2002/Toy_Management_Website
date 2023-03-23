@@ -13,11 +13,13 @@
 </head>
 <body>
     <?php
-    include_once "./components/header.php";
-    include_once "./components/slidebar.php";
+    $filepath = realpath(dirname(__DIR__));
+    include_once ($filepath."\admin\components\header.php");
+    include_once ($filepath."\admin\components\slidebar.php");
     ?>
     
     
+
     <script src="./paginate.js"></script>
 </body>
 
