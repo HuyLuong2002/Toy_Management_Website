@@ -54,12 +54,6 @@ let listBar = [
     href: "id=sale",
     icon: "la-percent"
   },
-  {
-    id: 10,
-    title: "Favorite",
-    href: "id=favorite",
-    icon: "la-heart"
-  },
 ];
 
 const handleActiveBg = () => {
