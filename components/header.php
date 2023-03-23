@@ -29,7 +29,6 @@
                 </a>
             </div>
             <div>
-<<<<<<< HEAD
                 <a href="" id="user-btn">
                     <div class="fa-solid fa-user fa-xl"></div>    
                     <div class="profile">
@@ -37,10 +36,6 @@
                         <button class="profile-update">update profile</button>
                         <button class="profile-log">log out</button>
                     </div>
-=======
-                <a href="login.php">
-                    <div id="user-btn" class="fa-solid fa-user fa-xl"></div>
->>>>>>> df87ded3f80698773838859d31819cf81d2bf79d
                 </a>
             </div>
         </div>

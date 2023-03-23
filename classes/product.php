@@ -1,6 +1,6 @@
 <?php
-include_once "database\connectDB.php";
-include_once "helpers\\format.php";
+include_once "database/connectDB.php";
+include_once "helpers/format.php";
 ?>
 
 <?php class Product
