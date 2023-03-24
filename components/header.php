@@ -38,8 +38,8 @@
                 </a>
             </div>
             <div>
-                <a href="" id="user-btn">
-                    <div class="fa-solid fa-user fa-xl"></div>    
+                <a href="login.php" id="user-btn">
+                    <div class="fa-solid fa-user fa-xl"></div>
                     <div class="profile">
                         <h2 class="profile-name">Hi, loz</h2>
                         <button class="profile-update">update profile</button>
