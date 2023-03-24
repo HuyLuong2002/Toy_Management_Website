@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap");
+
 :root {
   --main-color: #2980b9;
   --orange: #f39c12;
@@ -35,11 +36,10 @@ header {
   height: 5rem;
 }
 
-.container
-{
+.container {
   width: 88vw;
   margin: 0 auto;
-} 
+}
 
 /*custom section header*/
 .section-header {
@@ -69,43 +69,83 @@ header {
 .section-header .home:hover {
   color: var(--carribean-green);
 }
+
 /*end custom section header*/
 
 /*nav bar custom and animation*/
 .nav-bar {
   display: flex;
-  padding: 0;
-  box-sizing: border-box;
-  outline: none;
-  border: none;
-  align-items: center;
   justify-content: space-between;
-  flex-direction: row;
+  justify-content: center;
 }
 
-.nav-bar a {
+.menu-items {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-items li {
   position: relative;
+}
+
+.menu-items li a {
   font-family: "Nunito", sans-serif;
+  display: block;
+  padding: 1.6rem 1.3rem;
   margin: 0 1rem;
   font-size: 1.2rem;
   color: black;
   text-decoration: none;
 }
 
-.nav-bar a::after{
+.menu-items>li>a::after{
   content: "";
   position: absolute;
   background-color: #40c9a2;
   height: 3px;
   width: 0%;
-  left: 0;
-  bottom: -5px;
+  left: 18px;
+  bottom: 12px;
   transition: 0.3s;
 }
 
-a:hover::after{
-  width: 100%;
+.menu-items>li:hover>a::after{
+  width: 80%;
+} 
+
+.menu-items ul.sub-menu{
+  position: absolute;
+  background-color: #fff;
+  list-style: none;
+  padding-top: 0.3rem;
+  width: 220px;
+  border: 1px solid #ededed;
+  display: none;
 }
+
+.menu-items li:hover ul.sub-menu{
+  display: block;
+}
+
+.menu-items ul.sub-menu a{
+  padding: 8px 1.2rem;
+  border-bottom: 2px solid #ededed;
+}
+
+.menu-items ul.sub-menu li:hover a{
+  border-bottom: 2px solid #d3d3d3;
+}
+
+.menu-items ul.sub-menu li:last-child a{
+  border: none;
+}
+
+.menu-items .sub-menu li:hover a{
+  color: #27cd9e;
+}
+
 /*end custom nav bar*/
 
 .section-header .icons {
@@ -126,11 +166,11 @@ a:hover::after{
   text-decoration: none;
 }
 
-.search{
+.search {
   width: 30px;
 }
 
-.search-bar{
+.search-bar {
   width: 100vw;
   animation: fadeIn;
   position: absolute;
@@ -144,18 +184,19 @@ a:hover::after{
     top: 0;
     opacity: 0;
   }
+
   to {
     top: 100%;
     opacity: 1;
   }
 }
 
-.active{
+.active {
   top: 100%;
   opacity: 1;
 }
 
-.search-bar input{
+.search-bar input {
   width: 100%;
   padding: .5rem;
 }
@@ -174,9 +215,10 @@ a:hover::after{
 .fa-user:hover {
   color: var(--carribean-green);
 }
+
 /*end custom icon header*/
 
-.profile{
+.profile {
   width: 200px;
   height: 155px;
   background: white;
@@ -192,29 +234,29 @@ a:hover::after{
 }
 
 
-.profile-name{
+.profile-name {
   margin: 0;
   color: #2980b9;
 }
 
-.profile-update{
+.profile-update {
   width: 70%;
   padding: .2rem;
   margin-bottom: .5rem;
   background-color: #f39c12;
 }
 
-.profile-log{
+.profile-log {
   width: 70%;
   padding: .2rem;
   background-color: #e74c3c;
 }
 
-#user-btn:hover .profile{
+#user-btn:hover .profile {
   display: flex;
 }
 
-.profile::before{
+.profile::before {
   content: "";
   position: absolute;
   height: 20px;
@@ -256,6 +298,7 @@ a:hover::after{
 .w3-badge {
   cursor: pointer;
 }
+
 .w3-badge {
   height: 17.5px;
   width: 13px;
@@ -334,4 +377,3 @@ a:hover::after{
   opacity: 0.5;
   margin: 0.4rem 0;
 }
-
