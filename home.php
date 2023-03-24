@@ -1,5 +1,6 @@
 <?php
-include_once "classes/product.php";
+$filepath = realpath(dirname(__DIR__));
+include_once ($filepath."\Toy_Management_Website\classes\product.php");
 
 $product = new Product();
 ?>
@@ -48,7 +49,7 @@ $product = new Product();
 
     <div class="product-items">
       <?php
-      $show_product = $product->show_product();
+      $show_product = $product->show_product_user();
       if ($show_product) {
         $i = 0;
         while ($result_product = $show_product->fetch_array()) {
@@ -73,7 +74,7 @@ $product = new Product();
         </div>
         <div class="product-info">
           <div class="product-info-top">
-            <h2 class="sm-title"><?php echo $result_product[9]; ?></h2>
+            <h2 class="sm-title"><?php echo $result_product[11]; ?></h2>
             <div class="rating">
               <?php
               $rating = $result_product[6];
@@ -88,27 +89,23 @@ $product = new Product();
             </div>
           </div>
           <a href="#" class="product-name"><?php echo $result_product[1]; ?></a>
-          <p class="product-price"><?php if (
-            $result_product[11] !== "Không áp dụng"
+          <?php echo $result_product[13] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$$result_product[3]</p>" : "";
+           ?>
+          <p class="product-price product-price-sale"> <?php if (
+            $result_product[13] !== "Không áp dụng"
           ) {
-            echo '$' . $result_product[3];
-          } ?></p>
-          <p class="product-price"> <?php if (
-            $result_product[11] !== "Không áp dụng"
-          ) {
-            $sale_percent = $result_product[15];
-            $sale_price =
-              $result_product[3] - $result_product[3] * ($sale_percent / 100);
+            $sale_percent = $result_product[17];
+            $sale_price = $result_product[3] - ($result_product[3] * ($sale_percent / 100));
             echo '$' . $sale_price;
           } else {
             echo '$' . $result_product[3];
           } ?></p>
         </div>
         <div class="off-info">
-        <?php if ($result_product[11] === "Không áp dụng") {
+        <?php if ($result_product[13] === "Không áp dụng") {
           echo "";
         } else {
-          $sale_percent = $result_product[15];
+          $sale_percent = $result_product[17];
           echo "<h2 class='sm-title'>Sale $sale_percent%</h2>";
         } ?>
           

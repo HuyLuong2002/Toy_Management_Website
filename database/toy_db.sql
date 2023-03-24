@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th3 22, 2023 lúc 09:16 AM
+-- Thời gian đã tạo: Th3 23, 2023 lúc 04:20 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.28
 
@@ -46,8 +46,8 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`id`, `username`, `password`, `firstname`, `lastname`, `gender`, `date_birth`, `place_of_birth`, `create_date`, `permission_id`, `status`) VALUES
-(2, 'ABC', '123456', 'abc', 'cbd', 'Nam', '18/02/2023', 'TPHCM', '15/03/2023', 1, 1),
-(3, 'BBC', '', '', '', '', '', '', '15/03/2023', 3, 1);
+(2, 'ABC', 'e10adc3949ba59abbe56e057f20f883e', 'abc', 'cbd', 'Nam', '18/02/2023', 'TPHCM', '15/03/2023', 1, 1),
+(3, 'BBC', 'e10adc3949ba59abbe56e057f20f883e', 'ABC', 'BCD', 'Nữ', '22/03/2023', 'Hà Nội', '15/03/2023', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -86,7 +86,8 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `name`) VALUES
-(1, 'Đồ chơi mô hình');
+(1, 'Đồ chơi mô hình'),
+(2, 'Đồ chơi búp bê');
 
 -- --------------------------------------------------------
 
@@ -222,6 +223,8 @@ CREATE TABLE `product` (
   `name` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
   `price` varchar(255) NOT NULL,
+  `create_date` varchar(255) NOT NULL,
+  `highlight` tinyint(1) NOT NULL,
   `category_id` int(11) NOT NULL,
   `sale_id` int(11) NOT NULL,
   `review` int(11) NOT NULL,
@@ -232,9 +235,11 @@ CREATE TABLE `product` (
 -- Đang đổ dữ liệu cho bảng `product`
 --
 
-INSERT INTO `product` (`id`, `name`, `image`, `price`, `category_id`, `sale_id`, `review`, `quantity`) VALUES
-(2, 'product 1', 'assets\\images\\home-img-1.png', '2000', 1, 1, 5, 20),
-(3, 'Product 2', 'assets\\images\\home-img-2.png', '3000', 1, 2, 3, 20);
+INSERT INTO `product` (`id`, `name`, `image`, `price`, `create_date`, `highlight`, `category_id`, `sale_id`, `review`, `quantity`) VALUES
+(2, 'Product 1', 'assets\\images\\home-img-1.png', '2000', '22/03/2023', 0, 1, 1, 5, 20),
+(3, 'Product 2', 'assets\\images\\home-img-2.png', '3000', '22/03/2023', 0, 1, 2, 3, 20),
+(4, 'Product 3', 'assets\\images\\home-img-3.png', '4000', '24/03/2023', 0, 2, 2, 3, 20),
+(5, 'Product 4', 'assets\\images\\home-img-3.png', '3000', '24/03/2023', 0, 2, 1, 2, 30);
 
 -- --------------------------------------------------------
 
@@ -382,7 +387,7 @@ ALTER TABLE `account_function`
 -- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `enter_product`
@@ -406,7 +411,7 @@ ALTER TABLE `permission`
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `provider`

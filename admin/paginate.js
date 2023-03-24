@@ -3,44 +3,56 @@ let listBar = [
   {
     id: 1,
     title: "DashBoard",
-    href: "#",
+    href: "index.php",
     icon: "la-igloo"
   },
   {
     id: 2,
     title: "Customers",
-    href: "#",
+    href: "customers.php?id=2",
     icon: "la-users"
   },
   {
     id: 3,
-    title: "Project",
-    href: "#",
-    icon: "la-clipboard-list"
+    title: "Products",
+    href: "products.php?id=3",
+    icon: "la-robot"
   },
   {
     id: 4,
     title: "Orders",
-    href: "#",
+    href: "id=orders",
     icon: "la-shopping-cart"
   },
   {
     id: 5,
     title: "Inventory",
-    href: "#",
-    icon: "la-receipt"
+    href: "id=inventory",
+    icon: "la-box"
   },
   {
     id: 6,
     title: "Accounts",
-    href: "#",
+    href: "id=accounts",
     icon: "la-user-circle"
   },
   {
     id: 7,
-    title: "Tasks",
-    href: "#",
-    icon: "la-clipboard-list"
+    title: "Permission",
+    href: "id=permission",
+    icon: "la-user-check"
+  },
+  {
+    id: 8,
+    title: "Provider",
+    href: "id=provider",
+    icon: "la-cart-arrow-down"
+  },
+  {
+    id: 9,
+    title: "Sale",
+    href: "id=sale",
+    icon: "la-percent"
   },
 ];
 
@@ -58,7 +70,7 @@ const handleActiveBg = () => {
 };
 
 const handleActive = ( event, id ) => {
-    event.preventDefault();
+    // event.preventDefault();
     listBar.forEach(item => {
         let a = document.getElementById("check-"+item.id)
         a.classList.remove("active");
