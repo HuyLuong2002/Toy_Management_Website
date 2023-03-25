@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -13,14 +14,15 @@
     <link rel="stylesheet" href="./css/index.css" />
   </head>
   <body>
-    <?php 
-    $filepath = realpath(dirname(__DIR__));
-    include_once ($filepath."\admin\components\slidebar.php"); ?>
-
     <div class="admin-main-content">
-      <?php include_once ($filepath."\admin\components\header.php");
-            include_once ($filepath."\admin\dashboard.php"); ?>
+      <?php
+      $filepath_index = realpath(dirname(__DIR__));
+      include_once $filepath_index . "\admin\components\header.php";
+      include_once $filepath_index . "\admin\dashboard.php";
+      ?>
     </div>
-  <script src="./paginate.js"></script>
+
+    <?php include_once $filepath_index . "\admin\components\slidebar.php"; ?>
+  <script src="./js/paginate.js"></script>
   </body>
 </html>

@@ -1,3 +1,8 @@
+<?php
+$filepath = realpath(dirname(__DIR__));
+include_once $filepath . "\lib\session.php";
+Session::checkSession();
+?>
 <header>
         <h2>
           <label for="nav-toggle">
@@ -20,8 +25,15 @@
           />
           <div>
             <h4>
-              John Doe
+              <?php echo Session::get('adminName'); ?>
               <small>Super admin</small>
+              <small>
+              <?php if (isset($_GET["action"]) && $_GET["action"] == "logout") {
+                Session::destroy();
+              } ?>
+                <a href="?action=logout">Đăng xuất</a>
+              </small>
+
             </h4>
           </div>
         </div>

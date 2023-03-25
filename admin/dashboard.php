@@ -1,7 +1,7 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once $filepath . "\database\connectDB.php";
-include_once $filepath . "\classes\product.php";
+include_once ($filepath . "\database\connectDB.php");
+include_once ($filepath . "\classes\product.php");
 $product = new Product();
 ?>
 <main>

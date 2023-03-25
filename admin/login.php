@@ -1,4 +1,14 @@
+<?php
+include_once "..\classes\adminlogin.php";
 
+$class = new AdminLogin();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $adminUser = $_POST["username"];
+  $adminPass = md5($_POST["password"]);
+
+  $login_check = $class ->login_admin($adminUser, $adminPass);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
     <title>Sign In & Sign up Form</title>
-    <link rel="stylesheet" href="./assets/css/login.css">
+    <link rel="stylesheet" href="./css/login.css">
 </head>
 
 <body>
@@ -16,14 +26,19 @@
     <div class="wrapper-form">
         <div class="DarkOverlay"></div>
         <div class="wrap-login-signup">
-            <form class="form" id="form-login">
+            <form class="form" id="form-login" method="post">
                 <h1>Log In</h1>
+                <span>
+				<?php if (isset($login_check)) {
+      echo $login_check;
+    } ?>
+                </span>
 
-                <label for="nome">UserName:</label>
-                <input type="text" class="infos" id="nome" name="nome">
+                <label for="nome">Username:</label>
+                <input type="text" class="infos" id="username" name="username">
                 <div class="mario"></div>
                 <label for="email">Password:</label>
-                <input type="email" id="email" name="email">
+                <input type="password" id="password" name="password">
 
                 <div class="wrap-btn">
                     <button type="submit">LogIn</button>

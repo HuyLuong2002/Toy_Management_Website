@@ -2,56 +2,50 @@ let AdminSidebar = document.getElementById("wrap-admin-side")
 let listBar = [
   {
     id: 1,
-    title: "DashBoard",
+    title: "Dashboard",
     href: "index.php",
     icon: "la-igloo"
   },
   {
     id: 2,
-    title: "Customers",
-    href: "customers.php?id=2",
+    title: "Products",
+    href: "products.php?id=2",
     icon: "la-users"
   },
   {
     id: 3,
-    title: "Products",
-    href: "products.php?id=3",
-    icon: "la-robot"
-  },
-  {
-    id: 4,
     title: "Orders",
-    href: "id=orders",
+    href: "orders.php?id=3",
     icon: "la-shopping-cart"
   },
   {
-    id: 5,
+    id: 4,
     title: "Inventory",
-    href: "id=inventory",
+    href: "inventory.php?id=4",
     icon: "la-box"
   },
   {
-    id: 6,
+    id: 5,
     title: "Accounts",
-    href: "id=accounts",
+    href: "accounts.php?id=5",
     icon: "la-user-circle"
   },
   {
-    id: 7,
+    id: 6,
     title: "Permission",
-    href: "id=permission",
+    href: "permission.php?id=6",
     icon: "la-user-check"
   },
   {
-    id: 8,
-    title: "Provider",
-    href: "id=provider",
+    id: 7,
+    title: "Providers",
+    href: "providers.php?id=7",
     icon: "la-cart-arrow-down"
   },
   {
-    id: 9,
+    id: 8,
     title: "Sale",
-    href: "id=sale",
+    href: "sale.php?id=8",
     icon: "la-percent"
   },
 ];
