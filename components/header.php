@@ -4,11 +4,20 @@
         <a href="index.php" class="home"> Toy Shop </a>
 
         <div class="nav-bar">
-            <a href="index.php">Home</a>
-            <a href="about.php">About</a>
-            <a href="orders.php">Orders</a>
-            <a href="category.php">Category</a>
-            <a href="contact.php">Contact</a>
+            <ul class="menu-items">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="orders.php">Orders</a></li>
+                <li><a href="category.php">Category</a>
+                    <ul class="sub-menu">
+                        <li><a href="">Đồ chơi theo phim</a></li>
+                        <li><a href="">Xe đồ chơi</a></li>
+                        <li><a href="">LEGO</a></li>
+                        <li><a href="">Búp bê</a></li>
+                    </ul>
+                </li>
+                <li><a href="contact.php">Contact</a></li>
+            </ul>
         </div>
 
         <div class="icons">
@@ -30,8 +39,8 @@
                 </a>
             </div>
             <div>
-                <a href="" id="user-btn">
-                    <div class="fa-solid fa-user fa-xl"></div>    
+                <a href="login.php" id="user-btn">
+                    <div class="fa-solid fa-user fa-xl"></div>
                     <div class="profile">
                         <h2 class="profile-name">Hi, loz</h2>
                         <button class="profile-update">update profile</button>
@@ -52,10 +61,10 @@
     let searchBar = document.getElementsByClassName('search-bar')[0];
 
     const handleSearch = (event) => {
-            event.preventDefault();
-            search.classList.toggle('fa-times');
-            search.classList.toggle('fa-magnifying-glass');
-            searchBar.classList.toggle("active");
-            
-        }
+        event.preventDefault();
+        search.classList.toggle('fa-times');
+        search.classList.toggle('fa-magnifying-glass');
+        searchBar.classList.toggle("active");
+
+    }
 </script>
