@@ -21,9 +21,9 @@ $product = new Product();
 
   <body>
     <?php
-    $filepath = realpath(dirname(__DIR__));
-    include_once $filepath . "\admin\components\header.php";
-    include_once $filepath . "\admin\components\slidebar.php";
+    $filepath_inventory = realpath(dirname(__DIR__));
+    include_once $filepath_inventory . "\admin\components\header.php";
+    include_once $filepath_inventory . "\admin\components\slidebar.php";
     ?>
 
     <div class="card">
