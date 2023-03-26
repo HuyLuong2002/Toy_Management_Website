@@ -8,12 +8,12 @@
                 <li><a href="index.php">Home</a></li>
                 <li><a href="about.php">About</a></li>
                 <li><a href="orders.php">Orders</a></li>
-                <li><a href="category.php">Category</a>
+                <li><a href="category.php">Category <i class="fa-solid fa-chevron-down"></i></a>
                     <ul class="sub-menu">
-                        <li><a href="">Đồ chơi theo phim</a></li>
-                        <li><a href="">Xe đồ chơi</a></li>
-                        <li><a href="">LEGO</a></li>
-                        <li><a href="">Búp bê</a></li>
+                        <li><a href="#">Smart Toys</a></li>
+                        <li><a href="#">Robot</a></li>
+                        <li><a href="#">LEGO</a></li>
+                        <li><a href="#">Barie doll</a></li>
                     </ul>
                 </li>
                 <li><a href="contact.php">Contact</a></li>

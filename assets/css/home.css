@@ -113,7 +113,11 @@ header {
 
 .menu-items>li:hover>a::after{
   width: 80%;
-} 
+}
+
+/* .menu-items>li:nth-last-child() i{
+  font-size: 14px;
+} */
 
 .menu-items ul.sub-menu{
   position: absolute;
@@ -121,7 +125,7 @@ header {
   list-style: none;
   padding-top: 0.3rem;
   width: 220px;
-  border: 1px solid #ededed;
+  background-color: #f5f5f5;
   display: none;
 }
 
@@ -131,19 +135,17 @@ header {
 
 .menu-items ul.sub-menu a{
   padding: 8px 1.2rem;
-  border-bottom: 2px solid #ededed;
+  border-bottom: 1px solid #ededed;
+  transition: 0.3s;
 }
 
 .menu-items ul.sub-menu li:hover a{
   border-bottom: 2px solid #d3d3d3;
+  color: #27cd9e;
 }
 
 .menu-items ul.sub-menu li:last-child a{
   border: none;
-}
-
-.menu-items .sub-menu li:hover a{
-  color: #27cd9e;
 }
 
 /*end custom nav bar*/
