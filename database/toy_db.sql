@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th3 23, 2023 lúc 04:20 AM
+-- Thời gian đã tạo: Th3 26, 2023 lúc 06:50 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.28
 
@@ -174,7 +174,10 @@ CREATE TABLE `enter_product` (
   `enter_date` varchar(255) NOT NULL,
   `total_quantity` int(11) NOT NULL,
   `total_price` int(11) NOT NULL,
-  `provider_id` int(11) NOT NULL
+  `provider_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `create_date` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -210,7 +213,8 @@ CREATE TABLE `permission` (
 INSERT INTO `permission` (`id`, `name`) VALUES
 (1, 'Admin'),
 (2, 'Quản lý'),
-(3, 'Nhân viên');
+(3, 'Nhân viên'),
+(4, 'Khách hàng');
 
 -- --------------------------------------------------------
 
@@ -332,7 +336,8 @@ ALTER TABLE `detail_permission_function`
 --
 ALTER TABLE `enter_product`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `provider_id` (`provider_id`);
+  ADD KEY `provider_id` (`provider_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Chỉ mục cho bảng `orders`
@@ -405,7 +410,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT cho bảng `permission`
 --
 ALTER TABLE `permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `product`
@@ -467,7 +472,8 @@ ALTER TABLE `detail_permission_function`
 -- Các ràng buộc cho bảng `enter_product`
 --
 ALTER TABLE `enter_product`
-  ADD CONSTRAINT `enter_product_ibfk_1` FOREIGN KEY (`provider_id`) REFERENCES `provider` (`id`);
+  ADD CONSTRAINT `enter_product_ibfk_1` FOREIGN KEY (`provider_id`) REFERENCES `provider` (`id`),
+  ADD CONSTRAINT `enter_product_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `account` (`id`);
 
 --
 -- Các ràng buộc cho bảng `orders`
