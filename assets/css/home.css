@@ -49,6 +49,7 @@ header {
   position: relative;
   height: 5rem;
   z-index: 21;
+  flex-shrink: 0;
 }
 
 .section-header .fa-times {
@@ -74,20 +75,34 @@ header {
 
 /*nav bar custom and animation*/
 .nav-bar {
-  display: flex;
-  justify-content: space-between;
-  justify-content: center;
+  position: relative;
+}
+
+.icon{
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  top: 12px;
+  font-size: 30px;
+  margin-right: 30px;
+  display: none;
 }
 
 .menu-items {
   display: flex;
-  list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .menu-items li {
   position: relative;
+  list-style: none;
+}
+
+.menu-items .li-cate i{
+  position: absolute;
+  right: 5%;
+  bottom: 40%;
 }
 
 .menu-items li a {
@@ -114,10 +129,6 @@ header {
 .menu-items>li:hover>a::after{
   width: 80%;
 }
-
-/* .menu-items>li:nth-last-child() i{
-  font-size: 14px;
-} */
 
 .menu-items ul.sub-menu{
   position: absolute;
