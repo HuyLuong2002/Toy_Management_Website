@@ -1,14 +1,16 @@
-
 <header>
     <div class="section-header">
         <a href="index.php" class="home"> Toy Shop </a>
 
         <div class="nav-bar">
+            <label class="icon"><i class="fa-solid fa-bars"></i></label>
             <ul class="menu-items">
                 <li><a href="index.php">Home</a></li>
                 <li><a href="about.php">About</a></li>
                 <li><a href="orders.php">Orders</a></li>
-                <li><a href="category.php">Category <i class="fa-solid fa-chevron-down"></i></a>
+                <li class="li-cate">
+                    <a href="category.php">Category</a>
+                    <i class="fa-solid fa-chevron-down"></i>
                     <ul class="sub-menu">
                         <li><a href="#">Smart Toys</a></li>
                         <li><a href="#">Robot</a></li>
