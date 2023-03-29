@@ -151,11 +151,13 @@
 
 .product-price {padding: 0.6rem;
   padding-right: 0.6rem;
-  display: inline-block;}
+  display: inline-block;
+}
+
 .product-price-sale {
-  
   color: var(--carribean-green);
 }
+
 .product-price-linet /*?*/ {
   text-decoration: line-through;
   color: #999;
@@ -210,6 +212,13 @@
   z-index: 1;
   letter-spacing: 3px;
   cursor: pointer;
+}
+
+.off-info .favorite-icon{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
 }
 
 /* Media Queries */

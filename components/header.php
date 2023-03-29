@@ -13,28 +13,16 @@
                     <i class="fa-solid fa-chevron-down"></i>
                     <ul class="sub-menu">
                         <li>
-                            <a href="#">Smart Toys</a>
-                            <ul class="sub-menu">
-                                <li><a href="">Submenu 1</a></li>
-                                <li><a href="">Submenu 2</a></li>
-                                <li><a href="">Submenu 3</a></li>
-                                <li><a href="">Submenu 4</a></li>
-                            </ul>
+                            <a href="category.php">Smart Toys</a>
                         </li>
                         <li>
-                            <a href="#">Robot</a>
-                            <ul class="sub-menu">
-                                <li><a href="">Submenu 1</a></li>
-                                <li><a href="">Submenu 2</a></li>
-                                <li><a href="">Submenu 3</a></li>
-                                <li><a href="">Submenu 4</a></li>
-                            </ul>
+                            <a href="category.php">Robot</a>
                         </li>
                         <li>
-                            <a href="#">LEGO</a>
+                            <a href="category.php">LEGO</a>
                         </li>
                         <li>
-                            <a href="#">Barie doll</a>
+                            <a href="category.php">Barie doll</a>
                         </li>
 
                     </ul>
@@ -62,7 +50,7 @@
                 </a>
             </div>
             <div>
-                <a href="login.php" id="user-btn">
+                <a href="profile.php" id="user-btn">
                     <div class="fa-solid fa-user fa-xl"></div>
                     <div class="profile">
                         <h2 class="profile-name">Hi, loz</h2>

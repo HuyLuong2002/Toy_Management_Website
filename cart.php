@@ -20,8 +20,8 @@
             <label class="product-details">Product</label>
             <label class="product-price">Price</label>
             <label class="product-quantity">Quantity</label>
-            <label class="product-removal">Remove</label>
             <label class="product-line-price">Total</label>
+            <label class="product-removal">Remove</label>
         </div>
 
         <div id="product-wrapper">
