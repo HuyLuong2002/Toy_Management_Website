@@ -61,7 +61,7 @@ const handleLoadCart = () => {
                 </div>
                 <div class="product-line-price">${total}</div>
             </div>`;
-    });
+    }).join('');
 
   productWrapper.innerHTML = cartListText;
 };
