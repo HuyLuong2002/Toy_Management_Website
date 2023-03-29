@@ -33,23 +33,20 @@
             <div class="sidebar">
                 <div class="sidebar-category">
                     <h3 class="title">Category</h3>
-                    <ul class="o-list">
-                        <li class="level0">
-                            <a href="#">Smart Toys</a>
-                            <i class="fa-solid fa-chevron-down"></i>
+                    <ul class="main-list">
+                        <li>
+                            <p>Smart Toys</p>
                         </li>
-                        <li class="level0">
-                            <a href="#">Robot</a>
-                            <i class="fa-solid fa-chevron-down"></i>
+                        <li>
+                            <p>Smart Toys</p>
                         </li>
-                        <li class="level0">
-                            <a href="#">LEGO</a>
-                            <i class="fa-solid fa-chevron-down"></i>
+                        <li>
+                            <p>Smart Toys</p>
                         </li>
-                        <li class="level0">
-                            <a href="#">Barie doll</a>
-                            <i class="fa-solid fa-chevron-down"></i>
+                        <li>
+                            <p>Smart Toys</p>
                         </li>
+                        
                     </ul>
                 </div>
             </div>
@@ -57,68 +54,187 @@
             <div class="list-product">
                 <div class="product-wrapper">
                     <div class="catalog-product-item">
-                        <div class="product-img-box">
-                            <img src="./assets/images/home-img-1.png" class="product-img">
+                        <div class="product-content">
+                            <div class="product-img-box">
+                                <img src="./assets/images/home-img-1.png" class="product-img">
+                            </div>
+                            <div class="product-btns">
+                                <button class="btn-cart">
+                                    Add to Cart
+                                    <span><i class="fas fa-plus"></i></span>
+                                </button>
+                                <button class="btn-buy">
+                                    Buy now
+                                    <span><i class="fas fa-shopping-cart"></i></span>
+                                </button>
+                            </div>
                         </div>
                         <div class="product-info">
-                            <div class="product-detail">
-                                <p class="name">Product One</p>
-                                <p class="price">$22.00</p>
+                            <div class="product-info-top">
+                                <h2 class="sm-title">Đồ chơi búp bê</h2>
+                                <div class="rating">
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                </div>
                             </div>
-                            <button class="btn-addToCart">Add to Cart</button>       
+                            <a href="" class="product-name">Product 1</a>
+                            <p class="product-price product-price-linet">$4000</p>
+                            <p class="product-price product-price-sale">$3000</p>
+                        </div>
+                        <div class="off-info">
+                            <h2 class="sm-title">Sale 25%</h2>
                         </div>
                     </div>
+
                     <div class="catalog-product-item">
-                        <div class="product-img-box">
-                            <img src="./assets/images/home-img-1.png" class="product-img">
+                        <div class="product-content">
+                            <div class="product-img-box">
+                                <img src="./assets/images/home-img-1.png" class="product-img">
+                            </div>
+                            <div class="product-btns">
+                                <button class="btn-cart">
+                                    Add to Cart
+                                    <span><i class="fas fa-plus"></i></span>
+                                </button>
+                                <button class="btn-buy">
+                                    Buy now
+                                    <span><i class="fas fa-shopping-cart"></i></span>
+                                </button>
+                            </div>
                         </div>
                         <div class="product-info">
-                            <div class="product-detail">
-                                <p class="name">Product One</p>
-                                <p class="price">$22.00</p>
+                            <div class="product-info-top">
+                                <h2 class="sm-title">Đồ chơi búp bê</h2>
+                                <div class="rating">
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                </div>
                             </div>
-                            <button class="btn-addToCart">Add to Cart</button>       
+                            <a href="" class="product-name">Product 1</a>
+                            <p class="product-price product-price-linet">$4000</p>
+                            <p class="product-price product-price-sale">$3000</p>
+                        </div>
+                        <div class="off-info">
+                            <h2 class="sm-title">Sale 25%</h2>
                         </div>
                     </div>
+
                     <div class="catalog-product-item">
-                        <div class="product-img-box">
-                            <img src="./assets/images/home-img-1.png" class="product-img">
+                        <div class="product-content">
+                            <div class="product-img-box">
+                                <img src="./assets/images/home-img-1.png" class="product-img">
+                            </div>
+                            <div class="product-btns">
+                                <button class="btn-cart">
+                                    Add to Cart
+                                    <span><i class="fas fa-plus"></i></span>
+                                </button>
+                                <button class="btn-buy">
+                                    Buy now
+                                    <span><i class="fas fa-shopping-cart"></i></span>
+                                </button>
+                            </div>
                         </div>
                         <div class="product-info">
-                            <div class="product-detail">
-                                <p class="name">Product One</p>
-                                <p class="price">$22.00</p>
+                            <div class="product-info-top">
+                                <h2 class="sm-title">Đồ chơi búp bê</h2>
+                                <div class="rating">
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                </div>
                             </div>
-                            <button class="btn-addToCart">Add to Cart</button>       
+                            <a href="" class="product-name">Product 1</a>
+                            <p class="product-price product-price-linet">$4000</p>
+                            <p class="product-price product-price-sale">$3000</p>
+                        </div>
+                        <div class="off-info">
+                            <h2 class="sm-title">Sale 25%</h2>
                         </div>
                     </div>
+
                     <div class="catalog-product-item">
-                        <div class="product-img-box">
-                            <img src="./assets/images/home-img-1.png" class="product-img">
+                        <div class="product-content">
+                            <div class="product-img-box">
+                                <img src="./assets/images/home-img-1.png" class="product-img">
+                            </div>
+                            <div class="product-btns">
+                                <button class="btn-cart">
+                                    Add to Cart
+                                    <span><i class="fas fa-plus"></i></span>
+                                </button>
+                                <button class="btn-buy">
+                                    Buy now
+                                    <span><i class="fas fa-shopping-cart"></i></span>
+                                </button>
+                            </div>
                         </div>
                         <div class="product-info">
-                            <div class="product-detail">
-                                <p class="name">Product One</p>
-                                <p class="price">$22.00</p>
+                            <div class="product-info-top">
+                                <h2 class="sm-title">Đồ chơi búp bê</h2>
+                                <div class="rating">
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                </div>
                             </div>
-                            <button class="btn-addToCart">Add to Cart</button>       
+                            <a href="" class="product-name">Product 1</a>
+                            <p class="product-price product-price-linet">$4000</p>
+                            <p class="product-price product-price-sale">$3000</p>
+                        </div>
+                        <div class="off-info">
+                            <h2 class="sm-title">Sale 25%</h2>
                         </div>
                     </div>
+
                     <div class="catalog-product-item">
-                        <div class="product-img-box">
-                            <img src="./assets/images/home-img-1.png" class="product-img">
+                        <div class="product-content">
+                            <div class="product-img-box">
+                                <img src="./assets/images/home-img-1.png" class="product-img">
+                            </div>
+                            <div class="product-btns">
+                                <button class="btn-cart">
+                                    Add to Cart
+                                    <span><i class="fas fa-plus"></i></span>
+                                </button>
+                                <button class="btn-buy">
+                                    Buy now
+                                    <span><i class="fas fa-shopping-cart"></i></span>
+                                </button>
+                            </div>
                         </div>
                         <div class="product-info">
-                            <div class="product-detail">
-                                <p class="name">Product One</p>
-                                <p class="price">$22.00</p>
+                            <div class="product-info-top">
+                                <h2 class="sm-title">Đồ chơi búp bê</h2>
+                                <div class="rating">
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                </div>
                             </div>
-                            <button class="btn-addToCart">Add to Cart</button>       
+                            <a href="" class="product-name">Product 1</a>
+                            <p class="product-price product-price-linet">$4000</p>
+                            <p class="product-price product-price-sale">$3000</p>
+                        </div>
+                        <div class="off-info">
+                            <h2 class="sm-title">Sale 25%</h2>
                         </div>
                     </div>
 
                     <div class="bottom-pagination">
-                        
+
                     </div>
                 </div>
             </div>
@@ -129,3 +245,10 @@
     include("./components/footer.php");
     ?>
 </body>
+<script>
+    $(document).ready(function() {
+        // alert("Hello, world!");
+        $('.sub-list').parent('li').addClass('has-child');
+        
+    });
+</script>

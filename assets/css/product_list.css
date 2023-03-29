@@ -151,11 +151,13 @@
 
 .product-price {padding: 0.6rem;
   padding-right: 0.6rem;
-  display: inline-block;}
+  display: inline-block;
+}
+
 .product-price-sale {
-  
   color: var(--carribean-green);
 }
+
 .product-price-linet /*?*/ {
   text-decoration: line-through;
   color: #999;
