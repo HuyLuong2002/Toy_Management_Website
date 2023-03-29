@@ -14,3 +14,10 @@ var swiper = new Swiper(".swiper-container", {
   },
   speed: 1000,
 });
+
+const favActive = (event) =>{
+  event.preventDefault();
+  var favIcon = document.getElementsByClassName('fav-icon')[0];
+  favIcon.classList.toggle('fa-regular');
+  favIcon.classList.toggle('fa-solid');
+}

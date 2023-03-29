@@ -89,8 +89,7 @@ $product = new Product();
             </div>
           </div>
           <a href="#" class="product-name"><?php echo $result_product[1]; ?></a>
-          <?php echo $result_product[13] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$$result_product[3]</p>" : "";
-           ?>
+          <?php echo $result_product[13] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$$result_product[3]</p>" : "";?>
           <p class="product-price product-price-sale"> <?php if (
             $result_product[13] !== "Không áp dụng"
           ) {
@@ -108,7 +107,12 @@ $product = new Product();
           $sale_percent = $result_product[17];
           echo "<h2 class='sm-title'>Sale $sale_percent%</h2>";
         } ?>
-          
+          <div class="favorite-icon">         
+          <a href="" onclick="favActive(event)">
+            <i class="fa-regular fa-heart fav-icon"></i>
+          </a>   
+          </div>
+        
         </div>
       </div>
       <!-- end of single product -->
