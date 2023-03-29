@@ -13,28 +13,16 @@
                     <i class="fa-solid fa-chevron-down"></i>
                     <ul class="sub-menu">
                         <li>
-                            <a href="#">Smart Toys</a>
-                            <ul class="sub-menu">
-                                <li><a href="">Submenu 1</a></li>
-                                <li><a href="">Submenu 2</a></li>
-                                <li><a href="">Submenu 3</a></li>
-                                <li><a href="">Submenu 4</a></li>
-                            </ul>
+                            <a href="category.php">Smart Toys</a>
                         </li>
                         <li>
-                            <a href="#">Robot</a>
-                            <ul class="sub-menu">
-                                <li><a href="">Submenu 1</a></li>
-                                <li><a href="">Submenu 2</a></li>
-                                <li><a href="">Submenu 3</a></li>
-                                <li><a href="">Submenu 4</a></li>
-                            </ul>
+                            <a href="category.php">Robot</a>
                         </li>
                         <li>
-                            <a href="#">LEGO</a>
+                            <a href="category.php">LEGO</a>
                         </li>
                         <li>
-                            <a href="#">Barie doll</a>
+                            <a href="category.php">Barie doll</a>
                         </li>
 
                     </ul>
