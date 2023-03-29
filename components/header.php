@@ -8,14 +8,35 @@
                 <li><a href="index.php">Home</a></li>
                 <li><a href="about.php">About</a></li>
                 <li><a href="orders.php">Orders</a></li>
-                <li class="li-cate">
+                <li>
                     <a href="category.php">Category</a>
                     <i class="fa-solid fa-chevron-down"></i>
                     <ul class="sub-menu">
-                        <li><a href="#">Smart Toys</a></li>
-                        <li><a href="#">Robot</a></li>
-                        <li><a href="#">LEGO</a></li>
-                        <li><a href="#">Barie doll</a></li>
+                        <li>
+                            <a href="#">Smart Toys</a>
+                            <ul class="sub-menu">
+                                <li><a href="">Submenu 1</a></li>
+                                <li><a href="">Submenu 2</a></li>
+                                <li><a href="">Submenu 3</a></li>
+                                <li><a href="">Submenu 4</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Robot</a>
+                            <ul class="sub-menu">
+                                <li><a href="">Submenu 1</a></li>
+                                <li><a href="">Submenu 2</a></li>
+                                <li><a href="">Submenu 3</a></li>
+                                <li><a href="">Submenu 4</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">LEGO</a>
+                        </li>
+                        <li>
+                            <a href="#">Barie doll</a>
+                        </li>
+
                     </ul>
                 </li>
                 <li><a href="contact.php">Contact</a></li>
@@ -57,6 +78,12 @@
     </div>
 </header>
 
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.sub-menu').parent('li').addClass('has-child');
+    });
+</script>
 
 <script>
     let search = document.getElementsByClassName('search')[0];
