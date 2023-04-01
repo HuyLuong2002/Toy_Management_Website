@@ -38,7 +38,7 @@
                 </a>
             </div>
             <div>
-                <a href="">
+                <a href="favorites.php">
                     <i class="fa-solid fa-heart fa-xl"></i>
                     <span class="icon_status">(0)</span>
                 </a>

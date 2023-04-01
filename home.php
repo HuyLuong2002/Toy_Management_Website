@@ -66,56 +66,62 @@ $product = new Product();
                   <span><i class="fas fa-plus"> </i> </span>
                 </button>
 
-            <button class="btn-buy">
-              Buy now
-              <span><i class="fas fa-shopping-cart"> </i> </span>
-            </button>
-          </div>
-        </div>
-        <div class="product-info">
-          <div class="product-info-top">
-            <h2 class="sm-title"><?php echo $result_product[11]; ?></h2>
-            <div class="rating">
-              <?php
-              $rating = $result_product[6];
-              for ($i = 0; $i < 5; $i++) {
-                if ($rating > $i) {
-                  echo '<span><i class="fas fa-star"></i></span>';
-                } else {
-                  echo '<span><i class="far fa-star"></i></span>';
-                }
-              }
+                <button class="btn-buy">
+                  Buy now
+                  <span><i class="fas fa-shopping-cart"> </i> </span>
+                </button>
+              </div>
+            </div>
+            <div class="product-info">
+              <div class="product-info-top">
+                <h2 class="sm-title">
+                  <?php echo $result_product[11]; ?>
+                </h2>
+                <div class="rating">
+                  <?php
+                  $rating = $result_product[6];
+                  for ($i = 0; $i < 5; $i++) {
+                    if ($rating > $i) {
+                      echo '<span><i class="fas fa-star"></i></span>';
+                    } else {
+                      echo '<span><i class="far fa-star"></i></span>';
+                    }
+                  }
+                  ?>
+                </div>
+              </div>
+              <a href="#" class="product-name">
+                <?php echo $result_product[1]; ?>
+              </a>
+              <?php echo $result_product[13] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$$result_product[3]</p>" : "";
               ?>
+              <p class="product-price product-price-sale">
+                <?php if (
+                  $result_product[13] !== "Không áp dụng"
+                ) {
+                  $sale_percent = $result_product[17];
+                  $sale_price = $result_product[3] - ($result_product[3] * ($sale_percent / 100));
+                  echo '$' . $sale_price;
+                } else {
+                  echo '$' . $result_product[3];
+                } ?>
+              </p>
+            </div>
+            <div class="off-info">
+              <?php if ($result_product[13] === "Không áp dụng") {
+                echo "";
+              } else {
+                $sale_percent = $result_product[17];
+                echo "<h2 class='sm-title'>Sale $sale_percent%</h2>";
+              } ?>
+
+              <div class="favorite-icon" onclick="favActive(event)">
+                <i class="fa-regular fa-heart fav-icon" data-id=<?php echo $result_product[0]; ?>></i>
+              </div>
             </div>
           </div>
-          <a href="#" class="product-name"><?php echo $result_product[1]; ?></a>
-          <?php echo $result_product[13] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$$result_product[3]</p>" : "";
-           ?>
-          <p class="product-price product-price-sale"> <?php if (
-            $result_product[13] !== "Không áp dụng"
-          ) {
-            $sale_percent = $result_product[17];
-            $sale_price = $result_product[3] - ($result_product[3] * ($sale_percent / 100));
-            echo '$' . $sale_price;
-          } else {
-            echo '$' . $result_product[3];
-          } ?></p>
-        </div>
-        <div class="off-info">
-        <?php if ($result_product[13] === "Không áp dụng") {
-          echo "";
-        } else {
-          $sale_percent = $result_product[17];
-          echo "<h2 class='sm-title'>Sale $sale_percent%</h2>";
-        } ?>
-          <div class="favorite-icon" onclick="favActive(event)">
-            <i class="fa-regular fa-heart fav-icon"></i>
-          </div>
-        
-        </div>
-      </div>
-      <!-- end of single product -->
-      <?php
+          <!-- end of single product -->
+          <?php
         }
       }
       ?>
