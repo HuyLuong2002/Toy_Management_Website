@@ -1,11 +1,11 @@
-const sign_in_btn = document.querySelector("#sign-in-btn");
-const sign_up_btn = document.querySelector("#sign-up-btn");
-const container = document.querySelector(".container");
-
-sign_up_btn.addEventListener('click', () =>{
-    container.classList.add("sign-up-mode");
-});
-
-sign_in_btn.addEventListener('click', () =>{
-    container.classList.remove("sign-up-mode");
-});
+function checkSignIn() {
+  var nome = document.getElementById("sign-in-nome").value;
+  var password = document.getElementById("sign-in-password").value;
+  var confirm_password = document.getElementById("confirm_password").value;
+  
+  if(password != confirm_password)
+  {
+      alert("Your password and confirm password do not match");
+  }
+  
+}
