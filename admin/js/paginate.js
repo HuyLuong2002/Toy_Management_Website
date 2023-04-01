@@ -15,13 +15,13 @@ let listBar = [
       {
         id: 21,
         title: "All",
-        href: "index.php?id=21",
+        href: "index.php?id=2",
         icon: "la-users",
       },
       {
         id: 21,
         title: "Create",
-        href: "createNewProduct.php",
+        href: "product_add.php",
         icon: "la-users",
       },
     ],

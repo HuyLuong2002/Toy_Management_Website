@@ -83,13 +83,13 @@ $product = new Product();
                     ) { ?>
                       <td><?php echo $result_product[1]; ?></td>
                       <td>
-                        <img src="<?php echo "../" . $result_product[2]; ?>" alt="" width="100px">
+                        <img src="<?php echo "uploads/" . $result_product[2]; ?>" alt="" width="100px">
                       </td>
                       <td>
                         <?php echo $result_product[3]; ?>
                       </td>
                       <td>
-                        <?php echo $result_product[9]; ?>
+                        <?php echo $result_product[10]; ?>
                       </td>
                 </tr>
             <?php }
