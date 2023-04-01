@@ -1,6 +1,6 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once ($filepath."\Toy_Management_Website\classes\product.php");
+include_once($filepath . "\Toy_Management_Website\classes\product.php");
 
 $product = new Product();
 ?>
@@ -54,17 +54,17 @@ $product = new Product();
         $i = 0;
         while ($result_product = $show_product->fetch_array()) {
           $i++; ?>
-      <!-- Single product -->
-      <div class="product">
-        <div class="product-content">
-          <div class="product-img">
-            <img src="<?php echo $result_product[2]; ?>" alt="" />
-          </div>
-          <div class="product-btns">
-            <button class="btn-cart">
-              Add to cart
-              <span><i class="fas fa-plus"> </i> </span>
-            </button>
+          <!-- Single product -->
+          <div class="product">
+            <div class="product-content">
+              <div class="product-img">
+                <img src="<?php echo $result_product[2]; ?>" alt="" />
+              </div>
+              <div class="product-btns">
+                <button class="btn-cart">
+                  Add to cart
+                  <span><i class="fas fa-plus"> </i> </span>
+                </button>
 
             <button class="btn-buy">
               Buy now
@@ -89,7 +89,8 @@ $product = new Product();
             </div>
           </div>
           <a href="#" class="product-name"><?php echo $result_product[1]; ?></a>
-          <?php echo $result_product[13] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$$result_product[3]</p>" : "";?>
+          <?php echo $result_product[13] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$$result_product[3]</p>" : "";
+           ?>
           <p class="product-price product-price-sale"> <?php if (
             $result_product[13] !== "Không áp dụng"
           ) {
@@ -107,12 +108,7 @@ $product = new Product();
           $sale_percent = $result_product[17];
           echo "<h2 class='sm-title'>Sale $sale_percent%</h2>";
         } ?>
-          <div class="favorite-icon">         
-          <a href="" onclick="favActive(event)">
-            <i class="fa-regular fa-heart fav-icon"></i>
-          </a>   
-          </div>
-        
+          
         </div>
       </div>
       <!-- end of single product -->

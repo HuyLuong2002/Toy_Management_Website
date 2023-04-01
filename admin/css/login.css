@@ -26,7 +26,7 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url("../images/home-bg.png") no-repeat fixed center;
+  background: url("../assets/images/home-bg.png") no-repeat fixed center;
   background-size: cover;
   position: relative;
 }
