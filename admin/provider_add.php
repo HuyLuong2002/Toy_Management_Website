@@ -25,7 +25,6 @@ $product = new Product();
     include_once $filepath . "\admin\components\slidebar.php";
     ?>
 
-  <script src="./js/paginate.js"></script>
 </body>
 
 </html>
