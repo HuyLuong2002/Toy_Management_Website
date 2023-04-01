@@ -107,10 +107,8 @@ $product = new Product();
           $sale_percent = $result_product[17];
           echo "<h2 class='sm-title'>Sale $sale_percent%</h2>";
         } ?>
-          <div class="favorite-icon">         
-          <a href="" onclick="favActive(event)">
+          <div class="favorite-icon" onclick="favActive(event)">
             <i class="fa-regular fa-heart fav-icon"></i>
-          </a>   
           </div>
         
         </div>
