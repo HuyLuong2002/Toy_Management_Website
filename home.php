@@ -113,10 +113,11 @@ $product = new Product();
               } else {
                 $sale_percent = $result_product[18];
                 echo "<h2 class='sm-title'>Sale $sale_percent%</h2>";
-              } ?>
+              }
+              ?>
 
               <div class="favorite-icon" onclick="favActive(event)">
-                <i class="fa-regular fa-heart fav-icon" data-id=<?php echo $result_product[0]; ?>></i>
+                <i class="fa-regular fa-heart fav-icon" data-id="<?php echo $result_product[0]; ?>"></i>
               </div>
             </div>
           </div>
@@ -128,3 +129,18 @@ $product = new Product();
     </div>
   </div>
 </div>
+<script>
+  var icons = document.querySelectorAll('.favorite-icon i');
+  icons.forEach((icon) => {
+    var dataId = icon.getAttribute('data-id');
+    var products = JSON.parse(localStorage.getItem('products'));
+    products.forEach((product) => {
+      if(product.id === dataId){
+        icon.classList.add('fa-solid');
+        icon.classList.remove('fa-regular');
+      }
+    });
+
+  });
+
+</script>

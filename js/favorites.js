@@ -25,7 +25,7 @@ const handleLoadCart = () => {
                 </div>
                 <div class="product-price" id="product-price">${product.price}</div>
                 <div class="product-removal">
-                    <button class="remove-product" onclick="handleRemove(${product.id})">
+                    <button class="remove-product" data-id="${product.id}" onclick="handleRemove(event)">
                         Remove
                     </button>
                 </div>
@@ -36,9 +36,17 @@ const handleLoadCart = () => {
 
 };
 
-const handleRemove = (id) => {
-    products = products.filter(product => product.id !== id)
-    handleLoadCart()
+const handleRemove = (e) => {
+    // remove from DOM
+    e.target.parentElement.parentElement.remove();
+    // remove from localStorage
+    products.forEach((product, index) => {
+        if(e.target.dataset.id === product.id){
+            products.splice(index, 1);
+        }
+    });
+    // set the array into localStorage
+    localStorage.setItem('products', JSON.stringify(products));
 }
 
 handleLoadCart()
