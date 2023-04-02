@@ -30,7 +30,6 @@
                 <li><a href="contact.php">Contact</a></li>
             </ul>
         </div>
-
         <div class="icons">
             <div>
                 <a onclick="handleSearch(event)" href="#">
@@ -68,7 +67,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
         $('.sub-menu').parent('li').addClass('has-child');
     });
 </script>
