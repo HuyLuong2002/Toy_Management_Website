@@ -22,6 +22,7 @@
                 'name' => $name,
                 'image' => $image,
                 'price' => $price,
+                'description' => $description,
                 'create_date' => $create_date,
                 'highlight' => $highlight,
                 'category_id' => $category_id,

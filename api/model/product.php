@@ -9,6 +9,7 @@ class Product
   public $name;
   public $image;
   public $price;
+  public $description;
   public $create_date;
   public $highlight;
   public $category_id;
@@ -43,6 +44,7 @@ class Product
     $this->name = $row["name"];
     $this->image = $row["image"];
     $this->price = $row["price"];
+    $this->description = $row["description"];
     $this->create_date = $row["create_date"];
     $this->highlight = $row["highlight"];
     $this->category_id = $row["category_id"];
@@ -54,12 +56,13 @@ class Product
   //create data
   public function create()
   {
-    $query = "INSERT INTO product(name, image, price, create_date, highlight, category_id, sale_id, review, quantity) VALUES(?,?,?,?,?,?,?,?,?)";
+    $query = "INSERT INTO product(name, image, price, description, create_date, highlight, category_id, sale_id, review, quantity) VALUES(?,?,?,?,?,?,?,?,?,?)";
     $stmt = $this->conn->prepare($query);
     //clean data
     $this->name = htmlspecialchars(strip_tags($this->name));
     $this->image = htmlspecialchars(strip_tags($this->image));
     $this->price = htmlspecialchars(strip_tags($this->price));
+    $this->description = htmlspecialchars(strip_tags($this->description));
     $this->create_date = htmlspecialchars(strip_tags($this->create_date));
     $this->highlight = htmlspecialchars(strip_tags($this->highlight));
     $this->category_id = htmlspecialchars(strip_tags($this->category_id));
@@ -70,12 +73,13 @@ class Product
     $stmt->bindParam(1, $this->name);
     $stmt->bindParam(2, $this->image);
     $stmt->bindParam(3, $this->price);
-    $stmt->bindParam(4, $this->create_date);
-    $stmt->bindParam(5, $this->highlight);
-    $stmt->bindParam(6, $this->category_id);
-    $stmt->bindParam(7, $this->sale_id);
-    $stmt->bindParam(8, $this->review);
-    $stmt->bindParam(9, $this->quantity);
+    $stmt->bindParam(4, $this->description);
+    $stmt->bindParam(5, $this->create_date);
+    $stmt->bindParam(6, $this->highlight);
+    $stmt->bindParam(7, $this->category_id);
+    $stmt->bindParam(8, $this->sale_id);
+    $stmt->bindParam(9, $this->review);
+    $stmt->bindParam(10, $this->quantity);
 
     if ($stmt->execute()) {
       return true;
@@ -87,13 +91,14 @@ class Product
   //update data
   public function update($id)
   {
-    $query = "UPDATE product SET name=?, image=?, price=?, create_date=?, highlight=?, category_id=?, sale_id=?, review=?, quantity=? where id=?";
+    $query = "UPDATE product SET name=?, image=?, price=?, description=?, create_date=?, highlight=?, category_id=?, sale_id=?, review=?, quantity=? where id=?";
     $stmt = $this->conn->prepare($query);
     //clean data
     $this->id = htmlspecialchars(strip_tags($this->id));
     $this->name = htmlspecialchars(strip_tags($this->name));
     $this->image = htmlspecialchars(strip_tags($this->image));
     $this->price = htmlspecialchars(strip_tags($this->price));
+    $this->description = htmlspecialchars(strip_tags($this->description));
     $this->create_date = htmlspecialchars(strip_tags($this->create_date));
     $this->highlight = htmlspecialchars(strip_tags($this->highlight));
     $this->category_id = htmlspecialchars(strip_tags($this->category_id));
@@ -105,13 +110,14 @@ class Product
     $stmt->bindParam(1, $this->name);
     $stmt->bindParam(2, $this->image);
     $stmt->bindParam(3, $this->price);
-    $stmt->bindParam(4, $this->create_date);
-    $stmt->bindParam(5, $this->highlight);
-    $stmt->bindParam(6, $this->category_id);
-    $stmt->bindParam(7, $this->sale_id);
-    $stmt->bindParam(8, $this->review);
-    $stmt->bindParam(9, $this->quantity);
-    $stmt->bindParam(10, $this->id);
+    $stmt->bindParam(4, $this->description);
+    $stmt->bindParam(5, $this->create_date);
+    $stmt->bindParam(6, $this->highlight);
+    $stmt->bindParam(7, $this->category_id);
+    $stmt->bindParam(8, $this->sale_id);
+    $stmt->bindParam(9, $this->review);
+    $stmt->bindParam(10, $this->quantity);
+    $stmt->bindParam(11, $this->id);
 
     if ($stmt->execute()) {
       return true;

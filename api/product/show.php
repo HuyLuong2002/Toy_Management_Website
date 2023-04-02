@@ -14,6 +14,7 @@ $product_item = [
   "name" => $product->name,
   "image" => $product->image,
   "price" => $product->price,
+  "description" => $product->description,
   "create_date" => $product->create_date,
   "highlight" => $product->highlight,
   "category_id" => $product->category_id,

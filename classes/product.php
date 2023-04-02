@@ -30,12 +30,17 @@ include_once $filepath . "\helpers\\format.php";
     return $result;
   }
 
+  public function show_product_live_search($input)
+  {
+    $query =
+      "SELECT * FROM product, category, sale WHERE ((product.name LIKE '$input%') OR (product.price LIKE '$input%') OR (product.description LIKE '$input%') OR (product.create_date LIKE '$input%') OR (product.highlight LIKE '$input%') OR (product.category_id LIKE '$input%') OR (product.sale_id LIKE '$input%') OR (product.review LIKE '$input%') OR (product.quantity LIKE '$input%')) AND (category.id = product.category_id AND sale.id = product.sale_id)";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
   public function insert_product($data, $files)
   {
-    $productName = mysqli_real_escape_string(
-      $this->db->link,
-      $data["name"]
-    );
+    $productName = mysqli_real_escape_string($this->db->link, $data["name"]);
     $category = mysqli_real_escape_string($this->db->link, $data["category"]);
     $sale = mysqli_real_escape_string($this->db->link, $data["sale"]);
     $description = mysqli_real_escape_string(
@@ -44,7 +49,7 @@ include_once $filepath . "\helpers\\format.php";
     );
     $price = mysqli_real_escape_string($this->db->link, $data["price"]);
     $quantity = mysqli_real_escape_string($this->db->link, $data["quantity"]);
-    $create_date = (string) date('d-m-y');
+    $create_date = (string) date("d-m-y");
     $highlight = 0;
     $review = 0;
     //Kiểm tra hình ảnh và lấy hình ảnh cho vào folder upload

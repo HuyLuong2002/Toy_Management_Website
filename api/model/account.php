@@ -93,15 +93,33 @@ class Account
   //update data
   public function update($id)
   {
-    $query = "UPDATE category SET name=? where id=?";
+    $query = "UPDATE account SET username=?, password=?, firstname=?, lastname=?, gender=?, date_birth=?, place_of_birth=?, create_date=?, permission_id=?, status=? where id=?";
     $stmt = $this->conn->prepare($query);
     //clean data
     $this->id = htmlspecialchars(strip_tags($this->id));
-    $this->name = htmlspecialchars(strip_tags($this->name));
+    $this->username = htmlspecialchars(strip_tags($this->username));
+    $this->password = htmlspecialchars(strip_tags($this->password));
+    $this->firstname = htmlspecialchars(strip_tags($this->firstname));
+    $this->lastname = htmlspecialchars(strip_tags($this->lastname));
+    $this->gender = htmlspecialchars(strip_tags($this->gender));
+    $this->date_birth = htmlspecialchars(strip_tags($this->date_birth));
+    $this->place_of_birth = htmlspecialchars(strip_tags($this->place_of_birth));
+    $this->create_date = htmlspecialchars(strip_tags($this->create_date));
+    $this->permission_id = htmlspecialchars(strip_tags($this->permission_id));
+    $this->status = htmlspecialchars(strip_tags($this->status));
 
     //bind data
-    $stmt->bindParam(1, $this->name);
-    $stmt->bindParam(2, $this->id);
+    $stmt->bindParam(1, $this->username);
+    $stmt->bindParam(2, $this->password);
+    $stmt->bindParam(3, $this->firstname);
+    $stmt->bindParam(4, $this->lastname);
+    $stmt->bindParam(5, $this->gender);
+    $stmt->bindParam(6, $this->date_birth);
+    $stmt->bindParam(7, $this->place_of_birth);
+    $stmt->bindParam(8, $this->create_date);
+    $stmt->bindParam(9, $this->permission_id);
+    $stmt->bindParam(10, $this->status);
+    $stmt->bindParam(11, $this->id);
 
     if ($stmt->execute()) {
       return true;
@@ -113,7 +131,7 @@ class Account
   //delete data
   public function delete($id)
   {
-    $query = "DELETE FROM category where id=?";
+    $query = "DELETE FROM account where id=?";
     $stmt = $this->conn->prepare($query);
     //clean data
     $this->id = htmlspecialchars(strip_tags($this->id));

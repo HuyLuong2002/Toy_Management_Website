@@ -20,6 +20,7 @@ $product->id = $data->id;
 $product->name = $data->name;
 $product->image = $data->image;
 $product->price = $data->price;
+$product->description = $data->description;
 $product->create_date = $data->create_date;
 $product->highlight = $data->highlight;
 $product->category_id = $data->category_id;

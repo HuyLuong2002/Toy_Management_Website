@@ -18,6 +18,7 @@ Session::checkSession();
   <link rel="stylesheet" href="./css/index.css" />
   <link rel="stylesheet" href="./css/table-list.css" />
   <link rel="stylesheet" href="./css/decentralization.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 
 <body>
@@ -32,14 +33,14 @@ Session::checkSession();
 
     <div class="admin-search-wrapper">
       <span class="las la-search"></span>
-      <input type="search" placeholder="Search here" />
+      <input type="text" placeholder="Search here" id="search" autocomplete="off" />
     </div>
 
     <div class="admin-user-wrapper">
       <img src="assets/images/pic-1.png" width="40px" height="40px" alt="" />
       <div>
         <h4>
-          <?php echo Session::get('adminName'); ?>
+          <?php echo Session::get("adminName"); ?>
           <small>Super admin</small>
           <small>
             <?php if (isset($_GET["action"]) && $_GET["action"] == "logout") {
@@ -51,3 +52,27 @@ Session::checkSession();
       </div>
     </div>
   </header>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#search").keyup(function(){
+        var input = $(this).val();
+        
+        if(input != "") {
+          $.ajax({
+            url: "products.php",
+            method: "POST",
+            data:{input:input},
+            success: function(data){
+              $("#searchresult").html(data);
+              $("#searchresult").css("display","block");
+            }
+          });
+        }
+        else
+        {
+          $("#searchresult").css("display","none");
+        }
+      });
+    });
+  </script>

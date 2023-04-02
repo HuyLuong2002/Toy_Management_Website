@@ -4,8 +4,14 @@ include_once $filepath . "/classes/product.php";
 include_once $filepath . "/helpers/format.php";
 $fm = new Format();
 $product = new Product();
+
+if (isset($_POST["input"])) {
+  $input = $_POST["input"];
+
+  $show_product_live_search = $product->show_product_live_search($input);
+}
 ?>
-<div class="card">
+<div class="card" id="searchresult">
   <div class="card-header">
     <h3>Product List</h3>
     <button>
@@ -13,9 +19,9 @@ $product = new Product();
     </button>
   </div>
 
-  <div class="card-body">
+  <div class="card-body" >
     <div class="table-responsive">
-      <table width="100%">
+        <table width="100%">
         <thead>
           <tr>
             <td>ID</td>
@@ -34,18 +40,16 @@ $product = new Product();
           </tr>
         </thead>
         <tbody>
-        <?php
-        $show_product = $product->show_product_user();
-        if ($show_product) {
-          $i = 0;
-          while ($result = $show_product->fetch_array()) {
-            $i++; ?>
+        <?php if (isset($show_product_live_search)) {
+          if ($show_product_live_search) { ?>
+        <?php while ($result = $show_product_live_search->fetch_array()) { ?>
           <tr>
 
             <td><?php echo $result[0]; ?></td>
             <td><?php echo $result[1]; ?></td>
             <td>
-              <img src="<?php echo "uploads/" . $result[2]; ?>" alt="" width="100px" />
+              <img src="<?php echo "uploads/" .
+                $result[2]; ?>" alt="" width="100px" />
             </td>
             <td><?php echo $result[3]; ?></td>
             <td><?php echo $fm->textShorten($result[4], 50); ?></td>
@@ -64,10 +68,46 @@ $product = new Product();
             <td>
 
           </tr>
-          <?php
-          }
+          <?php }} else { echo "No Data Found"; }?>
+        </tbody>
+      </table>
+      <?php
+        } else {
+           ?>
+        <tbody>
+        <?php
+        $show_product = $product->show_product_user();
+        if ($show_product) {
+          while ($result = $show_product->fetch_array()) { ?>
+          <tr>
+
+            <td><?php echo $result[0]; ?></td>
+            <td><?php echo $result[1]; ?></td>
+            <td>
+              <img src="<?php echo "uploads/" .
+                $result[2]; ?>" alt="" width="100px" />
+            </td>
+            <td><?php echo $result[3]; ?></td>
+            <td><?php echo $fm->textShorten($result[4], 50); ?></td>
+            <td><?php echo $result[5]; ?></td>
+            <td>
+              <label class="switch">
+                <input type="checkbox" />
+                <span class="slider round"></span>
+              </label>
+            </td>
+            <td><?php echo $result[7]; ?></td>
+            <td><?php echo $result[8]; ?></td>
+            <td><?php echo $result[9]; ?></td>
+            <td><?php echo $result[10]; ?></td>
+            <td><a href="">Edit</a> | <a href="">Delete</a>
+            <td>
+
+          </tr>
+          <?php }
         }
-        ?>
+
+        } ?>
         </tbody>
       </table>
     </div>
