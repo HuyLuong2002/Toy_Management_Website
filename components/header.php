@@ -37,7 +37,7 @@
                 </a>
             </div>
             <div>
-                <a href="">
+                <a href="favorites.php">
                     <i class="fa-solid fa-heart fa-xl"></i>
                     <span class="icon_status">(0)</span>
                 </a>
@@ -49,7 +49,7 @@
                 </a>
             </div>
             <div>
-                <a href="login.php" id="user-btn">
+                <a href="profile.php" id="user-btn">
                     <div class="fa-solid fa-user fa-xl"></div>
                     <div class="profile">
                         <h2 class="profile-name">Hi, loz</h2>

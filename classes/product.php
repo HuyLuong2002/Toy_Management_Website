@@ -25,9 +25,62 @@ include_once $filepath . "\helpers\\format.php";
 
   public function show_product()
   {
-    $query = "SELECT * FROM product";
+    $query = "SELECT * FROM product ORDER BY id desc";
     $result = $this->db->select($query);
     return $result;
+  }
+
+  public function insert_product($data, $files)
+  {
+    $productName = mysqli_real_escape_string(
+      $this->db->link,
+      $data["name"]
+    );
+    $category = mysqli_real_escape_string($this->db->link, $data["category"]);
+    $sale = mysqli_real_escape_string($this->db->link, $data["sale"]);
+    $description = mysqli_real_escape_string(
+      $this->db->link,
+      $data["description"]
+    );
+    $price = mysqli_real_escape_string($this->db->link, $data["price"]);
+    $quantity = mysqli_real_escape_string($this->db->link, $data["quantity"]);
+    $create_date = (string) date('d-m-y');
+    $highlight = 0;
+    $review = 0;
+    //Kiểm tra hình ảnh và lấy hình ảnh cho vào folder upload
+    $permited = ["jpg", "jpeg", "png", "gif"];
+    $file_name = $_FILES["uploadfile"]["name"];
+    $file_size = $_FILES["uploadfile"]["size"];
+    $file_temp = $_FILES["uploadfile"]["tmp_name"];
+
+    $div = explode(".", $file_name);
+    $file_ext = strtolower(end($div));
+    $unique_image = substr(md5(time()), 0, 10) . "." . $file_ext;
+    $uploaded_image = "uploads/" . $unique_image;
+
+    if (
+      $productName == "" ||
+      $sale == "" ||
+      $category == "" ||
+      $description == "" ||
+      $price == "" ||
+      $quantity == "" ||
+      $file_name == ""
+    ) {
+      $alert = "<span class='error'>Fields must be not empty</span>";
+      return $alert;
+    } else {
+      move_uploaded_file($file_temp, $uploaded_image);
+      $query = "INSERT INTO product(name, image, price, description, create_date, highlight, category_id, sale_id, review, quantity) VALUES ('$productName', '$unique_image', '$price', '$description', '$create_date', $highlight, $category, $sale, $review, $quantity)";
+      $result = $this->db->insert($query);
+      if ($result) {
+        $alert = "<span class='success'>Insert Product Sucessfully</span>";
+        return $alert;
+      } else {
+        $alert = "<span class='error'>Insert Product Not Sucessfully</span>";
+        return $alert;
+      }
+    }
   }
 }
 ?>

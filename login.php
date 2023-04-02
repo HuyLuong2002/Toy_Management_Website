@@ -1,4 +1,20 @@
+<?php
+// $filepath = realpath(dirname(__DIR__));
+// include_once $filepath . "\Toy_Management_Website\classes\account.php";
 
+// $account = new Account();
+// if (
+//   isset($_POST["nome"]) &&
+//   isset($_POST["password"]) &&
+//   isset($_POST["confirm_password"])
+// ) {
+//   $nome = $_POST["nome"];
+//   $password = $_POST["password"];
+//   $confirm_password = $_POST["confirm_password"];
+
+//   $result_account = $account->insert_account($nome, md5($password));
+// }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,14 +35,14 @@
             <form class="form" id="form-login">
                 <h1>Log In</h1>
 
-                <label for="nome">UserName:</label>
+                <label for="nome">Username:</label>
                 <input type="text" class="infos" id="nome" name="nome">
                 <div class="mario"></div>
-                <label for="email">Password:</label>
-                <input type="email" id="email" name="email">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
 
                 <div class="wrap-btn">
-                    <button type="submit">LogIn</button>
+                    <button type="submit">Log in</button>
 
                     <div>
                         <i>Don't have an account? <a onclick="handleClick(event, '1')">Sign up now</a></i>
@@ -35,20 +51,20 @@
                 </div>
             </form>
 
-            <form class="form hide-form" id="form-signup">
+            <form action="login.php" method="post" class="form hide-form" id="form-signup">
                 <h1>Sign Up</h1>
-
-                <label for="nome">UserName:</label>
-                <input type="text" class="infos" id="nome" name="nome">
+                
+                <label for="nome">Username:</label>
+                <input type="text" class="infos" id="sign-in-nome" name="nome">
                 <div class="mario"></div>
-                <label for="email">Password:</label>
-                <input type="email" id="email" name="email">
+                <label for="password">Password:</label>
+                <input type="password" id="sign-in-password" name="password">
 
                 <div class="mario"></div>
                 <label for="confirm">Confirm Password:</label>
-                <input type="email" id="email" name="email">
+                <input type="password" id="confirm_password" name="confirm_password">
                 <div class="wrap-btn">
-                    <button type="submit">SignUp</button>
+                    <button type="submit" id="btn-sign-in" onclick="checkSignIn();">Sign up</button>
 
                     <div>
                         <i>Already have an account? <a onclick="handleClick(event, '2')">Log in now</a></i>
@@ -74,6 +90,8 @@
             }
         }
     </script>
+
+    <script src="./js/login.js"></script>
 </body>
 
 </html>

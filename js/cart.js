@@ -54,14 +54,14 @@ const handleLoadCart = () => {
                 <div class="product-quantity">
                     <input onKeyDown="return false" id="quantity-${product.id}" type="number" value="${product.quantity}" min="1" onchange="handleChangeQuantity(${product.id}, ${index})">
                 </div>
+                <div class="product-line-price">${total}</div>
                 <div class="product-removal">
                     <button class="remove-product" onclick="handleRemove(${product.id})">
                         Remove
                     </button>
                 </div>
-                <div class="product-line-price">${total}</div>
             </div>`;
-    });
+    }).join('');
 
   productWrapper.innerHTML = cartListText;
 };

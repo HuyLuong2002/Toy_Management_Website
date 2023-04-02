@@ -20,16 +20,19 @@
   width: 10%;
 }
 
-.product-removal {
-  float: left;
-  width: 9%;
-}
-
 .product-line-price {
   float: left;
-  width: 12%;
-  text-align: right;
+  width: 10%;
+  text-align: center;
 }
+
+.product-removal {
+  float: left;
+  width: 11%;
+  text-align: center;
+}
+
+
 
 /* This is used as the traditional .clearfix class */
 .group:before,
@@ -102,13 +105,13 @@ label {
 }
 
 .shopping-cart {
-  margin-top: -45px;
+  margin-top: -20px;
 }
 
 /* Column headers */
 .column-labels label {
   padding-bottom: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 40px;
   border-bottom: 1px solid #eee;
 }
 
@@ -146,6 +149,7 @@ label {
 }
 
 .product .product-quantity input {
+  margin-left: 5px;
   width: 40px;
 }
 
@@ -182,6 +186,7 @@ label {
   float: right;
   width: 21%;
   text-align: right;
+  margin-bottom: 1px;
 }
 
 .totals .totals-item-total {

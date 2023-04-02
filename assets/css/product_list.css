@@ -214,6 +214,13 @@
   cursor: pointer;
 }
 
+.off-info .favorite-icon{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+}
+
 /* Media Queries */
 @media screen and (min-width: 992px) {
   .product-items {

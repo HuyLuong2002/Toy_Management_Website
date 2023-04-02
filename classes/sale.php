@@ -4,7 +4,7 @@ include_once $filepath . "\database\connectDB.php";
 include_once $filepath . "\helpers\\format.php";
 ?>
 
-<?php class Category
+<?php class Sale
 {
   private $db;
   private $fm;
@@ -15,9 +15,9 @@ include_once $filepath . "\helpers\\format.php";
     $this->fm = new Format();
   }
 
-  public function show_category()
+  public function show_sale()
   {
-    $query = "SELECT * FROM category ORDER BY id desc";
+    $query = "SELECT * FROM sale ORDER BY id desc";
     $result = $this->db->select($query);
     return $result;
   }

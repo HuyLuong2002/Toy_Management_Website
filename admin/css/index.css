@@ -29,7 +29,7 @@
   background: var(--main-color);
   z-index: 100;
   transition: width 300ms;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 .admin-sidebar-brand {
@@ -97,7 +97,7 @@
   margin-left: 70px;
 }
 
-#nav-toggle:checked ~ .admin-main-content header {
+#nav-toggle:checked ~ header {
   width: calc(100% - 70px);
   left: 70px;
 }
@@ -190,6 +190,7 @@ main {
   background: #fff;
   padding: 2rem;
   border-radius: 2px;
+  margin-top: 4.5rem;
 }
 
 .admin-card-single div:last-child span {

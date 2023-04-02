@@ -6,21 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
-    <link rel="stylesheet" href="./assets/css/cart.css">
+    <link rel="stylesheet" href="./assets/css/favorites.css">
 </head>
 
 <body>
 
-    <a href="index.php">Shopping Cart</a>
+    <a href="index.php">My favorites</a>
 
     <div class="shopping-cart">
 
         <div class="column-labels">
             <label class="product-image">Image</label>
-            <label class="product-details">Product</label>
+            <label class="product-details">Product name</label>
             <label class="product-price">Price</label>
-            <label class="product-quantity">Quantity</label>
-            <label class="product-line-price">Total</label>
             <label class="product-removal">Remove</label>
         </div>
 
@@ -28,13 +26,8 @@
         
         </div>
 
-        <div id="wrap-total">
-            
-        </div>
-
-        <button class="checkout">Checkout</button>
     </div>
 
-    <script src="./js/cart.js">
+    <script src="./js/favorites.js">
 
     </script>

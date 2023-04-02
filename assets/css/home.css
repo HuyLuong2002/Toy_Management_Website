@@ -340,7 +340,6 @@ header {
 
 .slide-container {
   position: relative;
-  /* background:url("../images/home-bg.png") no-repeat fixed center; */
   background: url("../images/home-bg.png") no-repeat fixed center;
   background-size: cover;
 }
