@@ -1,14 +1,23 @@
 
 // const ProductDB = new productDB();
 
-const favActive = (event) =>{
+const favActive = (event) => {
     event.preventDefault();
-    if (event.target.classList.contains('fa-solid')){
+    if (event.target.classList.contains('fa-solid')) {
         // remove the class
         event.target.classList.add('fa-regular');
         event.target.classList.remove('fa-solid');
-        localStorage.removeItem()
-    } else{
+
+        // remove from localStorage
+        const products = JSON.parse(localStorage.getItem('products'));
+        products.forEach((product, index) => {
+            if (event.target.dataset.id === product.id) {
+                products.splice(index, 1);
+            }
+        });
+        // set the array into localStorage
+        localStorage.setItem('products', JSON.stringify(products));
+    } else {
 
         // add the class
         event.target.classList.add('fa-solid');
@@ -26,7 +35,7 @@ const favActive = (event) =>{
         if (checkFavorite(productInfo.id)) {
             // Product already in favorites
             console.log('Product already in favorites');
-        } else {
+        } else {    
             // Add product to favorites
             if (localStorage.getItem('products')) {
                 const tmpProduct = JSON.parse(localStorage.getItem('products'));
