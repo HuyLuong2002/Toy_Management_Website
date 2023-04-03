@@ -32,6 +32,14 @@ include_once $filepath . "\helpers\\format.php";
     $result = $this->db->select($query);
     return $result;
   }
+  //list product by category id have off and limit
+  public function show_product_by_category_panigation($category_id, $offset, $limit_per_page)
+  {
+    $query = "SELECT * FROM product, category, sale WHERE product.category_id = category.id and product.sale_id = sale.id and product.category_id = '$category_id'
+    ORDER BY product.create_date DESC LIMIT $offset,$limit_per_page";
+    $result = $this->db->select($query);
+    return $result;
+  }
 
   public function show_product()
   {

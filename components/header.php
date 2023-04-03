@@ -16,7 +16,7 @@ $category = new Category();
                 <li><a href="about.php">About</a></li>
                 <li><a href="orders.php">Orders</a></li>
                 <li>
-                    <a href="category.php">Category</a>
+                    <a href="category.php?id=1&pageid=1">Category</a>
                     <i class="fa-solid fa-chevron-down"></i>
                     <ul class="sub-menu">
                         <?php
@@ -28,7 +28,7 @@ $category = new Category();
 
                         ?>
                         <li>
-                            <a href="category.php?id=<?php echo $result["id"]; ?>"><?php echo $result["name"] ?></a>
+                            <a href="category.php?id=<?php echo $result["id"]; ?>&pageid=1"><?php echo $result["name"] ?></a>
                         </li>
                         <?php
                                 }
