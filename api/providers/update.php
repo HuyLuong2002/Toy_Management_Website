@@ -16,7 +16,7 @@ $provider = new Provider($connect);
 
 $data = json_decode(file_get_contents("php://input"));
 
-$provider->id = $data->id;
+$provider->id = isset($_GET["id"]) ? $_GET["id"] : die();
 $provider->name = $data->name;
 
 if($provider->update($provider->id))

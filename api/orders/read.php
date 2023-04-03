@@ -2,17 +2,17 @@
 header("Access-Control-Allow-Origin:*");
 header("Content-Type: application/json");
 include_once "../database/db.php";
-include_once "../model/sale.php";
+include_once "../model/order.php";
 
 $db = new DB();
 $connect = $db->connect();
-$sale = new Sale($connect);
-$read = $sale->read();
+$order = new Order($connect);
+$read = $order->read();
 
 $num = $read->rowCount();
 if ($num > 0) {
-  $sale_array = [];
-  $sale_array["sale"] = [];
+  $order_array = [];
+  $order_array["order"] = [];
 
   while ($row = $read->fetch(PDO::FETCH_ASSOC)) {
     extract($row);
@@ -22,19 +22,18 @@ if ($num > 0) {
     và giá trị của các phần tử trong mảng sẽ được gán cho các biến 
     tương ứng.
     */
-    $sale_item = [
+    $order_item = [
       "id" => $id,
-      "name" => $name,
-      "create_date" => $create_date,
-      "start_date" => $start_date,
-      "end_date" => $end_date,
-      "percent_sale" => $percent_sale,
-      "status" => $status,
+      "user_id" => $user_id,
+      "quantity" => $quantity,
+      "date" => $date,
+      "total_price" => $total_price,
+      "pay_method" => $pay_method,
     ];
     //đẩy dữ liệu của mảng question_item vào mảng mới là category_array['data]
-    array_push($sale_array["sale"], $sale_item);
+    array_push($order_array["order"], $order_item);
   }
-  echo json_encode($sale_array);
+  echo json_encode($order_array);
 }
 
 ?>

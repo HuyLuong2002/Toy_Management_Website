@@ -49,7 +49,7 @@ include_once $filepath . "\helpers\\format.php";
     );
     $price = mysqli_real_escape_string($this->db->link, $data["price"]);
     $quantity = mysqli_real_escape_string($this->db->link, $data["quantity"]);
-    $create_date = (string) date("d-m-y");
+    $create_date = (string) date("d/m/Y");
     $highlight = 0;
     $review = 0;
     //Kiểm tra hình ảnh và lấy hình ảnh cho vào folder upload

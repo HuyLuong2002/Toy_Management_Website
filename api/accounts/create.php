@@ -23,7 +23,7 @@ $account->lastname = $data->lastname;
 $account->gender = $data->gender;
 $account->date_birth = $data->date_birth;
 $account->place_of_birth = $data->place_of_birth;
-$account->create_date = $data->create_date;
+$account->create_date = (string) date("d/m/Y");
 $account->permission_id = $data->permission_id;
 $account->status = $data->status;
 

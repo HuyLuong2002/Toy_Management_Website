@@ -15,9 +15,8 @@ $connect = $db->connect();
 
 $permission = new Permission($connect);
 
-$data = json_decode(file_get_contents("php://input"));
 
-$permission->id = $data->id;
+$permission->id = isset($_GET["id"]) ? $_GET["id"] : die();
 
 if($permission->delete($permission->id))
 {

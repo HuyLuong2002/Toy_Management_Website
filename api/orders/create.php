@@ -7,27 +7,27 @@ header(
 );
 
 include_once "../database/db.php";
-include_once "../model/sale.php";
+include_once "../model/order.php";
 
 $db = new DB();
 $connect = $db->connect();
 
-$sale = new Sale($connect);
+$order = new Order($connect);
 
 $data = json_decode(file_get_contents("php://input"));
 
-$sale->name = $data->name;
-$sale->create_date = (string) date("d/m/Y");
-$sale->start_date = $data->start_date;
-$sale->end_date = $data->end_date;
-$sale->percent_sale = $data->percent_sale;
-$sale->status = $data->status;
+$order->user_id = $data->user_id;
+$order->quantity = $data->quantity;
+$order->date = $data->date;
+$order->total_price = $data->total_price;
+$order->pay_method = $data->pay_method;
 
-if($sale->create())
+
+if($order->create())
 {
-    echo json_encode(array('message','Sale Created'));
+    echo json_encode(array('message','Order Created'));
 }
 else {
-    echo json_encode(array('message','Sale Not Created'));
+    echo json_encode(array('message','Order Not Created'));
 }
 ?>
