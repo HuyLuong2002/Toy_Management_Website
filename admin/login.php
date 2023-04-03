@@ -56,12 +56,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="nome">UserName:</label>
                 <input type="text" class="infos" id="nome" name="nome">
                 <div class="mario"></div>
-                <label for="email">Password:</label>
-                <input type="email" id="email" name="email">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
 
                 <div class="mario"></div>
                 <label for="confirm">Confirm Password:</label>
-                <input type="email" id="email" name="email">
+                <input type="password" id="password" name="password">
                 <div class="wrap-btn">
                     <button type="submit">SignUp</button>
 
