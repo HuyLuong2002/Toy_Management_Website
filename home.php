@@ -144,3 +144,8 @@ $product = new Product();
   });
 
 </script>
+
+<script>
+  var check = document.querySelectorAll('.btn-cart span i');
+  
+</script>
