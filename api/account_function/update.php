@@ -16,7 +16,7 @@ $account_function = new AccountFunction($connect);
 
 $data = json_decode(file_get_contents("php://input"));
 
-$account_function->id = $data->id;
+$account_function->id = isset($_GET["id"]) ? $_GET["id"] : die();
 $account_function->name = $data->name;
 
 if($account_function->update($account_function->id))

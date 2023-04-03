@@ -1,3 +1,10 @@
+<?php
+$filepath = realpath(dirname(__DIR__));
+include_once($filepath . "\classes\category.php");
+
+$category = new Category();
+
+?>
 <header>
     <div class="section-header">
         <a href="index.php" class="home"> Toy Shop </a>
@@ -12,18 +19,21 @@
                     <a href="category.php">Category</a>
                     <i class="fa-solid fa-chevron-down"></i>
                     <ul class="sub-menu">
+                        <?php
+                            $show_category = $category->show_category();
+                            if($show_category)
+                            {
+                                while($result = $show_category->fetch_assoc())
+                                {
+
+                        ?>
                         <li>
-                            <a href="category.php">Smart Toys</a>
+                            <a href="category.php?id=<?php echo $result["id"]; ?>"><?php echo $result["name"] ?></a>
                         </li>
-                        <li>
-                            <a href="category.php">Robot</a>
-                        </li>
-                        <li>
-                            <a href="category.php">LEGO</a>
-                        </li>
-                        <li>
-                            <a href="category.php">Barie doll</a>
-                        </li>
+                        <?php
+                                }
+                            }
+                        ?>
 
                     </ul>
                 </li>

@@ -12,6 +12,11 @@ $sale->show($sale->id);
 $sale_item = [
   "id" => $sale->id,
   "name" => $sale->name,
+  "create_date" => $sale->create_date,
+  "start_date" => $sale->start_date,
+  "end_date" => $sale->end_date,
+  "percent_sale" => $sale->percent_sale,
+  "status" => $sale->status,
 ];
 print_r(json_encode($sale_item));
 

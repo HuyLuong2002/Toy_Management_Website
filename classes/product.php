@@ -15,10 +15,20 @@ include_once $filepath . "\helpers\\format.php";
     $this->fm = new Format();
   }
 
+  //list product for home page
   public function show_product_user()
   {
     $query = "SELECT * FROM product, category, sale WHERE product.category_id = category.id and product.sale_id = sale.id
       ORDER BY product.create_date DESC";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  //list product by category id
+  public function show_product_by_category_id($category_id)
+  {
+    $query = "SELECT * FROM product, category, sale WHERE product.category_id = category.id and product.sale_id = sale.id and product.category_id = '$category_id'
+    ORDER BY product.create_date DESC";
     $result = $this->db->select($query);
     return $result;
   }
@@ -30,10 +40,10 @@ include_once $filepath . "\helpers\\format.php";
     return $result;
   }
 
+  //live search for admin
   public function show_product_live_search($input)
   {
-    $query =
-      "SELECT * FROM product, category, sale WHERE ((product.name LIKE '$input%') OR (product.price LIKE '$input%') OR (product.description LIKE '$input%') OR (product.create_date LIKE '$input%') OR (product.highlight LIKE '$input%') OR (product.category_id LIKE '$input%') OR (product.sale_id LIKE '$input%') OR (product.review LIKE '$input%') OR (product.quantity LIKE '$input%')) AND (category.id = product.category_id AND sale.id = product.sale_id)";
+    $query = "SELECT * FROM product, category, sale WHERE ((product.name LIKE '$input%') OR (product.price LIKE '$input%') OR (product.description LIKE '$input%') OR (product.create_date LIKE '$input%') OR (product.highlight LIKE '$input%') OR (product.category_id LIKE '$input%') OR (product.sale_id LIKE '$input%') OR (product.review LIKE '$input%') OR (product.quantity LIKE '$input%')) AND (category.id = product.category_id AND sale.id = product.sale_id)";
     $result = $this->db->select($query);
     return $result;
   }
@@ -49,7 +59,7 @@ include_once $filepath . "\helpers\\format.php";
     );
     $price = mysqli_real_escape_string($this->db->link, $data["price"]);
     $quantity = mysqli_real_escape_string($this->db->link, $data["quantity"]);
-    $create_date = (string) date("d-m-y");
+    $create_date = (string) date("d/m/Y");
     $highlight = 0;
     $review = 0;
     //Kiểm tra hình ảnh và lấy hình ảnh cho vào folder upload

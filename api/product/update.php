@@ -16,7 +16,7 @@ $product = new Product($connect);
 
 $data = json_decode(file_get_contents("php://input"));
 
-$product->id = $data->id;
+$product->id = isset($_GET["id"]) ? $_GET["id"] : die();
 $product->name = $data->name;
 $product->image = $data->image;
 $product->price = $data->price;

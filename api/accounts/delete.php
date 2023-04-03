@@ -14,9 +14,8 @@ $connect = $db->connect();
 
 $account = new Account($connect);
 
-$data = json_decode(file_get_contents("php://input"));
 
-$account->id = $data->id;
+$account->id = isset($_GET["id"]) ? $_GET["id"] : die();
 
 if($account->delete($account->id))
 {

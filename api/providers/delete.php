@@ -23,7 +23,7 @@ Hàm file_get_contents() được sử dụng để đọc nội dung của wrap
 này, giúp lấy được dữ liệu được gửi từ client.
 */
 
-$provider->id = $data->id;
+$provider->id = isset($_GET["id"]) ? $_GET["id"] : die();
 
 if ($provider->delete($provider->id)) {
   echo json_encode(["message", "Provider Deleted"]);

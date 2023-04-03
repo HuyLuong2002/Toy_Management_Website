@@ -1,4 +1,5 @@
 <?php
+use Ds\Pair;
 header("Access-Control-Allow-Origin:*");
 header("Content-Type: application/json");
 header("Access-Control-Allow-Methods: DELETE");
@@ -7,20 +8,21 @@ header(
 );
 
 include_once "../database/db.php";
-include_once "../model/account_function.php";
+include_once "../model/order.php";
 
 $db = new DB();
 $connect = $db->connect();
 
-$account_function = new AccountFunction($connect);
+$order = new Order($connect);
 
-$account_function->id = isset($_GET["id"]) ? $_GET["id"] : die();
 
-if($account_function->delete($account_function->id))
+$order->id = isset($_GET["id"]) ? $_GET["id"] : die();
+
+if($order->delete($order->id))
 {
-    echo json_encode(array('message','Account Function Deleted'));
+    echo json_encode(array('message','Order Deleted'));
 }
 else {
-    echo json_encode(array('message','Account Function Not Deleted'));
+    echo json_encode(array('message','Order Not Deleted'));
 }
 ?>

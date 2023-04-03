@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 02, 2023 lúc 04:05 AM
+-- Thời gian đã tạo: Th4 02, 2023 lúc 04:05 PM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.28
 
@@ -47,8 +47,7 @@ CREATE TABLE `account` (
 
 INSERT INTO `account` (`id`, `username`, `password`, `firstname`, `lastname`, `gender`, `date_birth`, `place_of_birth`, `create_date`, `permission_id`, `status`) VALUES
 (2, 'ABC', 'e10adc3949ba59abbe56e057f20f883e', 'abc', 'cbd', 'Nam', '18/02/2023', 'TPHCM', '15/03/2023', 1, 1),
-(3, 'BBC', 'e10adc3949ba59abbe56e057f20f883e', 'ABC', 'BCD', 'Nữ', '22/03/2023', 'Hà Nội', '15/03/2023', 3, 1),
-(4, 'CCC', 'e10adc3949ba59abbe56e057f20f883e', 'cc', 'cc', 'Nam', '18/05/2003', 'Hà Giang', '29/03/2023', 2, 1);
+(3, 'BBC', 'e10adc3949ba59abbe56e057f20f883e', 'ABC', 'BCD', 'Nữ', '22/03/2023', 'Hà Nội', '15/03/2023', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -88,7 +87,7 @@ CREATE TABLE `category` (
 
 INSERT INTO `category` (`id`, `name`) VALUES
 (1, 'Đồ chơi mô hình'),
-(2, 'Đồ chơi búp bê');
+(2, 'Đồ chơi Marvel');
 
 -- --------------------------------------------------------
 
@@ -181,6 +180,14 @@ CREATE TABLE `enter_product` (
   `create_date` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Đang đổ dữ liệu cho bảng `enter_product`
+--
+
+INSERT INTO `enter_product` (`id`, `enter_date`, `total_quantity`, `total_price`, `provider_id`, `user_id`, `status`, `create_date`) VALUES
+(1, '02/04/2023', 50, 30000, 1, 2, 'Đã giao', '01/04/2023'),
+(2, '02/04/2023', 50, 3000, 2, 2, 'Đang giao', '02/04/2023');
+
 -- --------------------------------------------------------
 
 --
@@ -191,10 +198,17 @@ CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `date` int(11) NOT NULL,
+  `date` varchar(255) NOT NULL,
   `total_price` int(11) NOT NULL,
   `pay_method` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `quantity`, `date`, `total_price`, `pay_method`) VALUES
+(1, 2, 30, '02/04/2023', 3500, 'cash');
 
 -- --------------------------------------------------------
 
@@ -242,8 +256,10 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `image`, `price`, `description`, `create_date`, `highlight`, `category_id`, `sale_id`, `review`, `quantity`) VALUES
-(1, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01-04-23', 0, 2, 1, 0, 30),
-(2, 'Product 2', 'ef314b1615.png', '3000', 'Sản phẩm mới', '01-04-23', 0, 1, 2, 0, 20);
+(1, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01-04-23', 0, 2, 1, 3, 30),
+(2, 'Product 2', 'ef314b1615.png', '3500', 'Sản phẩm mới', '01-04-23', 0, 1, 2, 0, 20),
+(3, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '01-04-23', 0, 1, 2, 0, 20),
+(4, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30);
 
 -- --------------------------------------------------------
 
@@ -255,6 +271,15 @@ CREATE TABLE `provider` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `provider`
+--
+
+INSERT INTO `provider` (`id`, `name`) VALUES
+(1, 'Đồ Chơi Hòa Phú - Công Ty TNHH Đồ Chơi Hòa Phú'),
+(2, 'Đồ Chơi Bến Tre - Công Ty TNHH MTV Thương Mại Dịch Vụ Khánh Kỳ BT'),
+(3, 'Đồ Chơi Mỹ Hải - Công Ty TNHH Thương Mại Mỹ Hải');
 
 -- --------------------------------------------------------
 
@@ -277,7 +302,7 @@ CREATE TABLE `sale` (
 --
 
 INSERT INTO `sale` (`id`, `name`, `create_date`, `start_date`, `end_date`, `percent_sale`, `status`) VALUES
-(1, 'Không áp dụng', '16/03/2023', '18/03/2023', '20/03/2023', 0, 1),
+(1, 'Không áp dụng', '02/04/2023', '08/03/2023', '20/03/2023', 0, 1),
 (2, 'Khuyến mãi', '22/03/2023', '22/03/2023', '25/03/2023', 25, 1);
 
 --
@@ -386,49 +411,49 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT cho bảng `account_function`
 --
 ALTER TABLE `account_function`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `enter_product`
 --
 ALTER TABLE `enter_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `permission`
 --
 ALTER TABLE `permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `provider`
 --
 ALTER TABLE `provider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `sale`
 --
 ALTER TABLE `sale`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
