@@ -221,6 +221,10 @@
   font-size: 1.5rem;
 }
 
+.off-info .fa-heart{
+  color: red;
+}
+
 /* Media Queries */
 @media screen and (min-width: 992px) {
   .product-items {
