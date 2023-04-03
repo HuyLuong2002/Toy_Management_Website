@@ -51,9 +51,8 @@ $product = new Product();
       <?php
       $show_product = $product->show_product_user();
       if ($show_product) {
-        $i = 0;
         while ($result_product = $show_product->fetch_array()) {
-          $i++; ?>
+          ?>
           <!-- Single product -->
           <div class="product">
             <div class="product-content">
