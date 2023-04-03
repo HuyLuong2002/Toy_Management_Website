@@ -26,6 +26,7 @@
   <script src="https://kit.fontawesome.com/1b6e53cabd.js" crossorigin="anonymous"></script>
   <script src="./js/home.js"></script>
   <script src="./js/wishlist.js"></script>
+  <script src="./js/cartclick.js"></script>
 </body>
   
 </html>

@@ -67,11 +67,11 @@
 
 /* Apply clearfix in a few places */
 /* Apply dollar signs */
-.product .product-price:before,
+/* .product .product-price:before,
 .product .product-line-price:before,
 .totals-value:before {
   content: "$";
-}
+} */
 
 /* Body/Header stuff */
 body {
@@ -93,11 +93,12 @@ a {
   color: #000;
   cursor: pointer;
   transition: 0.3s;
-  transform: scale(0.9);
+  transform: scaleX(0.9);
 }
 
 a:hover{
   color: #40c9a2;
+  transform: scaleX(0.92);
 }
 
 label {
@@ -161,6 +162,8 @@ label {
   font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
   font-size: 12px;
   border-radius: 3px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .product .remove-product:hover {
@@ -202,6 +205,8 @@ label {
   color: #fff;
   font-size: 25px;
   border-radius: 3px;
+  transition: 0.3s;
+  cursor: pointer;
 }
 
 .checkout:hover {

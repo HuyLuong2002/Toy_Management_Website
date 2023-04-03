@@ -108,16 +108,17 @@ body {
     position: relative;
 }
 
-.main-list li p{
-    font-size: 17px;
+.main-list li a{
+    font-size: 18px;
+    text-decoration: none;
     display: block;
     width: 100%;
     padding-left: 1rem;
     border-left: 3px solid transparent;
-    cursor: pointer;
+    transition: 0.3s;
 }
 
-.main-list li p:hover{
+.main-list li a:hover{
     color: #40c9a2;
     border-left-color: #40c9a2;
 }

@@ -32,7 +32,7 @@ $product = new Product();
   </div>
 </div>
 
-<div class="products">
+<div class="add_to_cart">
   <div class="product-container">
     <h1 class="lg-title">Latest Product</h1>
     <p class="text-light">
@@ -58,12 +58,12 @@ $product = new Product();
           <div class="product">
             <div class="product-content">
               <div class="product-img">
-                <img src="<?php echo "admin/uploads/". $result_product[2]; ?>" alt="" />
+                <img src="<?php echo "admin/uploads/" . $result_product[2]; ?>" alt="" />
               </div>
               <div class="product-btns">
-                <button class="btn-cart">
+                <button class="btn-cart" onclick="AddActive(event)" data-id="<?php echo $result_product[0]; ?>" data-quantity=1>
                   Add to cart
-                  <span><i class="fas fa-plus"> </i> </span>
+                  <i class="fa-solid fa-plus add-icon"></i>
                 </button>
 
                 <button class="btn-buy">
@@ -122,7 +122,7 @@ $product = new Product();
             </div>
           </div>
           <!-- end of single product -->
-          <?php
+      <?php
         }
       }
       ?>
@@ -133,19 +133,27 @@ $product = new Product();
   var icons = document.querySelectorAll('.favorite-icon i');
   icons.forEach((icon) => {
     var dataId = icon.getAttribute('data-id');
-    var products = JSON.parse(localStorage.getItem('products'));
-    products.forEach((product) => {
-      if(product.id === dataId){
+    var add_to_cart = JSON.parse(localStorage.getItem('add_to_cart'));
+    add_to_cart.forEach((product) => {
+      if (product.id === dataId) {
         icon.classList.add('fa-solid');
         icon.classList.remove('fa-regular');
       }
     });
 
   });
-
 </script>
 
 <script>
-  var check = document.querySelectorAll('.btn-cart span i');
-  
+  var checks = document.querySelectorAll('.btn-cart i');
+  checks.forEach((check) => {
+    var cartID = check.getAttribute('data-id');
+    var add_to_cart = JSON.parse(localStorage.getItem('add_to_cart'));
+    add_to_cart.forEach((product) => {
+      if (product.id === cartID) {
+        check.classList.add('fa-check');
+        check.classList.remove('fa-plus');
+      }
+    });
+  });
 </script>

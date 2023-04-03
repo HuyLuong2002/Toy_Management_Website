@@ -4,7 +4,7 @@ let shippingRate = 15.0;
 let fadeTime = 300;
 
 let productWrapper = document.getElementById("product-wrapper");
-let totalWrapper = document.getElementById("wrap-total");
+// let totalWrapper = document.getElementById("wrap-total");
 
 let products = JSON.parse(localStorage.getItem('products'));
 

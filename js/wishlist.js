@@ -35,7 +35,7 @@ const favActive = (event) => {
         if (checkFavorite(productInfo.id)) {
             // Product already in favorites
             console.log('Product already in favorites');
-        } else {    
+        } else {
             // Add product to favorites
             if (localStorage.getItem('products')) {
                 const tmpProduct = JSON.parse(localStorage.getItem('products'));
@@ -62,4 +62,3 @@ function checkFavorite(dataId) {
     }
     return false;
 }
-

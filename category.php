@@ -5,6 +5,8 @@ include_once $filepath . "\Toy_Management_Website\classes\category.php";
 $category = new Category();
 if (isset($_GET["id"])) {
   $category_id = $_GET["id"];
+} else {
+    $category_id = '';
 }
 ?>
 <!DOCTYPE html>
