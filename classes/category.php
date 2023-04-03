@@ -21,5 +21,12 @@ include_once $filepath . "\helpers\\format.php";
     $result = $this->db->select($query);
     return $result;
   }
+
+  public function show_category_by_id($category_id)
+  {
+    $query = "SELECT * FROM category WHERE id = '$category_id'";
+    $result = $this->db->select($query);
+    return $result;
+  }
 }
 ?>
