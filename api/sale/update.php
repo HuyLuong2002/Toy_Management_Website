@@ -25,7 +25,7 @@ $sale->percent_sale = $data->percent_sale;
 $sale->status = $data->status;
 
 
-if($sale->update($sale->id))
+if($sale->update())
 {
     echo json_encode(array('message','Sale Updated'));
 }

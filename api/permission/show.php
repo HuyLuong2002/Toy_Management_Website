@@ -8,7 +8,7 @@ $db = new DB();
 $connect = $db->connect();
 $permission = new Permission($connect);
 $permission->id = isset($_GET["id"]) ? $_GET["id"] : die();
-$permission->show($permission->id);
+$permission->show();
 $permission_item = [
   "id" => $permission->id,
   "name" => $permission->name,

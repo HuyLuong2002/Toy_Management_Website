@@ -7,17 +7,17 @@ include_once "../model/detail_permission_function.php";
 $db = new DB();
 $connect = $db->connect();
 $detail_permission_function = new DetailPermissionFunction($connect);
-$detail_permission_function->permission_id = isset($_GET["permissionid"])
-  ? $_GET["permissionid"]
+$detail_permission_function->function_id = isset($_GET["functionid"])
+  ? $_GET["functionid"]
   : die();
-$show_permission = $detail_permission_function->show_detail_permission();
+$show_function = $detail_permission_function->show_detail_function();
 
-$num = $show_permission->rowCount();
+$num = $show_function->rowCount();
 if ($num > 0) {
   $detail_permission_function_array = [];
   $detail_permission_function_array["detail_permission_function"] = [];
 
-  while ($row = $show_permission->fetch(PDO::FETCH_ASSOC)) {
+  while ($row = $show_function->fetch(PDO::FETCH_ASSOC)) {
     extract($row);
     /*
       extract($row);
@@ -26,9 +26,9 @@ if ($num > 0) {
       tương ứng.
       */
     $detail_permission_function_item = [
-      "permission_id" => $permission_id,
-      "function_list" => [
-        "function_id" => $function_id,
+      "function_id" => $function_id,
+      "permission_list" => [
+        "permission_id" => $permission_id,
         "action" => $action,
       ],
     ];

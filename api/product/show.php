@@ -8,7 +8,7 @@ $db = new DB();
 $connect = $db->connect();
 $product = new Product($connect);
 $product->id = isset($_GET["id"]) ? $_GET["id"] : die();
-$product->show($product->id);
+$product->show();
 $product_item = [
   "id" => $product->id,
   "name" => $product->name,

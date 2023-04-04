@@ -25,7 +25,7 @@ này, giúp lấy được dữ liệu được gửi từ client.
 
 $provider->id = isset($_GET["id"]) ? $_GET["id"] : die();
 
-if ($provider->delete($provider->id)) {
+if ($provider->delete()) {
   echo json_encode(["message", "Provider Deleted"]);
 } else {
   echo json_encode(["message", "Provider Not Deleted"]);

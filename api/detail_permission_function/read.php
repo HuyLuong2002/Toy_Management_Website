@@ -23,12 +23,14 @@ if ($num > 0) {
     tương ứng.
     */
     $detail_permission_function_item = [
-      "permission_id" => $permission_id, [
+      "id" => $id,
+      "permission_id" => $permission_id,
+      "function_list" => [
         "function_id" => $function_id,
         "action" => $action,
       ],
     ];
-    //đẩy dữ liệu của mảng question_item vào mảng mới là category_array['data]
+  
     array_push(
       $detail_permission_function_array["detail_permission_function"],
       $detail_permission_function_item

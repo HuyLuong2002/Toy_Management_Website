@@ -24,7 +24,7 @@ class Permission
   }
 
   //show = get category by id
-  public function show($id)
+  public function show()
   {
     $query = "SELECT * FROM permission where id=? LIMIT 1";
     $stmt = $this->conn->prepare($query);
@@ -54,7 +54,7 @@ class Permission
   }
 
   //update data
-  public function update($id)
+  public function update()
   {
     $query = "UPDATE permission SET name=? where id=?";
     $stmt = $this->conn->prepare($query);
@@ -74,7 +74,7 @@ class Permission
   }
 
   //delete data
-  public function delete($id)
+  public function delete()
   {
     $query = "DELETE FROM permission where id=?";
     $stmt = $this->conn->prepare($query);
