@@ -1,69 +1,71 @@
-const AddActive = (event) => {
+let ProductName = document.getElementById("product-name")
+let ProductImg = document.getElementById("product-image")
+let ProductPrice = document.getElementById("product-price")
+
+const AddActive = (event, id) => {
     event.preventDefault();
-    if (event.target.classList.contains('fa-check')) {
+    let iCheck = document.getElementById(`icon-check-${id}`) 
+    if (iCheck.classList.contains('fa-check')) {
         // remove the class
-        event.target.classList.add('fa-plus');
-        event.target.classList.remove('fa-check');
+        iCheck.classList.add('fa-plus');
+        iCheck.classList.remove('fa-check');
 
         // remove from localStorage
-        const add_to_cart = JSON.parse(localStorage.getItem('add_to_cart'));
-        // add_to_cart.forEach((product, index) => {
-        //     if (event.target.dataset.id === product.id) {
-        //         add_to_cart.splice(index, 1);
-        //     }
-        // });
-        const index = add_to_cart.findIndex(product => product.id === event.target.dataset.id);
-        if (index !== -1) {
-            add_to_cart.splice(index, 1);
-            localStorage.setItem('add_to_cart', JSON.stringify(add_to_cart));
-        }
+        const cartAdd = JSON.parse(localStorage.getItem('cartAdd'));
+        const newCartAdd = cartAdd.filter(item => item.id !== id)
+       
         // set the array into localStorage
-        localStorage.setItem('add_to_cart', JSON.stringify(add_to_cart));
+        localStorage.setItem('cartAdd', JSON.stringify(newCartAdd));
     } else {
-
         // add the class
-        event.target.classList.add('fa-check');
-        event.target.classList.remove('fa-plus');
+        iCheck.classList.add('fa-check');
+        iCheck.classList.remove('fa-plus');
 
         // get info
-        const cardBody = event.target.parentElement.parentElement.parentElement;
+        let convertPrice = ProductPrice.innerText.split('$');
         const productInfo = {
-            id: event.target.dataset.id,
-            name: cardBody.querySelector('.product-name').textContent,
-            // image: cardBody.querySelector('.product-img').getElementsByTagName('img')[0].src,
-            image: cardBody.querySelector('.product-img img').src,
-            price: cardBody.querySelector('.product-price.product-price-sale').textContent,
-            quantity: event.target.dataset.quantity
+            id: id,
+            name: ProductName.innerText,
+            image: ProductImg.src,
+            price: parseFloat(convertPrice[1]),
+            quantity: 1
         }
 
-        if (checkAddtoCart(productInfo.id)) {
+        if (checkAddToCart(productInfo.id)) {
             // Product already in cart
-            console.log('Product already in Cart');
+            alert('Product already in Cart');
         } else {
             // Add product to cart
-            if (localStorage.getItem('add_to_cart')) {
-                const tmpProduct = JSON.parse(localStorage.getItem('add_to_cart'));
+            if (localStorage.getItem('cartAdd')) {
+                const tmpProduct = JSON.parse(localStorage.getItem('cartAdd'));
                 tmpProduct.push(productInfo);
-                localStorage.setItem('add_to_cart', JSON.stringify(tmpProduct));
+                localStorage.setItem('cartAdd', JSON.stringify(tmpProduct));
             } else {
                 const tmpProduct = [];
                 tmpProduct.push(productInfo);
-                localStorage.setItem('add_to_cart', JSON.stringify(tmpProduct));
+                localStorage.setItem('cartAdd', JSON.stringify(tmpProduct));
             }
-            console.log('Product added to Cart');
         }
     }
+    // location.reload();
 }
 
-function checkAddtoCart(dataId) {
-    if (localStorage.getItem('add_to_cart')) {
-        const tmpProduct = JSON.parse(localStorage.getItem('add_to_cart'));
-        // for (let i = 0; i < tmpProduct.length; i++) {
-        //     if (tmpProduct[i].id === dataId) {
-        //         return true;
-        //     }
-        // }
-        return tmpProduct.findIndex(product => product.id === dataId) !== -1;
+const checkAddToCart = (dataId) =>{
+    if (localStorage.getItem('cartAdd')) {
+        const tmpProduct = JSON.parse(localStorage.getItem('cartAdd'));
+        
+        return tmpProduct.some(product => product.id === dataId);
     }
     return false;
 }
+
+const LoadCheckCart = () => {
+    const CartArr =  JSON.parse(localStorage.getItem('cartAdd'));
+    CartArr.forEach(item => {
+        let iTag = document.getElementById(`icon-check-${item.id}`)
+        iTag.classList.remove('fa-plus');
+        iTag.classList.add('fa-check');
+    })
+}
+
+LoadCheckCart()
