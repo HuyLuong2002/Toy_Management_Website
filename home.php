@@ -57,12 +57,12 @@ $product = new Product();
           <div class="product">
             <div class="product-content">
               <div class="product-img">
-                <img src="<?php echo "admin/uploads/" . $result_product[2]; ?>" alt="" />
+                <img src="<?php echo "admin/uploads/" . $result_product[2]; ?>" alt="" id="product-image"/>
               </div>
               <div class="product-btns">
-                <button class="btn-cart" onclick="AddActive(event)" data-id="<?php echo $result_product[0]; ?>" data-quantity=1>
+                <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product[0]; ?>)" data-id="<?php echo $result_product[0]; ?>" data-quantity=1>
                   Add to cart
-                  <i class="fa-solid fa-plus add-icon"></i>
+                  <i class="fa-solid fa-plus add-icon" id="icon-check-<?php echo $result_product[0]; ?>"></i>
                 </button>
 
                 <button class="btn-buy">
@@ -89,12 +89,12 @@ $product = new Product();
                   ?>
                 </div>
               </div>
-              <a href="#" class="product-name">
+              <a href="#" class="product-name" id="product-name">
                 <?php echo $result_product[1]; ?>
               </a>
               <?php echo $result_product[14] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$$result_product[3]</p>" : "";
               ?>
-              <p class="product-price product-price-sale">
+              <p class="product-price product-price-sale" id="product-price">
                 <?php if (
                   $result_product[14] !== "Không áp dụng"
                 ) {
@@ -142,17 +142,4 @@ $product = new Product();
 
   });
 </script>
-
-<script>
-  var checks = document.querySelectorAll('.btn-cart i');
-  checks.forEach((check) => {
-    var cartID = check.getAttribute('data-id');
-    var add_to_cart = JSON.parse(localStorage.getItem('add_to_cart'));
-    add_to_cart.forEach((product) => {
-      if (product.id === cartID) {
-        check.classList.add('fa-check');
-        check.classList.remove('fa-plus');
-      }
-    });
-  });
-</script>
+<script src="./js/cartclick.js"></script>

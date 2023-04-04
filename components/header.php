@@ -53,7 +53,7 @@ $category = new Category();
                 <li>
                     <a href="cart.php">
                         <i class="fa-solid fa-cart-shopping fa-xl"></i>
-                        <span class="icon_status">(0)</span>
+                        <span class="icon_status" id="cart">(0)</span>
                     </a>
                 </li>
                 <li onclick="menuToggle();">
@@ -105,4 +105,7 @@ $category = new Category();
         const toggle = document.querySelector('.profile-menu');
         toggle.classList.toggle('active');
     }
+
+    let CartAdd = JSON.parse(localStorage.getItem('cartAdd'));
+    let Cart = document.getElementById("cart").innerText = `(${CartAdd.length})`
 </script>
