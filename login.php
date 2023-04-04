@@ -1,8 +1,9 @@
 <?php
-// $filepath = realpath(dirname(__DIR__));
-// include_once $filepath . "\Toy_Management_Website\classes\account.php";
+$filepath = realpath(dirname(__DIR__));
+include_once $filepath . "\Toy_Management_Website\classes\account.php";
 
-// $account = new Account();
+$account = new Account();
+
 // if (
 //   isset($_POST["nome"]) &&
 //   isset($_POST["password"]) &&
@@ -25,6 +26,7 @@
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
     <title>Sign In & Sign up Form</title>
     <link rel="stylesheet" href="./assets/css/login.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 
 <body>
@@ -55,20 +57,20 @@
                 <h1>Sign Up</h1>
                 
                 <label for="nome">Username:</label>
-                <input type="text" class="infos" id="sign-in-nome" name="nome">
+                <span id="check-username"></span>
+                <input type="text" class="infos" id="sign-up-nome" name="nome" onInput="checkUsername();">
                 <div class="mario"></div>
                 <label for="password">Password:</label>
-                <input type="password" id="sign-in-password" name="password">
+                <input type="password" id="sign-up-password" name="password">
 
                 <div class="mario"></div>
                 <label for="confirm">Confirm Password:</label>
-                <input type="password" id="confirm_password" name="confirm_password">
+                <input type="password" id="confirm-password" name="confirm-password">
                 <div class="wrap-btn">
                     <button type="submit" id="btn-sign-in" onclick="checkSignIn();">Sign up</button>
 
                     <div>
-                        <i>Already have an account? <a onclick="handleClick(event, '2')">Log in now</a></i>
-
+                        <i>Already have an account? <a onclick="handleClick(event, '2');">Log in now</a></i>
                     </div>
                 </div>
             </form>
@@ -89,7 +91,23 @@
                 formSignUp.classList.add("hide-form");
             }
         }
+        
     </script>
+
+    <script>
+        function checkUsername() {
+            jQuery.ajax({
+                url: "check_login.php",
+                data: 'nome='+$("#sign-up-nome").val(),
+                type: "POST",
+                success: function(data) {
+                $("#check-username").html(data);
+                },
+                error:function () {}
+            });
+        }
+    </script>
+    
 
     <script src="./js/login.js"></script>
 </body>

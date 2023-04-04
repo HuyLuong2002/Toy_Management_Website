@@ -15,17 +15,17 @@ include_once $filepath . "\helpers\\format.php";
     $this->fm = new Format();
   }
 
-  //   public function show_product_user()
-  //   {
-  //     $query = "SELECT * FROM product, category, sale WHERE product.category_id = category.id and product.sale_id = sale.id
-  //       ORDER BY product.create_date DESC";
-  //     $result = $this->db->select($query);
-  //     return $result;
-  //   }
 
   public function show_account()
   {
     $query = "SELECT * FROM account";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function check_account($username)
+  {
+    $query = "SELECT * FROM account WHERE username='{$username}'";
     $result = $this->db->select($query);
     return $result;
   }

@@ -1,7 +1,6 @@
 function checkSignIn() {
-  var nome = document.getElementById("sign-in-nome").value;
-  var password = document.getElementById("sign-in-password").value;
-  var confirm_password = document.getElementById("confirm_password").value;
+  var password = document.getElementById("sign-up-password").value;
+  var confirm_password = document.getElementById("confirm-password").value;
   
   if(password != confirm_password)
   {
@@ -9,3 +8,5 @@ function checkSignIn() {
   }
   
 }
+
+
