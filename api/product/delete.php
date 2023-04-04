@@ -16,7 +16,7 @@ $product = new Product($connect);
 
 $product->id = isset($_GET["id"]) ? $_GET["id"] : die();
 
-if($product->delete($product->id))
+if($product->delete())
 {
     echo json_encode(array('message','Product Deleted'));
 }

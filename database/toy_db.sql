@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 04, 2023 lúc 03:08 AM
+-- Thời gian đã tạo: Th4 04, 2023 lúc 11:29 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.28
 
@@ -107,11 +107,19 @@ CREATE TABLE `customer_favorite_product` (
 --
 
 CREATE TABLE `detail_enter_product` (
+  `id` int(11) NOT NULL,
   `enter_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `detail_enter_product`
+--
+
+INSERT INTO `detail_enter_product` (`id`, `enter_id`, `product_id`, `quantity`, `price`) VALUES
+(1, 1, 1, 20, 3000);
 
 -- --------------------------------------------------------
 
@@ -120,6 +128,7 @@ CREATE TABLE `detail_enter_product` (
 --
 
 CREATE TABLE `detail_orders` (
+  `id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
@@ -133,6 +142,7 @@ CREATE TABLE `detail_orders` (
 --
 
 CREATE TABLE `detail_permission_function` (
+  `id` int(11) NOT NULL,
   `permission_id` int(11) NOT NULL,
   `function_id` int(11) NOT NULL,
   `action` varchar(255) NOT NULL
@@ -142,25 +152,19 @@ CREATE TABLE `detail_permission_function` (
 -- Đang đổ dữ liệu cho bảng `detail_permission_function`
 --
 
-INSERT INTO `detail_permission_function` (`permission_id`, `function_id`, `action`) VALUES
-(1, 1, 'Thêm'),
-(1, 1, 'Sửa'),
-(1, 2, 'Thêm'),
-(1, 1, 'Xóa'),
-(3, 2, 'Thêm'),
-(3, 2, 'Sửa'),
-(3, 2, 'Xóa'),
-(1, 2, 'Sửa'),
-(1, 2, 'Xóa'),
-(1, 3, 'Thêm'),
-(1, 3, 'Sửa'),
-(1, 3, 'Xóa'),
-(1, 4, 'Thêm'),
-(1, 4, 'Sửa'),
-(1, 4, 'Xóa'),
-(2, 4, 'Thêm'),
-(2, 4, 'Sửa'),
-(2, 4, 'Xóa');
+INSERT INTO `detail_permission_function` (`id`, `permission_id`, `function_id`, `action`) VALUES
+(1, 1, 1, 'Thêm'),
+(2, 1, 1, 'Sửa'),
+(3, 1, 2, 'Thêm'),
+(4, 1, 1, 'Thêm'),
+(5, 3, 2, 'Thêm'),
+(6, 3, 2, 'Sửa'),
+(7, 3, 2, 'Xóa'),
+(8, 1, 2, 'Sửa'),
+(9, 1, 2, 'Xóa'),
+(10, 1, 3, 'Thêm'),
+(11, 1, 3, 'Sửa'),
+(19, 2, 1, 'Thêm');
 
 -- --------------------------------------------------------
 
@@ -374,6 +378,7 @@ ALTER TABLE `customer_favorite_product`
 -- Chỉ mục cho bảng `detail_enter_product`
 --
 ALTER TABLE `detail_enter_product`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `enter_id` (`enter_id`),
   ADD KEY `product_id` (`product_id`);
 
@@ -381,6 +386,7 @@ ALTER TABLE `detail_enter_product`
 -- Chỉ mục cho bảng `detail_orders`
 --
 ALTER TABLE `detail_orders`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `order_id` (`order_id`),
   ADD KEY `product_id` (`product_id`);
 
@@ -388,6 +394,7 @@ ALTER TABLE `detail_orders`
 -- Chỉ mục cho bảng `detail_permission_function`
 --
 ALTER TABLE `detail_permission_function`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `id_permission` (`permission_id`),
   ADD KEY `id_function` (`function_id`) USING BTREE;
 
@@ -453,6 +460,24 @@ ALTER TABLE `account_function`
 --
 ALTER TABLE `category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT cho bảng `detail_enter_product`
+--
+ALTER TABLE `detail_enter_product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT cho bảng `detail_orders`
+--
+ALTER TABLE `detail_orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `detail_permission_function`
+--
+ALTER TABLE `detail_permission_function`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT cho bảng `enter_product`

@@ -30,7 +30,7 @@ class Sale
   }
 
   //show = get category by id
-  public function show($id)
+  public function show()
   {
     $query = "SELECT * FROM sale where id=? LIMIT 1";
     $stmt = $this->conn->prepare($query);
@@ -74,7 +74,7 @@ class Sale
   }
 
   //update data
-  public function update($id)
+  public function update()
   {
     $query = "UPDATE sale SET name=?, create_date=?, start_date=?, end_date=?, percent_sale=?, status=? where id=?";
     $stmt = $this->conn->prepare($query);
@@ -104,7 +104,7 @@ class Sale
   }
 
   //delete data
-  public function delete($id)
+  public function delete()
   {
     $query = "DELETE FROM sale where id=?";
     $stmt = $this->conn->prepare($query);

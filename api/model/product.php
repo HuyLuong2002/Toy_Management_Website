@@ -33,7 +33,7 @@ class Product
   }
 
   //show = get category by id
-  public function show($id)
+  public function show()
   {
     $query = "SELECT * FROM product where id=? LIMIT 1";
     $stmt = $this->conn->prepare($query);
@@ -89,7 +89,7 @@ class Product
   }
 
   //update data
-  public function update($id)
+  public function update()
   {
     $query = "UPDATE product SET name=?, image=?, price=?, description=?, create_date=?, highlight=?, category_id=?, sale_id=?, review=?, quantity=? where id=?";
     $stmt = $this->conn->prepare($query);
@@ -127,7 +127,7 @@ class Product
   }
 
   //delete data
-  public function delete($id)
+  public function delete()
   {
     $query = "DELETE FROM product where id=?";
     $stmt = $this->conn->prepare($query);

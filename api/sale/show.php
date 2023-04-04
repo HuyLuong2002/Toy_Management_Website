@@ -8,7 +8,7 @@ $db = new DB();
 $connect = $db->connect();
 $sale = new Sale($connect);
 $sale->id = isset($_GET["id"]) ? $_GET["id"] : die();
-$sale->show($sale->id);
+$sale->show();
 $sale_item = [
   "id" => $sale->id,
   "name" => $sale->name,

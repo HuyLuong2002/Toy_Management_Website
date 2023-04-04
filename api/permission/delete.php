@@ -18,7 +18,7 @@ $permission = new Permission($connect);
 
 $permission->id = isset($_GET["id"]) ? $_GET["id"] : die();
 
-if($permission->delete($permission->id))
+if($permission->delete())
 {
     echo json_encode(array('message','Permission Deleted'));
 }

@@ -28,7 +28,7 @@ $product->sale_id = $data->sale_id;
 $product->review = $data->review;
 $product->quantity = $data->quantity;
 
-if($product->update($product->id))
+if($product->update())
 {
     echo json_encode(array('message','Product Updated'));
 }

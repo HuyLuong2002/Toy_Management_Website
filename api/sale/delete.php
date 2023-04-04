@@ -18,7 +18,7 @@ $sale = new Sale($connect);
 
 $sale->id = isset($_GET["id"]) ? $_GET["id"] : die();
 
-if($sale->delete($sale->id))
+if($sale->delete())
 {
     echo json_encode(array('message','Sale Deleted'));
 }
