@@ -20,19 +20,16 @@ $category = new Category();
                     <i class="fa-solid fa-chevron-down"></i>
                     <ul class="sub-menu">
                         <?php
-                            $show_category = $category->show_category();
-                            if($show_category)
-                            {
-                                while($result = $show_category->fetch_assoc())
-                                {
-
+                        $show_category = $category->show_category();
+                        if ($show_category) {
+                            while ($result = $show_category->fetch_assoc()) {
                         ?>
-                        <li>
-                            <a href="category.php?id=<?php echo $result["id"]; ?>&pageid=1"><?php echo $result["name"] ?></a>
-                        </li>
+                                <li>
+                                    <a href="category.php?id=<?php echo $result["id"]; ?>&pageid=1"> <?php echo $result["name"] ?></a>
+                                </li>
                         <?php
-                                }
                             }
+                        }
                         ?>
 
                     </ul>
@@ -41,33 +38,41 @@ $category = new Category();
             </ul>
         </div>
         <div class="icons">
-            <div>
-                <a onclick="handleSearch(event)" href="#">
-                    <i class="search fa-solid fa-magnifying-glass fa-xl"></i>
-                </a>
-            </div>
-            <div>
-                <a href="favorites.php">
-                    <i class="fa-solid fa-heart fa-xl"></i>
-                    <span class="icon_status">(0)</span>
-                </a>
-            </div>
-            <div>
-                <a href="cart.php">
-                    <i class="fa-solid fa-cart-shopping fa-xl"></i>
-                    <span class="icon_status">(0)</span>
-                </a>
-            </div>
-            <div>
-                <a href="profile.php" id="user-btn">
-                    <div class="fa-solid fa-user fa-xl"></div>
-                    <div class="profile">
-                        <h2 class="profile-name">Hi, loz</h2>
-                        <button class="profile-update">update profile</button>
-                        <button class="profile-log">log out</button>
+            <ul class="list-icon">
+                <li>
+                    <a onclick="handleSearch(event)" href="#">
+                        <i class="search fa-solid fa-magnifying-glass fa-xl"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="favorites.php">
+                        <i class="fa-solid fa-heart fa-xl"></i>
+                        <span class="icon_status">(0)</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="cart.php">
+                        <i class="fa-solid fa-cart-shopping fa-xl"></i>
+                        <span class="icon_status">(0)</span>
+                    </a>
+                </li>
+                <li onclick="menuToggle();">
+                    <i class="fa-solid fa-user fa-xl"></i>
+                    <div class="profile-menu">
+                        <p>Hello User</p>
+                        <ul>
+                            <li>
+                                <i class="fa-solid fa-circle-user"></i>
+                                <a href="/profile.php" id="user-btn">My Profile</a>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                <a href="../login.php">Login</a>
+                            </li>
+                        </ul>
                     </div>
-                </a>
-            </div>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="search-bar">
@@ -92,5 +97,12 @@ $category = new Category();
         search.classList.toggle('fa-magnifying-glass');
         searchBar.classList.toggle("active");
 
+    }
+</script>
+
+<script>
+    function menuToggle(){
+        const toggle = document.querySelector('.profile-menu');
+        toggle.classList.toggle('active');
     }
 </script>

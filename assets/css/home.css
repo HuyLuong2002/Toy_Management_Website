@@ -182,21 +182,98 @@ header {
 /*end custom nav bar*/
 
 .section-header .icons {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   flex-shrink: 0;
   font-family: "Nunito", sans-serif;
   margin-right: 5rem;
 }
 
-.icons a {
+.icons .list-icon{
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.icons .list-icon li{
+  list-style: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.list-icon li a {
   font-family: "Nunito", sans-serif;
   padding: 0.5rem;
   box-sizing: border-box;
   outline: none;
   border: none;
   text-decoration: none;
+}
+
+.list-icon .profile-menu{
+  position: absolute;
+  background-color: #f7f7f7;
+  top: 40px;
+  right: -20px;
+  padding: 10px 8px;
+  width: 150px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  transition: 0.5s;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.list-icon .profile-menu.active{
+  visibility: visible;
+  opacity: 1;
+}
+
+.list-icon .profile-menu::before{
+  content: "";
+  position: absolute;
+  top: -7px;
+  right: 20px;
+  width: 20px;
+  height: 20px;
+  background-color: #f7f7f7;
+  transform: rotate(45deg);
+}
+
+.list-icon .profile-menu p{
+  width: 100%;
+  font-size: 18px;
+  font-weight: 600;
+  color: #555;
+  line-height: 1.2rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.list-icon .profile-menu p:hover{
+  color: #45e9bb;
+}
+
+.profile-menu ul li{
+  border-top: 1px solid #ededed;
+  padding: 8px 0;
+}
+
+.profile-menu ul li:hover {
+  border-top: 2px solid #d3ded3;
+}
+
+.profile-menu ul li i{
+  opacity: 0.5;
+  transition: 0.3s;
+  max-width: 20px;
+  margin-right: 10px;
+}
+
+.profile-menu ul li:hover i {
+  opacity: 1;
+}
+
+.profile-menu ul li:hover a{
+  color: #40c9a2;
 }
 
 .search {
@@ -250,53 +327,6 @@ header {
 }
 
 /*end custom icon header*/
-
-.profile {
-  width: 200px;
-  height: 155px;
-  background: white;
-  position: absolute;
-  top: 70px;
-  right: 70px;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 5px;
-  padding: .5rem;
-  gap: .5rem;
-}
-
-
-.profile-name {
-  margin: 0;
-  color: #2980b9;
-}
-
-.profile-update {
-  width: 70%;
-  padding: .2rem;
-  margin-bottom: .5rem;
-  background-color: #f39c12;
-}
-
-.profile-log {
-  width: 70%;
-  padding: .2rem;
-  background-color: #e74c3c;
-}
-
-#user-btn:hover .profile {
-  display: flex;
-}
-
-.profile::before {
-  content: "";
-  position: absolute;
-  height: 20px;
-  width: 200px;
-  background: white;
-  top: -20px;
-}
 
 /*custom slider for html*/
 .mySlides {

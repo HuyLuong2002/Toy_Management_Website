@@ -6,8 +6,6 @@ $category = new Category();
 $product = new Product();
 if (isset($_GET["id"])) {
   $category_id = $_GET["id"];
-} else {
-    $category_id = '';
 }
 if (isset($_GET["pageid"])) {
   $page_id = $_GET["pageid"];
@@ -18,8 +16,8 @@ if (isset($_GET["pageid"])) {
 Tính giá trị của phân trang
 10 sản phẩm trên 1 trang
 */
-
 $result_pagination = $product->show_product_by_category_id($category_id);
+
 /*
 Tính giá trị của phân trang
 10 sản phẩm trên 1 trang
@@ -66,11 +64,9 @@ $result_pagination = $product->show_product_by_category_panigation(
           $show_category_by_id = $category->show_category_by_id($category_id);
           if ($show_category_by_id) {
             $result = $show_category_by_id->fetch_assoc(); ?>
-          <li class="item"><a href="category.php?id=<?php echo $result[
-            " id"
-          ]; ?>&pageid=1">
-              <?php echo $result["name"]; ?>
-            </a></li>
+            <li class="item"><a href="category.php?id=<?php echo $result["id"]; ?>&pageid=1">
+                <?php echo $result["name"]; ?>
+              </a></li>
           <?php
           }
           ?>
@@ -78,7 +74,7 @@ $result_pagination = $product->show_product_by_category_panigation(
       </div>
     </div>
 
-    <div class="main-container">
+    <div class="main-container container">
       <div class="sidebar">
         <div class="sidebar-category">
           <h3 class="title">Category</h3>
@@ -87,11 +83,11 @@ $result_pagination = $product->show_product_by_category_panigation(
             $show_category = $category->show_category();
             if ($show_category) {
               while ($result = $show_category->fetch_assoc()) { ?>
-            <li>
-              <a href="category.php?id=<?php echo $result["id"]; ?>&pageid=1">
-                <?php echo $result["name"]; ?>
-              </a>
-            </li>
+                <li>
+                  <a href="category.php?id=<?php echo $result["id"]; ?>&pageid=1">
+                    <?php echo $result["name"]; ?>
+                  </a>
+                </li>
             <?php }
             }
             ?>
@@ -103,79 +99,93 @@ $result_pagination = $product->show_product_by_category_panigation(
         <div class="product-wrapper" id="product-data">
           <?php if ($result_pagination) {
             while ($result_product = $result_pagination->fetch_array()) { ?>
-          <div class="catalog-product-item">
-            <div class="product-content">
-              <div class="product-img-box">
-                <img src="<?php echo " admin/uploads/" .
-                  $result_product[2]; ?>" alt="" />
-              </div>
-              <div class="product-btns">
-                <button class="btn-cart">
-                  Add to Cart
-                  <span><i class="fas fa-plus"></i></span>
-                </button>
-                <button class="btn-buy">
-                  Buy now
-                  <span><i class="fas fa-shopping-cart"></i></span>
-                </button>
-              </div>
-            </div>
-            <div class="product-info">
-              <div class="product-info-top">
-                <h2 class="sm-title">
-                  <?php echo $result_product[12]; ?>
-                </h2>
-                <div class="rating">
-                  <?php
-                  $rating = $result_product[9];
-                  for ($i = 0; $i < 5; $i++) {
-                    if ($rating > $i) {
-                      echo "<span><i class='fas fa-star'></i></span>";
+              <div class="catalog-product-item">
+                <div class="product-content">
+                  <div class="product-img-box">
+                    <img src="<?php echo " admin/uploads/" .
+                                $result_product[2]; ?>" alt="" />
+                  </div>
+                  <div class="product-btns">
+                    <button class="btn-cart">
+                      Add to Cart
+                      <span><i class="fas fa-plus"></i></span>
+                    </button>
+                    <button class="btn-buy">
+                      Buy now
+                      <span><i class="fas fa-shopping-cart"></i></span>
+                    </button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <div class="product-info-top">
+                    <h2 class="sm-title">
+                      <?php echo $result_product[12]; ?>
+                    </h2>
+                    <div class="rating">
+                      <?php
+                      $rating = $result_product[9];
+                      for ($i = 0; $i < 5; $i++) {
+                        if ($rating > $i) {
+                          echo "<span><i class='fas fa-star'></i></span>";
+                        } else {
+                          echo "<span><i class='far fa-star'></i></span>";
+                        }
+                      }
+                      ?>
+                    </div>
+                  </div>
+                  <a href="" class="product-name">
+                    <?php echo $result_product[1]; ?>
+                  </a>
+                  <?php echo $result_product[14] !== "Không áp dụng"
+                    ? "<p class='product-price product-price-linet'>$$result_product[3]</p>"
+                    : ""; ?>
+                  <p class="product-price product-price-sale">
+                    <?php if ($result_product[14] !== "Không áp dụng") {
+                      $sale_percent = $result_product[18];
+                      $sale_price =
+                        $result_product[3] -
+                        $result_product[3] * ($sale_percent / 100);
+                      echo "$" . $sale_price;
                     } else {
-                      echo "<span><i class='far fa-star'></i></span>";
-                    }
-                  }
-                  ?>
+                      echo "$" . $result_product[3];
+                    } ?>
+                  </p>
+                </div>
+                <div class="off-info">
+                  <?php if ($result_product[14] === "Không áp dụng") {
+                    echo "";
+                  } else {
+                    $sale_percent = $result_product[18];
+                    echo "<h2 class='sm-title'>Sale $sale_percent%</h2>";
+                  } ?>
                 </div>
               </div>
-              <a href="" class="product-name">
-                <?php echo $result_product[1]; ?>
-              </a>
-              <?php echo $result_product[14] !== "Không áp dụng"
-                ? "<p class='product-price product-price-linet'>$$result_product[3]</p>"
-                : ""; ?>
-              <p class="product-price product-price-sale">
-                <?php if ($result_product[14] !== "Không áp dụng") {
-                  $sale_percent = $result_product[18];
-                  $sale_price =
-                    $result_product[3] -
-                    $result_product[3] * ($sale_percent / 100);
-                  echo "$" . $sale_price;
-                } else {
-                  echo "$" . $result_product[3];
-                } ?>
-              </p>
-            </div>
-            <div class="off-info">
-              <?php if ($result_product[14] === "Không áp dụng") {
-                echo "";
-              } else {
-                $sale_percent = $result_product[18];
-                echo "<h2 class='sm-title'>Sale $sale_percent%</h2>";
-              } ?>
-            </div>
-          </div>
           <?php }
           } else {
             echo "<h2>No Record Found. </h2>";
           } ?>
         </div>
         <div class="bottom-pagination" id="pagination">
-          <?php for ($i = 1; $i <= $page_total; $i++) { ?>
-          <a href="category.php?id=<?php echo $category_id; ?>&pageid=<?php echo $i; ?>" id="<?php echo $i; ?>">
-            <?php echo $i; ?>
-          </a>
-          <?php } ?>
+          <ul class="pagination">
+            <li class="item page-item-previous">
+              <a href="#">
+                <i class="fa-solid fa-chevron-left"></i>
+              </a>
+            </li>
+            <?php for ($i = 1; $i <= $page_total; $i++) { ?>
+              <li class="item">
+                <a href="category.php?id=<?php echo $category_id; ?>&pageid=<?php echo $i; ?>" id="<?php echo $i; ?>">
+                  <?php echo $i; ?>
+                </a>
+              </li>
+            <?php } ?>
+            <li class="item page-item-next">
+              <a href="#">
+                <i class="fa-solid fa-chevron-right"></i>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -184,7 +194,7 @@ $result_pagination = $product->show_product_by_category_panigation(
   <?php include "./components/footer.php"; ?>
 </body>
 <script>
-  $(document).ready(function () {
+  $(document).ready(function() {
     // alert("Hello, world!");
     $('.sub-list').parent('li').addClass('has-child');
 
@@ -192,26 +202,27 @@ $result_pagination = $product->show_product_by_category_panigation(
 </script>
 
 <script type="text/javascript">
-    $(document).ready(function(){
-        function loadProduct(page) {
-            $.ajax({
-                url: "category.php",
-                type: "POST",
-                data: {page_no: page},
-                success: function(data) {
-                    $('#product-data').html(data);
-                }
-
-            });
+  $(document).ready(function() {
+    function loadProduct(page) {
+      $.ajax({
+        url: "category.php",
+        type: "POST",
+        data: {
+          page_no: page
+        },
+        success: function(data) {
+          $('#product-data').html(data);
         }
 
-        // Pagination code
-        $(document).on("click","#pagination a", function(e){
+      });
+    }
 
-            var page_id = $(this).attr("id");
-            loadTable();
-        });
+    // Pagination code
+    $(document).on("click", "#pagination a", function(e) {
 
+      var page_id = $(this).attr("id");
+      loadTable();
     });
-    
+
+  });
 </script>
