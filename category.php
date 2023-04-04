@@ -83,7 +83,7 @@ $result_pagination = $product->show_product_by_category_panigation(
             $show_category = $category->show_category();
             if ($show_category) {
               while ($result = $show_category->fetch_assoc()) { ?>
-                <li>
+                <li data-id="<?php echo $result["id"]; ?>">
                   <a href="category.php?id=<?php echo $result["id"]; ?>&pageid=1">
                     <?php echo $result["name"]; ?>
                   </a>
@@ -195,7 +195,6 @@ $result_pagination = $product->show_product_by_category_panigation(
 </body>
 <script>
   $(document).ready(function() {
-    // alert("Hello, world!");
     $('.sub-list').parent('li').addClass('has-child');
 
   });
@@ -225,4 +224,18 @@ $result_pagination = $product->show_product_by_category_panigation(
     });
 
   });
+</script>
+
+<script>
+  let url = location.search.split("&");
+  let id = url[0].split("=");
+  console.log(id[1]);
+  const toggles = document.querySelectorAll('.sidebar ul li');
+  for (let i = 0; i < toggles.length; i++){
+    var Li_id = toggles[i].getAttribute('data-id');
+    if (Li_id === id[1]){
+      toggles[i].classList.add('active');
+    }
+  }
+  console.log(toggles);
 </script>

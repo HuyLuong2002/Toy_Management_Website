@@ -87,8 +87,6 @@ body {
     padding-right: 15px;
     left: 0;
     bottom: 0;
-    /* display: block; */
-    /* background-color: #95ecd4; */
 }
 
 .title {
@@ -118,13 +116,19 @@ body {
     display: block;
     width: 100%;
     padding-left: 1rem;
-    border-left: 3px solid transparent;
+    border-left: 2px solid transparent;
     transition: 0.3s;
 }
 
-.main-list li a:hover{
+.main-list li a:hover {
+    color: #40c9a2;
+    transform: scale(1.1);
+}
+
+.main-list li.active a{
     color: #40c9a2;
     border-left-color: #40c9a2;
+    font-style: italic;
 }
 
 .main-list li:last-child{
