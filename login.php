@@ -49,7 +49,7 @@ if (isset($_POST["sign-in-nome"]) && isset($_POST["sign-in-password"])) {
         );
 
         //Set the session timeout for 1 seconds
-        $timeout = 60;
+        $timeout = 1800;
         Session::set("timeout", $timeout);
         //Set the maxlifetime of the session
         ini_set("session.gc_maxlifetime", $timeout);
