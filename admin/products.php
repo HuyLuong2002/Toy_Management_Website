@@ -15,7 +15,9 @@ if (isset($_POST["input"])) {
   <div class="card-header">
     <h3>Product List</h3>
     <button>
+    <a href="product_add.php">
       Add product <span class="las la-plus"></span>
+    </a>  
     </button>
   </div>
 
@@ -63,7 +65,7 @@ if (isset($_POST["input"])) {
                     <td><?php echo $result[8]; ?></td>
                     <td><?php echo $result[9]; ?></td>
                     <td><?php echo $result[10]; ?></td>
-                    <td><a href="">Edit</a> | <a href="">Delete</a> | <a href="productDetail.php?id=<?php echo $result[0]; ?>">Details</a>
+                    <td><a href="product_edit.php?id=<?php echo $result[0] ?>">Edit</a> | <a href="">Delete</a> | <a href="productDetail.php?id=<?php echo $result[0]; ?>">Details</a>
                     <td>
 
                   </tr>
@@ -102,7 +104,7 @@ if (isset($_POST["input"])) {
               <td><?php echo $result[8]; ?></td>
               <td><?php echo $result[9]; ?></td>
               <td><?php echo $result[10]; ?></td>
-              <td><a href="">Edit</a> | <a href="">Delete</a> | <a href="productDetail.php?id=<?php echo $result[0]; ?>">Details</a>
+              <td><a href="product_edit.php?id=<?php echo $result[0] ?>">Edit</a> | <a href="">Delete</a> | <a href="productDetail.php?id=<?php echo $result[0]; ?>">Details</a>
               <td>
 
             </tr>

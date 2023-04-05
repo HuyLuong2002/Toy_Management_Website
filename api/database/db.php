@@ -8,7 +8,7 @@ class DB
   private $password = "";
   private $db = "toy_db";
 
-  public function connect()
+  public function connect() 
   {
     $this->conn = null;
     try {

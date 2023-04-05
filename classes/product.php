@@ -48,6 +48,12 @@ include_once $filepath . "\helpers\\format.php";
     return $result;
   }
 
+  public function get_product_by_id($id)
+  {
+    $query = "SELECT * FROM product WHERE id = '$id'";
+    $result = $this->db->select($query);
+    return $result;
+  }
   //live search for admin
   public function show_product_live_search($input)
   {

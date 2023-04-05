@@ -20,7 +20,7 @@ if(isset($_GET["action"]))
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home</title>
   <link rel="stylesheet" href="./assets/css/home.css" />
-  <link rel="stylesheet" href="./assets/css/product_collection.css" />
+  <!-- <link rel="stylesheet" href="./assets/css/product_collection.css" /> -->
   <link rel="stylesheet" href="./assets/css/product_list.css" />
   <link rel="stylesheet" href="./assets/css/slide.css" />
   <link rel="stylesheet" href="./assets/css/footer.css" />
@@ -39,7 +39,6 @@ if(isset($_GET["action"]))
   <script src="https://kit.fontawesome.com/1b6e53cabd.js" crossorigin="anonymous"></script>
   <script src="./js/home.js"></script>
   <script src="./js/wishlist.js"></script>
-  <script src="./js/cartclick.js"></script>
 </body>
   
 </html>
