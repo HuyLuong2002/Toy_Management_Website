@@ -47,7 +47,7 @@ $category = new Category();
                 <li>
                     <a href="favorites.php">
                         <i class="fa-solid fa-heart fa-xl"></i>
-                        <span class="icon_status">(0)</span>
+                        <span class="icon_status" id="favorite">(0)</span>
                     </a>
                 </li>
                 <li>
@@ -107,5 +107,8 @@ $category = new Category();
     }
 
     let CartAdd = JSON.parse(localStorage.getItem('cartAdd'));
-    let Cart = document.getElementById("cart").innerText = `(${CartAdd.length})`
+    let Cart = document.getElementById("cart").innerText = `(${CartAdd.length})`;
+
+    let FavoriteAdd = JSON.parse(localStorage.getItem('favorite'));
+    let Favorite = document.getElementById("favorite").innerText = `(${FavoriteAdd.length})`;
 </script>

@@ -132,7 +132,7 @@ $product = new Product();
   var icons = document.querySelectorAll('.favorite-icon i');
   icons.forEach((icon) => {
     var dataId = icon.getAttribute('data-id');
-    var add_to_cart = JSON.parse(localStorage.getItem('add_to_cart'));
+    var add_to_cart = JSON.parse(localStorage.getItem('favorite'));
     add_to_cart.forEach((product) => {
       if (product.id === dataId) {
         icon.classList.add('fa-solid');
