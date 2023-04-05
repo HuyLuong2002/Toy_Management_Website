@@ -10,21 +10,7 @@ let listBar = [
     id: 2,
     title: "Products",
     href: "index.php?id=2",
-    icon: "la-users",
-    child: [
-      {
-        id: 21,
-        title: "All",
-        href: "index.php?id=2",
-        icon: "la-users",
-      },
-      {
-        id: 21,
-        title: "Create",
-        href: "product_add.php",
-        icon: "la-users",
-      },
-    ],
+    icon: "la-users"
   },
   {
     id: 3,
