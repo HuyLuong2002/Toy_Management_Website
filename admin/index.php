@@ -2,6 +2,7 @@
 include("./components/sidebar.php");
 include("./components/header.php");
 include("./components/content.php");
+
 ?>
 
 <body>

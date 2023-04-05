@@ -1,9 +1,9 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once($filepath . "\classes\category.php");
-
+include_once $filepath . "\classes\category.php";
+include_once $filepath . "\lib\session.php";
 $category = new Category();
-
+Session::init();
 ?>
 <header>
     <div class="section-header">
@@ -22,13 +22,15 @@ $category = new Category();
                         <?php
                         $show_category = $category->show_category();
                         if ($show_category) {
-                            while ($result = $show_category->fetch_assoc()) {
-                        ?>
+                          while ($result = $show_category->fetch_assoc()) { ?>
                                 <li>
-                                    <a href="category.php?id=<?php echo $result["id"]; ?>&page=1"> <?php echo $result["name"] ?></a>
+                                    <a href="category.php?id=<?php echo $result[
+                                      "id"
+                                    ]; ?>&page=1"> <?php echo $result[
+  "name"
+]; ?></a>
                                 </li>
-                        <?php
-                            }
+                        <?php }
                         }
                         ?>
 
@@ -59,7 +61,7 @@ $category = new Category();
                 <li onclick="menuToggle();">
                     <i class="fa-solid fa-user fa-xl"></i>
                     <div class="profile-menu">
-                        <p>Hello User</p>
+                        <p>Hello <?php echo Session::get("fullname"); ?></p>
                         <ul>
                             <li>
                                 <i class="fa-solid fa-circle-user"></i>
@@ -67,7 +69,19 @@ $category = new Category();
                             </li>
                             <li>
                                 <i class="fa-solid fa-right-from-bracket"></i>
+                                <?php
+                                    if(Session::get("user") == false) {
+                                ?>
                                 <a href="../login.php">Login</a>
+                                <?php
+                                    }
+                                    else {
+                                    
+                                ?>
+                                <a href="index.php?action=logout">Log out</a>
+                                <?php
+                                    }
+                                ?>
                             </li>
                         </ul>
                     </div>

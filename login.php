@@ -1,8 +1,43 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "\Toy_Management_Website\classes\account.php";
+include_once $filepath . "\lib\session.php";
 
 $account = new Account();
+if (isset($_POST["nome"]) && isset($_POST["password"])) {
+  $result_login = $account->login($_POST["nome"], md5($_POST["password"]));
+  if (isset($result_login) && isset($result_login->num_rows)) {
+    $count = $result_login->num_rows;
+  } else {
+    $count = 0;
+  }
+  if ($count > 0) {
+    $result = $result_login->fetch_assoc();
+    if ($result["status"] == 1) {
+      if ($result["permission_id"] == 1) {
+        Session::init();
+        Session::set("userAdmin",true);
+        Session::set("user",true);
+        Session::set("userID", $result["id"]);
+        Session::set("username", $result["username"]);
+        Session::set("fullname", $result["firstname"] . " " . $result["lastname"]);
+        header("Location: ./admin/index.php");
+      } else {
+        Session::init();
+        Session::set("user",true);
+        Session::set("userAdmin",false);
+        Session::set("userID", $result["id"]);
+        Session::set("username", $result["username"]);
+        Session::set("fullname", $result["firstname"] . " " . $result["lastname"]);
+        header("Location: ./index.php");
+      }
+    } else {
+      echo "User account is disabled";
+    }
+  } else {
+    echo "User and Pass not match";
+  }
+}
 
 // if (
 //   isset($_POST["nome"]) &&
@@ -34,7 +69,7 @@ $account = new Account();
     <div class="wrapper-form">
         <div class="DarkOverlay"></div>
         <div class="wrap-login-signup">
-            <form class="form" id="form-login">
+            <form class="form" id="form-login" action="login.php" method="post">
                 <h1>Log In</h1>
 
                 <label for="nome">Username:</label>

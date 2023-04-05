@@ -1,7 +1,15 @@
 <?php
-$filepath = realpath(dirname(__DIR__));
-include_once $filepath . "\lib\session.php";
-Session::checkSession();
+include_once "..\lib\session.php";
+Session::init();
+if(Session::get("userAdmin") == false)
+{
+  Session::destroy();
+  header("Location: ../login.php");
+}
+if(isset($_GET["action"]) && $_GET["action"] == "logout")
+{
+  Session::destroy();
+}
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +36,7 @@ Session::checkSession();
       <label for="nav-toggle">
         <span class="las la-bars"> </span>
       </label>
-      Dashboard
+      Dashboard 
     </h2>
 
     <div class="admin-search-wrapper">
@@ -40,10 +48,11 @@ Session::checkSession();
       <img src="assets/images/pic-1.png" width="40px" height="40px" alt="" />
       <div>
         <h4>
-          <?php echo Session::get("adminName"); ?>
+           <?php echo Session::get("fullname"); ?>
           <small>Super admin</small>
           <small>
-            <?php if (isset($_GET["action"]) && $_GET["action"] == "logout") {
+            <?php 
+            if (isset($_GET["action"]) && $_GET["action"] == "logout") {
               Session::destroy();
             } ?>
             <a href="?action=logout">Đăng xuất</a>

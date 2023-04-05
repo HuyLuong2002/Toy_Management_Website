@@ -2,6 +2,7 @@
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "\database\connectDB.php";
 include_once $filepath . "\helpers\\format.php";
+include_once $filepath . "\lib\session.php";
 ?>
 
 <?php class Account
@@ -14,7 +15,6 @@ include_once $filepath . "\helpers\\format.php";
     $this->db = new Database();
     $this->fm = new Format();
   }
-
 
   public function show_account()
   {
@@ -30,6 +30,13 @@ include_once $filepath . "\helpers\\format.php";
     return $result;
   }
 
+  public function login($username, $password)
+  {
+    $query = "SELECT * FROM account WHERE username='{$username}' and password='{$password}'";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
   public function insert_account($username, $password)
   {
     $username = $this->fm->validation($username);
@@ -37,7 +44,6 @@ include_once $filepath . "\helpers\\format.php";
 
     $password = $this->fm->validation($password);
     $password = mysqli_real_escape_string($this->db->link, $password);
-    
 
     if (empty($username)) {
       $alert = "<span class='error'>Username must be not empty</span>";
