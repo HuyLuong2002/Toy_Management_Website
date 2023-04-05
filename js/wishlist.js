@@ -49,6 +49,7 @@ const favActive = (event) => {
             console.log('Product added to favorites');
         }
     }
+    location.reload();
 }
 
 function checkFavorite(dataId) {

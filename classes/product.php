@@ -52,6 +52,7 @@ include_once $filepath . "\helpers\\format.php";
     return $result;
   }
 
+
   public function show_product()
   {
     $query = "SELECT * FROM product ORDER BY id desc";
@@ -66,56 +67,6 @@ include_once $filepath . "\helpers\\format.php";
     return $result;
   }
 
-  public function update_product($data, $files, $id)
-  {
-    $productName = mysqli_real_escape_string($this->db->link, $data["name"]);
-    $category = mysqli_real_escape_string($this->db->link, $data["category"]);
-    $sale = mysqli_real_escape_string($this->db->link, $data["sale"]);
-    $description = mysqli_real_escape_string(
-      $this->db->link,
-      $data["description"]
-    );
-    $price = mysqli_real_escape_string($this->db->link, $data["price"]);
-    $quantity = mysqli_real_escape_string($this->db->link, $data["quantity"]);
-
-    $create_date = (string) date("d/m/Y");
-
-    //Kiểm tra hình ảnh và lấy hình ảnh cho vào folder upload
-    $permited = ["jpg", "jpeg", "png", "gif"];
-    $file_name = $_FILES["uploadfile"]["name"];
-    $file_size = $_FILES["uploadfile"]["size"];
-    $file_temp = $_FILES["uploadfile"]["tmp_name"];
-
-    $div = explode(".", $file_name);
-    $file_ext = strtolower(end($div));
-    $unique_image = substr(md5(time()), 0, 10) . "." . $file_ext;
-    $uploaded_image = "uploads/" . $unique_image;
-
-    if (
-      $productName == "" ||
-      $sale == "" ||
-      $category == "" ||
-      $description == "" ||
-      $price == "" ||
-      $quantity == "" ||
-      $file_name == ""
-    ) {
-      $alert = "<span class='error'>Fields must be not empty</span>";
-      return $alert;
-    } else {
-      move_uploaded_file($file_temp, $uploaded_image);
-      $query = "UPDATE product SET name='{$productName}', image='{$unique_image}', price='{$price}', description='{$description}', create_date='{$create_date}', category_id='{$category}', sale_id='{$sale}' where id='{$id}'";
-
-      $result = $this->db->update($query);
-      if ($result) {
-        $alert = "<span class='success'>Update Product Sucessfully</span>";
-        return $alert;
-      } else {
-        $alert = "<span class='error'>Update Product Not Sucessfully</span>";
-        return $alert;
-      }
-    }
-  }
   //live search for admin
   public function show_product_live_search($input)
   {
@@ -169,6 +120,56 @@ include_once $filepath . "\helpers\\format.php";
         return $alert;
       } else {
         $alert = "<span class='error'>Insert Product Not Sucessfully</span>";
+        return $alert;
+      }
+    }
+  }
+  public function update_product($data, $files, $id)
+  {
+    $productName = mysqli_real_escape_string($this->db->link, $data["name"]);
+    $category = mysqli_real_escape_string($this->db->link, $data["category"]);
+    $sale = mysqli_real_escape_string($this->db->link, $data["sale"]);
+    $description = mysqli_real_escape_string(
+      $this->db->link,
+      $data["description"]
+    );
+    $price = mysqli_real_escape_string($this->db->link, $data["price"]);
+    $quantity = mysqli_real_escape_string($this->db->link, $data["quantity"]);
+
+    $create_date = (string) date("d/m/Y");
+
+    //Kiểm tra hình ảnh và lấy hình ảnh cho vào folder upload
+    $permited = ["jpg", "jpeg", "png", "gif"];
+    $file_name = $_FILES["uploadfile"]["name"];
+    $file_size = $_FILES["uploadfile"]["size"];
+    $file_temp = $_FILES["uploadfile"]["tmp_name"];
+
+    $div = explode(".", $file_name);
+    $file_ext = strtolower(end($div));
+    $unique_image = substr(md5(time()), 0, 10) . "." . $file_ext;
+    $uploaded_image = "uploads/" . $unique_image;
+
+    if (
+      $productName == "" ||
+      $sale == "" ||
+      $category == "" ||
+      $description == "" ||
+      $price == "" ||
+      $quantity == "" ||
+      $file_name == ""
+    ) {
+      $alert = "<span class='error'>Fields must be not empty</span>";
+      return $alert;
+    } else {
+      move_uploaded_file($file_temp, $uploaded_image);
+      $query = "UPDATE product SET name='{$productName}', image='{$unique_image}', price='{$price}', description='{$description}', create_date='{$create_date}', category_id='{$category}', sale_id='{$sale}' where id='{$id}'";
+
+      $result = $this->db->update($query);
+      if ($result) {
+        $alert = "<span class='success'>Update Product Sucessfully</span>";
+        return $alert;
+      } else {
+        $alert = "<span class='error'>Update Product Not Sucessfully</span>";
         return $alert;
       }
     }
