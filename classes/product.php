@@ -24,6 +24,14 @@ include_once $filepath . "\helpers\\format.php";
     return $result;
   }
 
+  // product detail by product id
+  public function show_product_detail($product_detail_id)
+  {
+    $query = "SELECT * FROM product, category, sale WHERE product.category_id = category.id and product.sale_id = sale.id and product.id = '$product_detail_id'";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
   //list product by category id
   public function show_product_by_category_id($category_id)
   {

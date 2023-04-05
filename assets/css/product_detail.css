@@ -141,6 +141,7 @@ img {
   color: white;
   margin-right: 1rem;
   padding: 0.5rem 0.5rem;
+  border: none;
 }
 
 .add-cart-btn:hover {
