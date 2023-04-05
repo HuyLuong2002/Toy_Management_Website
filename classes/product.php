@@ -41,8 +41,11 @@ include_once $filepath . "\helpers\\format.php";
     return $result;
   }
   //list product by category id have off and limit
-  public function show_product_by_category_panigation($category_id, $offset, $limit_per_page)
-  {
+  public function show_product_by_category_panigation(
+    $category_id,
+    $offset,
+    $limit_per_page
+  ) {
     $query = "SELECT * FROM product, category, sale WHERE product.category_id = category.id and product.sale_id = sale.id and product.category_id = '$category_id'
     ORDER BY product.create_date DESC LIMIT $offset,$limit_per_page";
     $result = $this->db->select($query);
@@ -58,9 +61,60 @@ include_once $filepath . "\helpers\\format.php";
 
   public function get_product_by_id($id)
   {
-    $query = "SELECT * FROM product WHERE id = '$id'";
+    $query = "SELECT * FROM product WHERE id = '{$id}'";
     $result = $this->db->select($query);
     return $result;
+  }
+
+  public function update_product($data, $files, $id)
+  {
+    $productName = mysqli_real_escape_string($this->db->link, $data["name"]);
+    $category = mysqli_real_escape_string($this->db->link, $data["category"]);
+    $sale = mysqli_real_escape_string($this->db->link, $data["sale"]);
+    $description = mysqli_real_escape_string(
+      $this->db->link,
+      $data["description"]
+    );
+    $price = mysqli_real_escape_string($this->db->link, $data["price"]);
+    $quantity = mysqli_real_escape_string($this->db->link, $data["quantity"]);
+
+    $create_date = (string) date("d/m/Y");
+
+    //Kiểm tra hình ảnh và lấy hình ảnh cho vào folder upload
+    $permited = ["jpg", "jpeg", "png", "gif"];
+    $file_name = $_FILES["uploadfile"]["name"];
+    $file_size = $_FILES["uploadfile"]["size"];
+    $file_temp = $_FILES["uploadfile"]["tmp_name"];
+
+    $div = explode(".", $file_name);
+    $file_ext = strtolower(end($div));
+    $unique_image = substr(md5(time()), 0, 10) . "." . $file_ext;
+    $uploaded_image = "uploads/" . $unique_image;
+
+    if (
+      $productName == "" ||
+      $sale == "" ||
+      $category == "" ||
+      $description == "" ||
+      $price == "" ||
+      $quantity == "" ||
+      $file_name == ""
+    ) {
+      $alert = "<span class='error'>Fields must be not empty</span>";
+      return $alert;
+    } else {
+      move_uploaded_file($file_temp, $uploaded_image);
+      $query = "UPDATE product SET name='{$productName}', image='{$unique_image}', price='{$price}', description='{$description}', create_date='{$create_date}', category_id='{$category}', sale_id='{$sale}' where id='{$id}'";
+
+      $result = $this->db->update($query);
+      if ($result) {
+        $alert = "<span class='success'>Update Product Sucessfully</span>";
+        return $alert;
+      } else {
+        $alert = "<span class='error'>Update Product Not Sucessfully</span>";
+        return $alert;
+      }
+    }
   }
   //live search for admin
   public function show_product_live_search($input)
