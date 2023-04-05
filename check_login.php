@@ -16,10 +16,10 @@ if (isset($_POST["nome"])) {
   }
   if ($count > 0) {
     echo "<span style='color:red'>Username already used.</span>";
-    echo "<script> $('#btn-sign-in').prop('disabled', false);</script>";
+    echo "<script>document.getElementById('btn-sign-up').disabled = true;</script>";
   } else {
     echo "<span style='color:green'>Username available for Registration.</span>";
-    echo "<script> $('#btn-sign-in').prop('disabled', false);</script>";
+    echo "<script>document.getElementById('btn-sign-up').disabled = false;</script>";
   }
 }
 

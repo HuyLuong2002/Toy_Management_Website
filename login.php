@@ -4,31 +4,58 @@ include_once $filepath . "\Toy_Management_Website\classes\account.php";
 include_once $filepath . "\lib\session.php";
 
 $account = new Account();
-if (isset($_POST["nome"]) && isset($_POST["password"])) {
-  $result_login = $account->login($_POST["nome"], md5($_POST["password"]));
+if (isset($_POST["sign-in-nome"]) && isset($_POST["sign-in-password"])) {
+  $result_login = $account->login(
+    $_POST["sign-in-nome"],
+    md5($_POST["sign-in-password"])
+  );
   if (isset($result_login) && isset($result_login->num_rows)) {
-    $count = $result_login->num_rows;
+    $count_login = $result_login->num_rows;
   } else {
-    $count = 0;
+    $count_login = 0;
   }
-  if ($count > 0) {
+  if ($count_login > 0) {
     $result = $result_login->fetch_assoc();
     if ($result["status"] == 1) {
       if ($result["permission_id"] == 1) {
         Session::init();
-        Session::set("userAdmin",true);
-        Session::set("user",true);
+        Session::set("userAdmin", true);
+        Session::set("user", true);
         Session::set("userID", $result["id"]);
         Session::set("username", $result["username"]);
-        Session::set("fullname", $result["firstname"] . " " . $result["lastname"]);
+        Session::set(
+          "fullname",
+          $result["firstname"] . " " . $result["lastname"]
+        );
+
+        //Set the session timeout for 2 seconds
+        $timeout = 120;
+        Session::set("timeout", $timeout);
+        //Set the maxlifetime of the session
+        ini_set("session.gc_maxlifetime", $timeout);
+        //Set the cookie lifetime of the session
+        ini_set("session.cookie_lifetime", $timeout);
+
         header("Location: ./admin/index.php");
       } else {
         Session::init();
-        Session::set("user",true);
-        Session::set("userAdmin",false);
+        Session::set("user", true);
+        Session::set("userAdmin", false);
         Session::set("userID", $result["id"]);
         Session::set("username", $result["username"]);
-        Session::set("fullname", $result["firstname"] . " " . $result["lastname"]);
+        Session::set(
+          "fullname",
+          $result["firstname"] . " " . $result["lastname"]
+        );
+
+        //Set the session timeout for 1 seconds
+        $timeout = 60;
+        Session::set("timeout", $timeout);
+        //Set the maxlifetime of the session
+        ini_set("session.gc_maxlifetime", $timeout);
+        //Set the cookie lifetime of the session
+        ini_set("session.cookie_lifetime", $timeout);
+
         header("Location: ./index.php");
       }
     } else {
@@ -38,18 +65,17 @@ if (isset($_POST["nome"]) && isset($_POST["password"])) {
     echo "User and Pass not match";
   }
 }
+if (
+  isset($_POST["nome"]) &&
+  isset($_POST["password"]) &&
+  isset($_POST["confirm-password"])
+) {
+  $nome = $_POST["nome"];
+  $password = $_POST["password"];
+  $confirm_password = $_POST["confirm-password"];
 
-// if (
-//   isset($_POST["nome"]) &&
-//   isset($_POST["password"]) &&
-//   isset($_POST["confirm_password"])
-// ) {
-//   $nome = $_POST["nome"];
-//   $password = $_POST["password"];
-//   $confirm_password = $_POST["confirm_password"];
-
-//   $result_account = $account->insert_account($nome, md5($password));
-// }
+  $result_account = $account->insert_account($nome, md5($password));
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,10 +99,10 @@ if (isset($_POST["nome"]) && isset($_POST["password"])) {
                 <h1>Log In</h1>
 
                 <label for="nome">Username:</label>
-                <input type="text" class="infos" id="nome" name="nome">
+                <input type="text" class="infos" id="nome" name="sign-in-nome">
                 <div class="mario"></div>
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password">
+                <input type="password" id="password" name="sign-in-password">
 
                 <div class="wrap-btn">
                     <button type="submit">Log in</button>
@@ -102,7 +128,7 @@ if (isset($_POST["nome"]) && isset($_POST["password"])) {
                 <label for="confirm">Confirm Password:</label>
                 <input type="password" id="confirm-password" name="confirm-password">
                 <div class="wrap-btn">
-                    <button type="submit" id="btn-sign-in" onclick="checkSignIn();">Sign up</button>
+                    <button type="submit" id="btn-sign-up" onclick="checkSignUp();">Sign up</button>
 
                     <div>
                         <i>Already have an account? <a onclick="handleClick(event, '2');">Log in now</a></i>

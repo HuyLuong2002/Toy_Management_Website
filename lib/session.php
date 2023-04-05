@@ -31,26 +31,6 @@ class Session
     }
   }
 
-  public static function checkSession()
-  {
-    self::init();
-    if (self::get("user") == false) {
-      self::destroy();
-      header("Location: login.php");
-    }
-  }
-
-  public static function checkLoginAdmin()
-  {
-    self::init();
-    if (self::get("userAdmin") == false) {
-      header("Location: ../login.php");
-    }
-    else {
-      header("Location: ./index.php");
-    }
-  }
-
   public static function destroy()
   {
     session_destroy();

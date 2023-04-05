@@ -1,4 +1,4 @@
-function checkSignIn() {
+function checkSignUp() {
   var password = document.getElementById("sign-up-password").value;
   var confirm_password = document.getElementById("confirm-password").value;
   

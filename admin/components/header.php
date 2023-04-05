@@ -1,13 +1,19 @@
 <?php
 include_once "..\lib\session.php";
 Session::init();
-if(Session::get("userAdmin") == false)
-{
+if (Session::get("userAdmin") == false) {
   Session::destroy();
-  header("Location: ../login.php");
 }
-if(isset($_GET["action"]) && $_GET["action"] == "logout")
-{
+//Set the default session name
+$s_name = session_name();
+$timeout = Session::get("timeout");
+//Check the session exists or not
+if (isset($_COOKIE[$s_name])) {
+  setcookie($s_name, $_COOKIE[$s_name], time() + $timeout, "/");
+} else {
+  Session::destroy();
+}
+if (isset($_GET["action"]) && $_GET["action"] == "logout") {
   Session::destroy();
 }
 ?>
@@ -51,8 +57,7 @@ if(isset($_GET["action"]) && $_GET["action"] == "logout")
            <?php echo Session::get("fullname"); ?>
           <small>Super admin</small>
           <small>
-            <?php 
-            if (isset($_GET["action"]) && $_GET["action"] == "logout") {
+            <?php if (isset($_GET["action"]) && $_GET["action"] == "logout") {
               Session::destroy();
             } ?>
             <a href="?action=logout">Đăng xuất</a>

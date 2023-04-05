@@ -4,6 +4,16 @@ include_once $filepath . "\classes\category.php";
 include_once $filepath . "\lib\session.php";
 $category = new Category();
 Session::init();
+
+//Set the default session name
+$s_name = session_name();
+$timeout = Session::get("timeout");
+//Check the session exists or not
+if (isset($_COOKIE[$s_name])) {
+  setcookie($s_name, $_COOKIE[$s_name], time() + $timeout, "/");
+} else {
+  session_destroy();
+}
 ?>
 <header>
     <div class="section-header">
