@@ -12,11 +12,11 @@ $category = new Category();
         <div class="nav-bar">
             <label class="icon"><i class="fa-solid fa-bars"></i></label>
             <ul class="menu-items">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="about.php">About</a></li>
-                <li><a href="orders.php">Orders</a></li>
+                <li><a href="index.php" class="list-1">Home</a></li>
+                <li><a href="about.php" class="list-1">About</a></li>
+                <li><a href="orders.php" class="list-1">Orders</a></li>
                 <li>
-                    <a href="category.php?id=1&page=1">Category</a>
+                    <a href="category.php?id=1&page=1" class="list-1">Category</a>
                     <i class="fa-solid fa-chevron-down"></i>
                     <ul class="sub-menu">
                         <?php
@@ -34,7 +34,7 @@ $category = new Category();
 
                     </ul>
                 </li>
-                <li><a href="contact.php">Contact</a></li>
+                <li><a href="contact.php" class="list-1">Contact</a></li>
             </ul>
         </div>
         <div class="icons">
@@ -67,7 +67,7 @@ $category = new Category();
                             </li>
                             <li>
                                 <i class="fa-solid fa-right-from-bracket"></i>
-                                <a href="../login.php">Login</a>
+                                <a href="../login.php">LogOut</a>
                             </li>
                         </ul>
                     </div>
@@ -79,7 +79,7 @@ $category = new Category();
         <input type="text" placeholder="Nhập sản phẩm muốn tìm kiếm vào đây">
     </div>
 </header>
-
+<script src="./js/category.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script>
     $(document).ready(function() {
@@ -101,7 +101,7 @@ $category = new Category();
 </script>
 
 <script>
-    function menuToggle(){
+    function menuToggle() {
         const toggle = document.querySelector('.profile-menu');
         toggle.classList.toggle('active');
     }

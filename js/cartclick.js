@@ -1,8 +1,8 @@
-let ProductName = document.getElementById("product-name")
-let ProductImg = document.getElementById("product-image")
-let ProductPrice = document.getElementById("product-price")
-
 const AddActive = (event, id) => {
+    let ProductNameCart = document.getElementById(`product-name-${id}`)
+    let ProductImgCart = document.getElementById(`product-image-${id}`)
+    let ProductPriceCart = document.getElementById(`product-price-${id}`)
+
     event.preventDefault();
     let iCheck = document.getElementById(`icon-check-${id}`) 
     if (iCheck.classList.contains('fa-check')) {
@@ -22,11 +22,11 @@ const AddActive = (event, id) => {
         iCheck.classList.remove('fa-plus');
 
         // get info
-        let convertPrice = ProductPrice.innerText.split('$');
+        let convertPrice = ProductPriceCart.innerText.split('$');
         const productInfo = {
             id: id,
-            name: ProductName.innerText,
-            image: ProductImg.src,
+            name: ProductNameCart.innerText,
+            image: ProductImgCart.src,
             price: parseFloat(convertPrice[1]),
             quantity: 1
         }

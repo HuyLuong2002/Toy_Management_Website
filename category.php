@@ -227,15 +227,14 @@ $result_pagination = $product->show_product_by_category_panigation(
 </script>
 
 <script>
-  let url = location.search.split("&");
-  let id = url[0].split("=");
-  console.log(id[1]);
+  let url_category = location.search.split("&");
+  let id = url_category[0].split("=");
   const toggles = document.querySelectorAll('.sidebar ul li');
-  for (let i = 0; i < toggles.length; i++){
+  for (let i = 0; i < toggles.length; i++) {
     var Li_id = toggles[i].getAttribute('data-id');
-    if (Li_id === id[1]){
+    if (Li_id === id[1]) {
       toggles[i].classList.add('active');
+      break;
     }
   }
-  console.log(toggles);
 </script>
