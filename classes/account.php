@@ -25,7 +25,7 @@ include_once $filepath . "\helpers\\format.php";
 
   public function check_account($username)
   {
-    $query = "SELECT * FROM account WHERE username='{$username}'";
+    $query = "SELECT * FROM account WHERE username='{$username}' REGEXP BINARY '[a-z0-9]'";
     $result = $this->db->select($query);
     return $result;
   }

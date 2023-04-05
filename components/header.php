@@ -16,7 +16,7 @@ $category = new Category();
                 <li><a href="about.php">About</a></li>
                 <li><a href="orders.php">Orders</a></li>
                 <li>
-                    <a href="category.php?id=1&pageid=1">Category</a>
+                    <a href="category.php?id=1&page=1">Category</a>
                     <i class="fa-solid fa-chevron-down"></i>
                     <ul class="sub-menu">
                         <?php
@@ -25,7 +25,7 @@ $category = new Category();
                             while ($result = $show_category->fetch_assoc()) {
                         ?>
                                 <li>
-                                    <a href="category.php?id=<?php echo $result["id"]; ?>&pageid=1"> <?php echo $result["name"] ?></a>
+                                    <a href="category.php?id=<?php echo $result["id"]; ?>&page=1"> <?php echo $result["name"] ?></a>
                                 </li>
                         <?php
                             }

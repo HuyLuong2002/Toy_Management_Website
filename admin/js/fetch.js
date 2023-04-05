@@ -1,5 +1,5 @@
 let httpFetchCategory =
-  "http://localhost:8000/Toy_Management_Website/api/product/read.php";
+  "http://localhost:3000/api/product/read.php";
 let productDetail = document.getElementById("product-details");
 const url = window.location.href;
 const match = url.match(/id=([^&]*)/);
@@ -11,7 +11,7 @@ fetch(httpFetchCategory)
   .then((response) => response.json())
   .then((data) => data.product)
   .then((data) => {
-    let newData = data.filter(item => item.id === newIdProduct)
+    let newData = data.filter(item => item.id == newIdProduct)
     ShowProductDetail(newData[0]);
   })
   .catch((error) => console.error(error));
@@ -20,7 +20,7 @@ const ShowProductDetail = (data) => {
 
     productDetail.innerHTML = `
         <div class="product-image">
-        <img src="${data.image}" alt="Product Image">
+        <img src="uploads/${data.image}" alt="Product Image">
       </div>
       <div class="product-info">
         <h2 class="product-title"> ${data.name}</h2>

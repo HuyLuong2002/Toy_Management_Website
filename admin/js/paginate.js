@@ -30,7 +30,7 @@ let listBar = [
     id: 3,
     title: "Orders",
     href: "index.php?id=3",
-    icon: "la-shopping-cart",
+    icon: "la-shopping-cart"
   },
   {
     id: 4,
