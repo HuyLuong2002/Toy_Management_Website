@@ -47,7 +47,7 @@ const AddActive = (event, id) => {
             }
         }
     }
-    // location.reload();
+    location.reload();
 }
 
 const checkAddToCart = (dataId) =>{

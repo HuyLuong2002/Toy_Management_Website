@@ -6,15 +6,15 @@ let fadeTime = 300;
 let productWrapper = document.getElementById("product-wrapper");
 // let totalWrapper = document.getElementById("wrap-total");
 
-let products = JSON.parse(localStorage.getItem('products'));
+let favorite = JSON.parse(localStorage.getItem('favorite'));
 
 const handleLoadCart = () => {
-    if (!products.length) {
+    if (!favorite.length) {
         productWrapper.innerHTML = '<h1>Empty</h1>';
         return
     }
 
-    const cartListText = products.map((product, index) => {
+    const cartListText = favorite.map((product, index) => {
             return `
             <div class="product" key="${index}">
                 <div class="product-image">
@@ -40,13 +40,13 @@ const handleRemove = (e) => {
     // remove from DOM
     e.target.parentElement.parentElement.remove();
     // remove from localStorage
-    products.forEach((product, index) => {
+    favorite.forEach((product, index) => {
         if(e.target.dataset.id === product.id){
-            products.splice(index, 1);
+            favorite.splice(index, 1);
         }
     });
     // set the array into localStorage
-    localStorage.setItem('products', JSON.stringify(products));
+    localStorage.setItem('favorite', JSON.stringify(favorite));
 }
 
 handleLoadCart()
