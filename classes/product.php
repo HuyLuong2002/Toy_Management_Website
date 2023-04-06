@@ -54,7 +54,7 @@ include_once $filepath . "\helpers\\format.php";
 
   public function show_product()
   {
-    $query = "SELECT * FROM product ORDER BY id desc";
+    $query = "SELECT * FROM product ORDER BY id desc LIMIT 5";
     $result = $this->db->select($query);
     return $result;
   }
