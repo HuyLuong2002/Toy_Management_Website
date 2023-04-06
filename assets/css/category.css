@@ -351,7 +351,11 @@ body {
 }
 
 .pagination li a:hover{
-    color: #40c9a2;
+    color: #fe2810;
+}
+
+.pagination li.current{
+    background-color: #83f0fa;
 }
 
 /* end bottom-pagination */
@@ -379,5 +383,9 @@ body {
 
     .list-product .product-wrapper {
         grid-template-columns: repeat(1, 1fr);
+    }
+
+    .main-list li a{
+        font-size: 16   px;
     }
 }
