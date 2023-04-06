@@ -1,3 +1,9 @@
+<?php
+// $filepath = realpath(dirname(__DIR__));
+// include_once $filepath . "\Toy_Management_Website\lib\session.php";
+
+// Session::checkSession();
+?>
 <!DOCTYPE html>
 <html lang="en">
 

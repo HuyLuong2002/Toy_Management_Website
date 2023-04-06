@@ -9,14 +9,14 @@ const favActive = (event) => {
         event.target.classList.remove('fa-solid');
 
         // remove from localStorage
-        const products = JSON.parse(localStorage.getItem('products'));
-        products.forEach((product, index) => {
+        const favorite = JSON.parse(localStorage.getItem('favorite'));
+        favorite.forEach((product, index) => {
             if (event.target.dataset.id === product.id) {
-                products.splice(index, 1);
+                favorite.splice(index, 1);
             }
         });
         // set the array into localStorage
-        localStorage.setItem('products', JSON.stringify(products));
+        localStorage.setItem('favorite', JSON.stringify(favorite));
     } else {
 
         // add the class
@@ -37,23 +37,24 @@ const favActive = (event) => {
             console.log('Product already in favorites');
         } else {
             // Add product to favorites
-            if (localStorage.getItem('products')) {
-                const tmpProduct = JSON.parse(localStorage.getItem('products'));
+            if (localStorage.getItem('favorite')) {
+                const tmpProduct = JSON.parse(localStorage.getItem('favorite'));
                 tmpProduct.push(productInfo);
-                localStorage.setItem('products', JSON.stringify(tmpProduct));
+                localStorage.setItem('favorite', JSON.stringify(tmpProduct));
             } else {
                 const tmpProduct = [];
                 tmpProduct.push(productInfo);
-                localStorage.setItem('products', JSON.stringify(tmpProduct));
+                localStorage.setItem('favorite', JSON.stringify(tmpProduct));
             }
             console.log('Product added to favorites');
         }
     }
+    location.reload();
 }
 
 function checkFavorite(dataId) {
-    if (localStorage.getItem('products')) {
-        const tmpProduct = JSON.parse(localStorage.getItem('products'));
+    if (localStorage.getItem('favorite')) {
+        const tmpProduct = JSON.parse(localStorage.getItem('favorite'));
         for (let i = 0; i < tmpProduct.length; i++) {
             if (tmpProduct[i].id === dataId) {
                 return true;

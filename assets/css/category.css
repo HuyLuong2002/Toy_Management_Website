@@ -121,7 +121,6 @@ body {
 }
 
 .main-list li a:hover {
-    color: #40c9a2;
     transform: scale(1.1);
 }
 

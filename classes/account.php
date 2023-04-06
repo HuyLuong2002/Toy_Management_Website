@@ -2,6 +2,7 @@
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "\database\connectDB.php";
 include_once $filepath . "\helpers\\format.php";
+include_once $filepath . "\lib\session.php";
 ?>
 
 <?php class Account
@@ -15,17 +16,30 @@ include_once $filepath . "\helpers\\format.php";
     $this->fm = new Format();
   }
 
-  //   public function show_product_user()
-  //   {
-  //     $query = "SELECT * FROM product, category, sale WHERE product.category_id = category.id and product.sale_id = sale.id
-  //       ORDER BY product.create_date DESC";
-  //     $result = $this->db->select($query);
-  //     return $result;
-  //   }
-
   public function show_account()
   {
     $query = "SELECT * FROM account";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function show_account_by_id($id)
+  {
+    $query = "SELECT * FROM account WHERE id='{$id}'";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function check_account($username)
+  {
+    $query = "SELECT * FROM account WHERE username='{$username}' REGEXP BINARY '[a-z0-9]'";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function login($username, $password)
+  {
+    $query = "SELECT * FROM account WHERE username='{$username}' and password='{$password}'";
     $result = $this->db->select($query);
     return $result;
   }
@@ -37,7 +51,6 @@ include_once $filepath . "\helpers\\format.php";
 
     $password = $this->fm->validation($password);
     $password = mysqli_real_escape_string($this->db->link, $password);
-    
 
     if (empty($username)) {
       $alert = "<span class='error'>Username must be not empty</span>";

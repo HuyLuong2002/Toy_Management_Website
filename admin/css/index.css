@@ -20,6 +20,11 @@
   cursor: pointer;
 }
 
+.card-header a{
+  text-decoration: none;
+  color: black;
+}
+
 .admin-sidebar {
   width: 345px;
   position: fixed;
@@ -313,6 +318,16 @@ td .status {
   font-size: 1.2rem;
   margin-left: 0.5rem;
   color: var(--main-color);
+}
+
+.success
+{
+  color: var(--carribean-green);
+}
+
+.error
+{
+  color: red;
 }
 
 @media only screen and (max-width: 1200px) {

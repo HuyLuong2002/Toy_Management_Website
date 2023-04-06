@@ -1,7 +1,21 @@
 <?php
-$filepath = realpath(dirname(__DIR__));
-include_once $filepath . "\lib\session.php";
-Session::checkSession();
+include_once "..\lib\session.php";
+Session::init();
+if (Session::get("userAdmin") == false) {
+  Session::destroy();
+}
+//Set the default session name
+$s_name = session_name();
+$timeout = Session::get("timeout");
+//Check the session exists or not
+if (isset($_COOKIE[$s_name])) {
+  setcookie($s_name, $_COOKIE[$s_name], time() + $timeout, "/");
+} else {
+  Session::destroy();
+}
+if (isset($_GET["action"]) && $_GET["action"] == "logout") {
+  Session::destroy();
+}
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +29,6 @@ Session::checkSession();
 
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
   <link rel="stylesheet" href="./css/index.css" />
-  <link rel="stylesheet" href="./css/index.css" />
   <link rel="stylesheet" href="./css/table-list.css" />
   <link rel="stylesheet" href="./css/decentralization.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -28,7 +41,7 @@ Session::checkSession();
       <label for="nav-toggle">
         <span class="las la-bars"> </span>
       </label>
-      Dashboard
+      Dashboard 
     </h2>
 
     <div class="admin-search-wrapper">
@@ -40,7 +53,7 @@ Session::checkSession();
       <img src="assets/images/pic-1.png" width="40px" height="40px" alt="" />
       <div>
         <h4>
-          <?php echo Session::get("adminName"); ?>
+           <?php echo Session::get("fullname"); ?>
           <small>Super admin</small>
           <small>
             <?php if (isset($_GET["action"]) && $_GET["action"] == "logout") {
@@ -71,7 +84,7 @@ Session::checkSession();
         }
         else
         {
-          $("#searchresult").css("display","none");
+          $("#searchresult").css("display","block");
         }
       });
     });

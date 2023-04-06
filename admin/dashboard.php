@@ -1,7 +1,7 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once($filepath . "\database\connectDB.php");
-include_once($filepath . "\classes\product.php");
+include_once $filepath . "\database\connectDB.php";
+include_once $filepath . "\classes\product.php";
 $product = new Product();
 ?>
 <div>
@@ -78,12 +78,11 @@ $product = new Product();
                   <?php
                   $show_product = $product->show_product();
                   if ($show_product) {
-                    while (
-                      $result_product = $show_product->fetch_array()
-                    ) { ?>
+                    while ($result_product = $show_product->fetch_array()) { ?>
                       <td><?php echo $result_product[1]; ?></td>
                       <td>
-                        <img src="<?php echo "uploads/" . $result_product[2]; ?>" alt="" width="100px">
+                        <img src="<?php echo "uploads/" .
+                          $result_product[2]; ?>" alt="" width="100px">
                       </td>
                       <td>
                         <?php echo $result_product[3]; ?>
@@ -94,7 +93,7 @@ $product = new Product();
                 </tr>
             <?php }
                   }
-            ?>
+                  ?>
               </tbody>
             </table>
           </div>

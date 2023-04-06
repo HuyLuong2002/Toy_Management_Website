@@ -52,23 +52,24 @@ $product = new Product();
       $show_product = $product->show_product_user();
       if ($show_product) {
         while ($result_product = $show_product->fetch_array()) {
-          ?>
+      ?>
           <!-- Single product -->
           <div class="product">
             <div class="product-content">
               <div class="product-img">
-                <img src="<?php echo "admin/uploads/" . $result_product[2]; ?>" alt="" id="product-image"/>
+                <img src="<?php echo "admin/uploads/" . $result_product[2]; ?>" alt="" id="product-image-<?php echo $result_product[0]; ?>" />
               </div>
               <div class="product-btns">
                 <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product[0]; ?>)" data-id="<?php echo $result_product[0]; ?>" data-quantity=1>
                   Add to cart
                   <i class="fa-solid fa-plus add-icon" id="icon-check-<?php echo $result_product[0]; ?>"></i>
                 </button>
-
-                <button class="btn-buy">
-                  Buy now
-                  <span><i class="fas fa-shopping-cart"> </i> </span>
-                </button>
+                <a href="product_detail.php?id=<?php echo $result_product[0];?>">
+                  <button class="btn-buy">
+                    Buy now
+                    <span><i class="fas fa-shopping-cart"> </i> </span>
+                  </button>
+                </a>
               </div>
             </div>
             <div class="product-info">
@@ -89,12 +90,12 @@ $product = new Product();
                   ?>
                 </div>
               </div>
-              <a href="#" class="product-name" id="product-name">
+              <a href="#" class="product-name" id="product-name-<?php echo $result_product[0]; ?>">
                 <?php echo $result_product[1]; ?>
               </a>
               <?php echo $result_product[14] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$$result_product[3]</p>" : "";
               ?>
-              <p class="product-price product-price-sale" id="product-price">
+              <p class="product-price product-price-sale" id="product-price-<?php echo $result_product[0]; ?>">
                 <?php if (
                   $result_product[14] !== "Không áp dụng"
                 ) {
@@ -132,7 +133,7 @@ $product = new Product();
   var icons = document.querySelectorAll('.favorite-icon i');
   icons.forEach((icon) => {
     var dataId = icon.getAttribute('data-id');
-    var add_to_cart = JSON.parse(localStorage.getItem('add_to_cart'));
+    var add_to_cart = JSON.parse(localStorage.getItem('favorite'));
     add_to_cart.forEach((product) => {
       if (product.id === dataId) {
         icon.classList.add('fa-solid');

@@ -7,8 +7,8 @@ $product = new Product();
 if (isset($_GET["id"])) {
   $category_id = $_GET["id"];
 }
-if (isset($_GET["pageid"])) {
-  $page_id = $_GET["pageid"];
+if (isset($_GET["page"])) {
+  $page_id = $_GET["page"];
 }
 
 
@@ -64,7 +64,7 @@ $result_pagination = $product->show_product_by_category_panigation(
           $show_category_by_id = $category->show_category_by_id($category_id);
           if ($show_category_by_id) {
             $result = $show_category_by_id->fetch_assoc(); ?>
-            <li class="item"><a href="category.php?id=<?php echo $result["id"]; ?>&pageid=1">
+            <li class="item"><a href="category.php?id=<?php echo $result["id"]; ?>&page=1">
                 <?php echo $result["name"]; ?>
               </a></li>
           <?php
@@ -84,7 +84,7 @@ $result_pagination = $product->show_product_by_category_panigation(
             if ($show_category) {
               while ($result = $show_category->fetch_assoc()) { ?>
                 <li data-id="<?php echo $result["id"]; ?>">
-                  <a href="category.php?id=<?php echo $result["id"]; ?>&pageid=1">
+                  <a href="category.php?id=<?php echo $result["id"]; ?>&page=1">
                     <?php echo $result["name"]; ?>
                   </a>
                 </li>
@@ -175,7 +175,7 @@ $result_pagination = $product->show_product_by_category_panigation(
             </li>
             <?php for ($i = 1; $i <= $page_total; $i++) { ?>
               <li class="item">
-                <a href="category.php?id=<?php echo $category_id; ?>&pageid=<?php echo $i; ?>" id="<?php echo $i; ?>">
+                <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $i; ?>" id="<?php echo $i; ?>">
                   <?php echo $i; ?>
                 </a>
               </li>
@@ -219,7 +219,7 @@ $result_pagination = $product->show_product_by_category_panigation(
     // Pagination code
     $(document).on("click", "#pagination a", function(e) {
 
-      var page_id = $(this).attr("id");
+      var page = $(this).attr("id");
       loadTable();
     });
 
@@ -227,15 +227,14 @@ $result_pagination = $product->show_product_by_category_panigation(
 </script>
 
 <script>
-  let url = location.search.split("&");
-  let id = url[0].split("=");
-  console.log(id[1]);
+  let url_category = location.search.split("&");
+  let id = url_category[0].split("=");
   const toggles = document.querySelectorAll('.sidebar ul li');
-  for (let i = 0; i < toggles.length; i++){
+  for (let i = 0; i < toggles.length; i++) {
     var Li_id = toggles[i].getAttribute('data-id');
-    if (Li_id === id[1]){
+    if (Li_id === id[1]) {
       toggles[i].classList.add('active');
+      break;
     }
   }
-  console.log(toggles);
 </script>
