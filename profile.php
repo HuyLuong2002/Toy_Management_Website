@@ -3,6 +3,12 @@ $filepath = realpath(dirname(__DIR__));
 include_once($filepath . "\Toy_Management_Website\classes\account.php");
 
 $account = new Account();
+
+if(empty($_GET["id"]))
+{
+    header("Location: login.php");
+    
+}
 ?>
 
 <!DOCTYPE html>

@@ -1,6 +1,7 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "\Toy_Management_Website\lib\session.php";
+Session::init();
 if(isset($_GET["action"]) && $_GET["action"] == "logout")
 {
     Session::destroy();

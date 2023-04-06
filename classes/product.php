@@ -52,7 +52,6 @@ include_once $filepath . "\helpers\\format.php";
     return $result;
   }
 
-
   public function show_product()
   {
     $query = "SELECT * FROM product ORDER BY id desc";
@@ -172,6 +171,19 @@ include_once $filepath . "\helpers\\format.php";
         $alert = "<span class='error'>Update Product Not Sucessfully</span>";
         return $alert;
       }
+    }
+  }
+
+  public function delete_product($id)
+  {
+    $query = "DELETE FROM product WHERE id='$id'";
+    $result = $this->db->delete($query);
+    if ($result) {
+      $alert = "<span class='success'>Product Deleted Sucessfully</span>";
+      return $alert;
+    } else {
+      $alert = "<span class='error'>Product Delete Not Sucessfully</span>";
+      return $alert;
     }
   }
 }

@@ -7,13 +7,28 @@ $product = new Product();
 
 if (isset($_POST["input"])) {
   $input = $_POST["input"];
-
   $show_product_live_search = $product->show_product_live_search($input);
+}
+
+if (isset($_GET["id"])) {
+  $id = $_GET["id"];
+}
+
+if (isset($_GET["deleteid"])) {
+  $product = new Product();
+  $delete_id = $_GET["deleteid"];
+  $delete_product = $product->delete_product($delete_id);
 }
 ?>
 <div class="card" id="searchresult">
   <div class="card-header">
     <h3>Product List</h3>
+      <?php
+
+      if (isset($delete_product)) {
+        echo $delete_product;
+      }
+      ?>
     <button>
     <a href="product_add.php">
       Add product <span class="las la-plus"></span>
@@ -21,7 +36,7 @@ if (isset($_POST["input"])) {
     </button>
   </div>
 
-  <div class="card-body">
+  <div class="card-body" >
     <div class="table-responsive">
       <table width="100%">
         <thead>
@@ -43,14 +58,16 @@ if (isset($_POST["input"])) {
         <tbody>
           <?php if (isset($show_product_live_search)) {
             if ($show_product_live_search) { ?>
-              <?php while ($result = $show_product_live_search->fetch_array()) { ?>
+              <?php while (
+                $result = $show_product_live_search->fetch_array()
+              ) { ?>
                   <tr>
 
                     <td><?php echo $result[0]; ?></td>
                     <td><?php echo $result[1]; ?></td>
                     <td>
                       <img src="<?php echo "uploads/" .
-                                  $result[2]; ?>" alt="" width="100px" />
+                        $result[2]; ?>" alt="" width="100px" />
                     </td>
                     <td><?php echo $result[3]; ?></td>
                     <td><?php echo $fm->textShorten($result[4], 50); ?></td>
@@ -65,31 +82,28 @@ if (isset($_POST["input"])) {
                     <td><?php echo $result[8]; ?></td>
                     <td><?php echo $result[9]; ?></td>
                     <td><?php echo $result[10]; ?></td>
-                    <td><a href="product_edit.php?id=<?php echo $result[0] ?>">Edit</a> | <a href="">Delete</a> | <a href="productDetail.php?id=<?php echo $result[0]; ?>">Details</a>
+                    <td><a href="product_edit.php?id=<?php echo $result[0]; ?>">Edit</a> | <a href="?id=2&deleteid=<?php echo $result[0]; ?>">Delete</a> | <a href="product_detail.php?id=<?php echo $result[0]; ?>">Details</a>
                     <td>
 
                   </tr>
-            <?php }
-            } else {
-              echo "No Data Found";
-            } ?>
+            <?php }} else {echo "<span class='error'>No Data Found</span>";} ?>
         </tbody>
       </table>
     <?php
           } else {
-    ?>
+             ?>
       <tbody>
         <?php
-            $show_product = $product->show_product_user();
-            if ($show_product) {
-              while ($result = $show_product->fetch_array()) { ?>
+        $show_product = $product->show_product_user();
+        if ($show_product) {
+          while ($result = $show_product->fetch_array()) { ?>
             <tr>
 
               <td><?php echo $result[0]; ?></td>
               <td><?php echo $result[1]; ?></td>
               <td>
                 <img src="<?php echo "uploads/" .
-                            $result[2]; ?>" alt="" width="100px" />
+                  $result[2]; ?>" alt="" width="100px" />
               </td>
               <td><?php echo $result[3]; ?></td>
               <td><?php echo $fm->textShorten($result[4], 50); ?></td>
@@ -104,12 +118,13 @@ if (isset($_POST["input"])) {
               <td><?php echo $result[8]; ?></td>
               <td><?php echo $result[9]; ?></td>
               <td><?php echo $result[10]; ?></td>
-              <td><a href="product_edit.php?id=<?php echo $result[0] ?>">Edit</a> | <a href="">Delete</a> | <a href="productDetail.php?id=<?php echo $result[0]; ?>">Details</a>
+              <td><a href="product_edit.php?id=<?php echo $result[0]; ?>">Edit</a> | <a href="?id=<?php echo $id; ?>&deleteid=<?php echo $result[0]; ?>">Delete</a> | <a href="product_detail.php?id=<?php echo $result[0]; ?>">Details</a>
               <td>
 
             </tr>
       <?php }
-            }
+        }
+
           } ?>
       </tbody>
       </table>

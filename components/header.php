@@ -71,8 +71,15 @@ if (isset($_COOKIE[$s_name])) {
                 <li onclick="menuToggle();">
                     <i class="fa-solid fa-user fa-xl"></i>
                     <div class="profile-menu">
-                        <p>Hello
-                            <?php echo Session::get("fullname"); ?>
+                        <p>
+                            <?php 
+                            if(Session::get("fullname") != null) {
+                                echo "Hello" . " " . Session::get("fullname"); 
+                            }
+                            else {
+                                echo "Welcome";
+                            }
+                            ?>
                         </p>
                         <ul>
                             <li>

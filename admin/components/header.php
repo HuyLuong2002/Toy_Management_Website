@@ -29,7 +29,6 @@ if (isset($_GET["action"]) && $_GET["action"] == "logout") {
 
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
   <link rel="stylesheet" href="./css/index.css" />
-  <link rel="stylesheet" href="./css/index.css" />
   <link rel="stylesheet" href="./css/table-list.css" />
   <link rel="stylesheet" href="./css/decentralization.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -85,7 +84,7 @@ if (isset($_GET["action"]) && $_GET["action"] == "logout") {
         }
         else
         {
-          $("#searchresult").css("display","none");
+          $("#searchresult").css("display","block");
         }
       });
     });

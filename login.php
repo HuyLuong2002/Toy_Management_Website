@@ -48,7 +48,7 @@ if (isset($_POST["sign-in-nome"]) && isset($_POST["sign-in-password"])) {
           $result["firstname"] . " " . $result["lastname"]
         );
 
-        //Set the session timeout for 1 seconds
+        //Set the session timeout for 1800 seconds
         $timeout = 1800;
         Session::set("timeout", $timeout);
         //Set the maxlifetime of the session
