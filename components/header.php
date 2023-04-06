@@ -10,9 +10,9 @@ $s_name = session_name();
 $timeout = Session::get("timeout");
 //Check the session exists or not
 if (isset($_COOKIE[$s_name])) {
-  setcookie($s_name, $_COOKIE[$s_name], time() + $timeout, "/");
+    setcookie($s_name, $_COOKIE[$s_name], time() + $timeout, "/");
 } else {
-  session_destroy();
+    session_destroy();
 }
 ?>
 <header>
@@ -32,15 +32,15 @@ if (isset($_COOKIE[$s_name])) {
                         <?php
                         $show_category = $category->show_category();
                         if ($show_category) {
-                          while ($result = $show_category->fetch_assoc()) { ?>
+                            while ($result = $show_category->fetch_assoc()) { ?>
                                 <li>
                                     <a href="category.php?id=<?php echo $result[
-                                      "id"
+                                        "id"
                                     ]; ?>&page=1"> <?php echo $result[
-  "name"
-]; ?></a>
+                                         "name"
+                                     ]; ?></a>
                                 </li>
-                        <?php }
+                            <?php }
                         }
                         ?>
 
@@ -71,26 +71,34 @@ if (isset($_COOKIE[$s_name])) {
                 <li onclick="menuToggle();">
                     <i class="fa-solid fa-user fa-xl"></i>
                     <div class="profile-menu">
-                        <p>Hello <?php echo Session::get("fullname"); ?></p>
+                        <p>
+                            <?php 
+                            if(Session::get("fullname") != null) {
+                                echo "Hello" . " " . Session::get("fullname"); 
+                            }
+                            else {
+                                echo "Welcome";
+                            }
+                            ?>
+                        </p>
                         <ul>
                             <li>
                                 <i class="fa-solid fa-circle-user"></i>
-                                <a href="profile.php" id="user-btn">My Profile</a>
+                                <a href="profile.php?id=<?php echo Session::get("userID"); ?>" id="user-btn">My Profile</a>
                             </li>
                             <li>
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 <?php
-                                    if(Session::get("user") == false) {
-                                ?>
-                                <a href="../login.php">Login</a>
-                                <?php
-                                    }
-                                    else {
-                                    
-                                ?>
-                                <a href="index.php?action=logout">Log out</a>
-                                <?php
-                                    }
+                                if (Session::get("user") == false) {
+                                    ?>
+                                    <a href="login.php">Login</a>
+                                    <?php
+                                } else {
+
+                                    ?>
+                                    <a href="index.php?action=logout">Log out</a>
+                                    <?php
+                                }
                                 ?>
                             </li>
                         </ul>
@@ -106,7 +114,7 @@ if (isset($_COOKIE[$s_name])) {
 <script src="./js/category.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.sub-menu').parent('li').addClass('has-child');
     });
 </script>
