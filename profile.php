@@ -31,4 +31,3 @@
                 <div class="profile-createDate">$unknown</div>
         </div>
     </div>
-</body>

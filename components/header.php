@@ -63,7 +63,7 @@ $category = new Category();
                         <ul>
                             <li>
                                 <i class="fa-solid fa-circle-user"></i>
-                                <a href="/profile.php" id="user-btn">My Profile</a>
+                                <a href="profile.php" id="user-btn">My Profile</a>
                             </li>
                             <li>
                                 <i class="fa-solid fa-right-from-bracket"></i>
