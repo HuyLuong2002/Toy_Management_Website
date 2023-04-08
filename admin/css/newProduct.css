@@ -17,7 +17,7 @@
 form {
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 500px;
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
@@ -48,6 +48,7 @@ select {
   background-color: #eee;
   color: #333;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 input[type="text"]:focus,

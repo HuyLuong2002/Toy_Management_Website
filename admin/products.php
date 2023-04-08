@@ -23,20 +23,20 @@ if (isset($_GET["deleteid"])) {
 <div class="card" id="searchresult">
   <div class="card-header">
     <h3>Product List</h3>
-      <?php
+    <?php
 
-      if (isset($delete_product)) {
-        echo $delete_product;
-      }
-      ?>
+    if (isset($delete_product)) {
+      echo $delete_product;
+    }
+    ?>
     <button>
-    <a href="product_add.php">
-      Add product <span class="las la-plus"></span>
-    </a>  
+      <a href="product_add.php">
+        Add product <span class="las la-plus"></span>
+      </a>
     </button>
   </div>
 
-  <div class="card-body" >
+  <div class="card-body">
     <div class="table-responsive">
       <table width="100%">
         <thead>
@@ -61,69 +61,112 @@ if (isset($_GET["deleteid"])) {
               <?php while (
                 $result = $show_product_live_search->fetch_array()
               ) { ?>
-                  <tr>
+                <tr>
 
-                    <td><?php echo $result[0]; ?></td>
-                    <td><?php echo $result[1]; ?></td>
-                    <td>
-                      <img src="<?php echo "uploads/" .
-                        $result[2]; ?>" alt="" width="100px" />
-                    </td>
-                    <td><?php echo $result[3]; ?></td>
-                    <td><?php echo $fm->textShorten($result[4], 50); ?></td>
-                    <td><?php echo $result[5]; ?></td>
-                    <td>
-                      <label class="switch">
-                        <input type="checkbox" />
-                        <span class="slider round"></span>
-                      </label>
-                    </td>
-                    <td><?php echo $result[7]; ?></td>
-                    <td><?php echo $result[8]; ?></td>
-                    <td><?php echo $result[9]; ?></td>
-                    <td><?php echo $result[10]; ?></td>
-                    <td><a href="product_edit.php?id=<?php echo $result[0]; ?>">Edit</a> | <a href="?id=2&deleteid=<?php echo $result[0]; ?>">Delete</a> | <a href="product_detail.php?id=<?php echo $result[0]; ?>">Details</a>
-                    <td>
+                  <td>
+                    <?php echo $result[0]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[1]; ?>
+                  </td>
+                  <td>
+                    <img src="<?php echo "uploads/" .
+                      $result[2]; ?>" alt="" width="100px" />
+                  </td>
+                  <td>
+                    <?php echo $result[3]; ?>
+                  </td>
+                  <td>
+                    <?php echo $fm->textShorten($result[4], 50); ?>
+                  </td>
+                  <td>
+                    <?php echo $result[5]; ?>
+                  </td>
+                  <td>
+                    <label class="switch">
+                      <input type="checkbox" />
+                      <span class="slider round"></span>
+                    </label>
+                  </td>
+                  <td>
+                    <?php echo $result[7]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[8]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[9]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[10]; ?>
+                  </td>
+                  <td><a href="product_edit.php?id=<?php echo $result[0]; ?>">Edit</a> | <a
+                      href="?id=2&deleteid=<?php echo $result[0]; ?>">Delete</a> | <a
+                      href="product_detail.php?id=<?php echo $result[0]; ?>">Details</a>
+                  </td>
 
-                  </tr>
-            <?php }} else {echo "<span class='error'>No Data Found</span>";} ?>
-        </tbody>
-      </table>
-    <?php
-          } else {
-             ?>
-      <tbody>
+                </tr>
+              <?php }
+            } else {
+              echo "<span class='error'>No Data Found</span>";
+            } ?>
+          </tbody>
+        </table>
         <?php
-        $show_product = $product->show_product_user();
-        if ($show_product) {
-          while ($result = $show_product->fetch_array()) { ?>
-            <tr>
+          } else {
+            ?>
+        <tbody>
+          <?php
+          $show_product = $product->show_product_user();
+          if ($show_product) {
+            while ($result = $show_product->fetch_array()) { ?>
+              <tr>
 
-              <td><?php echo $result[0]; ?></td>
-              <td><?php echo $result[1]; ?></td>
-              <td>
-                <img src="<?php echo "uploads/" .
-                  $result[2]; ?>" alt="" width="100px" />
-              </td>
-              <td><?php echo $result[3]; ?></td>
-              <td><?php echo $fm->textShorten($result[4], 50); ?></td>
-              <td><?php echo $result[5]; ?></td>
-              <td>
-                <label class="switch">
-                  <input type="checkbox" />
-                  <span class="slider round"></span>
-                </label>
-              </td>
-              <td><?php echo $result[7]; ?></td>
-              <td><?php echo $result[8]; ?></td>
-              <td><?php echo $result[9]; ?></td>
-              <td><?php echo $result[10]; ?></td>
-              <td><a href="product_edit.php?id=<?php echo $result[0]; ?>">Edit</a> | <a href="?id=<?php echo $id; ?>&deleteid=<?php echo $result[0]; ?>">Delete</a> | <a href="product_detail.php?id=<?php echo $result[0]; ?>">Details</a>
-              <td>
+                <td>
+                  <?php echo $result[0]; ?>
+                </td>
+                <td>
+                  <?php echo $result[1]; ?>
+                </td>
+                <td>
+                  <img src="<?php echo "uploads/" .
+                    $result[2]; ?>" alt="" width="100px" />
+                </td>
+                <td>
+                  <?php echo $result[3]; ?>
+                </td>
+                <td>
+                  <?php echo $fm->textShorten($result[4], 50); ?>
+                </td>
+                <td>
+                  <?php echo $result[5]; ?>
+                </td>
+                <td>
+                  <label class="switch">
+                    <input type="checkbox" />
+                    <span class="slider round"></span>
+                  </label>
+                </td>
+                <td>
+                  <?php echo $result[7]; ?>
+                </td>
+                <td>
+                  <?php echo $result[8]; ?>
+                </td>
+                <td>
+                  <?php echo $result[9]; ?>
+                </td>
+                <td>
+                  <?php echo $result[10]; ?>
+                </td>
+                <td><a href="product_edit.php?id=<?php echo $result[0]; ?>">Edit</a> | <a
+                    href="?id=<?php echo $id; ?>&deleteid=<?php echo $result[0]; ?>">Delete</a> | <a
+                    href="product_detail.php?id=<?php echo $result[0]; ?>">Details</a>
+                <td>
 
-            </tr>
-      <?php }
-        }
+              </tr>
+            <?php }
+          }
 
           } ?>
       </tbody>

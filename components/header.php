@@ -96,7 +96,7 @@ if (isset($_COOKIE[$s_name])) {
                                 } else {
 
                                     ?>
-                                    <a href="index.php?action=logout">Log out</a>
+                                    <a href="login.php?action=logout">Log out</a>
                                     <?php
                                 }
                                 ?>
