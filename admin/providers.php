@@ -21,7 +21,7 @@ if (isset($_GET["deleteid"])) {
 ?>
 
 
-<div class="card">
+<div class="card" id="searchresultprovider">
   <div class="card-header">
     <h3>Providers List</h3>
     <?php
@@ -61,7 +61,7 @@ if (isset($_GET["deleteid"])) {
                     <?php echo $result[1]; ?>
                   </td>
                   <td><a href="provider_edit.php?id=<?php echo $result[0]; ?>">Edit</a> | <a
-                      href="?id=<?php echo $id; ?>&deleteid=<?php echo $result[0]; ?>">Delete</a></td>
+                      href="?id=7&deleteid=<?php echo $result[0]; ?>">Delete</a></td>
                 </tr>
               <?php }
             } else {

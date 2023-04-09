@@ -27,25 +27,15 @@ if (isset($_GET["deleteid"])) {
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0" />
-  <title>Product List Management</title>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
-<div class="card" id="searchresult">
+<div class="card" id="searchresultproduct">
   <div class="card-header">
     <h3>Product List</h3>
-<<<<<<< HEAD
       <?php if (isset($delete_product)) {
         echo $delete_product;
       } ?>
-=======
-    <?php
-
-    if (isset($delete_product)) {
-      echo $delete_product;
-    }
-    ?>
->>>>>>> 7bbd5ec4fc9d1b2a68b598a1a93e229a0017ffbd
     <button>
       <a href="product_add.php">
         Add product <span class="las la-plus"></span>

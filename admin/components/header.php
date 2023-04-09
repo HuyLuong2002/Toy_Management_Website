@@ -16,6 +16,9 @@ if (isset($_COOKIE[$s_name])) {
 if (isset($_GET["action"]) && $_GET["action"] == "logout") {
   Session::destroy();
 }
+if (isset($_GET["id"])) {
+  $id = $_GET["id"];
+}
 ?>
 
 <!DOCTYPE html>
@@ -77,14 +80,24 @@ if (isset($_GET["action"]) && $_GET["action"] == "logout") {
             method: "POST",
             data:{input:input},
             success: function(data){
-              $("#searchresult").html(data);
-              $("#searchresult").css("display","block");
+              $("#searchresultproduct").html(data);
+              $("#searchresultproduct").css("display","block");
+            }
+          });
+
+          $.ajax({
+            url: "providers.php",
+            method: "POST",
+            data:{input:input},
+            success: function(data){  
+              $("#searchresultprovider").html(data);
+              $("#searchresultprovider").css("display","block");
             }
           });
         }
         else
         {
-          $("#searchresult").css("display","block");
+          $("#searchresultproduct").css("display","block");
         }
       });
     });
