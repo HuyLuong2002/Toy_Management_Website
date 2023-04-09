@@ -20,15 +20,23 @@ if (isset($_GET["deleteid"])) {
   $delete_product = $product->delete_product($delete_id);
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0" />
+  <title>Product List Management</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+</head>
 <div class="card" id="searchresult">
   <div class="card-header">
     <h3>Product List</h3>
-      <?php
-
-      if (isset($delete_product)) {
+      <?php if (isset($delete_product)) {
         echo $delete_product;
-      }
-      ?>
+      } ?>
     <button>
     <a href="product_add.php">
       Add product <span class="las la-plus"></span>
@@ -110,8 +118,15 @@ if (isset($_GET["deleteid"])) {
               <td><?php echo $result[5]; ?></td>
               <td>
                 <label class="switch">
-                  <input type="checkbox" />
-                  <span class="slider round"></span>
+                  <?php if ($result[6] == "1") {
+                    $check_status = "checked";
+                    $slider_style = "background-color: #2196f3;";
+                  } else {
+                    $check_status = "";
+                    $slider_style = "";
+                  } ?>
+                  <input type="checkbox" <?php echo $check_status; ?> id="<?php echo $result[0]; ?>" value="<?php echo $result[6]; ?>"/>
+                  <span class="slider round" style="<?php echo $slider_style; ?>" name="<?php echo $result[0]; ?>" id="span-<?php echo $result[0]; ?>" onclick="handleClick(<?php echo $result[0]; ?>)"></span>
                 </label>
               </td>
               <td><?php echo $result[7]; ?></td>
@@ -131,3 +146,6 @@ if (isset($_GET["deleteid"])) {
     </div>
   </div>
 </div>
+<script>
+
+</script>

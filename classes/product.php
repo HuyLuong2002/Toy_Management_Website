@@ -174,6 +174,14 @@ include_once $filepath . "\helpers\\format.php";
     }
   }
 
+  public function update_product_highlight($highlight, $id)
+  {
+      $query = "UPDATE product SET highlight='{$highlight}' where id='{$id}'";
+      $result = $this->db->update($query);
+      return $result;
+  }
+
+
   public function delete_product($id)
   {
     $query = "DELETE FROM product WHERE id='$id'";
