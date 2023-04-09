@@ -110,10 +110,12 @@ $result_pagination = $product->show_product_by_category_panigation(
                       Add to Cart
                       <span><i class="fas fa-plus"></i></span>
                     </button>
-                    <button class="btn-buy">
-                      Buy now
-                      <span><i class="fas fa-shopping-cart"></i></span>
-                    </button>
+                    <a href="product_detail.php?id=<?php echo $result_product[0]; ?>">
+                      <button class="btn-buy">
+                        Buy now
+                        <span><i class="fas fa-shopping-cart"> </i> </span>
+                      </button>
+                    </a>
                   </div>
                 </div>
                 <div class="product-info">
@@ -174,8 +176,8 @@ $result_pagination = $product->show_product_by_category_panigation(
               </a>
             </li>
             <?php for ($i = 1; $i <= $page_total; $i++) { ?>
-              <li class="item">
-                <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $i; ?>" id="<?php echo $i; ?>">
+              <li class="item" id="<?php echo $i; ?>">
+                <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $i; ?>">
                   <?php echo $i; ?>
                 </a>
               </li>
@@ -234,6 +236,16 @@ $result_pagination = $product->show_product_by_category_panigation(
     var Li_id = toggles[i].getAttribute('data-id');
     if (Li_id === id[1]) {
       toggles[i].classList.add('active');
+      break;
+    }
+  }
+
+  page_id = url_category[1].split("=");
+  const Listpage = document.querySelectorAll('.pagination li')
+  for (let i = 0; i < Listpage.length; i++) {
+    var page_current = Listpage[i].getAttribute('id');
+    if (page_current === page_id[1]){
+      Listpage[i].classList.add('current');
       break;
     }
   }
