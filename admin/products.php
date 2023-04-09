@@ -61,7 +61,7 @@ if (isset($_GET["deleteid"])) {
               <?php while (
                 $result = $show_product_live_search->fetch_array()
               ) { ?>
-                <tr>
+                <tr id="switch-<?php echo $result[0]; ?>">
 
                   <td>
                     <?php echo $result[0]; ?>
@@ -71,7 +71,7 @@ if (isset($_GET["deleteid"])) {
                   </td>
                   <td>
                     <img src="<?php echo "uploads/" .
-                      $result[2]; ?>" alt="" width="100px" />
+                                $result[2]; ?>" alt="" width="100px" />
                   </td>
                   <td>
                     <?php echo $result[3]; ?>
@@ -85,7 +85,7 @@ if (isset($_GET["deleteid"])) {
                   <td>
                     <label class="switch">
                       <input type="checkbox" />
-                      <span class="slider round"></span>
+                      <span class="slider round" onclick="handleGetId(<?php echo $result[0]; ?>,state=false)"></span>
                     </label>
                   </td>
                   <td>
@@ -100,77 +100,104 @@ if (isset($_GET["deleteid"])) {
                   <td>
                     <?php echo $result[10]; ?>
                   </td>
-                  <td><a href="product_edit.php?id=<?php echo $result[0]; ?>">Edit</a> | <a
-                      href="?id=2&deleteid=<?php echo $result[0]; ?>">Delete</a> | <a
-                      href="product_detail.php?id=<?php echo $result[0]; ?>">Details</a>
+                  <td><a href="product_edit.php?id=<?php echo $result[0]; ?>">Edit</a> | <a href="?id=2&deleteid=<?php echo $result[0]; ?>">Delete</a> | <a href="product_detail.php?id=<?php echo $result[0]; ?>">Details</a>
                   </td>
 
                 </tr>
-              <?php }
+            <?php }
             } else {
               echo "<span class='error'>No Data Found</span>";
             } ?>
-          </tbody>
-        </table>
-        <?php
+        </tbody>
+      </table>
+    <?php
           } else {
-            ?>
-        <tbody>
-          <?php
-          $show_product = $product->show_product_user();
-          if ($show_product) {
-            while ($result = $show_product->fetch_array()) { ?>
-              <tr>
+    ?>
+      <tbody>
+        <?php
+            $show_product = $product->show_product_user();
+            if ($show_product) {
+              while ($result = $show_product->fetch_array()) { ?>
+            <tr id="switch-<?php echo $result[0]; ?>">
 
-                <td>
-                  <?php echo $result[0]; ?>
-                </td>
-                <td>
-                  <?php echo $result[1]; ?>
-                </td>
-                <td>
-                  <img src="<?php echo "uploads/" .
-                    $result[2]; ?>" alt="" width="100px" />
-                </td>
-                <td>
-                  <?php echo $result[3]; ?>
-                </td>
-                <td>
-                  <?php echo $fm->textShorten($result[4], 50); ?>
-                </td>
-                <td>
-                  <?php echo $result[5]; ?>
-                </td>
-                <td>
-                  <label class="switch">
-                    <input type="checkbox" />
-                    <span class="slider round"></span>
-                  </label>
-                </td>
-                <td>
-                  <?php echo $result[7]; ?>
-                </td>
-                <td>
-                  <?php echo $result[8]; ?>
-                </td>
-                <td>
-                  <?php echo $result[9]; ?>
-                </td>
-                <td>
-                  <?php echo $result[10]; ?>
-                </td>
-                <td><a href="product_edit.php?id=<?php echo $result[0]; ?>">Edit</a> | <a
-                    href="?id=<?php echo $id; ?>&deleteid=<?php echo $result[0]; ?>">Delete</a> | <a
-                    href="product_detail.php?id=<?php echo $result[0]; ?>">Details</a>
-                <td>
+              <td>
+                <?php echo $result[0]; ?>
+              </td>
+              <td>
+                <?php echo $result[1]; ?>
+              </td>
+              <td>
+                <img src="<?php echo "uploads/" .
+                            $result[2]; ?>" alt="" width="100px" />
+              </td>
+              <td>
+                <?php echo $result[3]; ?>
+              </td>
+              <td>
+                <?php echo $fm->textShorten($result[4], 50); ?>
+              </td>
+              <td>
+                <?php echo $result[5]; ?>
+              </td>
+              <td>
+                <label class="switch">
+                  <input type="checkbox" />
+                  <span class="slider round" id="slider-<?php echo $result[0]; ?>" onclick="handleGetId(<?php echo $result[0]; ?>)"></span>
+                </label>
+              </td>
+              <td>
+                <?php echo $result[7]; ?>
+              </td>
+              <td>
+                <?php echo $result[8]; ?>
+              </td>
+              <td>
+                <?php echo $result[9]; ?>
+              </td>
+              <td>
+                <?php echo $result[10]; ?>
+              </td>
+              <td><a href="product_edit.php?id=<?php echo $result[0]; ?>">Edit</a> | <a href="?id=<?php echo $id; ?>&deleteid=<?php echo $result[0]; ?>">Delete</a> | <a href="product_detail.php?id=<?php echo $result[0]; ?>">Details</a>
+              <td>
 
-              </tr>
-            <?php }
-          }
-
+            </tr>
+      <?php }
+            }
           } ?>
       </tbody>
       </table>
     </div>
   </div>
 </div>
+
+<script>
+    let flag = 1
+
+  const handleGetId = (id) => {
+    ++flag
+    let NewSate = CheckState(flag)
+    TransformBg(id)
+
+    $.ajax({
+      url: "http://localhost:8000/Toy_Management_Website/admin/index.php?id=2", // your_api_endpoint_here
+      data: {
+        id: id,
+        state: NewSate
+      }, // Truyền giá trị ID trực tiếp vào yêu cầu AJAX
+      success: function(response) {
+        const myData = response.data;
+        const myState = response.state;
+        // Xử lý dữ liệu trong biến myData ở đây
+      }
+    });
+  }
+
+  const TransformBg = (id) => {
+    let sw = document.getElementById(`switch-${id}`)
+    sw.classList.toggle('activeBg')
+  }
+
+  const CheckState = (flag) => {
+    return flag % 2 == 0 ? 1 : 0
+  }
+</script>
