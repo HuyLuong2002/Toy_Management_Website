@@ -110,6 +110,10 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
+.activeBg {
+  background-color: #ccc;
+}
+
 /* Rounded sliders */
 .slider.round {
   border-radius: 34px;
