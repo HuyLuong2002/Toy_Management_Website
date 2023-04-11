@@ -1,8 +1,16 @@
 <?php
-// $filepath = realpath(dirname(__DIR__));
-// include_once $filepath . "\Toy_Management_Website\lib\session.php";
+$filepath = realpath(dirname(__DIR__));
+include_once $filepath . "\Toy_Management_Website\lib\session.php";
 
-// Session::checkSession();
+Session::init();
+$user_id = Session::get("userID");
+if(empty($user_id))
+{
+    header("Location: login.php");
+}
+$cartAddCookie = isset($_COOKIE['cartAdd']) ? $_COOKIE['cartAdd'] : null;
+$cartAdd = json_decode($cartAddCookie, true);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,27 +27,30 @@
 
     <a href="index.php">Shopping Cart</a>
 
-    <div class="shopping-cart">
+    <form action="cart.php" method="post">
+        <div class="shopping-cart">
 
-        <div class="column-labels">
-            <label class="product-image">Image</label>
-            <label class="product-details">Product</label>
-            <label class="product-price">Price</label>
-            <label class="product-quantity">Quantity</label>
-            <label class="product-line-price">Total</label>
-            <label class="product-removal">Remove</label>
-        </div>
+            <div class="column-labels">
+                <label class="product-image">Image</label>
+                <label class="product-details">Product</label>
+                <label class="product-price">Price</label>
+                <label class="product-quantity">Quantity</label>
+                <label class="product-line-price">Total</label>
+                <label class="product-removal">Remove</label>
+            </div>
 
-        <div id="product-wrapper">
-        
-        </div>
-
-        <div id="wrap-total">
+            <div id="product-wrapper">
             
-        </div>
+            </div>
 
-        <button class="checkout">Checkout</button>
-    </div>
+            <div id="wrap-total">
+                
+            </div>
+
+            <button class="checkout" name="addCart">Checkout</button>
+        </div>
+    </form>
+
 
     <script src="./js/cart.js">
 
