@@ -56,7 +56,7 @@ if (isset($current_position))
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0" />
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 <div class="card" id="searchresultproduct">
@@ -199,7 +199,7 @@ if (isset($current_position))
               <td>
                 <?php echo $result[10]; ?>
               </td>
-              <td><a href="product_edit.php?id=<?php echo $result[0]; ?>">Edit</a> | <a href="?id=<?php echo $id; ?>&deleteid=<?php echo $result[0]; ?>">Delete</a> | <a href="product_detail.php?id=<?php echo $result[0]; ?>">Details</a>
+              <td><a href="product_edit.php?id=<?php echo $result[0]; ?>" class="Edit">Edit</a> | <a href="?id=<?php echo $id; ?>&deleteid=<?php echo $result[0]; ?>" class="Delete">Delete</a> | <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details</a>
               <td>
 
             </tr>
@@ -213,11 +213,13 @@ if (isset($current_position))
       ?>
         <div class="bottom-pagination" id="pagination">
           <ul class="pagination">
-            <li class="item page-item-previous">
-              <a href="#">
+            <?php if ($page_id > 1) {?>
+            <li class="item prev-page">
+              <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $page_id - 1; ?>">
                 <i class="fa-solid fa-chevron-left"></i>
               </a>
             </li>
+            <?php } ?>
             <?php for ($i = 1; $i <= $page_total; $i++) { ?>
               <li class="item" id="<?php echo $i; ?>">
                 <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $i; ?>">
@@ -225,11 +227,13 @@ if (isset($current_position))
                 </a>
               </li>
             <?php } ?>
-            <li class="item page-item-next">
-              <a href="#">
+            <?php if ($i > $page_id + 1) {?>
+            <li class="item next-page">
+              <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $page_id + 1; ?>">
                 <i class="fa-solid fa-chevron-right"></i>
               </a>
             </li>
+            <?php } ?>
           </ul>
         </div>
       <?php
@@ -296,4 +300,18 @@ if (isset($current_position))
     });
 
   });
+</script>
+
+<script>
+  let url_category = location.search.split("&");
+  CurrentPade_id = 1;
+  page_id = url_category[1].split("=");
+  const Listpage = document.querySelectorAll('.pagination li')
+  for (let i = 0; i < Listpage.length; i++) {
+    var page_current = Listpage[i].getAttribute('id');
+    if (page_current === page_id[1]) {
+      Listpage[i].classList.add('current');
+      break;
+    }
+  }
 </script>
