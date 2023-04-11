@@ -19,7 +19,36 @@ if (isset($_GET["deleteid"])) {
   $delete_id = $_GET["deleteid"];
   $delete_product = $product->delete_product($delete_id);
 }
+
+if (isset($_GET["page"])) {
+  $page_id = $_GET["page"];
+}
+
+/*
+Tính giá trị của phân trang
+10 sản phẩm trên 1 trang
+*/
+$result_pagination = $product->show_product_for_pagination();
+
+/*
+Tính giá trị của phân trang
+10 sản phẩm trên 1 trang
+*/
+// Tổng số sản phẩm
+$product_total = mysqli_num_rows($result_pagination);
+//số sản phẩm trên 1 trang
+$num_product_on_page = 10;
+$page_total = ceil($product_total / $num_product_on_page);
+//Trang hiện tại
+if(isset($page_id))
+  $current_page = $page_id;
+// vị trí hiện tại
+if(isset($current_page))
+  $current_position = ($current_page - 1) * $num_product_on_page;
+if(isset($current_position))
+  $result_pagination = $product->show_product_by_panigation_admin($current_position, $num_product_on_page);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -92,14 +121,14 @@ if (isset($_GET["deleteid"])) {
                   <td>
                     <label class="switch">
                       <input type="checkbox" />
-                      <span class="slider round" onclick="handleGetId(<?php echo $result[0]; ?>,state=false)"></span>
+                      <span class="slider round" onclick="<?php echo 'handleGetId('. $result[0] . ')'; ?>"></span>
                     </label>
                   </td>
                   <td>
-                    <?php echo $result[7]; ?>
+                    <?php echo $result[13]; ?>
                   </td>
                   <td>
-                    <?php echo $result[8]; ?>
+                    <?php echo $result[16]; ?>
                   </td>
                   <td>
                     <?php echo $result[9]; ?>
@@ -119,42 +148,12 @@ if (isset($_GET["deleteid"])) {
       </table>
     <?php
           } else {
-            ?>
-        <tbody>
-          <?php
-          $show_product = $product->show_product_user();
-          if ($show_product) {
-            while ($result = $show_product->fetch_array()) { ?>
-              <tr>
-
-              <td><?php echo $result[0]; ?></td>
-              <td><?php echo $result[1]; ?></td>
-              <td>
-                <img src="<?php echo "uploads/" .
-                  $result[2]; ?>" alt="" width="100px" />
-              </td>
-              <td><?php echo $result[3]; ?></td>
-              <td><?php echo $fm->textShorten($result[4], 50); ?></td>
-              <td><?php echo $result[5]; ?></td>
-              <td>
-                <label class="switch">
-                  <?php if ($result[6] == "1") {
-                    $check_status = "checked";
-                    $slider_style = "background-color: #2196f3;";
-                  } else {
-                    $check_status = "";
-                    $slider_style = "";
-                  } ?>
-                  <input type="checkbox" <?php echo $check_status; ?> id="<?php echo $result[0]; ?>" value="<?php echo $result[6]; ?>"/>
-                  <span class="slider round" style="<?php echo $slider_style; ?>" name="<?php echo $result[0]; ?>" id="span-<?php echo $result[0]; ?>" onclick="handleClick(<?php echo $result[0]; ?>)"></span>
-                </label>
-              </td>
-              <td><?php echo $result[7]; ?></td>
-              <td><?php echo $result[8]; ?></td>
-              <td><?php echo $result[9]; ?></td>
-              <td><?php echo $result[10]; ?></td>
-              <td><a href="product_edit.php?id=<?php echo $result[0]; ?>">Edit</a> | <a href="?id=<?php echo $id; ?>&deleteid=<?php echo $result[0]; ?>">Delete</a> | <a href="product_detail.php?id=<?php echo $result[0]; ?>">Details</a>
-              <td>
+    ?>
+      <tbody id="product-data">
+        <?php
+            if ($result_pagination) {
+              while ($result = $result_pagination->fetch_array()) { ?>
+            <tr id="switch-<?php echo $result[0]; ?>">
 
               <td>
                 <?php echo $result[0]; ?>
@@ -177,15 +176,24 @@ if (isset($_GET["deleteid"])) {
               </td>
               <td>
                 <label class="switch">
-                  <input type="checkbox" />
-                  <span class="slider round" id="slider-<?php echo $result[0]; ?>" onclick="handleGetId(<?php echo $result[0]; ?>)"></span>
+                  <?php
+                    if($result[6] == 1)
+                    {
+                      $checked  = "checked";
+                    }
+                    else {
+                      $checked = "";
+                    }
+                  ?>
+                  <input type="checkbox" <?php echo $checked; ?> />
+                  <span class="slider round" id="slider-<?php echo $result[0]; ?>" onclick="handleGetId(<?php echo $result[0];?>)"></span>
                 </label>
               </td>
               <td>
-                <?php echo $result[7]; ?>
+                <?php echo $result[13]; ?>
               </td>
               <td>
-                <?php echo $result[8]; ?>
+                <?php echo $result[16]; ?>
               </td>
               <td>
                 <?php echo $result[9]; ?>
@@ -202,13 +210,36 @@ if (isset($_GET["deleteid"])) {
           } ?>
       </tbody>
       </table>
+      <?php
+      if (empty($_POST["input"])) {
+      ?>
+      <div class="bottom-pagination" id="pagination">
+          <ul class="pagination">
+            <li class="item page-item-previous">
+              <a href="#">
+                <i class="fa-solid fa-chevron-left"></i>
+              </a>
+            </li>
+            <?php for ($i = 1; $i <= $page_total; $i++) { ?>
+              <li class="item" id="<?php echo $i; ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $i; ?>">
+                  <?php echo $i; ?>
+                </a>
+              </li>
+            <?php } ?>
+            <li class="item page-item-next">
+              <a href="#">
+                <i class="fa-solid fa-chevron-right"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <?php
+      }
+        ?>
     </div>
   </div>
 </div>
-<<<<<<< HEAD
-<script>
-
-=======
 
 <script>
     let flag = 1
@@ -219,7 +250,8 @@ if (isset($_GET["deleteid"])) {
     TransformBg(id)
 
     $.ajax({
-      url: "http://localhost:8000/Toy_Management_Website/admin/index.php?id=2", // your_api_endpoint_here
+      url: "update_product_highlight.php", // your_api_endpoint_here
+      method: "POST", 
       data: {
         id: id,
         state: NewSate
@@ -240,5 +272,30 @@ if (isset($_GET["deleteid"])) {
   const CheckState = (flag) => {
     return flag % 2 == 0 ? 1 : 0
   }
->>>>>>> 1bce56c6212e00c7b0854709e5d5506c5128518d
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    function loadProduct(page) {
+      $.ajax({
+        url: "products.php",
+        type: "POST",
+        data: {
+          page_no: page
+        },
+        success: function(data) {
+          $('#product-data').html(data);
+        }
+
+      });
+    }
+
+    // Pagination code
+    $(document).on("click", "#pagination a", function(e) {
+
+      var page = $(this).attr("id");
+      loadProduct();
+    });
+
+  });
 </script>
