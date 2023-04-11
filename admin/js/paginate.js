@@ -9,7 +9,7 @@ let listBar = [
   {
     id: 2,
     title: "Products",
-    href: "index.php?id=2",
+    href: "index.php?id=2&page=1",
     icon: "la-users"
   },
   {

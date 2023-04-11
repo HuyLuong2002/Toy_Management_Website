@@ -16,6 +16,7 @@ const AddActive = (event, id) => {
 
         // set the array into localStorage
         localStorage.setItem('cartAdd', JSON.stringify(newCartAdd));
+        document.cookie = "cartAdd=" + JSON.stringify(newCartAdd) + ";expires=" + new Date(Date.now() + 86400000).toUTCString() + ";path=/";
     } else {
         // add the class
         iCheck.classList.add('fa-check');
@@ -40,6 +41,7 @@ const AddActive = (event, id) => {
                 const tmpProduct = JSON.parse(localStorage.getItem('cartAdd'));
                 tmpProduct.push(productInfo);
                 localStorage.setItem('cartAdd', JSON.stringify(tmpProduct));
+                document.cookie = "cartAdd=" + JSON.stringify(tmpProduct) + ";expires=" + new Date(Date.now() + 86400000).toUTCString() + ";path=/";
             } else {
                 const tmpProduct = [];
                 tmpProduct.push(productInfo);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 04, 2023 lúc 11:29 AM
+-- Thời gian đã tạo: Th4 11, 2023 lúc 03:12 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.28
 
@@ -38,16 +38,21 @@ CREATE TABLE `account` (
   `place_of_birth` varchar(255) NOT NULL,
   `create_date` varchar(255) NOT NULL,
   `permission_id` int(11) NOT NULL,
-  `status` int(11) NOT NULL
+  `status` tinyint(1) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `account`
 --
 
-INSERT INTO `account` (`id`, `username`, `password`, `firstname`, `lastname`, `gender`, `date_birth`, `place_of_birth`, `create_date`, `permission_id`, `status`) VALUES
-(2, 'ABC', 'e10adc3949ba59abbe56e057f20f883e', 'abc', 'cbd', 'Nam', '18/02/2023', 'TPHCM', '15/03/2023', 1, 1),
-(3, 'BBC', 'e10adc3949ba59abbe56e057f20f883e', 'ABC', 'BCD', 'Nữ', '22/03/2023', 'Hà Nội', '15/03/2023', 3, 1);
+INSERT INTO `account` (`id`, `username`, `password`, `firstname`, `lastname`, `gender`, `date_birth`, `place_of_birth`, `create_date`, `permission_id`, `status`, `is_deleted`) VALUES
+(2, 'ABC', 'e10adc3949ba59abbe56e057f20f883e', 'abc', 'cbd', 'Nam', '18/02/2023', 'TPHCM', '15/03/2023', 1, 1, 0),
+(3, 'BBC', 'e10adc3949ba59abbe56e057f20f883e', 'ABC', 'BCD', 'Nữ', '22/03/2023', 'Hà Nội', '15/03/2023', 3, 1, 0),
+(6, 'BBC1', 'e10adc3949ba59abbe56e057f20f883e', 'ABC', 'BCD', 'Nữ', '22/03/2023', 'Hà Nội', '15/03/2023', 4, 1, 0),
+(7, 'ABC1', 'd41d8cd98f00b204e9800998ecf8427e', '', '', '', '', '', '', 4, 1, 0),
+(8, 'ABC1', 'd41d8cd98f00b204e9800998ecf8427e', '', '', '', '', '', '', 4, 1, 0),
+(9, 'ABC1', 'd41d8cd98f00b204e9800998ecf8427e', '', '', '', '', '', '', 4, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -78,16 +83,17 @@ INSERT INTO `account_function` (`id`, `name`) VALUES
 
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `category`
 --
 
-INSERT INTO `category` (`id`, `name`) VALUES
-(1, 'Đồ chơi mô hình'),
-(2, 'Đồ chơi Marvel');
+INSERT INTO `category` (`id`, `name`, `is_deleted`) VALUES
+(1, 'Đồ chơi mô hình', 0),
+(2, 'Đồ chơi Marvel', 0);
 
 -- --------------------------------------------------------
 
@@ -180,16 +186,17 @@ CREATE TABLE `enter_product` (
   `provider_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `status` varchar(255) NOT NULL,
-  `create_date` varchar(255) NOT NULL
+  `create_date` varchar(255) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `enter_product`
 --
 
-INSERT INTO `enter_product` (`id`, `enter_date`, `total_quantity`, `total_price`, `provider_id`, `user_id`, `status`, `create_date`) VALUES
-(1, '03/04/2023', 60, 3000, 1, 2, 'Đã giao', '03/04/2023'),
-(2, '02/04/2023', 50, 3000, 2, 2, 'Đang giao', '02/04/2023');
+INSERT INTO `enter_product` (`id`, `enter_date`, `total_quantity`, `total_price`, `provider_id`, `user_id`, `status`, `create_date`, `is_deleted`) VALUES
+(1, '03/04/2023', 60, 3000, 1, 2, 'Đã giao', '03/04/2023', 0),
+(2, '02/04/2023', 50, 3000, 2, 2, 'Đang giao', '02/04/2023', 0);
 
 -- --------------------------------------------------------
 
@@ -204,15 +211,16 @@ CREATE TABLE `orders` (
   `date` varchar(255) NOT NULL,
   `total_price` int(11) NOT NULL,
   `pay_method` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL
+  `status` varchar(255) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `quantity`, `date`, `total_price`, `pay_method`, `status`) VALUES
-(1, 2, 30, '02/04/2023', 3500, 'cash', '');
+INSERT INTO `orders` (`id`, `user_id`, `quantity`, `date`, `total_price`, `pay_method`, `status`, `is_deleted`) VALUES
+(1, 2, 30, '02/04/2023', 3500, 'cash', '', 0);
 
 -- --------------------------------------------------------
 
@@ -252,53 +260,54 @@ CREATE TABLE `product` (
   `category_id` int(11) NOT NULL,
   `sale_id` int(11) NOT NULL,
   `review` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `product`
 --
 
-INSERT INTO `product` (`id`, `name`, `image`, `price`, `description`, `create_date`, `highlight`, `category_id`, `sale_id`, `review`, `quantity`) VALUES
-(1, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01/04/2023', 0, 2, 1, 3, 30),
-(2, 'Product 2', 'ef314b1615.png', '3500', 'Sản phẩm mới', '01/04/2023', 0, 1, 2, 0, 20),
-(3, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '01/04/2023', 0, 1, 2, 0, 20),
-(4, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(5, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(6, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01/04/2023', 0, 2, 1, 3, 30),
-(7, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(8, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01/04/2023', 0, 2, 1, 3, 30),
-(9, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(11, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(12, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(13, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(14, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(15, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(16, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(17, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(18, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(19, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(20, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(21, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(22, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(23, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(24, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(25, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(26, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(27, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(28, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(29, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(30, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(31, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(32, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(33, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(34, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(35, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(36, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(37, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(38, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(39, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30),
-(40, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30);
+INSERT INTO `product` (`id`, `name`, `image`, `price`, `description`, `create_date`, `highlight`, `category_id`, `sale_id`, `review`, `quantity`, `is_deleted`) VALUES
+(1, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01/04/2023', 1, 2, 1, 3, 30, 0),
+(2, 'Product 2', 'ef314b1615.png', '3500', 'Sản phẩm mới', '01/04/2023', 0, 1, 2, 0, 20, 0),
+(3, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '01/04/2023', 0, 1, 2, 0, 20, 0),
+(6, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01/04/2023', 0, 2, 1, 3, 30, 0),
+(7, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 1, 1, 1, 5, 30, 0),
+(8, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01/04/2023', 0, 2, 1, 3, 30, 0),
+(13, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(14, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(15, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(16, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(17, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(18, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(19, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(20, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(21, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(22, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(23, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(24, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(25, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(26, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(27, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(28, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(29, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(30, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(31, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(32, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(33, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(34, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(35, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(36, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(37, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(38, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(39, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(40, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(41, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(42, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(43, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(44, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(46, 'Product 6', '2c19f85c9d.png', '3000', 'Sản phẩm mới', '09/04/2023', 1, 1, 2, 0, 35, 0);
 
 -- --------------------------------------------------------
 
@@ -308,17 +317,19 @@ INSERT INTO `product` (`id`, `name`, `image`, `price`, `description`, `create_da
 
 CREATE TABLE `provider` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `provider`
 --
 
-INSERT INTO `provider` (`id`, `name`) VALUES
-(1, 'Đồ Chơi Hòa Phú - Công Ty TNHH Đồ Chơi Hòa Phú'),
-(2, 'Đồ Chơi Bến Tre - Công Ty TNHH MTV Thương Mại Dịch Vụ Khánh Kỳ BT'),
-(3, 'Đồ Chơi Mỹ Hải - Công Ty TNHH Thương Mại Mỹ Hải');
+INSERT INTO `provider` (`id`, `name`, `is_deleted`) VALUES
+(1, 'Đồ Chơi Hòa Phú - Công Ty TNHH Đồ Chơi Hòa Phú', 0),
+(2, 'Đồ Chơi Bến Tre - Công Ty TNHH MTV Thương Mại Dịch Vụ Khánh Kỳ BT', 0),
+(3, 'Đồ Chơi Mỹ Hải - Công Ty TNHH Thương Mại Mỹ Hải', 0),
+(5, 'Đồ chơi MyKingDom 1', 0);
 
 -- --------------------------------------------------------
 
@@ -333,16 +344,17 @@ CREATE TABLE `sale` (
   `start_date` varchar(255) NOT NULL,
   `end_date` varchar(255) NOT NULL,
   `percent_sale` int(11) NOT NULL,
-  `status` int(11) NOT NULL
+  `status` int(11) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `sale`
 --
 
-INSERT INTO `sale` (`id`, `name`, `create_date`, `start_date`, `end_date`, `percent_sale`, `status`) VALUES
-(1, 'Không áp dụng', '02/04/2023', '08/03/2023', '20/03/2023', 0, 1),
-(2, 'Khuyến mãi', '22/03/2023', '22/03/2023', '25/03/2023', 25, 1);
+INSERT INTO `sale` (`id`, `name`, `create_date`, `start_date`, `end_date`, `percent_sale`, `status`, `is_deleted`) VALUES
+(1, 'Không áp dụng', '02/04/2023', '08/03/2023', '20/03/2023', 0, 1, 0),
+(2, 'Khuyến mãi', '22/03/2023', '22/03/2023', '25/03/2023', 25, 1, 0);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -447,7 +459,7 @@ ALTER TABLE `sale`
 -- AUTO_INCREMENT cho bảng `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `account_function`
@@ -501,13 +513,13 @@ ALTER TABLE `permission`
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT cho bảng `provider`
 --
 ALTER TABLE `provider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `sale`

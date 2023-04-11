@@ -51,10 +51,10 @@ include_once $filepath . "\helpers\\format.php";
             $query = "INSERT INTO provider(name) VALUES ('$providerName')";
             $result = $this->db->insert($query);
             if ($result) {
-                $alert = "<span class='success'>Insert provider Sucessfully</span>";
+                $alert = "<span class='success'>Insert Provider Sucessfully</span>";
                 return $alert;
             } else {
-                $alert = "<span class='error'>Insert provider Not Sucessfully</span>";
+                $alert = "<span class='error'>Insert Provider Not Sucessfully</span>";
                 return $alert;
             }
         }
@@ -73,10 +73,10 @@ include_once $filepath . "\helpers\\format.php";
 
             $result = $this->db->update($query);
             if ($result) {
-                $alert = "<span class='success'>Update provider Sucessfully</span>";
+                $alert = "<span class='success'>Update Provider Sucessfully</span>";
                 return $alert;
             } else {
-                $alert = "<span class='error'>Update provider Not Sucessfully</span>";
+                $alert = "<span class='error'>Update Provider Not Sucessfully</span>";
                 return $alert;
             }
         }

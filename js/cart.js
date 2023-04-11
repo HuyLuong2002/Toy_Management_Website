@@ -46,6 +46,7 @@ const handleChangeQuantity = (id) => {
        return item
     })
     localStorage.setItem('cartAdd', JSON.stringify(newCartAdd));
+    document.cookie = "cartAdd=" + JSON.stringify(newCartAdd) + ";expires=" + new Date(Date.now() + 86400000).toUTCString() + ";path=/";
     location.reload();
 }
 

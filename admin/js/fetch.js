@@ -1,7 +1,7 @@
-// let httpFetchCategory =
-//   "http://localhost:3000/api/product/read.php";
 let httpFetchCategory =
-  "http://localhost:8080/Toy_Management_Website/api/product/read.php";
+  "http://localhost:3000/api/product/read.php";
+// let httpFetchCategory =
+//   "http://localhost:8080/Toy_Management_Website/api/product/read.php";
 let productDetail = document.getElementById("product-details");
 const url = window.location.href;
 const match = url.match(/id=([^&]*)/);

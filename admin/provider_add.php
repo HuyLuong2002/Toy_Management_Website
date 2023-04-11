@@ -25,8 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
 <body>
   <div class="form-container">
-    <?php if (isset($insertprovider)) {
-      echo $insertprovider;
+    <?php if (isset($insertProvider)) {
+      echo $insertProvider;
     } ?>
     <form action="provider_add.php" method="post" enctype="multipart/form-data">
       <div class="form-group">

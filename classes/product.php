@@ -18,7 +18,7 @@ include_once $filepath . "\helpers\\format.php";
   //list product for home page
   public function show_product_user()
   {
-    $query = "SELECT * FROM product, category, sale WHERE product.category_id = category.id and product.sale_id = sale.id
+    $query = "SELECT * FROM product, category, sale WHERE product.category_id = category.id and product.sale_id = sale.id and product.is_deleted = '0'
       ORDER BY product.create_date DESC";
     $result = $this->db->select($query);
     return $result;
@@ -35,7 +35,7 @@ include_once $filepath . "\helpers\\format.php";
   //list product by category id
   public function show_product_by_category_id($category_id)
   {
-    $query = "SELECT * FROM product, category, sale WHERE product.category_id = category.id and product.sale_id = sale.id and product.category_id = '$category_id'
+    $query = "SELECT * FROM product, category, sale WHERE product.category_id = category.id and product.sale_id = sale.id and product.category_id = '$category_id' and product.is_deleted = '0'
     ORDER BY product.create_date DESC";
     $result = $this->db->select($query);
     return $result;
@@ -46,15 +46,33 @@ include_once $filepath . "\helpers\\format.php";
     $offset,
     $limit_per_page
   ) {
-    $query = "SELECT * FROM product, category, sale WHERE product.category_id = category.id and product.sale_id = sale.id and product.category_id = '$category_id'
+    $query = "SELECT * FROM product, category, sale WHERE product.category_id = category.id and product.sale_id = sale.id and product.category_id = '$category_id' and product.is_deleted = '0'
     ORDER BY product.create_date DESC LIMIT $offset,$limit_per_page";
     $result = $this->db->select($query);
     return $result;
   }
 
+  public function show_product_by_panigation_admin(
+    $offset,
+    $limit_per_page
+  ) {
+    $query = "SELECT * FROM product, category, sale WHERE product.category_id = category.id and product.sale_id = sale.id and product.is_deleted = '0'
+    ORDER BY product.create_date DESC LIMIT $offset,$limit_per_page";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+
   public function show_product()
   {
-    $query = "SELECT * FROM product ORDER BY id desc LIMIT 5";
+    $query = "SELECT * FROM product WHERE product.is_deleted = '0' ORDER BY id desc LIMIT 5";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function show_product_for_pagination()
+  {
+    $query = "SELECT * FROM product, category, sale WHERE product.is_deleted = '0' AND product.category_id = category.id AND product.sale_id = sale.id ORDER BY product.id desc";
     $result = $this->db->select($query);
     return $result;
   }
@@ -69,7 +87,7 @@ include_once $filepath . "\helpers\\format.php";
   //live search for admin
   public function show_product_live_search($input)
   {
-    $query = "SELECT * FROM product, category, sale WHERE ((product.name LIKE '$input%') OR (product.price LIKE '$input%') OR (product.description LIKE '$input%') OR (product.create_date LIKE '$input%') OR (product.highlight LIKE '$input%') OR (product.category_id LIKE '$input%') OR (product.sale_id LIKE '$input%') OR (product.review LIKE '$input%') OR (product.quantity LIKE '$input%')) AND (category.id = product.category_id AND sale.id = product.sale_id)";
+    $query = "SELECT * FROM product, category, sale WHERE ((product.name LIKE '$input%') OR (product.price LIKE '$input%') OR (product.description LIKE '$input%') OR (product.create_date LIKE '$input%') OR (product.highlight LIKE '$input%') OR (sale.name LIKE '$input%') OR (category.name LIKE '$input%') OR (product.review LIKE '$input%') OR (product.quantity LIKE '$input%')) AND (category.id = product.category_id AND sale.id = product.sale_id AND product.is_deleted = '0')";
     $result = $this->db->select($query);
     return $result;
   }
@@ -112,7 +130,7 @@ include_once $filepath . "\helpers\\format.php";
       return $alert;
     } else {
       move_uploaded_file($file_temp, $uploaded_image);
-      $query = "INSERT INTO product(name, image, price, description, create_date, highlight, category_id, sale_id, review, quantity) VALUES ('$productName', '$unique_image', '$price', '$description', '$create_date', $highlight, $category, $sale, $review, $quantity)";
+      $query = "INSERT INTO product(name, image, price, description, create_date, highlight, category_id, sale_id, review, quantity, is_deleted) VALUES ('$productName', '$unique_image', '$price', '$description', '$create_date', $highlight, $category, $sale, $review, $quantity, '0')";
       $result = $this->db->insert($query);
       if ($result) {
         $alert = "<span class='success'>Insert Product Sucessfully</span>";
@@ -174,9 +192,17 @@ include_once $filepath . "\helpers\\format.php";
     }
   }
 
+  public function update_product_highlight($highlight, $id)
+  {
+      $query = "UPDATE product SET highlight='{$highlight}' WHERE id='{$id}'";
+      $result = $this->db->update($query);
+      return $result;
+  }
+
+
   public function delete_product($id)
   {
-    $query = "DELETE FROM product WHERE id='$id'";
+    $query = "UPDATE product SET is_deleted='1' WHERE id='{$id}'";
     $result = $this->db->delete($query);
     if ($result) {
       $alert = "<span class='success'>Product Deleted Sucessfully</span>";

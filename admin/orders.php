@@ -25,6 +25,7 @@ $product = new Product();
             <td>Date</td>
             <td>Total Price</td>
             <td>Payment Method</td>
+            <td>Status</td>
             <td>Action</td>
           </tr>
         </thead>
@@ -36,6 +37,7 @@ $product = new Product();
             <td>18/02/2023</td>
             <td>3000</td>
             <td>Cash</td>
+            <td>Đang giao hàng</td>
             <td><a href="">Edit</a> | <a href="">Delete</a>
             <td>
           </tr>
