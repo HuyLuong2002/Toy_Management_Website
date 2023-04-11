@@ -117,11 +117,11 @@ body {
     width: 100%;
     padding-left: 1rem;
     border-left: 2px solid transparent;
-    transition: 0.3s;
+    transition: transform 0.3s;
 }
 
 .main-list li a:hover {
-    transform: scale(1.1);
+    transform: translateX(7px);
 }
 
 .main-list li.active a{
@@ -345,6 +345,11 @@ body {
     display: inline;
 }
 
+.pagination>li[class$="-page"]{
+    background-color: #d5d5d5;
+    font-weight: bold;
+}
+
 .pagination li a{
     text-decoration: none;
     transition: 0.3s;
@@ -357,6 +362,7 @@ body {
 .pagination li.current{
     background-color: #83f0fa;
 }
+
 
 /* end bottom-pagination */
 

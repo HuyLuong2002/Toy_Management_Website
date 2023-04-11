@@ -170,11 +170,13 @@ $result_pagination = $product->show_product_by_category_panigation(
         </div>
         <div class="bottom-pagination" id="pagination">
           <ul class="pagination">
-            <li class="item page-item-previous">
-              <a href="#">
-                <i class="fa-solid fa-chevron-left"></i>
-              </a>
-            </li>
+            <?php if ($page_id > 1) { ?>
+              <li class="item prev-page">
+                <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $page_id - 1; ?>">
+                  <i class="fa-solid fa-chevron-left"></i>
+                </a>
+              </li>
+            <?php } ?>
             <?php for ($i = 1; $i <= $page_total; $i++) { ?>
               <li class="item" id="<?php echo $i; ?>">
                 <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $i; ?>">
@@ -182,11 +184,14 @@ $result_pagination = $product->show_product_by_category_panigation(
                 </a>
               </li>
             <?php } ?>
-            <li class="item page-item-next">
-              <a href="#">
-                <i class="fa-solid fa-chevron-right"></i>
-              </a>
-            </li>
+            <?php if ($i > $page_id + 1) { ?>
+              <li class="item next-page">
+                <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $page_id + 1; ?>">
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+              </li>
+            <?php }
+            ?>
           </ul>
         </div>
       </div>
@@ -240,11 +245,12 @@ $result_pagination = $product->show_product_by_category_panigation(
     }
   }
 
+  CurrentPade_id = 1;
   page_id = url_category[1].split("=");
   const Listpage = document.querySelectorAll('.pagination li')
   for (let i = 0; i < Listpage.length; i++) {
     var page_current = Listpage[i].getAttribute('id');
-    if (page_current === page_id[1]){
+    if (page_current === page_id[1]) {
       Listpage[i].classList.add('current');
       break;
     }

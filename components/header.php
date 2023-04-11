@@ -34,13 +34,9 @@ if (isset($_COOKIE[$s_name])) {
                         if ($show_category) {
                             while ($result = $show_category->fetch_assoc()) { ?>
                                 <li>
-                                    <a href="category.php?id=<?php echo $result[
-                                        "id"
-                                    ]; ?>&page=1"> <?php echo $result[
-                                         "name"
-                                     ]; ?></a>
+                                    <a href="category.php?id=<?php echo $result["id"]; ?>&page=1"> <?php echo $result["name"]; ?></a>
                                 </li>
-                            <?php }
+                        <?php }
                         }
                         ?>
 
@@ -72,11 +68,10 @@ if (isset($_COOKIE[$s_name])) {
                     <i class="fa-solid fa-user fa-xl"></i>
                     <div class="profile-menu">
                         <p>
-                            <?php 
-                            if(Session::get("fullname") != null) {
-                                echo "Hello" . " " . Session::get("fullname"); 
-                            }
-                            else {
+                            <?php
+                            if (Session::get("fullname") != null) {
+                                echo "Hello" . " " . Session::get("fullname");
+                            } else {
                                 echo "Welcome";
                             }
                             ?>
@@ -90,14 +85,14 @@ if (isset($_COOKIE[$s_name])) {
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 <?php
                                 if (Session::get("user") == false) {
-                                    ?>
+                                ?>
                                     <a href="login.php">Login</a>
-                                    <?php
+                                <?php
                                 } else {
 
-                                    ?>
+                                ?>
                                     <a href="login.php?action=logout">Log out</a>
-                                    <?php
+                                <?php
                                 }
                                 ?>
                             </li>
@@ -111,12 +106,23 @@ if (isset($_COOKIE[$s_name])) {
         <input type="text" placeholder="Nhập sản phẩm muốn tìm kiếm vào đây">
     </div>
 </header>
-<script src="./js/category.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('.sub-menu').parent('li').addClass('has-child');
     });
+</script>
+
+<script>
+    const listMenuNav = document.querySelectorAll('.list-1');
+    let url = location.pathname.split("/")
+    for (let i = 0; i < listMenuNav.length; i++) {
+        var pathname = listMenuNav[i].getAttribute('href').split("?");
+        if (pathname[0] === url[1]) {
+            listMenuNav[i].classList.add('active');
+            break;
+        }
+    }
 </script>
 
 <script>

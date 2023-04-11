@@ -242,18 +242,19 @@ header {
 .list-icon .profile-menu::before{
   content: "";
   position: absolute;
-  top: -7px;
+  top: -9px;
   right: 20px;
-  width: 20px;
-  height: 20px;
+  width: 17px;
+  height: 17px;
   background-color: #f7f7f7;
+  box-shadow: -0.5px -0.5px 0 rgba(0, 0, 0, 0.25);
   transform: rotate(45deg);
 }
 
 .list-icon .profile-menu p{
   width: 100%;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 500;
   color: #555;
   line-height: 1.2rem;
   text-align: center;
@@ -261,16 +262,18 @@ header {
 }
 
 .list-icon .profile-menu p:hover{
-  color: #45e9bb;
+  font-weight: 800;
 }
 
 .profile-menu ul li{
   border-top: 1px solid #ededed;
   padding: 8px 0;
+  transition: transform 0.3s;
 }
 
 .profile-menu ul li:hover {
   border-top: 2px solid #d3ded3;
+  transform: translateX(3px);
 }
 
 .profile-menu ul li i{
@@ -285,7 +288,7 @@ header {
 }
 
 .profile-menu ul li:hover a{
-  color: #40c9a2;
+  font-weight: 600;
 }
 
 .search {

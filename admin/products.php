@@ -160,8 +160,8 @@ if (isset($_GET["deleteid"])) {
                   <?php echo $result[10]; ?>
                 </td>
                 <td><a href="product_edit.php?id=<?php echo $result[0]; ?>">Edit</a> | <a
-                    href="?id=<?php echo $id; ?>&deleteid=<?php echo $result[0]; ?>">Delete</a> | <a
-                    href="product_detail.php?id=<?php echo $result[0]; ?>">Details</a>
+                    href="?id=<?php echo $id; ?>&deleteid=<?php echo $result[0]; ?>" style="color:red">Delete</a> | <a
+                    href="product_detail.php?id=<?php echo $result[0]; ?>" style="color: #28B463">Details</a>
                 <td>
 
               </tr>
