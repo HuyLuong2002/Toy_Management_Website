@@ -200,7 +200,7 @@ label {
   float: right;
   border: 0;
   margin-top: 20px;
-  padding: 6px 25px;
+  padding: 10px 25px;
   background-color: #6b6;
   color: #fff;
   font-size: 25px;
@@ -213,6 +213,12 @@ label {
   background-color: #494;
 }
 
+.checkouta{
+  all: initial;
+  color: white;
+  text-transform: uppercase;
+  cursor: pointer;
+}
 /* Make adjustments for tablet */
 @media screen and (max-width: 650px) {
   .shopping-cart {
