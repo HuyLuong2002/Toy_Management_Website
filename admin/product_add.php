@@ -15,17 +15,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/newProduct.css" />
+    <link rel="stylesheet" href="./css/add.css" />
 
     <title>Add product</title>
 </head>
 
 <body>
     <div class="form-container">
-        <?php if (isset($insertProduct)) {
-          echo $insertProduct;
-        } ?>
+
         <form action="product_add.php" method="post" enctype="multipart/form-data">
+            <?php if (isset($insertProduct)) {
+              echo $insertProduct;
+            } ?>
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" required>
