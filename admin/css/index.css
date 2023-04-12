@@ -331,6 +331,10 @@ td .status {
 }
 
 @media only screen and (max-width: 1200px) {
+  header{
+    left: 70px;
+    width: calc(100% - 70px);
+  }
   .admin-sidebar {
     width: 70px;
   }

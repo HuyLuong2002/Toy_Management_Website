@@ -75,7 +75,7 @@ $product = new Product();
             <div class="product-info">
               <div class="product-info-top">
                 <h2 class="sm-title">
-                  <?php echo $result_product[12]; ?>
+                  <?php echo $result_product[13]; ?>
                 </h2>
                 <div class="rating">
                   <?php
@@ -93,13 +93,13 @@ $product = new Product();
               <a href="#" class="product-name" id="product-name-<?php echo $result_product[0]; ?>">
                 <?php echo $result_product[1]; ?>
               </a>
-              <?php echo $result_product[14] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$$result_product[3]</p>" : "";
+              <?php echo $result_product[16] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$$result_product[3]</p>" : "";
               ?>
               <p class="product-price product-price-sale" id="product-price-<?php echo $result_product[0]; ?>">
                 <?php if (
-                  $result_product[14] !== "Không áp dụng"
+                  $result_product[16] !== "Không áp dụng"
                 ) {
-                  $sale_percent = $result_product[18];
+                  $sale_percent = $result_product[20];
                   $sale_price = $result_product[3] - ($result_product[3] * ($sale_percent / 100));
                   echo '$' . $sale_price;
                 } else {
@@ -108,10 +108,10 @@ $product = new Product();
               </p>
             </div>
             <div class="off-info">
-              <?php if ($result_product[14] === "Không áp dụng") {
+              <?php if ($result_product[16] === "Không áp dụng") {
                 echo "";
               } else {
-                $sale_percent = $result_product[18];
+                $sale_percent = $result_product[20];
                 echo "<h2 class='sm-title'>Sale $sale_percent%</h2>";
               }
               ?>

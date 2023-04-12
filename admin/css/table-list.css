@@ -51,6 +51,18 @@ td {
   color: #222;
 }
 
+#product-data .Delete {
+  color: red;
+}
+
+#product-data .Detail {
+  color: #03a945;
+}
+
+#product-data .Edit {
+  color: blue;
+}
+
 .table-responsive {
   width: 100%;
   overflow-x: auto;
@@ -122,3 +134,55 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+/* start bottom-pagination */
+
+.bottom-pagination {
+  display: block;
+  padding-top: 13px;
+  margin-left: 10px;
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+}
+
+.pagination{
+  display: table;
+  list-style: none;
+  margin: 0 auto;
+}
+
+.pagination .item {
+  float: left;
+  border: 1px solid #a6a5a5;
+  width: 30px;
+}
+
+.pagination>li{
+  display: inline;
+  padding: 5px 10px;
+  margin: 0 5px;
+}
+
+.pagination>li[class$="-page"] i{
+  font-size: 17.4px;
+}
+
+.pagination li a{
+  text-decoration: none;
+  color: #000;
+  transition: 0.3s;
+}
+
+.pagination li a:hover{
+  color: #f04e45;
+}
+
+.pagination li.current{
+  background-color: #f04e45;
+}
+
+.pagination li.current a{
+  color: white;
+}
+
+/* end bottom-pagination */

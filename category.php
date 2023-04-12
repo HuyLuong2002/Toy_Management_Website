@@ -11,7 +11,6 @@ if (isset($_GET["page"])) {
   $page_id = $_GET["page"];
 }
 
-
 /*
 Tính giá trị của phân trang
 10 sản phẩm trên 1 trang
@@ -121,7 +120,7 @@ $result_pagination = $product->show_product_by_category_panigation(
                 <div class="product-info">
                   <div class="product-info-top">
                     <h2 class="sm-title">
-                      <?php echo $result_product[12]; ?>
+                      <?php echo $result_product[13]; ?>
                     </h2>
                     <div class="rating">
                       <?php
@@ -139,12 +138,12 @@ $result_pagination = $product->show_product_by_category_panigation(
                   <a href="" class="product-name">
                     <?php echo $result_product[1]; ?>
                   </a>
-                  <?php echo $result_product[14] !== "Không áp dụng"
+                  <?php echo $result_product[16] !== "Không áp dụng"
                     ? "<p class='product-price product-price-linet'>$$result_product[3]</p>"
                     : ""; ?>
                   <p class="product-price product-price-sale">
-                    <?php if ($result_product[14] !== "Không áp dụng") {
-                      $sale_percent = $result_product[18];
+                    <?php if ($result_product[16] !== "Không áp dụng") {
+                      $sale_percent = $result_product[20];
                       $sale_price =
                         $result_product[3] -
                         $result_product[3] * ($sale_percent / 100);
@@ -155,10 +154,10 @@ $result_pagination = $product->show_product_by_category_panigation(
                   </p>
                 </div>
                 <div class="off-info">
-                  <?php if ($result_product[14] === "Không áp dụng") {
+                  <?php if ($result_product[16] === "Không áp dụng") {
                     echo "";
                   } else {
-                    $sale_percent = $result_product[18];
+                    $sale_percent = $result_product[20];
                     echo "<h2 class='sm-title'>Sale $sale_percent%</h2>";
                   } ?>
                 </div>
@@ -170,11 +169,13 @@ $result_pagination = $product->show_product_by_category_panigation(
         </div>
         <div class="bottom-pagination" id="pagination">
           <ul class="pagination">
-            <li class="item page-item-previous">
-              <a href="#">
-                <i class="fa-solid fa-chevron-left"></i>
-              </a>
-            </li>
+            <?php if ($page_id > 1) { ?>
+              <li class="item prev-page">
+                <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $page_id - 1; ?>">
+                  <i class="fa-solid fa-chevron-left"></i>
+                </a>
+              </li>
+            <?php } ?>
             <?php for ($i = 1; $i <= $page_total; $i++) { ?>
               <li class="item" id="<?php echo $i; ?>">
                 <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $i; ?>">
@@ -182,11 +183,14 @@ $result_pagination = $product->show_product_by_category_panigation(
                 </a>
               </li>
             <?php } ?>
-            <li class="item page-item-next">
-              <a href="#">
-                <i class="fa-solid fa-chevron-right"></i>
-              </a>
-            </li>
+            <?php if ($i > $page_id + 1) { ?>
+              <li class="item next-page">
+                <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $page_id + 1; ?>">
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+              </li>
+            <?php }
+            ?>
           </ul>
         </div>
       </div>
@@ -240,11 +244,12 @@ $result_pagination = $product->show_product_by_category_panigation(
     }
   }
 
+  CurrentPade_id = 1;
   page_id = url_category[1].split("=");
   const Listpage = document.querySelectorAll('.pagination li')
   for (let i = 0; i < Listpage.length; i++) {
     var page_current = Listpage[i].getAttribute('id');
-    if (page_current === page_id[1]){
+    if (page_current === page_id[1]) {
       Listpage[i].classList.add('current');
       break;
     }
