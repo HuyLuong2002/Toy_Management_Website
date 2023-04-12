@@ -259,7 +259,7 @@ if (isset($current_position))
         state: NewSate
       }, // Truyền giá trị ID trực tiếp vào yêu cầu AJAX
       success: function(response) {
-        const myData = response.data;
+        const myData = response.id;
         const myState = response.state;
         // Xử lý dữ liệu trong biến myData ở đây
       }
