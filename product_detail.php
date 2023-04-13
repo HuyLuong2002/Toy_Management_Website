@@ -65,10 +65,9 @@ if (isset($_GET["id"])) {
               <?php echo $result_product_detail[1] ?>
             </span>
             <span class="product-price product-price-sale">
-              <?php if ($result_product_detail[14] !== "Không áp dụng") {
+              <?php if ($result_product_detail[16] !== "Không áp dụng") {
                 $sale_percent = $result_product_detail[18];
-                $sale_price = $result_product_detail[3] -
-                  $result_product_detail[3] * ($sale_percent / 100);
+                $sale_price = $result_product_detail[3] - $result_product_detail[3] * ($sale_percent / 100);
                 echo "$" . $sale_price;
               } else {
                 echo "$" . $result_product_detail[3];
