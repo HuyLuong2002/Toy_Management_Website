@@ -18,16 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/newProduct.css" />
+    <link rel="stylesheet" href="./css/add.css" />
 
     <title>Edit product</title>
 </head>
 
 <body>
     <div class="form-container">
-        <?php if (isset($updateProduct)) {
-            echo $updateProduct;
-        } ?>
         <?php if (isset($_GET["id"])) {
             $show_product = $product->get_product_by_id($_GET["id"]);
             if ($show_product) {
@@ -36,6 +33,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
                 <form action="product_edit.php?id=<?php echo $result_product[0]; ?>" method="post"
                     enctype="multipart/form-data">
+                    <?php if (isset($updateProduct)) {
+                        echo $updateProduct;
+                    } ?>
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" value="<?php echo $result_product[1]; ?>" required>

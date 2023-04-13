@@ -1,8 +1,13 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "\database\connectDB.php";
+include_once $filepath . "\classes\dashboard.php";
 include_once $filepath . "\classes\product.php";
+$dashboard = new Dashboard();
 $product = new Product();
+$count_product = $dashboard->show_statistic_product();
+
+
 ?>
 <div>
   <div class="admin-cards">
@@ -19,7 +24,12 @@ $product = new Product();
 
     <div class="admin-card-single">
       <div>
-        <h1>79</h1>
+        <?php if(isset($count_product)) { 
+        ?>
+        <h1><?php echo $count_product->fetch_array()[0]; ?></h1>
+        <?php
+        }
+        ?>
         <span>Products</span>
       </div>
 

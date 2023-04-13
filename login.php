@@ -36,7 +36,7 @@ if (isset($_POST["sign-in-nome"]) && isset($_POST["sign-in-password"])) {
         //Set the cookie lifetime of the session
         ini_set("session.cookie_lifetime", $timeout);
 
-        header("Location: ./admin/index.php");
+        header("Location: ./admin/index.php?id=1");
       } else {
         Session::init();
         Session::set("user", true);

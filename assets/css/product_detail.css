@@ -136,7 +136,7 @@ img {
   margin-right: 8px;
 }
 
-.add-cart-btn {
+.btn-cart {
   background: black;
   color: white;
   margin-right: 1rem;
@@ -144,7 +144,7 @@ img {
   border: none;
 }
 
-.add-cart-btn:hover {
+.btn-cart:hover {
   background: var(--carribean-green);
 }
 

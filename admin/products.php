@@ -153,7 +153,7 @@ if (isset($current_position))
         <?php
             if ($result_pagination) {
               while ($result = $result_pagination->fetch_array()) { ?>
-            <tr id="switch-<?php echo $result[0]; ?>">
+            <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] == 1 ? 'activeBg' : '' ?>">
 
               <td>
                 <?php echo $result[0]; ?>
@@ -183,8 +183,8 @@ if (isset($current_position))
                     $checked = "";
                   }
                   ?>
-                  <input type="checkbox" <?php echo $checked; ?> />
-                  <span class="slider round" id="slider-<?php echo $result[0]; ?>" onclick="handleGetId(<?php echo $result[0]; ?>)"></span>
+                  <input type="checkbox" <?php echo $checked; ?> id="check-<?php echo $result[0]; ?>" />
+                  <span class="slider round" id="slider-<?php echo $result[0]; ?>" onclick="handleGetId(<?php echo $result[0]; ?>, <?php echo $result[6]; ?>)"></span>
                 </label>
               </td>
               <td>
@@ -256,24 +256,30 @@ if (isset($current_position))
 </div>
 
 <script>
-  let flag = 1
+  let NewState;
 
-  const handleGetId = (id) => {
-    ++flag
-    let NewSate = CheckState(flag)
-    TransformBg(id)
-
+  const handleGetId = (id, st) => {
+    let inputCheck = document.getElementById(`check-${id}`)
+    if (!inputCheck.checked) {
+      NewState = 1
+      TransformBg(id)
+    } else {
+      TransformBg(id)
+      NewState = 0
+    }
+    console.log(NewState);
     $.ajax({
-      url: "update_product_highlight.php", // your_api_endpoint_here
+      url: "./update_product_highlight.php", // your_api_endpoint_here
       method: "POST",
       data: {
         id: id,
-        state: NewSate
-      }, // Truyền giá trị ID trực tiếp vào yêu cầu AJAX
-      success: function(response) {
-        const myData = response.data;
-        const myState = response.state;
+        state: NewState
+      },
+      success: async function(response) {
+        const myData = await response.id;
+        const myState = await response.state;
         // Xử lý dữ liệu trong biến myData ở đây
+
       }
     });
   }
@@ -281,10 +287,6 @@ if (isset($current_position))
   const TransformBg = (id) => {
     let sw = document.getElementById(`switch-${id}`)
     sw.classList.toggle('activeBg')
-  }
-
-  const CheckState = (flag) => {
-    return flag % 2 == 0 ? 1 : 0
   }
 </script>
 

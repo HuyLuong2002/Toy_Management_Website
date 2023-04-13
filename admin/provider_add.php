@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
   <link rel="stylesheet" href="./css/index.css" />
   <link rel="stylesheet" href="./css/table-list.css" />
-  <link rel="stylesheet" href="./css/newProduct.css" />
+  <link rel="stylesheet" href="./css/add.css" />
   <title>Add provider</title>
 
 </head>

@@ -12,7 +12,7 @@ if(empty($user_id))
 }
 $cartAddCookie = isset($_COOKIE['cartAdd']) ? $_COOKIE['cartAdd'] : null;
 $cartAdd = json_decode($cartAddCookie, true);
-if($_SERVER['REQUEST_METHOD'] == 'POST')
+if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($cartAdd))
 {
     //Get data from cart to add to order
     $total_price = 0;
@@ -27,12 +27,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     $payment_method = "cash";
     $status = "Đang giao hàng";
     $is_deleted = 0;
+    
     //Add cart to order
-    $order = new Order();
-    $result_order = $order->insert_order($user_id, $total_quantity, $order_date, $total_price, $payment_method, $status, $is_deleted);
+    $order = new Orders();
+    $result_order = $order->insert_orders($id, $user_id, $total_quantity, $order_date, $total_price, $payment_method, $status, $is_deleted);
     if(isset($result_order) && $result_order == true)
     {
-        $result_order_id = $order->get_order_id()->fetch_assoc();
+        $result_order_id = $order->get_orders_by_id($id)->fetch_assoc();
         $order_id = $result_order_id["id"];
     }
     //Add product to detail order
@@ -96,7 +97,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
                 
             </div>
 
-            <button class="checkout">Checkout</button>
+            <button class="checkout"><a href="#" class="checkouta">Checkout</a></button>
         </div>
     </form>
 
