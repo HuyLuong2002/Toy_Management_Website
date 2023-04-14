@@ -3,7 +3,7 @@ $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "\controller\permissionController.php";
 
 $permissionController = new PermissionController();
-$result_permission = $permissionController->show_permission();
+
 
 if (isset($_GET["id"])) {
   $id = $_GET["id"];
@@ -42,6 +42,7 @@ if(isset($_GET["deleteid"]))
         </thead>
         <tbody>
           <?php
+              $result_permission = $permissionController->show_permission();
               if(isset($result_permission))
               {
                 while($result = $result_permission->fetch_assoc())
@@ -50,7 +51,7 @@ if(isset($_GET["deleteid"]))
           <tr>
             <td><?php echo $result["id"]; ?></td>
             <td><?php echo $result["name"]; ?></td>
-            <td><a href="permission_edit.php?id=<?php echo $result["id"];?>">Edit</a> | <a href="?id=<?php echo $id; ?>&deleteid=<?php echo $result["id"];?>">Delete</a>
+            <td><a href="permission_edit.php?id=<?php echo $result["id"];?>">Edit</a> | <a href="?id=6&deleteid=<?php echo $result["id"];?>">Delete</a>
             <td>
           </tr>
           <?php

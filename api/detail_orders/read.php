@@ -31,7 +31,7 @@ if ($num > 0) {
         "price" => $price,
       ],
     ];
-  
+
     array_push(
       $detail_order_product_array["detail_order_product"],
       $detail_order_product_item

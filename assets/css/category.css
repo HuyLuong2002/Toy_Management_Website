@@ -68,7 +68,7 @@ body {
 }
 
 .container .items>li:hover a,
-.container .items>li:hover i{
+.container .items>li:hover i {
     transition: 0.3s;
     color: #40c9a2;
 }
@@ -100,17 +100,17 @@ body {
     width: 100%;
 }
 
-.main-list{
+.main-list {
     padding: 1rem 0;
 }
 
-.main-list li{
+.main-list li {
     line-height: 50px;
     border-bottom: 1px solid #ededed;
     position: relative;
 }
 
-.main-list li a{
+.main-list li a {
     font-size: 18px;
     text-decoration: none;
     display: block;
@@ -124,13 +124,13 @@ body {
     transform: translateX(7px);
 }
 
-.main-list li.active a{
+.main-list li.active a {
     color: #40c9a2;
     border-left-color: #40c9a2;
     font-style: italic;
 }
 
-.main-list li:last-child{
+.main-list li:last-child {
     border-bottom: none;
 }
 
@@ -321,46 +321,45 @@ body {
 /* start bottom-pagination */
 
 .bottom-pagination {
-    display: block;
+    display: flex;
     padding-top: 13px;
     margin-left: 10px;
     border-top: 1px solid #ccc;
 }
 
-.pagination{
-    display: table;
+.pagination {
+    display: flex;
     list-style: none;
     margin: 0 auto;
 }
 
 .pagination .item {
-    float: left;
+    text-align: center;
     border: 1px solid #a6a5a5;
     width: 30px;
 }
 
-.pagination>li{
-    display: inline;
-    padding: 5px 10px;
+.pagination>li {
+    padding: 5px 0px;
     margin: 0 5px;
 }
 
-.pagination li a{
+.pagination li a {
     text-decoration: none;
     transition: 0.3s;
 }
 
-.pagination li a:hover{
+.pagination li a:hover {
     color: #f04e45;
 }
 
-.pagination li.current{
+.pagination li.current {
     background-color: #f04e45;
 }
 
-.pagination li.current a{
+.pagination li.current a {
     color: white;
-  }
+}
 
 /* end bottom-pagination */
 
@@ -380,7 +379,7 @@ body {
     }
 }
 
-@media (max-width: 768px){
+@media (max-width: 768px) {
     .main-container {
         grid-template-columns: 200px 1fr;
     }
@@ -389,7 +388,7 @@ body {
         grid-template-columns: repeat(1, 1fr);
     }
 
-    .main-list li a{
-        font-size: 16   px;
+    .main-list li a {
+        font-size: 16 px;
     }
 }

@@ -58,16 +58,18 @@ if (isset($_GET["deleteid"])) {
                   <td>
                     <?php echo $result[1]; ?>
                   </td>
-                  <td><a href="provider_edit.php?id=<?php echo $result[0]; ?>">Edit</a> | <a
-                      href="?id=7&deleteid=<?php echo $result[0]; ?>">Delete</a></td>
+                  <td>
+                    <a href="provider_edit.php?id=<?php echo $result[0]; ?>">Edit</a>
+                    <a href="?id=7&deleteid=<?php echo $result[0]; ?>">Delete</a>
+                  </td>
                 </tr>
-              <?php }
+            <?php }
             } else {
               echo "<span class='error'>No Data Found</span>";
             } ?>
-          </tbody>
-        </table>
-        <?php
+        </tbody>
+      </table>
+    <?php
           } else {
             ?>
         <tbody>
@@ -77,18 +79,19 @@ if (isset($_GET["deleteid"])) {
             while ($result = $show_provider->fetch_array()) { ?>
               <tr>
 
-                <td>
-                  <?php echo $result[0]; ?>
-                </td>
-                <td>
-                  <?php echo $result[1]; ?>
-                </td>
-                <td><a href="provider_edit.php?id=<?php echo $result[0]; ?>">Edit</a> | <a
-                    href="?id=<?php echo $id; ?>&deleteid=<?php echo $result[0]; ?>">Delete</a>
-                <td>
-              </tr>
-            <?php }
-          }
+              <td>
+                <?php echo $result[0]; ?>
+              </td>
+              <td>
+                <?php echo $result[1]; ?>
+              </td>
+              <td>
+                <a href="provider_edit.php?id=<?php echo $result[0]; ?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
+                <a href="?id=<?php echo $id; ?>&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+              <td>
+            </tr>
+      <?php }
+            }
           } ?>
       </tbody>
       </table>

@@ -13,7 +13,7 @@
     <div class="product-details" id="product-details">
 
     </div>
-    <script src="./js/fetch.js"></script>
+    <script src="./js/fetch_products.js"></script>
 </body>
 
 </html>

@@ -138,7 +138,7 @@ input:checked + .slider:before {
 /* start bottom-pagination */
 
 .bottom-pagination {
-  display: block;
+  display: flex;
   padding-top: 13px;
   margin-left: 10px;
   margin-top: 20px;
@@ -146,28 +146,20 @@ input:checked + .slider:before {
 }
 
 .pagination{
-  display: table;
+  display: flex;
   list-style: none;
   margin: 0 auto;
 }
 
-.pagination .item {
-  float: left;
+.pagination li.item {
+  text-align: center;
   border: 1px solid #a6a5a5;
+  padding: 5px 0px;
+  margin: 0 5px;
   width: 30px;
 }
 
-.pagination>li{
-  display: inline;
-  padding: 5px 10px;
-  margin: 0 5px;
-}
-
-.pagination>li[class$="-page"] i{
-  font-size: 17.4px;
-}
-
-.pagination li a{
+.pagination li.item a{
   text-decoration: none;
   color: #000;
   transition: 0.3s;

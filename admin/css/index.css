@@ -285,6 +285,10 @@ td .status {
   overflow-x: auto;
 }
 
+.table-responsive .delete{
+  color: red;
+}
+
 .customer {
   display: flex;
   justify-content: space-between;

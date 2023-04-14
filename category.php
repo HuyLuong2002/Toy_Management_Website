@@ -81,8 +81,14 @@ $result_pagination = $productsController->show_product_by_category_panigation(
             <?php
             $show_category = $categoryController->show_category();
             if ($show_category) {
-              while ($result = $show_category->fetch_assoc()) { ?>
-                <li data-id="<?php echo $result["id"]; ?>">
+              while ($result = $show_category->fetch_assoc()) {
+                if ($category_id == $result["id"]) {
+                  $active = "active";
+                } else {
+                  $active = "";
+                }
+            ?>
+                <li data-id="<?php echo $result["id"]; ?>" class="<?php echo $active ?>">
                   <a href="category.php?id=<?php echo $result["id"]; ?>&page=1">
                     <?php echo $result["name"]; ?>
                   </a>
@@ -176,14 +182,23 @@ $result_pagination = $productsController->show_product_by_category_panigation(
                 </a>
               </li>
             <?php } ?>
-            <?php for ($i = 1; $i <= $page_total; $i++) { ?>
-              <li class="item" id="<?php echo $i; ?>">
-                <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $i; ?>">
-                  <?php echo $i; ?>
+            <?php
+            $pagination = $productsController->pageNumber($page_total, 4, $page_id);
+            $length = count($pagination);
+            for ($i = 1; $i <= $length; $i++) {
+              if ($pagination[$i] == $page_id) {
+                $current = "current";
+              } else {
+                $current = "";
+              }
+            ?>
+              <li class="item <?php echo $current ?>" id="<?php echo $pagination[$i]; ?>">
+                <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $pagination[$i]; ?>">
+                  <?php echo $pagination[$i]; ?>
                 </a>
               </li>
             <?php } ?>
-            <?php if ($i > $page_id + 1) { ?>
+            <?php if ($page_total - 1 > $page_id + 1) { ?>
               <li class="item next-page">
                 <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $page_id + 1; ?>">
                   <i class="fa-solid fa-chevron-right"></i>
@@ -232,26 +247,6 @@ $result_pagination = $productsController->show_product_by_category_panigation(
   });
 </script>
 
-<script>
-  let url_category = location.search.split("&");
-  let id = url_category[0].split("=");
-  const toggles = document.querySelectorAll('.sidebar ul li');
-  for (let i = 0; i < toggles.length; i++) {
-    var Li_id = toggles[i].getAttribute('data-id');
-    if (Li_id === id[1]) {
-      toggles[i].classList.add('active');
-      break;
-    }
-  }
+<Script>
 
-  CurrentPade_id = 1;
-  page_id = url_category[1].split("=");
-  const Listpage = document.querySelectorAll('.pagination li')
-  for (let i = 0; i < Listpage.length; i++) {
-    var page_current = Listpage[i].getAttribute('id');
-    if (page_current === page_id[1]) {
-      Listpage[i].classList.add('current');
-      break;
-    }
-  }
-</script>
+</Script>

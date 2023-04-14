@@ -198,7 +198,10 @@ if (isset($current_position))
               <td>
                 <?php echo $result[10]; ?>
               </td>
-              <td><a href="product_edit.php?id=<?php echo $result[0]; ?>" class="Edit">Edit</a> | <a href="?id=<?php echo $id; ?>&deleteid=<?php echo $result[0]; ?>" class="Delete">Delete</a> | <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details</a>
+              <td>
+                <a href="product_edit.php?id=<?php echo $result[0]; ?>" class="Edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
+                <a href="?id=<?php echo $id; ?>&deleteid=<?php echo $result[0]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
               <td>
 
             </tr>
@@ -219,14 +222,23 @@ if (isset($current_position))
                 </a>
               </li>
             <?php } ?>
-            <?php for ($i = 1; $i <= $page_total; $i++) { ?>
-              <li class="item" id="<?php echo $i; ?>">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $i; ?>">
-                  <?php echo $i; ?>
+            <?php 
+            $pagination = $productsController->pageNumber($page_total, 4, $page_id);
+            $length = count($pagination);
+            for ($i = 1; $i <= $length; $i++) {
+              if ($pagination[$i] == $page_id) {
+                $current = "current";
+              } else {
+                $current = "";
+              }
+            ?>
+              <li class="item <?php echo $current?>" id="<?php echo $pagination[$i]; ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
+                  <?php echo $pagination[$i]; ?>
                 </a>
               </li>
             <?php } ?>
-            <?php if ($i > $page_id + 1) { ?>
+            <?php if ($page_total - 1 > $page_id + 1) { ?>
               <li class="item next-page">
                 <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $page_id + 1; ?>">
                   <i class="fa-solid fa-chevron-right"></i>
@@ -301,18 +313,4 @@ if (isset($current_position))
     });
 
   });
-</script>
-
-<script>
-  let url_category = location.search.split("&");
-  CurrentPade_id = 1;
-  page_id = url_category[1].split("=");
-  const Listpage = document.querySelectorAll('.pagination li')
-  for (let i = 0; i < Listpage.length; i++) {
-    var page_current = Listpage[i].getAttribute('id');
-    if (page_current === page_id[1]) {
-      Listpage[i].classList.add('current');
-      break;
-    }
-  }
 </script>

@@ -22,6 +22,12 @@ if (
 
   $result_account = $accountController->insert_account($nome, md5($password));
 }
+
+if(isset($_GET["action"]) == "logout")
+{
+  Session::init();
+  Session::destroy();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

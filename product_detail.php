@@ -34,14 +34,14 @@ if (isset($_GET["id"])) {
   $show_product_detail_id = $product_detailController->show_product_detail($product_detail_id);
   if ($show_product_detail_id) {
     $result_product_detail = $show_product_detail_id->fetch_array();
-  ?>
+    ?>
     <div class="main-wrapper">
       <div class="main-wrapper-container">
         <div class="product-div">
           <div class="product-div-left">
 
             <div class="img-container">
-              <img src="<?php echo "admin/uploads/" . $result_product_detail[2] ?>" alt="watch image" />
+              <img src="<?php echo "admin/uploads/" . $result_product_detail[2] ?> " alt="watch image" id="product-image-<?php echo $result_product_detail[0]; ?>"/>
             </div>
 
             <div class="hover-container">
@@ -64,10 +64,9 @@ if (isset($_GET["id"])) {
               <?php echo $result_product_detail[1] ?>
             </span>
             <span class="product-price product-price-sale">
-              <?php if ($result_product_detail[14] !== "Không áp dụng") {
+              <?php if ($result_product_detail[16] !== "Không áp dụng") {
                 $sale_percent = $result_product_detail[18];
-                $sale_price = $result_product_detail[3] -
-                  $result_product_detail[3] * ($sale_percent / 100);
+                $sale_price = $result_product_detail[3] - $result_product_detail[3] * ($sale_percent / 100);
                 echo "$" . $sale_price;
               } else {
                 echo "$" . $result_product_detail[3];
@@ -94,8 +93,10 @@ if (isset($_GET["id"])) {
               type and scrambled it to make a type specimen book.
             </p>
             <div class="btn-groups">
-              <button type="button" class="add-cart-btn">
-                <i class="fas fa-shopping-cart"></i> Add to cart
+              <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product_detail[0]; ?>)"
+                data-id="<?php echo $result_product_detail[0]; ?>" data-quantity=1>
+                Add to cart
+                <i class="fa-solid fa-plus add-icon" id="icon-check-<?php echo $result_product_detail[0]; ?>"></i>
               </button>
 
               <button type="button" class="buy-now-btn">
@@ -118,12 +119,28 @@ if (isset($_GET["id"])) {
 
       </div>
     </div>
-  <?php
+    <?php
   }
   ?>
 
   <?php include "./components/footer.php"; ?>
   <script src="./js/product_detail.js"></script>
+
+  <script>
+    var icons = document.querySelectorAll('.favorite-icon i');
+    icons.forEach((icon) => {
+      var dataId = icon.getAttribute('data-id');
+      var add_to_cart = JSON.parse(localStorage.getItem('favorite'));
+      add_to_cart.forEach((product) => {
+        if (product.id === dataId) {
+          icon.classList.add('fa-solid');
+          icon.classList.remove('fa-regular');
+        }
+      });
+
+    });
+  </script>
+  <script src="./js/cartclick.js"></script>
 </body>
 
 </html>
