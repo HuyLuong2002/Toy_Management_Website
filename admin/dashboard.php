@@ -3,17 +3,27 @@ $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "\database\connectDB.php";
 include_once $filepath . "\controller\dashboardController.php";
 include_once $filepath . "\controller\productsController.php";
+include_once $filepath . "\helpers\\format.php";
+
+$fm = new Format();
 $dashboardController = new DashboardController();
 $productsController = new ProductsController();
 $count_product = $dashboardController->show_statistic_product();
-
+$count_order = $dashboardController->show_statistic_order();
+$count_customers = $dashboardController->show_statistic_customer();
+$income = $dashboardController->show_statistic_income();
 
 ?>
 <div>
   <div class="admin-cards">
     <div class="admin-card-single">
       <div>
-        <h1>54</h1>
+      <?php if(isset($count_customers)) { 
+        ?>
+        <h1><?php echo $count_customers->fetch_array()[0]; ?></h1>
+        <?php
+        }
+        ?>
         <span>Customers</span>
       </div>
 
@@ -40,7 +50,13 @@ $count_product = $dashboardController->show_statistic_product();
 
     <div class="admin-card-single">
       <div>
-        <h1>124</h1>
+        <?php
+          if(isset($count_order)) {
+        ?>
+        <h1><?php echo $count_order->fetch_array()[0]; ?></h1>
+        <?php
+        }
+        ?>
         <span>Orders</span>
       </div>
 
@@ -52,7 +68,13 @@ $count_product = $dashboardController->show_statistic_product();
 
     <div class="admin-card-single">
       <div>
-        <h1>$6k</h1>
+      <?php
+          if(isset($income)) {
+        ?>
+        <h1><?php echo $fm->convertToVND($income); ?></h1>
+        <?php
+        }
+        ?>
         <span>Income</span>
       </div>
 
