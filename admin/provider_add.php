@@ -1,10 +1,10 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "\database\connectDB.php";
-include_once $filepath . "\classes\provider.php";
-$provider = new Provider();
+include_once $filepath . "\controller\provider_addController.php";
+$provider_addController = new ProviderAddController();
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
-  $insertProvider = $provider->insert_provider($_POST, $_FILES);
+  $insertProvider = $provider_addController->insert_provider($_POST, $_FILES);
 }
 ?>
 <!DOCTYPE html>

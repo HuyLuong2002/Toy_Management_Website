@@ -1,9 +1,8 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once($filepath . "\Toy_Management_Website\classes\product.php");
-include_once $filepath . "\classes\product.php";
+include_once($filepath . "\Toy_Management_Website\controller\product_detailController.php");
 
-$product_detail = new Product();
+$product_detailController = new ProductDetailController();
 
 if (isset($_GET["id"])) {
   $product_detail_id = $_GET["id"];
@@ -32,7 +31,7 @@ if (isset($_GET["id"])) {
 <body>
   <?php include_once "./components/header.php"; ?>
   <?php
-  $show_product_detail_id = $product_detail->show_product_detail($product_detail_id);
+  $show_product_detail_id = $product_detailController->show_product_detail($product_detail_id);
   if ($show_product_detail_id) {
     $result_product_detail = $show_product_detail_id->fetch_array();
   ?>

@@ -1,23 +1,21 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "\database\connectDB.php";
-include_once $filepath . "\helpers\\format.php";
+
 ?>
 
-<?php class Dashboard
+<?php class SaleServices
 {
   private $db;
-  private $fm;
 
   public function __construct()
   {
     $this->db = new Database();
-    $this->fm = new Format();
   }
 
-  public function show_statistic_product()
+  public function show_sale()
   {
-    $query = "SELECT COUNT(*) FROM product WHERE is_deleted = '0'";
+    $query = "SELECT * FROM sale ORDER BY id desc";
     $result = $this->db->select($query);
     return $result;
   }

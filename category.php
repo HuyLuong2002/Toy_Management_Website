@@ -1,9 +1,9 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once $filepath . "\Toy_Management_Website\classes\category.php";
-include_once $filepath . "\classes\product.php";
-$category = new Category();
-$product = new Product();
+include_once $filepath . "\Toy_Management_Website\controller\categoryController.php";
+include_once $filepath . "\controller\productsController.php";
+$categoryController = new CategoryController();
+$productsController = new ProductsController();
 if (isset($_GET["id"])) {
   $category_id = $_GET["id"];
 }
@@ -15,7 +15,7 @@ if (isset($_GET["page"])) {
 Tính giá trị của phân trang
 10 sản phẩm trên 1 trang
 */
-$result_pagination = $product->show_product_by_category_id($category_id);
+$result_pagination = $productsController->show_product_by_category_id($category_id);
 
 /*
 Tính giá trị của phân trang
@@ -30,7 +30,7 @@ $page_total = ceil($product_total / $num_product_on_page);
 $current_page = $page_id;
 // vị trí hiện tại
 $current_position = ($current_page - 1) * $num_product_on_page;
-$result_pagination = $product->show_product_by_category_panigation(
+$result_pagination = $productsController->show_product_by_category_panigation(
   $category_id,
   $current_position,
   $num_product_on_page
@@ -60,7 +60,7 @@ $result_pagination = $product->show_product_by_category_panigation(
         <ul class="items">
           <li class="item"><i class="fa-solid fa-house"></i><a href="index.php">Home</a></li>
           <?php
-          $show_category_by_id = $category->show_category_by_id($category_id);
+          $show_category_by_id = $categoryController->show_category_by_id($category_id);
           if ($show_category_by_id) {
             $result = $show_category_by_id->fetch_assoc(); ?>
             <li class="item"><a href="category.php?id=<?php echo $result["id"]; ?>&page=1">
@@ -79,7 +79,7 @@ $result_pagination = $product->show_product_by_category_panigation(
           <h3 class="title">Category</h3>
           <ul class="main-list">
             <?php
-            $show_category = $category->show_category();
+            $show_category = $categoryController->show_category();
             if ($show_category) {
               while ($result = $show_category->fetch_assoc()) { ?>
                 <li data-id="<?php echo $result["id"]; ?>">

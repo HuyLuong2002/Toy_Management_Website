@@ -1,10 +1,10 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once $filepath . "\Toy_Management_Website\classes\account.php";
+include_once $filepath . "\Toy_Management_Website\controller\check_loginController.php";
 
-$account = new Account();
+$check_loginController = new CheckLoginController();
 if (isset($_POST["nome"])) {
-  $result_check_login = $account->check_account($_POST["nome"]);
+  $result_check_login = $check_loginController->check_account($_POST["nome"]);
 
   if(isset($result_check_login) && isset($result_check_login->num_rows))
   {

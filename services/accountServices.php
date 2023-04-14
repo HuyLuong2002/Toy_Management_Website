@@ -1,19 +1,16 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "\database\connectDB.php";
-include_once $filepath . "\helpers\\format.php";
 include_once $filepath . "\lib\session.php";
 ?>
 
-<?php class Account
+<?php class AccountServices
 {
   private $db;
-  private $fm;
 
   public function __construct()
   {
     $this->db = new Database();
-    $this->fm = new Format();
   }
 
   public function show_account()
@@ -30,13 +27,6 @@ include_once $filepath . "\lib\session.php";
     return $result;
   }
 
-  public function check_account($username)
-  {
-    $query = "SELECT * FROM account WHERE username='{$username}' REGEXP BINARY '[a-z0-9]'";
-    $result = $this->db->select($query);
-    return $result;
-  }
-
   public function login($username, $password)
   {
     $query = "SELECT * FROM account WHERE username='{$username}' and password='{$password}'";
@@ -44,12 +34,16 @@ include_once $filepath . "\lib\session.php";
     return $result;
   }
 
+  public function check_account($username)
+  {
+    $query = "SELECT * FROM account WHERE username='{$username}' REGEXP BINARY '[a-z0-9]'";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
   public function insert_account($username, $password)
   {
-    $username = $this->fm->validation($username);
     $username = mysqli_real_escape_string($this->db->link, $username);
-
-    $password = $this->fm->validation($password);
     $password = mysqli_real_escape_string($this->db->link, $password);
 
     if (empty($username)) {

@@ -1,8 +1,8 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once($filepath . "\Toy_Management_Website\classes\account.php");
+include_once($filepath . "\Toy_Management_Website\controller\accountController.php");
 
-$account = new Account();
+$accountController = new AccountController();
 
 if(empty($_GET["id"]))
 {
@@ -25,7 +25,7 @@ if(empty($_GET["id"]))
 <body>
     <div class="profile-container">
         <?php
-        $show_account = $account->show_account_by_id($_GET["id"]);
+        $show_account = $accountController->show_account_by_id($_GET["id"]);
         if ($show_account) {
             while ($result_account = $show_account->fetch_array()) {
                 ?>

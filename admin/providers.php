@@ -1,12 +1,11 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once $filepath . "\database\connectDB.php";
-include_once $filepath . "\classes\provider.php";
-$provider = new Provider();
+include_once $filepath . "\controller\providersController.php";
+$providerController = new ProviderController();
 
 if (isset($_POST["input"])) {
   $input = $_POST["input"];
-  $show_provider_live_search = $provider->show_provider_live_search($input);
+  $show_provider_live_search = $providerController->show_provider_live_search($input);
 }
 
 if (isset($_GET["id"])) {
@@ -14,9 +13,8 @@ if (isset($_GET["id"])) {
 }
 
 if (isset($_GET["deleteid"])) {
-  $provider = new Provider();
   $delete_id = $_GET["deleteid"];
-  $delete_provider = $provider->delete_provider($delete_id);
+  $delete_provider = $providerController->delete_provider($delete_id);
 }
 ?>
 
@@ -74,7 +72,7 @@ if (isset($_GET["deleteid"])) {
             ?>
         <tbody>
           <?php
-          $show_provider = $provider->show_provider_user();
+          $show_provider = $providerController->show_provider_user();
           if ($show_provider) {
             while ($result = $show_provider->fetch_array()) { ?>
               <tr>

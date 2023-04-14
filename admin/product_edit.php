@@ -1,14 +1,14 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once $filepath . "/classes/product.php";
-include_once $filepath . "/classes/category.php";
-include_once $filepath . "/classes/sale.php";
-$product = new Product();
+include_once $filepath . "/controller/product_editController.php";
+include_once $filepath . "/controller/saleController.php";
+include_once $filepath . "/controller/categoryController.php";
+$product_editController = new ProductEditController();
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
-    $updateProduct = $product->update_product($_POST, $_FILES, $id);
+    $updateProduct = $product_editController->update_product($_POST, $_FILES, $id);
 }
 ?>
 <!DOCTYPE html>
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 <body>
     <div class="form-container">
         <?php if (isset($_GET["id"])) {
-            $show_product = $product->get_product_by_id($_GET["id"]);
+            $show_product = $product_editController->get_product_by_id($_GET["id"]);
             if ($show_product) {
                 $result_product = $show_product->fetch_array();
                 ?>
@@ -56,8 +56,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
                         <select id="category" name="category" required>
                             <option value="">Select category</option>
                             <?php
-                            $cat = new Category();
-                            $show_cat = $cat->show_category();
+                            $categoryController = new CategoryController();
+                            $show_cat = $categoryController->show_category();
                             if ($show_cat) {
                                 $i = 0;
                                 while ($result = $show_cat->fetch_assoc()) {
@@ -77,8 +77,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
                         <select id="sale" name="sale" required>
                             <option value="">Select sale</option>
                             <?php
-                            $sale = new Sale();
-                            $show_sale = $sale->show_sale();
+                            $saleController = new SaleController();
+                            $show_sale = $saleController->show_sale();
                             if ($show_sale) {
                                 $i = 0;
                                 while ($result = $show_sale->fetch_assoc()) {

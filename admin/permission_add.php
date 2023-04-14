@@ -1,9 +1,9 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once $filepath . "/classes/permission.php";
-$permission = new Permission();
+include_once $filepath . "/controller/permission_addController.php";
+$permission_addController = new PermissionAddController();
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
-  $insertPermission = $permission->insert_permission($_POST, $_FILES);
+  $insertPermission = $permission_addController->insert_permission($_POST, $_FILES);
 }
 ?>
 <!DOCTYPE html>

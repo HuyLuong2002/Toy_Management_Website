@@ -1,69 +1,15 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once $filepath . "\Toy_Management_Website\classes\account.php";
+include_once $filepath .
+  "\Toy_Management_Website\controller\accountController.php";
 include_once $filepath . "\lib\session.php";
 
-$account = new Account();
+$accountController = new AccountController();
 if (isset($_POST["sign-in-nome"]) && isset($_POST["sign-in-password"])) {
-  $result_login = $account->login(
+  $result_login = $accountController->login(
     $_POST["sign-in-nome"],
-    md5($_POST["sign-in-password"])
+    $_POST["sign-in-password"]
   );
-  if (isset($result_login) && isset($result_login->num_rows)) {
-    $count_login = $result_login->num_rows;
-  } else {
-    $count_login = 0;
-  }
-  if ($count_login > 0) {
-    $result = $result_login->fetch_assoc();
-    if ($result["status"] == 1) {
-      if ($result["permission_id"] == 1) {
-        Session::init();
-        Session::set("userAdmin", true);
-        Session::set("user", true);
-        Session::set("userID", $result["id"]);
-        Session::set("username", $result["username"]);
-        Session::set(
-          "fullname",
-          $result["firstname"] . " " . $result["lastname"]
-        );
-
-        //Set the session timeout for 2 seconds
-        $timeout = 120;
-        Session::set("timeout", $timeout);
-        //Set the maxlifetime of the session
-        ini_set("session.gc_maxlifetime", $timeout);
-        //Set the cookie lifetime of the session
-        ini_set("session.cookie_lifetime", $timeout);
-
-        header("Location: ./admin/index.php?id=1");
-      } else {
-        Session::init();
-        Session::set("user", true);
-        Session::set("userAdmin", false);
-        Session::set("userID", $result["id"]);
-        Session::set("username", $result["username"]);
-        Session::set(
-          "fullname",
-          $result["firstname"] . " " . $result["lastname"]
-        );
-
-        //Set the session timeout for 1800 seconds
-        $timeout = 1800;
-        Session::set("timeout", $timeout);
-        //Set the maxlifetime of the session
-        ini_set("session.gc_maxlifetime", $timeout);
-        //Set the cookie lifetime of the session
-        ini_set("session.cookie_lifetime", $timeout);
-
-        header("Location: ./index.php");
-      }
-    } else {
-      echo "User account is disabled";
-    }
-  } else {
-    echo "User and Pass not match";
-  }
 }
 if (
   isset($_POST["nome"]) &&
@@ -74,7 +20,7 @@ if (
   $password = $_POST["password"];
   $confirm_password = $_POST["confirm-password"];
 
-  $result_account = $account->insert_account($nome, md5($password));
+  $result_account = $accountController->insert_account($nome, md5($password));
 }
 ?>
 <!DOCTYPE html>
@@ -93,6 +39,16 @@ if (
 <body>
 
     <div class="wrapper-form">
+      <?php
+        if(isset($result_login))
+        {
+          echo $result_login;
+        }
+        if(isset($result_account))
+        {
+          echo $result_account;
+        }
+      ?>
         <div class="DarkOverlay"></div>
         <div class="wrap-login-signup">
             <form class="form" id="form-login" action="login.php" method="post">
@@ -115,8 +71,8 @@ if (
             </form>
 
             <form action="login.php" method="post" class="form hide-form" id="form-signup">
-                <h1>Sign Up</h1>
                 
+                <h1>Sign Up</h1>
                 <label for="nome">Username:</label>
                 <span id="check-username"></span>
                 <input type="text" class="infos" id="sign-up-nome" name="nome" onInput="checkUsername();">

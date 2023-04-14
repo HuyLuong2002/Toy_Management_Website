@@ -1,11 +1,11 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "\database\connectDB.php";
-include_once $filepath . "\classes\dashboard.php";
-include_once $filepath . "\classes\product.php";
-$dashboard = new Dashboard();
-$product = new Product();
-$count_product = $dashboard->show_statistic_product();
+include_once $filepath . "\controller\dashboardController.php";
+include_once $filepath . "\controller\productsController.php";
+$dashboardController = new DashboardController();
+$productsController = new ProductsController();
+$count_product = $dashboardController->show_statistic_product();
 
 
 ?>
@@ -86,7 +86,7 @@ $count_product = $dashboard->show_statistic_product();
               <tbody>
                 <tr>
                   <?php
-                  $show_product = $product->show_product();
+                  $show_product = $productsController->show_product();
                   if ($show_product) {
                     while ($result_product = $show_product->fetch_array()) { ?>
                       <td><?php echo $result_product[1]; ?></td>

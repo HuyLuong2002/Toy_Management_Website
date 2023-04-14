@@ -1,13 +1,13 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once $filepath . "/classes/product.php";
+include_once $filepath . "/controller/productsController.php";
 include_once $filepath . "/helpers/format.php";
 $fm = new Format();
-$product = new Product();
+$productsController = new ProductsController();
 
 if (isset($_POST["input"])) {
   $input = $_POST["input"];
-  $show_product_live_search = $product->show_product_live_search($input);
+  $show_product_live_search = $productsController->show_product_live_search($input);
 }
 
 if (isset($_GET["id"])) {
@@ -15,9 +15,8 @@ if (isset($_GET["id"])) {
 }
 
 if (isset($_GET["deleteid"])) {
-  $product = new Product();
   $delete_id = $_GET["deleteid"];
-  $delete_product = $product->delete_product($delete_id);
+  $delete_product = $productsController->delete_product($delete_id);
 }
 
 if (isset($_GET["page"])) {
@@ -28,7 +27,7 @@ if (isset($_GET["page"])) {
 Tính giá trị của phân trang
 10 sản phẩm trên 1 trang
 */
-$result_pagination = $product->show_product_for_pagination();
+$result_pagination = $productsController->show_product_for_pagination();
 
 /*
 Tính giá trị của phân trang
@@ -46,7 +45,7 @@ if (isset($page_id))
 if (isset($current_page))
   $current_position = ($current_page - 1) * $num_product_on_page;
 if (isset($current_position))
-  $result_pagination = $product->show_product_by_panigation_admin($current_position, $num_product_on_page);
+  $result_pagination = $productsController->show_product_by_panigation_admin($current_position, $num_product_on_page);
 ?>
 
 <!DOCTYPE html>

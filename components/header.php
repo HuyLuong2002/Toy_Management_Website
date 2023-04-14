@@ -1,8 +1,8 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once $filepath . "\classes\category.php";
+include_once $filepath . "\controller\categoryController.php";
 include_once $filepath . "\lib\session.php";
-$category = new Category();
+$categoryController = new CategoryController();
 Session::init();
 
 //Set the default session name
@@ -30,7 +30,7 @@ if (isset($_COOKIE[$s_name])) {
                     <i class="fa-solid fa-chevron-down"></i>
                     <ul class="sub-menu">
                         <?php
-                        $show_category = $category->show_category();
+                        $show_category = $categoryController->show_category();
                         if ($show_category) {
                             while ($result = $show_category->fetch_assoc()) { ?>
                                 <li>

@@ -1,18 +1,17 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "\database\connectDB.php";
-include_once $filepath . "\helpers\\format.php";
+
 ?>
 
-<?php class Product
+<?php class ProductServices
 {
   private $db;
-  private $fm;
+
 
   public function __construct()
   {
     $this->db = new Database();
-    $this->fm = new Format();
   }
 
   //list product for home page
@@ -212,5 +211,7 @@ include_once $filepath . "\helpers\\format.php";
       return $alert;
     }
   }
+
+  
 }
 ?>

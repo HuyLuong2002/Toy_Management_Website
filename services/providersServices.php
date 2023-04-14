@@ -4,15 +4,13 @@ include_once $filepath . "\database\connectDB.php";
 include_once $filepath . "\helpers\\format.php";
 ?>
 
-<?php class Provider
+<?php class ProviderServices
 {
     private $db;
-    private $fm;
 
     public function __construct()
     {
         $this->db = new Database();
-        $this->fm = new Format();
     }
 
     //list provider for home page

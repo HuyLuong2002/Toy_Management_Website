@@ -1,10 +1,9 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once $filepath . "\database\connectDB.php";
-include_once $filepath . "\classes\permission.php";
+include_once $filepath . "\controller\permissionController.php";
 
-$permission = new Permission();
-$result_permission = $permission->show_permission();
+$permissionController = new PermissionController();
+$result_permission = $permissionController->show_permission();
 
 if (isset($_GET["id"])) {
   $id = $_GET["id"];
@@ -13,7 +12,7 @@ if (isset($_GET["id"])) {
 if(isset($_GET["deleteid"]))
 {
   $delete_id = $_GET["deleteid"];
-  $delete_permission = $permission->delete_permission($delete_id);
+  $delete_permission = $permissionController->delete_permission($delete_id);
 }
 ?>
 

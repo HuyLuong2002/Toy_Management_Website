@@ -1,12 +1,12 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once $filepath . "/classes/provider.php";
-$provider = new Provider();
+include_once $filepath . "/controller/provider_editController.php";
+$provider_editController = new ProviderEditController();
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
-    $updateprovider = $provider->update_provider($_POST, $_FILES, $id);
+    $updateprovider = $provider_editController->update_provider($_POST, $_FILES, $id);
 }
 ?>
 <!DOCTYPE html>
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
             echo $updateprovider;
         } ?>
         <?php if (isset($_GET["id"])) {
-            $show_provider = $provider->get_provider_by_id($_GET["id"]);
+            $show_provider = $provider_editController->get_provider_by_id($_GET["id"]);
             if ($show_provider) {
                 $result_provider = $show_provider->fetch_array();
                 ?>

@@ -1,8 +1,8 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once($filepath . "\Toy_Management_Website\classes\product.php");
+include_once($filepath . "\Toy_Management_Website\controller\productsController.php");
 
-$product = new Product();
+$productsController = new ProductsController();
 ?>
 
 <div id="home">
@@ -49,7 +49,7 @@ $product = new Product();
 
     <div class="product-items">
       <?php
-      $show_product = $product->show_product_user();
+      $show_product = $productsController->show_product_user();
       if ($show_product) {
         while ($result_product = $show_product->fetch_array()) {
       ?>
@@ -93,7 +93,7 @@ $product = new Product();
               <a href="#" class="product-name" id="product-name-<?php echo $result_product[0]; ?>">
                 <?php echo $result_product[1]; ?>
               </a>
-              <?php echo $result_product[16] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$$result_product[3]</p>" : "";
+              <?php echo $result_product[16] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$". $result_product[3] ."</p>" : "";
               ?>
               <p class="product-price product-price-sale" id="product-price-<?php echo $result_product[0]; ?>">
                 <?php if (

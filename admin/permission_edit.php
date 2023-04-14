@@ -1,13 +1,13 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once $filepath . "/classes/permission.php";
+include_once $filepath . "/controller/permission_editController.php";
 
-$permission = new Permission();
+$permission_editController = new PermissionEditController();
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
-    $updatePermission = $permission->update_permission($_POST, $id);
+    $updatePermission = $permission_editController->update_permission($_POST, $id);
 }
 ?>
 <!DOCTYPE html>
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 <body>
     <div class="form-container">
         <?php if (isset($_GET["id"])) {
-            $show_permission = $permission->get_permission_by_id($_GET["id"]);
+            $show_permission = $permission_editController->get_permission_by_id($_GET["id"]);
             if ($show_permission) {
                 $result_permission = $show_permission->fetch_array();
                 ?>
