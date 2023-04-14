@@ -75,23 +75,23 @@ class ProductsController
     }
 
     
-  public function pageNumber($page_total, $max, $current){
-    $half = ceil($max / 2);
-    $to = $max;
+  // public function pageNumber($page_total, $max, $current){
+  //   $half = ceil($max / 2);
+  //   $to = $max;
 
-    if ($current + $half >= $page_total)
-      $to = $page_total;
-    else if ($current > $half)
-      $to = $current + $half;
+  //   if ($current + $half >= $page_total)
+  //     $to = $page_total;
+  //   else if ($current > $half)
+  //     $to = $current + $half;
 
-      $from = $to - $max;
-      $result = array();
+  //     $from = $to - $max;
+  //     $result = array();
 
-      for ($i = 1; $i <= $max; $i++){
-        $result[$i] = ($i) + $from;
-      }
-      return $result;
-  }
+  //     for ($i = 1; $i <= $max; $i++){
+  //       $result[$i] = ($i) + $from;
+  //     }
+  //     return $result;
+  // }
 }
 
 ?>

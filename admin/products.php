@@ -1,7 +1,10 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "/controller/productsController.php";
+include_once $filepath . "/helpers/pagination.php";
 include_once $filepath . "/helpers/format.php";
+
+$pag = new Pagination();
 $fm = new Format();
 $productsController = new ProductsController();
 
@@ -223,7 +226,7 @@ if (isset($current_position))
               </li>
             <?php } ?>
             <?php 
-            $pagination = $productsController->pageNumber($page_total, 4, $page_id);
+            $pagination = $pag->pageNumber($page_total, 4, $page_id);
             $length = count($pagination);
             for ($i = 1; $i <= $length; $i++) {
               if ($pagination[$i] == $page_id) {

@@ -2,6 +2,9 @@
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "\Toy_Management_Website\controller\categoryController.php";
 include_once $filepath . "\controller\productsController.php";
+include_once $filepath . "/helpers/pagination.php";
+
+$pag = new Pagination();
 $categoryController = new CategoryController();
 $productsController = new ProductsController();
 if (isset($_GET["id"])) {
@@ -183,21 +186,23 @@ $result_pagination = $productsController->show_product_by_category_panigation(
               </li>
             <?php } ?>
             <?php
-            $pagination = $productsController->pageNumber($page_total, 4, $page_id);
+            $pagination = $pag->pageNumber($page_total, 4, $page_id);
             $length = count($pagination);
             for ($i = 1; $i <= $length; $i++) {
-              if ($pagination[$i] == $page_id) {
-                $current = "current";
-              } else {
-                $current = "";
-              }
+              if ($pagination[$i] > 0) {
+                if ($pagination[$i] == $page_id) {
+                  $current = "current";
+                } else {
+                  $current = "";
+                }
             ?>
-              <li class="item <?php echo $current ?>" id="<?php echo $pagination[$i]; ?>">
-                <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $pagination[$i]; ?>">
-                  <?php echo $pagination[$i]; ?>
-                </a>
-              </li>
-            <?php } ?>
+                <li class="item <?php echo $current ?>" id="<?php echo $pagination[$i]; ?>">
+                  <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $pagination[$i]; ?>">
+                    <?php echo $pagination[$i]; ?>
+                  </a>
+                </li>
+            <?php }
+            } ?>
             <?php if ($page_total - 1 > $page_id + 1) { ?>
               <li class="item next-page">
                 <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $page_id + 1; ?>">
