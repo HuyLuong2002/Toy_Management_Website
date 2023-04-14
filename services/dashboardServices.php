@@ -18,5 +18,26 @@ include_once $filepath . "\database\connectDB.php";
     $result = $this->db->select($query);
     return $result;
   }
+
+  public function show_statistic_orders()
+  {
+    $query = "SELECT COUNT(*) FROM orders WHERE is_deleted = '0'";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function show_orders()
+  {
+    $query = "SELECT * FROM orders WHERE is_deleted = '0'";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function show_statistic_customer()
+  {
+    $query = "SELECT COUNT(*) FROM account WHERE is_deleted = '0' AND status = '1' AND permission_id = '4'";
+    $result = $this->db->select($query);
+    return $result;
+  }
 }
 ?>
