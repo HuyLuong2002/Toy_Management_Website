@@ -24,6 +24,7 @@
 
 body {
   font-family: "Nunito", sans-serif;
+  /* overflow-x: hidden; */
 }
 
 header {
@@ -324,6 +325,39 @@ header {
 .search-bar input {
   width: 100%;
   padding: .5rem;
+}
+
+.wrap-product-search {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.wrap-product-search:hover {
+  opacity: 0.9;
+}
+
+.wrap-product-search > span {
+  margin-right: 3rem;
+  font-size: 2rem;
+}
+
+.wrap-product-search > span:hover {
+  color: #27cd9e;
+}
+
+.show-product-search {
+  margin-left: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.show-product-search > img {
+  width: 10rem;
+  object-fit: contain;
 }
 
 /*custom icon header*/

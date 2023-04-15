@@ -104,6 +104,17 @@ if (isset($_COOKIE[$s_name])) {
     </div>
     <div class="search-bar">
         <input type="text" placeholder="Nhập sản phẩm muốn tìm kiếm vào đây">
+        <div class="wrap-product-search">
+            <div class="show-product-search">
+                <img src="./assets/images/home-img-3.png" alt="">
+                <div class="sub-product">
+                    <h4>Name Product</h4>
+                    <p>describe</p>
+                </div>
+            </div>
+            
+            <span>&times</span>
+        </div>
     </div>
 </header>
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
@@ -144,9 +155,9 @@ if (isset($_COOKIE[$s_name])) {
         toggle.classList.toggle('active');
     }
 
-    let CartAdd = JSON.parse(localStorage.getItem('cartAdd'));
-    let Cart = document.getElementById("cart").innerText = `(${CartAdd.length})`;
+    // let CartAdd = JSON.parse(localStorage.getItem('cartAdd'));
+    // let Cart = document.getElementById("cart").innerText = `(${CartAdd.length})`;
 
-    let FavoriteAdd = JSON.parse(localStorage.getItem('favorite'));
-    let Favorite = document.getElementById("favorite").innerText = `(${FavoriteAdd.length})`;
+    // let FavoriteAdd = JSON.parse(localStorage.getItem('favorite'));
+    // let Favorite = document.getElementById("favorite").innerText = `(${FavoriteAdd.length})`;
 </script>

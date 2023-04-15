@@ -1,0 +1,23 @@
+.wrapper {
+    margin-top: 7rem;
+}
+
+.wrap-char {
+    margin: 1rem 0 7rem 0;
+}
+
+.wrap-char > h2 {
+   text-align: center;
+}
+
+.chart-bar,
+.chart-line {
+    padding: 1rem 1.5rem;
+}
+
+.chart-Pie {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    padding: 0.5rem 2rem;
+}

@@ -48,6 +48,12 @@ let listBar = [
     href: "index.php?id=8",
     icon: "la-percent",
   },
+  {
+    id: 9,
+    title: "Chart",
+    href: "index.php?id=9",
+    icon: "la-chart-bar",
+  },
 ];
 
 const url = window.location.href;
