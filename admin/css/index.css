@@ -141,6 +141,7 @@ header h2 {
 header label span {
   font-size: 1.7rem;
   padding-right: 1rem;
+  cursor: pointer;
 }
 
 .admin-search-wrapper {
