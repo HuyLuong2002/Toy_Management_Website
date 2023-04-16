@@ -49,7 +49,7 @@ const favActive = (event) => {
             console.log('Product added to favorites');
         }
     }
-    location.reload();
+    AmountCartWasAdded()
 }
 
 function checkFavorite(dataId) {
@@ -62,4 +62,12 @@ function checkFavorite(dataId) {
         }
     }
     return false;
+}
+
+const AmountCartWasAdded = () => {
+    let CartAdd = JSON.parse(localStorage.getItem('cartAdd'));
+    let FavoriteAdd = JSON.parse(localStorage.getItem('favorite'));
+    
+    document.getElementById("cart").innerText = `(${CartAdd.length})`;
+    document.getElementById("favorite").innerText = `(${FavoriteAdd.length})`;
 }

@@ -28,6 +28,9 @@
                 case "8":
                     include('sale.php');
                     break;
+                case "9":
+                    include('chart.php');
+                    break;
                 default:
                     include('dashboard.php');
                     break;

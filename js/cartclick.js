@@ -3,7 +3,6 @@ const AddActive = (event, id) => {
     let ProductImgCart = document.getElementById(`product-image-${id}`)
     let ProductPriceCart = document.getElementById(`product-price-${id}`)
 
-    event.preventDefault();
     let iCheck = document.getElementById(`icon-check-${id}`)
     if (iCheck.classList.contains('fa-check')) {
         // remove the class
@@ -49,7 +48,8 @@ const AddActive = (event, id) => {
             }
         }
     }
-    location.reload();
+    // location.reload();
+    AmountCartWasAdded()
 }
 
 const checkAddToCart = (dataId) => {
@@ -68,6 +68,16 @@ const LoadCheckCart = () => {
         iTag.classList.remove('fa-plus');
         iTag.classList.add('fa-check');
     })
+
+    AmountCartWasAdded()
+}
+
+const AmountCartWasAdded = () => {
+    let CartAdd = JSON.parse(localStorage.getItem('cartAdd'));
+    let FavoriteAdd = JSON.parse(localStorage.getItem('favorite'));
+    
+    document.getElementById("cart").innerText = `(${CartAdd.length})`;
+    document.getElementById("favorite").innerText = `(${FavoriteAdd.length})`;
 }
 
 LoadCheckCart()
