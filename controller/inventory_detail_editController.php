@@ -2,22 +2,21 @@
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "/services/inventoryServices.php";
 
-class InventoryDetailController
+class InventoryDetailEditController
 {
-    public function show_inventory_detail($enter_id)
+    public function get_detail_enter_by_id($id)
     {
         $inventoryService = new InventoryServices();
-        $result = $inventoryService->show_inventory_detail($enter_id);
-        return $result;
-        
-    }
-
-    public function delete_inventory_detail($id)
-    {
-        $inventoryService = new InventoryServices();
-        $result = $inventoryService->delete_inventory_detail($id);
+        $result = $inventoryService->get_detail_inventory_by_id($id);
         return $result;
     }
 
+    public function update_inventory_detail($data, $id)
+    {
+        $inventoryService = new InventoryServices();
+        $result = $inventoryService->update_inventory_detail($data, $id);
+        return $result;
+    }
 }
+
 ?>

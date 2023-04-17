@@ -30,6 +30,14 @@ class InventoryServices
     return $result;
   }
 
+  public function get_detail_inventory_by_id($id)
+  {
+    $query = "SELECT * FROM detail_enter_product WHERE detail_enter_product.id = {$id}";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+
   public function update_inventory($data, $id)
   {
     $enter_date = $this->fm->formatDate($data["enter-date"]);
@@ -110,6 +118,80 @@ class InventoryServices
     $query = "SELECT detail_enter_product.*, product.name FROM detail_enter_product, product WHERE enter_id = {$enter_id} AND product.id = detail_enter_product.product_id";
     $result = $this->db->select($query);
     return $result;
+  }
+
+  public function insert_inventory_detail($data)
+  {
+    $enter_id = mysqli_real_escape_string(
+      $this->db->link,
+      $data["enter-id"]
+    );
+
+    $product_id = mysqli_real_escape_string(
+      $this->db->link,
+      $data["product"]
+    );
+    $quantity = mysqli_real_escape_string(
+      $this->db->link,
+      $data["quantity"]
+    );
+    $price = mysqli_real_escape_string(
+      $this->db->link,
+      $data["price"]
+    );
+
+    $query = "INSERT INTO detail_enter_product(enter_id, product_id, quantity, price) VALUES ($enter_id,$product_id,$quantity,$price)";
+    $result = $this->db->insert($query);
+    if ($result) {
+      $alert = "<span class='success'>Insert Receipt Detail Sucessfully</span>";
+      return $alert;
+    } else {
+      $alert = "<span class='error'>Insert Receipt Detail Not Sucessfully</span>";
+      return $alert;
+    }
+  }
+
+  public function update_inventory_detail($data, $id)
+  {
+    $enter_id = mysqli_real_escape_string(
+      $this->db->link,
+      $data["enter-id"]
+    );
+    $product_id = mysqli_real_escape_string(
+      $this->db->link,
+      $data["product"]
+    );
+    $quantity = mysqli_real_escape_string(
+      $this->db->link,
+      $data["quantity"]
+    );
+    $price = mysqli_real_escape_string(
+      $this->db->link,
+      $data["price"]
+    );
+
+    $query = "UPDATE detail_enter_product SET enter_id='{$enter_id}', product_id={$product_id}, quantity={$quantity}, price={$price} WHERE id = {$id}";
+    $result = $this->db->update($query);
+    if ($result) {
+      $alert = "<span class='success'>Update Receipt Detail Sucessfully</span>";
+      return $alert;
+    } else {
+      $alert = "<span class='error'>Update Receipt Detail Not Sucessfully</span>";
+      return $alert;
+    }
+  }
+
+  public function delete_inventory_detail($id)
+  {
+    $query = "DELETE FROM detail_enter_product WHERE id={$id}";
+    $result = $this->db->delete($query);
+    if ($result) {
+      $alert = "<span class='success'>Receipt Deleted Sucessfully</span>";
+      return $alert;
+    } else {
+      $alert = "<span class='error'>Receipt Delete Not Sucessfully</span>";
+      return $alert;
+    }
   }
 }
 ?>
