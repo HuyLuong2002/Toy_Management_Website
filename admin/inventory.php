@@ -1,18 +1,26 @@
 <?php
-// $filepath = realpath(dirname(__DIR__));
-// include_once $filepath . "\classes\product.php";
-// $product = new Product();
-?>
+$filepath = realpath(dirname(__DIR__));
+include_once $filepath . "\controller\inventoryController.php";
+$inventoryController = new InventoryController();
 
-<head>
-  <title>Inventory Management</title>
-</head>
+
+if(isset($_GET["deleteid"]))
+{
+  $delete_id = $_GET["deleteid"];
+  $delete_inventory = $inventoryController->delete_inventory($delete_id);
+}
+?>
 
 <div class="card">
   <div class="card-header">
     <h3>Receipt List</h3>
+    <?php if (isset($delete_inventory)) {
+      echo $delete_inventory;
+    } ?>
     <button>
-      Add receipt <span class="las la-plus"></span>
+      <a href="inventory_add.php">
+        Add receipt <span class="las la-plus"></span>
+      </a>
     </button>
   </div>
 
@@ -33,18 +41,29 @@
           </tr>
         </thead>
         <tbody>
+          <?php
+          $show_inventory = $inventoryController->show_inventory();
+            if(isset($show_inventory))
+            {
+              while($result = $show_inventory->fetch_array())
+              {
+          ?>
           <tr>
-            <td>1</td>
-            <td>18/02/2023</td>
-            <td>10</td>
-            <td>3000</td>
-            <td>1</td>
-            <td>1</td>
-            <td>Đang xử lý</td>
-            <td>25/03/2023</td>
-            <td><a href="">Edit</a> | <a href="">Delete</a>
+            <td><?php echo $result[0]; ?></td>
+            <td><?php echo $result[1]; ?></td>
+            <td><?php echo $result[2]; ?></td>
+            <td><?php echo $result[3]; ?></td>
+            <td><?php echo $result[9]; ?></td>
+            <td><?php echo $result[10] . " " . $result[11]; ?></td>
+            <td><?php echo $result[6]; ?></td>
+            <td><?php echo $result[7]; ?></td>
+            <td><a href="inventory_edit.php?id=<?php echo $result[0]; ?>">Edit</a> | <a href="?id=4&deleteid=<?php echo $result["id"];?>">Delete</a> | <a href="?id=11&enter_id=<?php echo $result[0]; ?>">Detail</a>
             <td>
           </tr>
+          <?php
+              }
+            }
+          ?>
         </tbody>
       </table>
     </div>

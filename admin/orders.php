@@ -42,11 +42,11 @@ if (isset($_GET["deleteid"])) {
         <thead>
           <tr>
             <td>ID</td>
-            <td>User_ID</td>
+            <td>User ID</td>
             <td>Quantity</td>
             <td>Date</td>
-            <td>Total_price</td>
-            <td>Pay_method</td>
+            <td>Total price</td>
+            <td>Payment method</td>
             <td>Status</td>
           </tr>
         </thead>

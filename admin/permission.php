@@ -17,12 +17,17 @@ if(isset($_GET["deleteid"]))
 ?>
 
 
-<div class="card">
+<div class="card" id="searchresultpermission">
   <div class="card-header">
     <h3>Permission List</h3>
     <?php if (isset($delete_permission)) {
       echo $delete_permission;
     } ?>
+    <button>
+    <a href="permission_add.php">
+        Add permission for account <span class="las la-plus"></span>
+      </a>
+    </button>
     <button>
     <a href="permission_add.php">
         Add permission <span class="las la-plus"></span>

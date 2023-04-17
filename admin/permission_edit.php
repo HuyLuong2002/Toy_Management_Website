@@ -27,11 +27,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
         <?php if (isset($_GET["id"])) {
             $show_permission = $permission_editController->get_permission_by_id($_GET["id"]);
             if ($show_permission) {
-                $result_permission = $show_permission->fetch_array();
+                $result_permission = $show_permission->fetch_assoc();
                 ?>
 
-                <form action="permission_edit.php?id=<?php echo $result_permission["id"]; ?>" method="post"
-                    enctype="multipart/form-data">
+                <form action="permission_edit.php?id=<?php echo $result_permission["id"]; ?>" method="post">
                     <?php if (isset($updatePermission)) {
                         echo $updatePermission;
                     } ?>

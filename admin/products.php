@@ -257,9 +257,9 @@ if (isset($current_position))
   </div>
 </div>
 
+<!-- javascript to check hight product -->
 <script>
   let NewState;
-
   const handleGetId = (id, st) => {
     let inputCheck = document.getElementById(`check-${id}`)
     if (!inputCheck.checked) {
@@ -291,7 +291,7 @@ if (isset($current_position))
     sw.classList.toggle('activeBg')
   }
 </script>
-
+<!-- ajax to pagination for product -->
 <script type="text/javascript">
   $(document).ready(function() {
     function loadProduct(page) {
@@ -312,7 +312,7 @@ if (isset($current_position))
     $(document).on("click", "#pagination a", function(e) {
 
       var page = $(this).attr("id");
-      loadProduct();
+      loadProduct(page);
     });
 
   });

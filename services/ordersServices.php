@@ -80,10 +80,10 @@ include_once $filepath . "\helpers\\format.php";
 
       $result = $this->db->update($query);
       if ($result) {
-        $alert = "<span class='success'>Update orders Sucessfully</span>";
+        $alert = "<span class='success'>Update Orders Sucessfully</span>";
         return $alert;
       } else {
-        $alert = "<span class='error'>Update orders Not Sucessfully</span>";
+        $alert = "<span class='error'>Update Orders Not Sucessfully</span>";
         return $alert;
       }
     }
@@ -92,12 +92,12 @@ include_once $filepath . "\helpers\\format.php";
   public function delete_orders($id)
   {
     $query = "UPDATE orders SET is_deleted='1' WHERE id='$id'";
-    $result = $this->db->delete($query);
+    $result = $this->db->update($query);
     if ($result) {
-      $alert = "<span class='success'>orders Deleted Sucessfully</span>";
+      $alert = "<span class='success'>Orders Deleted Sucessfully</span>";
       return $alert;
     } else {
-      $alert = "<span class='error'>orders Delete Not Sucessfully</span>";
+      $alert = "<span class='error'>Orders Delete Not Sucessfully</span>";
       return $alert;
     }
   }

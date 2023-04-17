@@ -71,6 +71,7 @@ if (isset($_GET["id"])) {
     </div>
   </header>
 
+  <!-- coding live search function -->
   <script type="text/javascript">
     $(document).ready(function() {
       $("#search").keyup(function(){
@@ -94,6 +95,16 @@ if (isset($_GET["id"])) {
             success: function(data){  
               $("#searchresultprovider").html(data);
               $("#searchresultprovider").css("display","block");
+            }
+          });
+
+          $.ajax({
+            url: "permission.php",
+            method: "POST",
+            data:{input:input},
+            success: function(data){  
+              $("#searchresultpermission").html(data);
+              $("#searchresultpermission").css("display","block");
             }
           });
         }

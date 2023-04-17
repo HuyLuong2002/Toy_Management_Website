@@ -37,7 +37,7 @@ class ProductsController
         $limit_per_page
       ) {
         $productService = new ProductServices();
-        $result = $productService->show_product_for_pagination();
+        $result = $productService->show_product_by_panigation_admin($offset, $limit_per_page);
         return $result;
       }
 

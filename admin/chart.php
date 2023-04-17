@@ -1,7 +1,39 @@
+<?php
+    $filepath = realpath(dirname(__DIR__));
+    include_once $filepath . "/controller/chartController.php";
+    $chartController = new ChartController();
+    $result_statistic = $chartController->show_revenue_quarter(2023);
+    $data_quarter_1 = 0;
+    $data_quarter_2 = 0;
+    $data_quarter_3 = 0;
+    $data_quarter_4 = 0;
+    if(isset($result_statistic))
+    {
+        while($result = $result_statistic->fetch_assoc())
+        {
+            if($result["Quy"] == 1)
+            {
+                $data_quarter_1 = $result["DoanhThu"];
+            }
+            if($result["Quy"] == 2)
+            {
+                $data_quarter_2 = $result["DoanhThu"];
+            }
+            if($result["Quy"] == 3)
+            {
+                $data_quarter_3 = $result["DoanhThu"];
+            }
+            if($result["Quy"] == 4)
+            {
+                $data_quarter_4 = $result["DoanhThu"];
+            }
+        }
+    }
+?>
 <div class="wrapper">
 
     <div class="wrap-char">
-        <h2>Statistical Customer</h2>
+        <h2>Statistical Revenue</h2>
 
         <div class="chart-bar">
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -13,10 +45,10 @@
                 var myChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
                         datasets: [{
-                            label: '# of Votes',
-                            data: [12, 19, 3, 5, 2, 3],
+                            label: 'Quarterly Revenue',
+                            data: [<?php echo $data_quarter_1; ?>, <?php echo $data_quarter_2; ?>, <?php echo $data_quarter_3; ?>, <?php echo $data_quarter_4; ?>],
                             backgroundColor: 'rgba(75, 192, 192, 0.2)', // specify chart color
                             borderColor: 'rgba(75, 192, 192, 1)', // specify border color
                             borderWidth: 1 // specify border width
