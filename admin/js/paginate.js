@@ -45,7 +45,7 @@ let listBar = [
   {
     id: 8,
     title: "Sale",
-    href: "index.php?id=8",
+    href: "index.php?id=8&page=1",
     icon: "la-percent",
   },
   {

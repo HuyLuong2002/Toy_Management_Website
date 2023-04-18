@@ -290,6 +290,10 @@ td .status {
   color: red;
 }
 
+.table-responsive .edit{
+  color: blue;
+}
+
 .customer {
   display: flex;
   justify-content: space-between;
