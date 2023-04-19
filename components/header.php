@@ -155,9 +155,9 @@ if (isset($_COOKIE[$s_name])) {
         toggle.classList.toggle('active');
     }
 
-    // let CartAdd = JSON.parse(localStorage.getItem('cartAdd'));
-    // let Cart = document.getElementById("cart").innerText = `(${CartAdd.length})`;
+    let CartAdd = JSON.parse(localStorage.getItem('cartAdd'));
+    let Cart = document.getElementById("cart").innerText = `(${CartAdd.length})`;
 
-    // let FavoriteAdd = JSON.parse(localStorage.getItem('favorite'));
-    // let Favorite = document.getElementById("favorite").innerText = `(${FavoriteAdd.length})`;
+    let FavoriteAdd = JSON.parse(localStorage.getItem('favorite'));
+    let Favorite = document.getElementById("favorite").innerText = `(${FavoriteAdd.length})`;
 </script>

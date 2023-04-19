@@ -116,8 +116,8 @@ $productsController = new ProductsController();
               }
               ?>
 
-              <div class="favorite-icon" onclick="favActive(event)">
-                <i class="fa-regular fa-heart fav-icon" data-id="<?php echo $result_product[0]; ?>"></i>
+              <div class="favorite-icon" onclick="AddFavorite(event, <?php echo $result_product[0]; ?>)">
+                <i class="fa-regular fa-heart fav-icon" id="favorite-<?php echo $result_product[0]; ?>" data-id="<?php echo $result_product[0]; ?>"></i>
               </div>
             </div>
           </div>
@@ -129,18 +129,5 @@ $productsController = new ProductsController();
     </div>
   </div>
 </div>
-<script>
-  var icons = document.querySelectorAll('.favorite-icon i');
-  icons.forEach((icon) => {
-    var dataId = icon.getAttribute('data-id');
-    var add_to_cart = JSON.parse(localStorage.getItem('favorite'));
-    add_to_cart.forEach((product) => {
-      if (product.id === dataId) {
-        icon.classList.add('fa-solid');
-        icon.classList.remove('fa-regular');
-      }
-    });
-
-  });
-</script>
+<script src="./js/newWishList.js"></script>
 <script src="./js/cartclick.js"></script>

@@ -111,12 +111,12 @@ $result_pagination = $productsController->show_product_by_category_panigation(
                 <div class="product-content">
                   <div class="product-img-box">
                     <img src="<?php echo " admin/uploads/" .
-                                $result_product[2]; ?>" alt="" />
+                                $result_product[2]; ?>" alt="" id="product-image-<?php echo $result_product[0]; ?>"/>
                   </div>
                   <div class="product-btns">
-                    <button class="btn-cart">
+                    <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product[0]; ?>)">
                       Add to Cart
-                      <span><i class="fas fa-plus"></i></span>
+                      <span><i class="fa-solid fa-plus add-icon" id="icon-check-<?php echo $result_product[0]; ?>"></i></span>
                     </button>
                     <a href="product_detail.php?id=<?php echo $result_product[0]; ?>">
                       <button class="btn-buy">
@@ -144,13 +144,13 @@ $result_pagination = $productsController->show_product_by_category_panigation(
                       ?>
                     </div>
                   </div>
-                  <a href="" class="product-name">
+                  <a href="" class="product-name" id="product-name-<?php echo $result_product[0]; ?>">
                     <?php echo $result_product[1]; ?>
                   </a>
                   <?php echo $result_product[16] !== "Không áp dụng"
-                    ? "<p class='product-price product-price-linet'>$$result_product[3]</p>"
+                    ? "<p class='product-price product-price-linet' id='product-price-<?php echo $result_product[0]; ?>'>$$result_product[3]</p>"
                     : ""; ?>
-                  <p class="product-price product-price-sale">
+                  <p class="product-price product-price-sale" id="product-price-<?php echo $result_product[0]; ?>">
                     <?php if ($result_product[16] !== "Không áp dụng") {
                       $sale_percent = $result_product[20];
                       $sale_price =
@@ -169,6 +169,10 @@ $result_pagination = $productsController->show_product_by_category_panigation(
                     $sale_percent = $result_product[20];
                     echo "<h2 class='sm-title'>Sale $sale_percent%</h2>";
                   } ?>
+
+                  <!-- <div class="favorite-icon" onclick="AddFavorite(event, <?php echo $result_product[0]; ?>)">
+                    <i class="fa-regular fa-heart fav-icon" id="favorite-<?php echo $result_product[0]; ?>" data-id="<?php echo $result_product[0]; ?>"></i>
+                  </div> -->
                 </div>
               </div>
           <?php }
@@ -218,6 +222,10 @@ $result_pagination = $productsController->show_product_by_category_panigation(
   </div>
 
   <?php include "./components/footer.php"; ?>
+
+  
+  <!-- <script src="./js/newWishList.js"></script> -->
+  <script src="./js/cartclick.js"></script>
 </body>
 <script>
   $(document).ready(function() {
@@ -251,7 +259,3 @@ $result_pagination = $productsController->show_product_by_category_panigation(
 
   });
 </script>
-
-<Script>
-
-</Script>
