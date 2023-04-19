@@ -9,6 +9,10 @@ class Format
     return date("d/m/Y",strtotime($date));
   }
 
+  public function formatDateReverse($date){
+    return date("m/d/Y", strtotime($date));
+  }
+
   public function textShorten($text, $limit = 400)
   {
     $text = $text . " ";

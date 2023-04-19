@@ -24,6 +24,7 @@ if (isset($_GET["deleteid"])) {
 
 if (isset($_GET["page"])) {
   $page_id = $_GET["page"];
+  $pagination_id = $page_id;
 }
 
 /*
@@ -138,7 +139,10 @@ if (isset($current_position))
                   <td>
                     <?php echo $result[10]; ?>
                   </td>
-                  <td><a href="product_edit.php?id=<?php echo $result[0]; ?>">Edit</a> | <a href="?id=2&deleteid=<?php echo $result[0]; ?>">Delete</a> | <a href="product_detail.php?id=<?php echo $result[0]; ?>">Details</a>
+                  <td>
+                    <a href="product_edit.php?id=<?php echo $result[0]; ?>">Edit</a>
+                    <a href="?id=2&page=<?php echo $page_id?>&deleteid=<?php echo $result[0]; ?>">Delete</a>
+                    <a href="product_detail.php?id=<?php echo $result[0]; ?>">Details</a>
                   </td>
 
                 </tr>
@@ -203,7 +207,7 @@ if (isset($current_position))
               </td>
               <td>
                 <a href="product_edit.php?id=<?php echo $result[0]; ?>" class="Edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
-                <a href="?id=<?php echo $id; ?>&deleteid=<?php echo $result[0]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                <a href="?id=<?php echo $id; ?>&page=<?php echo $page_id?>&deleteid=<?php echo $result[0]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
                 <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
               <td>
 
@@ -218,18 +222,18 @@ if (isset($current_position))
       ?>
         <div class="bottom-pagination" id="pagination">
           <ul class="pagination">
-            <?php if ($page_id > 1) { ?>
+            <?php if ($pagination_id > 1) { ?>
               <li class="item prev-page">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $page_id - 1; ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id - 1; ?>">
                   <i class="fa-solid fa-chevron-left"></i>
                 </a>
               </li>
             <?php } ?>
             <?php 
-            $pagination = $pag->pageNumber($page_total, 4, $page_id);
+            $pagination = $pag->pageNumber($page_total, 4, $pagination_id);
             $length = count($pagination);
             for ($i = 1; $i <= $length; $i++) {
-              if ($pagination[$i] == $page_id) {
+              if ($pagination[$i] == $pagination_id) {
                 $current = "current";
               } else {
                 $current = "";
@@ -241,9 +245,9 @@ if (isset($current_position))
                 </a>
               </li>
             <?php } ?>
-            <?php if ($page_total - 1 > $page_id + 1) { ?>
+            <?php if ($page_total - 1 > $pagination_id + 1) { ?>
               <li class="item next-page">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $page_id + 1; ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id + 1; ?>">
                   <i class="fa-solid fa-chevron-right"></i>
                 </a>
               </li>

@@ -1,16 +1,64 @@
 <?php
-// $filepath = realpath(dirname(__DIR__));
-// include_once $filepath . "\database\connectDB.php";
-// include_once $filepath . "\classes\product.php";
-// $product = new Product();
+$filepath = realpath(dirname(__DIR__));
+include_once $filepath . "\controller\saleController.php";
+include_once $filepath . "/helpers/pagination.php";
+
+$saleController = new SaleController();
+$pag = new Pagination();
+
+if (isset($_POST["input"])) {
+  $input = $_POST["input"];
+  $show_sale_live_search = $saleController->show_sale_live_search($input);
+}
+
+if (isset($_GET["id"])) {
+  $id = $_GET["id"];
+}
+
+if (isset($_GET["deleteid"])) {
+  $delete_id = $_GET["deleteid"];
+  $delete_sale = $saleController->delete_sale($delete_id);
+}
+
+if (isset($_GET["page"])) {
+  $page_id = $_GET["page"];
+  $pagination_id = $page_id;
+}
+/*
+Tính giá trị của phân trang, 10 sale trên 1 trang
+*/
+$result_pagination = $saleController->show_sale();
+$sale_total = mysqli_num_rows($result_pagination);
+
+// Số sản phẩm trên 1 trang
+$page_total = ceil($sale_total / 10);
+
+// trang hiện tại
+if (isset($page_id)){
+  $current_page = $page_id;
+}
+// Vị trí hiện tại
+if (isset($current_page)) {
+  $current_position = ($current_page - 1) * 10;
+}
+if (isset($current_position)) {
+  $result_pagination = $saleController->show_sale_by_pagination($current_position, 10);
+}
 ?>
 
 
-<div class="card">
+<div class="card" id="searchresultsale">
   <div class="card-header">
     <h3>Sales List</h3>
+    <?php
+    if (isset($delete_sale)) {
+      echo $delete_sale;
+    }
+    ?>
     <button>
-      Add sale <span class="las la-plus"></span>
+      <a href="sale_add.php">
+        Add sale <span class="las la-plus"></span>
+      </a>
     </button>
   </div>
 
@@ -30,19 +78,153 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Không áp dụng</td>
-            <td>16/03/2023</td>
-            <td>18/03/2023</td>
-            <td>20/03/2023</td>
-            <td>0</td>
-            <td>1</td>
-            <td><a href="">Edit</a> | <a href="">Delete</a>
-            <td>
-          </tr>
+          <?php if (isset($show_sale_live_search)) {
+            if ($show_sale_live_search) {
+              while ($result = $show_sale_live_search->fetch_array()) { ?>
+                <tr>
+                  <td>
+                    <?php echo $result[0]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[1]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[2]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[3]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[4]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[5]; ?>
+                  </td>
+                  <td>
+                    <?php
+                    if ($result[6] == 1)
+                      echo "<span>Còn áp dụng</span>";
+                    else
+                      echo "<span>Hết áp dụng</span>";
+                    ?>
+                  </td>
+                  <td>
+                    <a href="sale_edit.php?id=<?php echo $result[0]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
+                    <a href="?id=<?php echo $id;?>&page=<?php echo $page_id?>&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                  <td>
+                </tr>
+            <?php
+              }
+            } else {
+              echo "<span class='error'>No Data Found</span>";
+            } ?>
         </tbody>
       </table>
+    <?php } else { ?>
+      <tbody id="sale-data">
+        <?php
+            if ($result_pagination) {
+              while ($result = $result_pagination->fetch_array()) { ?>
+            <tr>
+              <td>
+                <?php echo $result[0]; ?>
+              </td>
+              <td>
+                <?php echo $result[1]; ?>
+              </td>
+              <td>
+                <?php echo $result[2]; ?>
+              </td>
+              <td>
+                <?php echo $result[3]; ?>
+              </td>
+              <td>
+                <?php echo $result[4]; ?>
+              </td>
+              <td>
+                <?php echo $result[5]; ?>
+              </td>
+              <td>
+                <?php
+                if ($result[6] == 1)
+                  echo "<span>Còn áp dụng</span>";
+                else
+                  echo "<span>Hết áp dụng</span>";
+                ?>
+              </td>
+              <td>
+                <a href="sale_edit.php?id=<?php echo $result[0]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
+                <a href="?id=<?php echo $id; ?>&page=<?php echo $page_id?>&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+              <td>
+            </tr>
+      <?php }
+            }
+          } ?>
+      </tbody>
+      </table>
+      <?php
+      if (empty($_POST["input"])) {
+      ?>
+        <div class="bottom-pagination" id="pagination">
+          <ul class="pagination">
+            <?php if ($pagination_id > 1) { ?>
+              <li class="item prev-page">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id - 1; ?>">
+                  <i class="fa-solid fa-chevron-left"></i>
+                </a>
+              </li>
+            <?php } ?>
+            <?php
+            $pagination = $pag->pageNumber($page_total, 4, $pagination_id);
+            $length = count($pagination);
+            for ($i = 1; $i <= $length; $i++) {
+              if ($pagination[$i] > 0) {
+                if ($pagination[$i] == $pagination_id) {
+                  $current = "current";
+                } else {
+                  $current = "";
+                }
+            ?>
+                <li class="item <?php echo $current ?>" id="<?php echo $pagination[$i]; ?>">
+                  <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
+                    <?php echo $pagination[$i]; ?>
+                  </a>
+                </li>
+            <?php }
+            } ?>
+            <?php if ($page_total - 1 > $pagination_id + 1) { ?>
+              <li class="item next-page">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id + 1; ?>">
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+              </li>
+            <?php } ?>
+          </ul>
+        </div>
+      <?php } ?>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    function loadSale(page) {
+      $.ajax({
+        url: "sale.php",
+        type: "POST",
+        data: {
+          page_no: page
+        },
+        success: function(data) {
+          $('#sale-data').html(data);
+        }
+      });
+    }
+
+    // Pagination code
+    $(document).on("click", "#pagination a", function(e) {
+      var page = $(this).attr("id");
+      loadSale(page);
+    });
+  });
+</script>

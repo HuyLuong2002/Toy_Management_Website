@@ -9,8 +9,7 @@ if (isset($_GET["id"])) {
   $id = $_GET["id"];
 }
 
-if(isset($_GET["deleteid"]))
-{
+if (isset($_GET["deleteid"])) {
   $delete_id = $_GET["deleteid"];
   $delete_permission = $permissionController->delete_permission($delete_id);
 }
@@ -24,12 +23,12 @@ if(isset($_GET["deleteid"]))
       echo $delete_permission;
     } ?>
     <button>
-    <a href="permission_add.php">
+      <a href="permission_add.php">
         Add permission for account <span class="las la-plus"></span>
       </a>
     </button>
     <button>
-    <a href="permission_add.php">
+      <a href="permission_add.php">
         Add permission <span class="las la-plus"></span>
       </a>
     </button>
@@ -47,21 +46,21 @@ if(isset($_GET["deleteid"]))
         </thead>
         <tbody>
           <?php
-              $result_permission = $permissionController->show_permission();
-              if(isset($result_permission))
-              {
-                while($result = $result_permission->fetch_assoc())
-                {
-            ?>
-          <tr>
-            <td><?php echo $result["id"]; ?></td>
-            <td><?php echo $result["name"]; ?></td>
-            <td><a href="permission_edit.php?id=<?php echo $result["id"];?>">Edit</a> | <a href="?id=6&deleteid=<?php echo $result["id"];?>">Delete</a>
-            <td>
-          </tr>
+          $result_permission = $permissionController->show_permission();
+          if (isset($result_permission)) {
+            while ($result = $result_permission->fetch_assoc()) {
+          ?>
+              <tr>
+                <td><?php echo $result["id"]; ?></td>
+                <td><?php echo $result["name"]; ?></td>
+                <td>
+                  <a href="permission_edit.php?id=<?php echo $result["id"]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
+                  <a href="?id=6&deleteid=<?php echo $result["id"]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                <td>
+              </tr>
           <?php
-                }
-              }
+            }
+          }
           ?>
         </tbody>
       </table>

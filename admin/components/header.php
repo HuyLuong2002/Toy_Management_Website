@@ -107,6 +107,16 @@ if (isset($_GET["id"])) {
               $("#searchresultpermission").css("display","block");
             }
           });
+
+          $.ajax({
+            url: "sale.php",
+            method: "POST",
+            data: {input:input},
+            success: function(data){
+              $("#searchresultsale").html(data);
+              $("#searchresultsale").css("display","block");
+            }
+          });
         }
         else
         {

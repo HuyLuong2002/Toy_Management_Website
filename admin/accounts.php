@@ -42,7 +42,9 @@
             <td>15/03/2023</td>
             <td>1</td>
             <td>1</td>
-            <td><a href="">Edit</a> | <a href="">Delete</a>
+            <td>
+              <a href="" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
+              <a href="" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
             <td>
           </tr>
         </tbody>
