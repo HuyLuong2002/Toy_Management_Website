@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
                     <div class="form-group">
                         <label for="end">End date</label>
-                        <input type="date" id="end" name="end" required value="<?php echo $result_sale[4];?>">
+                        <input type="date" id="end" name="end" required value="<?php echo $fm->formatDateReverse($result_sale[4]);?>">
                     </div>
 
                     <div class="form-group">

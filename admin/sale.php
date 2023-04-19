@@ -2,9 +2,15 @@
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "\controller\saleController.php";
 include_once $filepath . "/helpers/pagination.php";
+include_once $filepath . "/controller/sale_addController.php";
 
 $saleController = new SaleController();
+$sale_addController = new SaleAddController();
 $pag = new Pagination();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
+    $insertSale = $sale_addController->insert_sale($_POST);
+}
 
 if (isset($_POST["input"])) {
   $input = $_POST["input"];
@@ -34,7 +40,7 @@ $sale_total = mysqli_num_rows($result_pagination);
 $page_total = ceil($sale_total / 10);
 
 // trang hiện tại
-if (isset($page_id)){
+if (isset($page_id)) {
   $current_page = $page_id;
 }
 // Vị trí hiện tại
@@ -55,11 +61,50 @@ if (isset($current_position)) {
       echo $delete_sale;
     }
     ?>
-    <button>
-      <a href="sale_add.php">
+    <button type="button" onclick="Dialog()">
+      <p>
         Add sale <span class="las la-plus"></span>
-      </a>
+      </p>
     </button>
+    <dialog id="dialog">
+        <div class="form-container">
+          <form id="myForm" method="post" enctype="multipart/form-data">
+            <?php if (isset($insertSale)) {
+              echo $insertSale;
+            } ?>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="start">Start date</label>
+              <input type="date" id="start" name="start" required>
+            </div>
+
+            <div class="form-group">
+              <label for="end">End date</label>
+              <input type="date" id="end" name="end" required>
+            </div>
+
+            <div class="form-group">
+              <label for="percent">Percent</label>
+              <input type="number" id="percent" name="percent" required>
+            </div>
+
+            <div class="form-group">
+              <label for="status">Status</label>
+              <select id="status" name="status" required>
+                <option value="">Select status</option>
+                <option value="1">Còn áp dụng</option>
+                <option value="0">Hết áp dụng</option>
+              </select>
+            </div>
+
+            <input type="submit" name="submit" id="btnSubmit" value="Save"/>
+          </form>
+        </div>
+      </dialog>
   </div>
 
   <div class="card-body">
@@ -110,7 +155,7 @@ if (isset($current_position)) {
                   </td>
                   <td>
                     <a href="sale_edit.php?id=<?php echo $result[0]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
-                    <a href="?id=<?php echo $id;?>&page=<?php echo $page_id?>&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                    <a href="?id=<?php echo $id; ?>&page=<?php echo $page_id ?>&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
                   <td>
                 </tr>
             <?php
@@ -154,7 +199,7 @@ if (isset($current_position)) {
               </td>
               <td>
                 <a href="sale_edit.php?id=<?php echo $result[0]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
-                <a href="?id=<?php echo $id; ?>&page=<?php echo $page_id?>&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                <a href="?id=<?php echo $id; ?>&page=<?php echo $page_id ?>&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
               <td>
             </tr>
       <?php }
@@ -205,6 +250,24 @@ if (isset($current_position)) {
     </div>
   </div>
 </div>
+
+<script>
+  function Dialog() {
+    var x = document.getElementById("dialog");
+    var ListInput = document.querySelectorAll(".form-container input");
+    var form = document.querySelector("#myForm");
+    // form.addEventListener("click", function(event){
+    //   event.preventDefault();
+    // });
+    console.log(ListInput);
+    
+    if (x.open == true) {
+      x.open = false;
+    } else {
+      x.open = true;
+    }
+  }
+</script>
 
 <script type="text/javascript">
   $(document).ready(function() {
