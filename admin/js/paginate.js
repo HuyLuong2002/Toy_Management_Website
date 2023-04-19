@@ -93,7 +93,6 @@ const handleActiveBg = () => {
                         : ""
                     }
                 </li>
-                
                 `;
     })
     .join("");
