@@ -1,10 +1,10 @@
 // let httpFetchCategory =
 //     "http://localhost:3000/api/orders/read.php";
 let httpFetchCategory =
-    "http://localhost:80/Toy_Management_Website/api/detail_orders/read.php";
+    "http://localhost:8080/Toy_Management_Website/api/detail_orders/read.php";
 let ordersDetail = document.getElementById("orders-details");
 const url = window.location.href;
-const match = url.match(/id=([^&]*)/);
+const match = url.match(/id=3&detailid=([^&]*)/);
 const idPage = match ? match[1] : null;
 const newIdOrders = Number(idPage)
 
@@ -29,3 +29,24 @@ const ShowOrdersDetail = (data) => {
         <button class="delete-button"><a href="orders_detail.php?id=${data.order_id}&deleteid=${data.id}">Delete</a></button>
         </div>`;
 };
+
+// ShowOrderDetail
+const handleShowCart = () => {
+    const layout = document.getElementById("orders-details")
+    layout.style.display = "flex";
+
+    // Handle Out Of Area Click
+    const screen = document.getElementById("orders-details");
+    screen.addEventListener('click', (event) => {
+        const box = document.getElementsByClassName('modal-container')[0];
+        if (!box.contains(event.target)) {
+            handleClose();
+        }
+    });
+}
+
+// CloseOrderDetail
+const handleClose = () => {
+    const layout = document.getElementById("orders-details")
+    layout.style.display = "none";
+}

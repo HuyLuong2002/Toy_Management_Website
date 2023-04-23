@@ -37,6 +37,7 @@ if (isset($_GET["id"])) {
   <link rel="stylesheet" href="./css/decentralization.css" />
   <link rel="stylesheet" href="./css/chart.css">
   <link rel="stylesheet" href="./css/add.css">
+  <link rel="stylesheet" href="./css/orderDetail.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 

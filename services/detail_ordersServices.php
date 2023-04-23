@@ -19,6 +19,13 @@ include_once $filepath . "\database\connectDB.php";
     return $result;
   }
 
+  public function show_detail_order_by_id($id)
+  {
+    $query = "SELECT * FROM detail_orders where order_id = $id";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
   public function insert_detail_order($order_id, $product_id, $quantity, $price)
   {
     $query = "INSERT INTO detail_orders(order_id, product_id, quantity, price) VALUES ($order_id, $product_id, $quantity, $price)";

@@ -2,7 +2,11 @@
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "\database\connectDB.php";
 include_once $filepath . "\controller\ordersController.php";
+include_once $filepath . "\controller\detail_orderController.php";
+
 $orderController = new OrderController();
+$detailOrderController = new DetailOrderController();
+
 
 if (isset($_POST["input"])) {
   $input = $_POST["input"];
@@ -13,12 +17,15 @@ if (isset($_GET["id"])) {
   $id = $_GET["id"];
 }
 
+if(isset($_GET["detailid"])){
+  include "orders_detail.php";
+}
+
 if (isset($_GET["deleteid"])) {
   $delete_id = $_GET["deleteid"];
   $delete_orders = $orderController->delete_orders($delete_id);
 }
 ?>
-
 
 <div class="card" id="searchresultorders">
   <div class="card-header">
@@ -118,7 +125,7 @@ if (isset($_GET["deleteid"])) {
                   <?php echo $result[6]; ?>
                 </td>
                 <td><a href="?id=3&deleteid=<?php echo $result[0]; ?>">Delete</a> | <a
-                    href="orders_detail.php?id=<?php echo $result[0]; ?>">Details</a> </td>
+                    href="?id=3&detailid=<?php echo $result[0]; ?>">Details</a> </td>
               </tr>
             <?php }
           }
@@ -128,3 +135,26 @@ if (isset($_GET["deleteid"])) {
     </div>
   </div>
 </div>
+
+<!-- <script>
+  // ShowOrderDetail
+  const handleShowCart = () => {
+    const layout = document.getElementById("orders-details");
+    layout.style.display = "flex";
+
+    // Handle Out Of Area Click
+    const screen = document.getElementById("orders-details");
+    screen.addEventListener('click', (event) => {
+      const box = document.getElementsByClassName('modal-container')[0];
+      if (!box.contains(event.target)) {
+        handleClose();
+      }
+    });
+  }
+
+  // CloseOrderDetail
+  const handleClose = () => {
+    const layout = document.getElementById("orders-details")
+    layout.style.display = "none";
+  }
+</script> -->
