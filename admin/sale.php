@@ -9,7 +9,7 @@ $sale_addController = new SaleAddController();
 $pag = new Pagination();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
-    $insertSale = $sale_addController->insert_sale($_POST);
+  $insertSale = $sale_addController->insert_sale($_POST);
 }
 
 if (isset($_POST["input"])) {
@@ -56,61 +56,63 @@ if (isset($current_position)) {
 <div class="card" id="searchresultsale">
   <div class="card-header">
     <h3>Sales List</h3>
-    <?php
-    if (isset($delete_sale)) {
-      echo $delete_sale;
-    }
-    ?>
+    <div class="notification">
+      <?php
+      if (isset($delete_sale)) {
+        echo $delete_sale;
+      } else if (isset($insertSale)) {
+        echo $insertSale;
+      }
+      ?>
+    </div>
     <button type="button" onclick="Dialog()">
       <p>
         Add sale <span class="las la-plus"></span>
       </p>
     </button>
     <dialog id="dialog">
-        <div class="form-container">
-          <form id="myForm" method="post" enctype="multipart/form-data">
-            <?php if (isset($insertSale)) {
-              echo $insertSale;
-            } ?>
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" id="name" name="name" required>
-            </div>
+      <div class="form-container">
+        <form id="addForm" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
 
-            <div class="form-group">
-              <label for="start">Start date</label>
-              <input type="date" id="start" name="start" required>
-            </div>
+          <div class="form-group">
+            <label for="start">Start date</label>
+            <input type="date" id="start" name="start" required>
+          </div>
 
-            <div class="form-group">
-              <label for="end">End date</label>
-              <input type="date" id="end" name="end" required>
-            </div>
+          <div class="form-group">
+            <label for="end">End date</label>
+            <input type="date" id="end" name="end" required>
+          </div>
 
-            <div class="form-group">
-              <label for="percent">Percent</label>
-              <input type="number" id="percent" name="percent" required>
-            </div>
+          <div class="form-group">
+            <label for="percent">Percent</label>
+            <input type="number" id="percent" name="percent" required>
+          </div>
 
-            <div class="form-group">
-              <label for="status">Status</label>
-              <select id="status" name="status" required>
-                <option value="">Select status</option>
-                <option value="1">Còn áp dụng</option>
-                <option value="0">Hết áp dụng</option>
-              </select>
-            </div>
+          <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" name="status" required>
+              <option value="">Select status</option>
+              <option value="1">Còn áp dụng</option>
+              <option value="0">Hết áp dụng</option>
+            </select>
+          </div>
 
-            <input type="submit" name="submit" id="btnSubmit" value="Save"/>
-          </form>
-        </div>
-      </dialog>
+          <input type="submit" name="submit" id="btnSubmit" value="Save" />
+        </form>
+
+      </div>
+    </dialog>
   </div>
 
   <div class="card-body">
     <div class="table-responsive">
       <table width="100%">
-        <thead>
+        <thead class="thead">
           <tr>
             <td>ID</td>
             <td>Sale Name</td>
@@ -246,7 +248,9 @@ if (isset($current_position)) {
             <?php } ?>
           </ul>
         </div>
-      <?php } ?>
+      <?php
+      }
+      ?>
     </div>
   </div>
 </div>
@@ -254,13 +258,7 @@ if (isset($current_position)) {
 <script>
   function Dialog() {
     var x = document.getElementById("dialog");
-    var ListInput = document.querySelectorAll(".form-container input");
-    var form = document.querySelector("#myForm");
-    // form.addEventListener("click", function(event){
-    //   event.preventDefault();
-    // });
-    console.log(ListInput);
-    
+
     if (x.open == true) {
       x.open = false;
     } else {

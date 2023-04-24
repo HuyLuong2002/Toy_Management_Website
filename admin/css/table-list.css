@@ -41,8 +41,26 @@
   border: none;
   padding: 1em;
   background: white;
-  left: 70px;
   top: 20px;
+}
+
+.card-header .notification {
+  padding: 5px 10px;
+  border-radius: 5px;
+  animation: fadeOut ease-in 0.5s forwards;
+  animation-delay: 3s;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-200%);
+    
+  }
 }
 
 table {
