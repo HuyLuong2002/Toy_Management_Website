@@ -39,7 +39,7 @@ let listBar = [
   {
     id: 7,
     title: "Providers",
-    href: "index.php?id=7",
+    href: "index.php?id=7&page=1",
     icon: "la-cart-arrow-down",
   },
   {
@@ -93,7 +93,6 @@ const handleActiveBg = () => {
                         : ""
                     }
                 </li>
-                
                 `;
     })
     .join("");

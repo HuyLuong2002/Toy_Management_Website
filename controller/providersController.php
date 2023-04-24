@@ -32,6 +32,22 @@ class ProviderController
     $result = $providerService->delete_provider($id);
     return $result;
   }
+
+  public function show_provider_for_pagination()
+  {
+    $providerService = new ProviderServices();
+    $result = $providerService->show_provider_for_pagination();
+    return $result;
+  }
+
+  public function show_provider_by_panigation_admin(
+    $offset,
+    $limit_per_page
+  ) {
+    $providerService = new ProviderServices();
+    $result = $providerService->show_provider_by_panigation_admin($offset, $limit_per_page);
+    return $result;
+  }
 }
 
 ?>

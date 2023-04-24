@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./assets/css/slide.css">
     <link rel="stylesheet" href="./assets/css/footer.css">
     <link rel="stylesheet" href="./assets/css/about.css">
+    <link rel="stylesheet" href="./assets/css/category.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -19,7 +20,14 @@
 </head>
 <body>
     <?php include_once "./components/header.php"; ?>
-
+    <div class="breadcrumbs">
+      <div class="container">
+        <ul class="items">
+          <li class="item"><i class="fa-solid fa-house"></i><a href="index.php">Home</a></li>
+          <li class="item"><i class=""></i>About</li>
+        </ul>
+      </div>
+    </div>
     <section class="about">
         <div class="about-content">
             <div class="about-text">

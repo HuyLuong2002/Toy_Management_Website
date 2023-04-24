@@ -90,7 +90,7 @@ $productsController = new ProductsController();
                   ?>
                 </div>
               </div>
-              <a href="#" class="product-name" id="product-name-<?php echo $result_product[0]; ?>">
+              <a href="product_detail.php?id=<?php echo $result_product[0];?>" class="product-name" id="product-name-<?php echo $result_product[0]; ?>">
                 <?php echo $result_product[1]; ?>
               </a>
               <?php echo $result_product[16] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$". $result_product[3] ."</p>" : "";

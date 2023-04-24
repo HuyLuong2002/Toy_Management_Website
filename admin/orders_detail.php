@@ -1,35 +1,59 @@
-<?php
-$filepath = realpath(dirname(__DIR__));
-include_once $filepath . "\controller\detail_orderController.php";
-include_once $filepath . "\controller\ordersController.php";
+<div class="orders-details" id="orders-details">
+  <?php
+  $show_detail_order = $detailOrderController->show_detail_order_by_id($_GET["detailid"]);
+  if ($show_detail_order) {
+    $result = $show_detail_order->fetch_array(); ?>
+    <div class="orders-info">
+      <h2 class="orders-id">
+        Order ID:
+        <?php echo $result[1] ?>
+      </h2>
+      <div class="order-detail">
+          <p class="product-id">
+            Product ID:
+          </p>
+          <p class="product-quantity">
+            Quantity:
+          </p>
+          <p class="product-price">
+            Price:
+          </p>
+        </div>
+    <?php } ?>
+    <?php
+    $show_detail_order = $detailOrderController->show_detail_order_by_id($_GET["detailid"]);
+    if ($show_detail_order) {
+      while ($result = $show_detail_order->fetch_array()) { ?>
 
-if (isset($_GET["deleteid"])) {
-  $order_detailController = new DetailOrderController();
-  $delete_id = $_GET["deleteid"];
-  $delete_orders = $order_detailController->delete_detail_orders($delete_id);
-  
-  $ordersController = new OrderController();
-  $delete_id = $_GET["id"];
-  $delete_orders = $ordersController->delete_orders($delete_id);
-}
-?>
+        <div class="order-detail">
+          <p class="product-id">
+            <?php echo $result[2] ?>
+          </p>
+          <p class="product-quantity">
+            <?php echo $result[3] ?>
+          </p>
+          <p class="product-price">
+            <?php echo $result[4] ?>
+          </p>
+        </div>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orders Details</title>
-    <link rel="stylesheet" href="./css/orderDetail.css">
-</head>
-
-<body>
-    <div class="orders-details" id="orders-details">
-
+      <?php }
+    }
+    ?>
+    <div class="orders-actions">
+      <button class="delete-button"><a
+          href="orders_detail.php?id=${data.order_id}&deleteid=${data.id}">Delete</a></button>
     </div>
-    <script src="./js/fetch_orders.js"></script>
-</body>
+    <div class="close-icon" onclick="handleClose()">
+      X
+    </div>
+  </div>
+</div>
 
-</html>
+<script>
+  // CloseOrderDetail
+  const handleClose = () => {
+    const layout = document.getElementById("orders-details")
+    layout.style.display = "none";
+  }
+</script>
