@@ -1,6 +1,6 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once $filepath . "\controller\saleController.php";
+include_once $filepath . "/controller/saleController.php";
 include_once $filepath . "/helpers/pagination.php";
 include_once $filepath . "/controller/sale_addController.php";
 
@@ -9,7 +9,7 @@ $sale_addController = new SaleAddController();
 $pag = new Pagination();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
-    $insertSale = $sale_addController->insert_sale($_POST);
+  $insertSale = $sale_addController->insert_sale($_POST);
 }
 
 if (isset($_POST["input"])) {
@@ -48,7 +48,10 @@ if (isset($current_page)) {
   $current_position = ($current_page - 1) * 10;
 }
 if (isset($current_position)) {
-  $result_pagination = $saleController->show_sale_by_pagination($current_position, 10);
+  $result_pagination = $saleController->show_sale_by_pagination(
+    $current_position,
+    10
+  );
 }
 ?>
 
@@ -56,11 +59,9 @@ if (isset($current_position)) {
 <div class="card" id="searchresultsale">
   <div class="card-header">
     <h3>Sales List</h3>
-    <?php
-    if (isset($delete_sale)) {
+    <?php if (isset($delete_sale)) {
       echo $delete_sale;
-    }
-    ?>
+    } ?>
     <button type="button" onclick="Dialog()">
       <p>
         Add sale <span class="las la-plus"></span>
@@ -100,10 +101,10 @@ if (isset($current_position)) {
                 <option value="0">Hết áp dụng</option>
               </select>
             </div>
-
-            <input type="submit" name="submit" id="btnSubmit" value="Save"/>
+            <input type="button" id="btnSubmit" value="Save"/>
           </form>
         </div>
+        
       </dialog>
   </div>
 
@@ -146,30 +147,29 @@ if (isset($current_position)) {
                     <?php echo $result[5]; ?>
                   </td>
                   <td>
-                    <?php
-                    if ($result[6] == 1)
+                    <?php if ($result[6] == 1) {
                       echo "<span>Còn áp dụng</span>";
-                    else
+                    } else {
                       echo "<span>Hết áp dụng</span>";
-                    ?>
+                    } ?>
                   </td>
                   <td>
                     <a href="sale_edit.php?id=<?php echo $result[0]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
-                    <a href="?id=<?php echo $id; ?>&page=<?php echo $page_id ?>&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                    <a href="?id=<?php echo $id; ?>&page=<?php echo $page_id; ?>&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
                   <td>
                 </tr>
-            <?php
-              }
+            <?php }
             } else {
               echo "<span class='error'>No Data Found</span>";
             } ?>
         </tbody>
       </table>
-    <?php } else { ?>
+    <?php
+          } else {
+             ?>
       <tbody id="sale-data">
-        <?php
-            if ($result_pagination) {
-              while ($result = $result_pagination->fetch_array()) { ?>
+        <?php if ($result_pagination) {
+          while ($result = $result_pagination->fetch_array()) { ?>
             <tr>
               <td>
                 <?php echo $result[0]; ?>
@@ -190,31 +190,29 @@ if (isset($current_position)) {
                 <?php echo $result[5]; ?>
               </td>
               <td>
-                <?php
-                if ($result[6] == 1)
+                <?php if ($result[6] == 1) {
                   echo "<span>Còn áp dụng</span>";
-                else
+                } else {
                   echo "<span>Hết áp dụng</span>";
-                ?>
+                } ?>
               </td>
               <td>
                 <a href="sale_edit.php?id=<?php echo $result[0]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
-                <a href="?id=<?php echo $id; ?>&page=<?php echo $page_id ?>&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                <a href="?id=<?php echo $id; ?>&page=<?php echo $page_id; ?>&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
               <td>
             </tr>
       <?php }
-            }
+        }
           } ?>
       </tbody>
       </table>
-      <?php
-      if (empty($_POST["input"])) {
-      ?>
+      <?php if (empty($_POST["input"])) { ?>
         <div class="bottom-pagination" id="pagination">
           <ul class="pagination">
             <?php if ($pagination_id > 1) { ?>
               <li class="item prev-page">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id - 1; ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id -
+  1; ?>">
                   <i class="fa-solid fa-chevron-left"></i>
                 </a>
               </li>
@@ -228,18 +226,24 @@ if (isset($current_position)) {
                   $current = "current";
                 } else {
                   $current = "";
-                }
-            ?>
-                <li class="item <?php echo $current ?>" id="<?php echo $pagination[$i]; ?>">
-                  <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
+                } ?>
+                <li class="item <?php echo $current; ?>" id="<?php echo $pagination[
+  $i
+]; ?>">
+                  <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[
+  $i
+]; ?>">
                     <?php echo $pagination[$i]; ?>
                   </a>
                 </li>
-            <?php }
-            } ?>
+            <?php
+              }
+            }
+            ?>
             <?php if ($page_total - 1 > $pagination_id + 1) { ?>
               <li class="item next-page">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id + 1; ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id +
+  1; ?>">
                   <i class="fa-solid fa-chevron-right"></i>
                 </a>
               </li>
@@ -290,4 +294,46 @@ if (isset($current_position)) {
       loadSale(page);
     });
   });
+</script>
+
+<script>
+        $(document).ready(function() {
+ 
+            $("#btnSubmit").click(function() {
+ 
+                var name = $("#name").val();
+                var start = $("#start").val();
+                var end = $("#end").val();
+                var percent = $("#percent").val();
+                var status = $("#status").val();
+                var submit = $("#btnSubmit").val();
+ 
+                if(name=='' || start=='' || end=='' || percent=='' || status=='') {
+                    alert("Please fill all fields.");
+                    return false;
+                }
+ 
+                $.ajax({
+                    type: "POST",
+                    url: "sale.php",
+                    data: {
+                      name: name,
+                      start: start,
+                      end: end,
+                      percent: percent,
+                      status: status,
+                      submit: submit
+                    },
+                    cache: false,
+                    success: function(data) {
+                        alert("Add data successfully");
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr);
+                    }
+                });
+                 
+            });
+ 
+        });
 </script>
