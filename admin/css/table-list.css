@@ -25,24 +25,41 @@
   position: relative;
 }
 
-.card-header button {
+/* .card-header button {
   background: var(--main-color);
   border-radius: 10px;
   color: #fff;
   font-size: 0.8rem;
   padding: 0.5rem 1rem;
   border: 1px solid var(--main-color);
+} */
+
+.card-header button a:hover{
+  transition: 0.3s;
+  color: #fff;
 }
 
-.card-header #dialog {
-  position: absolute;
-  height: 500px;
-  margin: auto;
-  border: none;
-  padding: 1em;
-  background: white;
-  left: 70px;
-  top: 20px;
+.card-header .notification {
+  padding: 5px 10px;
+  border-radius: 5px;
+  animation: fadeOut ease-in 0.4s forwards;
+  animation-delay: 3s;
+}
+
+.card-header .notification span{
+  font-size: 18px;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-200%);
+    
+  }
 }
 
 table {
