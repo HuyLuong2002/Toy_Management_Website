@@ -16,7 +16,7 @@ include_once $filepath . "\helpers\\format.php";
     //list provider for home page
     public function show_provider_user()
     {
-        $query = "SELECT * FROM provider";
+        $query = "SELECT * FROM provider WHERE is_deleted=0";
         $result = $this->db->select($query);
         return $result;
     }
@@ -82,7 +82,7 @@ include_once $filepath . "\helpers\\format.php";
 
     public function delete_provider($id)
     {
-        $query = "DELETE FROM provider WHERE id='$id'";
+        $query = "UPDATE provider SET is_deleted='1' WHERE id='$id'";
         $result = $this->db->delete($query);
         if ($result) {
             $alert = "<span class='success'>Provider Deleted Sucessfully</span>";

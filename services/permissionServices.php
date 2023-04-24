@@ -14,7 +14,7 @@ include_once $filepath . "\database\connectDB.php";
 
   public function show_permission()
   {
-    $query = "SELECT * FROM permission";
+    $query = "SELECT * FROM permission WHERE is_deleted = 0";
     $result = $this->db->select($query);
     return $result;
   }
@@ -44,7 +44,7 @@ include_once $filepath . "\database\connectDB.php";
   {
     $name = mysqli_real_escape_string($this->db->link, $data["name"]);
     $query = "UPDATE permission SET name = '$name' WHERE id = '$id'";
-    $result = $this->db->insert($query);
+    $result = $this->db->update($query);
     if ($result) {
       $alert = "<span class='success'>Update Permission Sucessfully</span>";
       return $alert;
@@ -56,8 +56,8 @@ include_once $filepath . "\database\connectDB.php";
 
   public function delete_permission($id)
   {
-    $query = "DELETE FROM permission WHERE id = {$id} AND name !='Admin'";
-    $result = $this->db->insert($query);
+    $query = "UPDATE permission SET is_deleted='1' WHERE id='$id' AND name!='Admin'";
+    $result = $this->db->delete($query);
     if ($result) {
       $alert = "<span class='success'>Delete Permission Sucessfully</span>";
       return $alert;

@@ -15,7 +15,7 @@ include_once $filepath . "\lib\session.php";
 
   public function show_account()
   {
-    $query = "SELECT * FROM account";
+    $query = "SELECT * FROM account, permission WHERE account.is_deleted = 0 AND permission_id = permission.id";
     $result = $this->db->select($query);
     return $result;
   }
@@ -41,6 +41,94 @@ include_once $filepath . "\lib\session.php";
     return $result;
   }
 
+  public function insert_account_admin($data)
+  {
+    $username = mysqli_real_escape_string($this->db->link, $data["username"]);
+    $password = mysqli_real_escape_string($this->db->link, $data["password"]);
+    $firstname = mysqli_real_escape_string($this->db->link, $data["firstname"]);
+    $lastname = mysqli_real_escape_string($this->db->link, $data["lastname"]);
+    $gender = mysqli_real_escape_string($this->db->link, $data["gender"]);
+    $date_birth = mysqli_real_escape_string($this->db->link, $data["dateofbirth"]);
+    
+    $place_of_birth = mysqli_real_escape_string($this->db->link, $data["placeofbirth"]);
+    $create_date = (string) date("d/m/Y");
+    $permission_id = mysqli_real_escape_string($this->db->link, $data["permission"]);
+    $status = mysqli_real_escape_string($this->db->link, $data["status"]);
+
+    if (
+      $username == "" ||
+      $password == "" ||
+      $firstname == "" ||
+      $lastname == "" ||
+      $gender == "" ||
+      $date_birth == "" ||
+      $place_of_birth == "" ||
+      $permission_id == "" ||
+      $status = ""
+    ) {
+      $alert = "<span class='error'>Fields must be not empty</span>";
+      return $alert;
+    } else {
+      $query = "INSERT INTO account(username, password, firstname, lastname, gender, date_birth, place_of_birth, create_date, permission_id, status, is_deleted) VALUES ('$username', '$password', '$firstname', '$lastname', '$gender', '$date_birth', '$place_of_birth', '$create_date', $permission_id, '$status', '0')";
+      $result = $this->db->insert($query);
+      if ($result) {
+        $alert = "<span class='success'>Insert Account Sucessfully</span>";
+        return $alert;
+      } else {
+        $alert = "<span class='error'>Insert Account Not Sucessfully</span>";
+        return $alert;
+      }
+    }
+  }
+
+  public function update_account($data, $id)
+  {
+    $firstname = mysqli_real_escape_string($this->db->link, $data["firstname"]);
+    $lastname = mysqli_real_escape_string($this->db->link, $data["lastname"]);
+    $gender = mysqli_real_escape_string($this->db->link, $data["gender"]);
+    $date_birth = mysqli_real_escape_string($this->db->link, $data["dateofbirth"]);
+    
+    $place_of_birth = mysqli_real_escape_string($this->db->link, $data["placeofbirth"]);
+    $create_date = (string) date("d/m/Y");
+    $permission_id = mysqli_real_escape_string($this->db->link, $data["permission"]);
+    $status = mysqli_real_escape_string($this->db->link, $data["status"]);
+    if (
+      $firstname == "" ||
+      $lastname == "" ||
+      $gender == "" ||
+      $date_birth == "" ||
+      $place_of_birth == "" ||
+      $permission_id == "" ||
+      $status == ""
+    ) {
+      $alert = "<span class='error'>Fields must be not empty</span>";
+      return $alert;
+    } else {
+      $query = "UPDATE account SET firstname='{$firstname}', lastname='{$lastname}', gender='{$gender}', date_birth='{$date_birth}', place_of_birth='{$place_of_birth}', create_date='{$create_date}', permission_id = '{$permission_id}', account.status='{$status}' WHERE id = '{$id}'";
+      $result = $this->db->update($query);
+      if ($result) {
+        $alert = "<span class='success'>Update Account Sucessfully</span>";
+        return $alert;
+      } else {
+        $alert = "<span class='error'>Update Account Not Sucessfully</span>";
+        return $alert;
+      }
+    }
+  }
+
+  public function delete_account($id) 
+  {
+    $query = "UPDATE account SET is_deleted='1' WHERE id='$id' AND account.permission_id!='1'";
+    $result = $this->db->delete($query);
+    if ($result) {
+      $alert = "<span class='success'>Delete Account Sucessfully</span>";
+      return $alert;
+    } else {
+      $alert = "<span class='error'>Delete Account Not Sucessfully</span>";
+      return $alert;
+    }
+  }
+
   public function insert_account($username, $password)
   {
     $username = mysqli_real_escape_string($this->db->link, $username);
@@ -60,6 +148,13 @@ include_once $filepath . "\lib\session.php";
         return $alert;
       }
     }
+  }
+
+  public function show_account_user()
+  {
+    $query = "SELECT * FROM account, permission WHERE permission_id = permission.id AND permission.name = 'Khách hàng'";
+    $result = $this->db->select($query);
+    return $result;
   }
 }
 ?>

@@ -3,11 +3,13 @@ $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "\database\connectDB.php";
 include_once $filepath . "\controller\dashboardController.php";
 include_once $filepath . "\controller\productsController.php";
+include_once $filepath . "\controller\accountController.php";
 include_once $filepath . "\helpers\\format.php";
 
 $fm = new Format();
 $dashboardController = new DashboardController();
 $productsController = new ProductsController();
+$accountController = new AccountController();
 $count_product = $dashboardController->show_statistic_product();
 $count_order = $dashboardController->show_statistic_order();
 $count_customers = $dashboardController->show_statistic_customer();
@@ -143,13 +145,20 @@ $income = $dashboardController->show_statistic_income();
         </div>
 
         <div class="card-body">
+          <?php
+            $show_account = $accountController->show_account_user();
+            if($show_account)
+            {
+              while($result = $show_account->fetch_assoc()) {
+          ?>
           <div class="customer">
             <div class="info">
+
               <img src="assets/images/pic-1.png" width="40px" height="40px" alt="" />
               <div>
-                <h4>Lewis S. Cunningham</h4>
-                <small>CEO Excerpt</small>
+                <h4><?php echo $result["firstname"] . " " . $result["lastname"]; ?></h4>
               </div>
+
             </div>
 
             <div class="contact">
@@ -158,54 +167,10 @@ $income = $dashboardController->show_statistic_income();
               <span class="las la-phone"> </span>
             </div>
           </div>
-
-          <div class="customer">
-            <div class="info">
-              <img src="assets/images/pic-1.png" width="40px" height="40px" alt="" />
-              <div>
-                <h4>Lewis S. Cunningham</h4>
-                <small>CEO Excerpt</small>
-              </div>
-            </div>
-
-            <div class="contact">
-              <span class="las la-user-circle"> </span>
-              <span class="las la-comment"> </span>
-              <span class="las la-phone"> </span>
-            </div>
-          </div>
-
-          <div class="customer">
-            <div class="info">
-              <img src="assets/images/pic-1.png" width="40px" height="40px" alt="" />
-              <div>
-                <h4>Lewis S. Cunningham</h4>
-                <small>CEO Excerpt</small>
-              </div>
-            </div>
-
-            <div class="contact">
-              <span class="las la-user-circle"> </span>
-              <span class="las la-comment"> </span>
-              <span class="las la-phone"> </span>
-            </div>
-          </div>
-
-          <div class="customer">
-            <div class="info">
-              <img src="assets/images/pic-1.png" width="40px" height="40px" alt="" />
-              <div>
-                <h4>Lewis S. Cunningham</h4>
-                <small>CEO Excerpt</small>
-              </div>
-            </div>
-
-            <div class="contact">
-              <span class="las la-user-circle"> </span>
-              <span class="las la-comment"> </span>
-              <span class="las la-phone"> </span>
-            </div>
-          </div>
+          <?php
+                  }
+                }
+              ?>
         </div>
       </div>
     </div>
