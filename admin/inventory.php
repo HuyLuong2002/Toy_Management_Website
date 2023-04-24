@@ -55,7 +55,7 @@ if(isset($_GET["deleteid"]))
             <td><?php echo $result[3]; ?></td>
             <td><?php echo $result[9]; ?></td>
             <td><?php echo $result[10] . " " . $result[11]; ?></td>
-            <td><?php echo $result[6]; ?></td>
+            <td><?php echo $result[6] == 1 ?  "Đã giao" : "Đang giao hàng"; ?></td>
             <td><?php echo $result[7]; ?></td>
             <td><a href="inventory_edit.php?id=<?php echo $result[0]; ?>">Edit</a> | <a href="?id=4&deleteid=<?php echo $result["id"];?>">Delete</a> | <a href="?id=11&enter_id=<?php echo $result[0]; ?>">Details</a>
             <td>

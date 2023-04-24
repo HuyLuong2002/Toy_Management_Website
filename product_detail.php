@@ -1,7 +1,8 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
 include_once($filepath . "\Toy_Management_Website\controller\product_detailController.php");
-
+include_once($filepath . "\helpers\\format.php");
+$fm = new Format();
 $product_detailController = new ProductDetailController();
 
 if (isset($_GET["id"])) {
@@ -43,20 +44,6 @@ if (isset($_GET["id"])) {
             <div class="img-container">
               <img src="<?php echo "admin/uploads/" . $result_product_detail[2] ?> " alt="watch image" id="product-image-<?php echo $result_product_detail[0]; ?>"/>
             </div>
-
-            <div class="hover-container">
-              <div>
-                <img src="<?php echo "admin/uploads/" . $result_product_detail[2] ?>" alt="" />
-              </div>
-
-              <div>
-                <img src="<?php echo "admin/uploads/" . $result_product_detail[2] ?>" alt="" />
-              </div>
-
-              <div>
-                <img src="<?php echo "admin/uploads/" . $result_product_detail[2] ?>" alt="" />
-              </div>
-            </div>
           </div>
 
           <div class="product-div-right">
@@ -64,8 +51,8 @@ if (isset($_GET["id"])) {
               <?php echo $result_product_detail[1] ?>
             </span>
             <span class="product-price product-price-sale">
-              <?php if ($result_product_detail[16] !== "Không áp dụng") {
-                $sale_percent = $result_product_detail[18];
+              <?php if ($result_product_detail[18] !== "Không áp dụng") {
+                $sale_percent = $result_product_detail[20];
                 $sale_price = $result_product_detail[3] - $result_product_detail[3] * ($sale_percent / 100);
                 echo "$" . $sale_price;
               } else {
@@ -87,10 +74,9 @@ if (isset($_GET["id"])) {
               <span>(250 ratings)</span>
             </div>
             <p class="product-description">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
+                <?php
+                  echo $fm->textShorten($result_product_detail[4]);
+                ?>
             </p>
             <div class="btn-groups">
               <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product_detail[0]; ?>)"

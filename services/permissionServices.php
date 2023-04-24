@@ -32,11 +32,11 @@ include_once $filepath . "\database\connectDB.php";
     $query = "INSERT INTO permission(name) VALUES ('$name')";
     $result = $this->db->insert($query);
     if ($result) {
-        $alert = "<span class='success'>Insert Permission Sucessfully</span>";
-        return $alert;
-    } else {        
-        $alert = "<span class='error'>Insert Permission Not Sucessfully</span>";
-        return $alert;
+      $alert = "<span class='success'>Insert Permission Sucessfully</span>";
+      return $alert;
+    } else {
+      $alert = "<span class='error'>Insert Permission Not Sucessfully</span>";
+      return $alert;
     }
   }
 
@@ -46,11 +46,11 @@ include_once $filepath . "\database\connectDB.php";
     $query = "UPDATE permission SET name = '$name' WHERE id = '$id'";
     $result = $this->db->insert($query);
     if ($result) {
-        $alert = "<span class='success'>Update Permission Sucessfully</span>";
-        return $alert;
-    } else {        
-        $alert = "<span class='error'>Update Permission Not Sucessfully</span>";
-        return $alert;
+      $alert = "<span class='success'>Update Permission Sucessfully</span>";
+      return $alert;
+    } else {
+      $alert = "<span class='error'>Update Permission Not Sucessfully</span>";
+      return $alert;
     }
   }
 
@@ -59,12 +59,20 @@ include_once $filepath . "\database\connectDB.php";
     $query = "DELETE FROM permission WHERE id = {$id} AND name !='Admin'";
     $result = $this->db->insert($query);
     if ($result) {
-        $alert = "<span class='success'>Delete Permission Sucessfully</span>";
-        return $alert;
-    } else {        
-        $alert = "<span class='error'>Delete Permission Not Sucessfully</span>";
-        return $alert;
+      $alert = "<span class='success'>Delete Permission Sucessfully</span>";
+      return $alert;
+    } else {
+      $alert = "<span class='error'>Delete Permission Not Sucessfully</span>";
+      return $alert;
     }
+  }
+
+  //live search for admin
+  public function show_permission_live_search($input)
+  {
+    $query = "SELECT * FROM permission WHERE (permission.name LIKE '$input%')";
+    $result = $this->db->select($query);
+    return $result;
   }
 }
 ?>

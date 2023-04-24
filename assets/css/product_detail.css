@@ -53,22 +53,6 @@ img {
   margin: 0 auto;
 }
 
-.hover-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 32px;
-}
-
-.hover-container div {
-  border: 2px solid rgba(252, 160, 175, 0.7);
-  padding: 1rem;
-  border-radius: 3px;
-  margin: 0 4px 8px 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 .active {
   border-color: rgba(255, 145, 163) !important;

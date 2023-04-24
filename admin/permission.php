@@ -4,6 +4,10 @@ include_once $filepath . "\controller\permissionController.php";
 
 $permissionController = new PermissionController();
 
+if (isset($_POST["input"])) {
+  $input = $_POST["input"];
+  $show_permission_live_search = $permissionController->show_permission_live_search($input);
+}
 
 if (isset($_GET["id"])) {
   $id = $_GET["id"];
@@ -67,3 +71,4 @@ if (isset($_GET["deleteid"])) {
     </div>
   </div>
 </div>
+

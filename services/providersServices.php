@@ -92,5 +92,21 @@ include_once $filepath . "\helpers\\format.php";
             return $alert;
         }
     }
+
+    public function show_provider_for_pagination() {
+        $query = "SELECT * FROM provider WHERE provider.is_deleted = '0' ORDER BY provider.id desc";
+        $result = $this->db->select($query);
+        return $result;
+    }
+
+    public function show_provider_by_panigation_admin(
+        $offset,
+        $limit_per_page
+      ) {
+        $query = "SELECT * FROM provider WHERE provider.is_deleted = '0'
+        ORDER BY provider.id DESC LIMIT $offset,$limit_per_page";
+        $result = $this->db->select($query);
+        return $result;
+      }
 }
 ?>

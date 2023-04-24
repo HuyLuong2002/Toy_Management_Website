@@ -16,10 +16,22 @@
     <link rel="stylesheet" href="./assets/css/slide.css">
     <link rel="stylesheet" href="./assets/css/footer.css">
     <link rel="stylesheet" href="./assets/css/contact.css">
+    <link rel="stylesheet" href="./assets/css/category.css">
 </head>
 <body>
 <?php include_once "./components/header.php"; ?>
+
+<div class="breadcrumbs">
+      <div class="container">
+        <ul class="items">
+          <li class="item"><i class="fa-solid fa-house"></i><a href="index.php">Home</a></li>
+          <li class="item"><i class=""></i>Contact</li>
+        </ul>
+      </div>
+    </div>
+
     <div class="contact-container">
+
         <form onsubmit="">
             <h3>GET IN TOUCH</h3>
             <input type="text" id="name" placeholder="Your Name" required>

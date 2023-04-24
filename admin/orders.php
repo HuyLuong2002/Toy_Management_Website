@@ -76,7 +76,7 @@ if (isset($_GET["deleteid"])) {
                     <?php echo $result[5]; ?>
                   </td>
                   <td>
-                    <?php echo $result[6]; ?>
+                    <?php echo $result[6] == 1 ? "Đã giao" : "Đang giao hàng"; ?>
                   </td>
                   <td><a href="?id=3&deleteid=<?php echo $result[0]; ?>">Delete</a> | <a
                       href="orders_detail.php?id=<?php echo $result[0]; ?>">Details</a> </td>
@@ -115,7 +115,7 @@ if (isset($_GET["deleteid"])) {
                   <?php echo $result[5]; ?>
                 </td>
                 <td>
-                  <?php echo $result[6]; ?>
+                  <?php echo $result[6] == 1 ? "Đã giao" : "Đang giao hàng"; ?>
                 </td>
                 <td><a href="?id=3&deleteid=<?php echo $result[0]; ?>">Delete</a> | <a
                     href="orders_detail.php?id=<?php echo $result[0]; ?>">Details</a> </td>
