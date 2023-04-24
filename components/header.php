@@ -15,6 +15,63 @@ if (isset($_COOKIE[$s_name])) {
     session_destroy();
 }
 ?>
+
+<style>
+    .wrap-search-top {
+        display: flex;
+        width: 100%;
+        background-color: #fff;
+    }
+
+    .wrap-key-search {
+        display: flex;
+        flex: 1;
+    }
+
+    .wrap-key-search a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        padding: 1rem;
+        border-right: 1px solid #ccc;
+    }
+
+    .key-search {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.25rem 1rem;
+    }
+
+    .key-search > .key-child {
+        display: block;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.25);
+        color: #0f0f0f;
+        cursor: pointer;
+        transition: all ease 0.2s;
+    }
+
+    .key-search > .key-child:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    @media screen and (max-width: 650px)
+    {
+        .wrap-search-top
+        {
+            flex-direction: column;
+        }
+
+        .wrap-key-search a {
+            padding: 0.5rem;
+        }
+    }
+
+</style>
 <header>
     <div class="section-header">
         <a href="index.php" class="home"> Toy Shop </a>
@@ -103,7 +160,22 @@ if (isset($_COOKIE[$s_name])) {
         </div>
     </div>
     <div class="search-bar">
-        <input type="text" placeholder="Nhập sản phẩm muốn tìm kiếm vào đây">
+       <div class="wrap-search-top">
+            <div class="wrap-key-search">
+                <input type="text" placeholder="Nhập sản phẩm muốn tìm kiếm vào đây">
+                <a onclick="" href="#">
+                    <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+                </a>
+            </div>
+            <div class="key-search" id="key-search">
+                <span class="key-child">All</span>
+                <span class="key-child">category</span>
+                <span class="key-child">price</span>
+                <span class="key-child">label</span>
+                <span class="key-child">rating</span>
+                <span class="key-child">highlight</span>
+            </div>
+       </div>
         <div class="wrap-product-search">
             <div class="show-product-search">
                 <img src="./assets/images/home-img-3.png" alt="">
@@ -112,7 +184,7 @@ if (isset($_COOKIE[$s_name])) {
                     <p>describe</p>
                 </div>
             </div>
-            
+
             <span>&times</span>
         </div>
     </div>
@@ -145,7 +217,6 @@ if (isset($_COOKIE[$s_name])) {
         search.classList.toggle('fa-times');
         search.classList.toggle('fa-magnifying-glass');
         searchBar.classList.toggle("active");
-
     }
 </script>
 
@@ -155,9 +226,15 @@ if (isset($_COOKIE[$s_name])) {
         toggle.classList.toggle('active');
     }
 
-    // let CartAdd = JSON.parse(localStorage.getItem('cartAdd'));
-    // let Cart = document.getElementById("cart").innerText = `(${CartAdd.length})`;
+    let CartAdd = JSON.parse(localStorage.getItem('cartAdd'));
+    let Cart = document.getElementById("cart").innerText = `(${CartAdd.length})`;
 
-    // let FavoriteAdd = JSON.parse(localStorage.getItem('favorite'));
-    // let Favorite = document.getElementById("favorite").innerText = `(${FavoriteAdd.length})`;
+    let FavoriteAdd = JSON.parse(localStorage.getItem('favorite'));
+    let Favorite = document.getElementById("favorite").innerText = `(${FavoriteAdd.length})`;
+
+    let keySearch = ["category", "price", "label", "rating", "highlight"]
+    let keyWrap = document.getElementById("key-search")
+    let loadKeySearch = (arr = keySearch) => {
+
+    }
 </script>

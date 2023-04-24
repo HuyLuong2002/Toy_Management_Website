@@ -10,7 +10,8 @@ class Format
   }
 
   public function formatDateReverse($date){
-    return date("m/d/Y", strtotime($date));
+    $new_date = DateTime::createFromFormat('d/m/Y', $date)->format('Y-m-d');
+    return $new_date;
   }
 
   public function textShorten($text, $limit = 400)

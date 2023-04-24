@@ -79,5 +79,4 @@ const AmountCartWasAdded = () => {
     document.getElementById("cart").innerText = `(${CartAdd.length})`;
     document.getElementById("favorite").innerText = `(${FavoriteAdd.length})`;
 }
-
 LoadCheckCart()

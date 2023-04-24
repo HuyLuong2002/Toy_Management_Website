@@ -1,73 +1,73 @@
 
-// const ProductDB = new productDB();
+// // const ProductDB = new productDB();
 
-const favActive = (event) => {
-    event.preventDefault();
-    if (event.target.classList.contains('fa-solid')) {
-        // remove the class
-        event.target.classList.add('fa-regular');
-        event.target.classList.remove('fa-solid');
+// const favActive = (event) => {
+//     // event.preventDefault();
+//     if (event.target.classList.contains('fa-solid')) {
+//         // remove the class
+//         event.target.classList.add('fa-regular');
+//         event.target.classList.remove('fa-solid');
 
-        // remove from localStorage
-        const favorite = JSON.parse(localStorage.getItem('favorite'));
-        favorite.forEach((product, index) => {
-            if (event.target.dataset.id === product.id) {
-                favorite.splice(index, 1);
-            }
-        });
-        // set the array into localStorage
-        localStorage.setItem('favorite', JSON.stringify(favorite));
-    } else {
+//         // remove from localStorage
+//         const favorite = JSON.parse(localStorage.getItem('favorite'));
+//         favorite.forEach((product, index) => {
+//             if (event.target.dataset.id === product.id) {
+//                 favorite.splice(index, 1);
+//             }
+//         });
+//         // set the array into localStorage
+//         localStorage.setItem('favorite', JSON.stringify(favorite));
+//     } else {
 
-        // add the class
-        event.target.classList.add('fa-solid');
-        event.target.classList.remove('fa-regular');
+//         // add the class
+//         event.target.classList.add('fa-solid');
+//         event.target.classList.remove('fa-regular');
 
-        // get info
-        const cardBody = event.target.parentElement.parentElement.parentElement;
-        const productInfo = {
-            id: event.target.dataset.id,
-            name: cardBody.querySelector('.product-name').textContent,
-            image: cardBody.querySelector('.product-img').getElementsByTagName('img')[0].src,
-            price: cardBody.querySelector('.product-price.product-price-sale').textContent
-        }
+//         // get info
+//         const cardBody = event.target.parentElement.parentElement.parentElement;
+//         const productInfo = {
+//             id: event.target.dataset.id,
+//             name: cardBody.querySelector('.product-name').textContent,
+//             image: cardBody.querySelector('.product-img').getElementsByTagName('img')[0].src,
+//             price: cardBody.querySelector('.product-price.product-price-sale').textContent
+//         }
 
-        if (checkFavorite(productInfo.id)) {
-            // Product already in favorites
-            console.log('Product already in favorites');
-        } else {
-            // Add product to favorites
-            if (localStorage.getItem('favorite')) {
-                const tmpProduct = JSON.parse(localStorage.getItem('favorite'));
-                tmpProduct.push(productInfo);
-                localStorage.setItem('favorite', JSON.stringify(tmpProduct));
-            } else {
-                const tmpProduct = [];
-                tmpProduct.push(productInfo);
-                localStorage.setItem('favorite', JSON.stringify(tmpProduct));
-            }
-            console.log('Product added to favorites');
-        }
-    }
-    AmountCartWasAdded()
-}
+//         if (checkFavorite(productInfo.id)) {
+//             // Product already in favorites
+//             console.log('Product already in favorites');
+//         } else {
+//             // Add product to favorites
+//             if (localStorage.getItem('favorite')) {
+//                 const tmpProduct = JSON.parse(localStorage.getItem('favorite'));
+//                 tmpProduct.push(productInfo);
+//                 localStorage.setItem('favorite', JSON.stringify(tmpProduct));
+//             } else {
+//                 const tmpProduct = [];
+//                 tmpProduct.push(productInfo);
+//                 localStorage.setItem('favorite', JSON.stringify(tmpProduct));
+//             }
+//             console.log('Product added to favorites');
+//         }
+//     }
+//     AmountCartWasAdded()
+// }
 
-function checkFavorite(dataId) {
-    if (localStorage.getItem('favorite')) {
-        const tmpProduct = JSON.parse(localStorage.getItem('favorite'));
-        for (let i = 0; i < tmpProduct.length; i++) {
-            if (tmpProduct[i].id === dataId) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
+// function checkFavorite(dataId) {
+//     if (localStorage.getItem('favorite')) {
+//         const tmpProduct = JSON.parse(localStorage.getItem('favorite'));
+//         for (let i = 0; i < tmpProduct.length; i++) {
+//             if (tmpProduct[i].id === dataId) {
+//                 return true;
+//             }
+//         }
+//     }
+//     return false;
+// }
 
-const AmountCartWasAdded = () => {
-    let CartAdd = JSON.parse(localStorage.getItem('cartAdd'));
-    let FavoriteAdd = JSON.parse(localStorage.getItem('favorite'));
+// const AmountCartWasAdded = () => {
+//     let CartAdd = JSON.parse(localStorage.getItem('cartAdd'));
+//     let FavoriteAdd = JSON.parse(localStorage.getItem('favorite'));
     
-    document.getElementById("cart").innerText = `(${CartAdd.length})`;
-    document.getElementById("favorite").innerText = `(${FavoriteAdd.length})`;
-}
+//     document.getElementById("cart").innerText = `(${CartAdd.length})`;
+//     document.getElementById("favorite").innerText = `(${FavoriteAdd.length})`;
+// }

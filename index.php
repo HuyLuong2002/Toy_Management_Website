@@ -34,6 +34,7 @@ if(isset($_GET["action"]) && $_GET["action"] == "logout")
 
   <!-- font awesome cdn link  -->
   <script src="https://kit.fontawesome.com/1b6e53cabd.js" crossorigin="anonymous"></script>
+
   <script src="./js/home.js"></script>
   <script src="./js/wishlist.js"></script>
 </body>

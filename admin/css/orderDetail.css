@@ -8,31 +8,40 @@
 }
 
 .orders-details {
-    display: flex;
-    flex-direction: row;
+    min-width: 80vw;
+    min-height: 100vh;
+    background-color: rgba(66, 63, 63, 0.5);
+    position: fixed;
+    justify-content: center;
     align-items: center;
-    margin: 50px auto;
-    width: 80%;
-    max-width: 1200px;
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px #888;
-}
+    animation-name: fade-in;
+    animation-duration: .5s;
+    z-index: 999;
+    padding: 100px;
+  }
 
 .orders-info {
-    flex: 2;
+    width: 50%;
+    margin-left: 25%;
     padding: 50px;
     background-color: #f4f4f4;
 }
 
-.product-info p {
-    font-size: 20px;
+.orders-id {
+    font-size: 36px;
     margin-bottom: 10px;
 }
 
-.orders-id {
+.order-detail{
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+}
 
-    font-size: 36px;
-    margin-bottom: 10px;
+.product-id,
+.product-quantity,
+.product-price{
+    width: 33.33%;
 }
 
 .product-actions {
@@ -55,4 +64,23 @@
 
 .delete-button:hover {
     background-color: #3e8e41;
+}
+
+.close-icon{
+    display: flex;
+    background-color: #f4f4f4;
+    border-radius: 50%;
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    top: 12%;
+    right: 28%;
+}
+
+.close-icon:hover{
+    background-color: #777;
+    cursor: pointer;
 }

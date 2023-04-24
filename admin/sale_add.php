@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "/controller/sale_addController.php";
 $sale_addController = new SaleAddController();
@@ -59,4 +59,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     </div>
 </body>
 
-</html>
+</html> -->

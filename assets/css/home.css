@@ -303,6 +303,7 @@ header {
   top: 50%;
   opacity: 0;
   transition: all .2s linear;
+  border: 1px solid #ccc;
 }
 
 @keyframes fadeIn {
@@ -325,6 +326,7 @@ header {
 .search-bar input {
   width: 100%;
   padding: .5rem;
+  outline: none;
 }
 
 .wrap-product-search {
@@ -359,6 +361,14 @@ header {
   width: 10rem;
   object-fit: contain;
 }
+
+/* .key-search {
+  background-color: #ccc;
+}
+
+.key-search > .key-child {
+  display: block;
+} */
 
 /*custom icon header*/
 .fa-magnifying-glass,
