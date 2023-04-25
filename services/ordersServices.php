@@ -68,27 +68,6 @@ include_once $filepath . "\helpers\\format.php";
     }
   }
 
-  public function update_orders($data, $files, $id)
-  {
-    $ordersName = mysqli_real_escape_string($this->db->link, $data["name"]);
-
-    if ($ordersName == "") {
-      $alert = "<span class='error'>Fields must be not empty</span>";
-      return $alert;
-    } else {
-      $query = "UPDATE orders SET name='{$ordersName}' where id='{$id}'";
-
-      $result = $this->db->update($query);
-      if ($result) {
-        $alert = "<span class='success'>Update Orders Sucessfully</span>";
-        return $alert;
-      } else {
-        $alert = "<span class='error'>Update Orders Not Sucessfully</span>";
-        return $alert;
-      }
-    }
-  }
-
   public function delete_orders($id)
   {
     $query = "UPDATE orders SET is_deleted='1' WHERE id='$id'";

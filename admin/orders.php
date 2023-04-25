@@ -2,10 +2,8 @@
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "\database\connectDB.php";
 include_once $filepath . "\controller\ordersController.php";
-include_once $filepath . "\controller\detail_orderController.php";
 
 $orderController = new OrderController();
-$detailOrderController = new DetailOrderController();
 
 
 if (isset($_POST["input"])) {
