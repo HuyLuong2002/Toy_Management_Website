@@ -1,8 +1,13 @@
 <?php
-// $filepath = realpath(dirname(__DIR__));
-// include_once $filepath . "\database\connectDB.php";
-// include_once $filepath . "\classes\product.php";
-// $product = new Product();
+$filepath = realpath(dirname(__DIR__));
+include_once $filepath . "/database/connectDB.php";
+include_once $filepath . "/controller/accountController.php";
+$accountController = new AccountController();
+
+if (isset($_GET["deleteid"])) {
+  $delete_id = $_GET["deleteid"];
+  $delete_account = $accountController->delete_account($delete_id);
+}
 ?>
 
 <div class="card">
@@ -10,7 +15,9 @@
     <h3>Account List</h3>
 
     <button>
-      Add account <span class="las la-plus"></span>
+      <a href="account_add.php">
+        Add account <span class="las la-plus"></span>
+      </a>
     </button>
   </div>
 
@@ -20,6 +27,8 @@
         <thead>
           <tr>
             <td>ID</td>
+            <td>Username</td>
+            <td>Password</td>
             <td>First Name</td>
             <td>Last Name</td>
             <td>Gender</td>
@@ -32,21 +41,41 @@
           </tr>
         </thead>
         <tbody>
+          <?php
+            $show_account = $accountController->show_account();
+            if($show_account)
+            {
+              while($result = $show_account->fetch_array()){
+
+          ?>
           <tr>
-            <td>1</td>
-            <td>abc</td>
-            <td>cbd</td>
-            <td>Nam</td>
-            <td>18/02/2023</td>
-            <td>TPHCM</td>
-            <td>15/03/2023</td>
-            <td>1</td>
-            <td>1</td>
+            <td><?php echo $result[0]; ?></td>
+            <td><?php echo $result["username"]; ?></td>
+            <td><?php echo $result["password"]; ?></td>
+            <td><?php echo $result["firstname"]; ?></td>
+            <td><?php echo $result["lastname"]; ?></td>
+            <td><?php echo $result["gender"]; ?></td>
+            <td><?php echo $result["date_birth"]; ?></td>
+            <td><?php echo $result["place_of_birth"]; ?></td>
+            <td><?php echo $result["create_date"]; ?></td>
+            <td><?php echo $result["name"]; ?></td>
+            <?php
+              if($result["status"] == 1)
+              {
+                $status = "Đang hoạt động";
+              }
+              else $status = "Ngừng hoạt động";
+            ?>
+            <td><?php echo $status; ?></td>
             <td>
-              <a href="" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
-              <a href="" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+              <a href="account_edit.php?id=<?php echo $result[0]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
+              <a href="?id=5&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
             <td>
           </tr>
+          <?php
+              }
+            }
+          ?>
         </tbody>
       </table>
     </div>
