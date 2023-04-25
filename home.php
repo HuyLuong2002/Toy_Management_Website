@@ -64,7 +64,7 @@ $productsController = new ProductsController();
                   Add to cart
                   <i class="fa-solid fa-plus add-icon" id="icon-check-<?php echo $result_product[0]; ?>"></i>
                 </button>
-                <a href="product_detail.php?id=<?php echo $result_product[0];?>">
+                <a href="product_detail.php?id=<?php echo $result_product[0]; ?>">
                   <button class="btn-buy">
                     Buy now
                     <span><i class="fas fa-shopping-cart"> </i> </span>
@@ -90,10 +90,10 @@ $productsController = new ProductsController();
                   ?>
                 </div>
               </div>
-              <a href="product_detail.php?id=<?php echo $result_product[0];?>" class="product-name" id="product-name-<?php echo $result_product[0]; ?>">
+              <a href="product_detail.php?id=<?php echo $result_product[0]; ?>" class="product-name" id="product-name-<?php echo $result_product[0]; ?>">
                 <?php echo $result_product[1]; ?>
               </a>
-              <?php echo $result_product[16] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$". $result_product[3] ."</p>" : "";
+              <?php echo $result_product[16] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$" . $result_product[3] . "</p>" : "";
               ?>
               <p class="product-price product-price-sale" id="product-price-<?php echo $result_product[0]; ?>">
                 <?php if (
@@ -126,8 +126,66 @@ $productsController = new ProductsController();
         }
       }
       ?>
+      <div id="load-more">Load More <i class="fa-solid fa-circle-arrow-down"></i></div>
+      <div id="unload-more">Unload More <i class="fa-solid fa-circle-arrow-up"></i></div>
     </div>
+  </div>
+  <div id="scroll" class="totop">
+    <a>
+      <span></span>
+      <!-- <i class="fa-solid fa-chevron-up"></i> -->
+    </a>
   </div>
 </div>
 <script src="./js/newWishList.js"></script>
 <script src="./js/cartclick.js"></script>
+
+<script>
+  let loadmoreBtn = document.querySelector('#load-more');
+  let unloadmoreBtn = document.getElementById("unload-more");
+  console.log(unloadmoreBtn);
+  let products = [...document.querySelectorAll('.product')];
+  let currentItem = 4;
+
+  loadmoreBtn.onclick = () => {
+    // for (var i = currentItem; i < currentItem + 4; i++){
+    //   products[i].style.display = 'block';
+    // }
+    // currentItem += 4;
+    products.forEach(element => {
+      currentItem += products.length
+      element.style.display = 'block';
+    });
+
+    if (currentItem >= products.length) {
+      loadmoreBtn.style.display = 'none';
+      unloadmoreBtn.style.display = 'inline-block';
+    }
+  }
+
+  unloadmoreBtn.onclick = () => {
+    for (var i = 4; i < products.length; i++) {
+      products[i].style.display = 'none';
+    }
+    if (loadmoreBtn !== null && unloadmoreBtn !== null) {
+      loadmoreBtn.style.display = 'inline-block';
+      unloadmoreBtn.style.display = 'none';
+    }
+  }
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){ 
+    $(window).scroll(function(){ 
+        if ($(this).scrollTop() > 100) { 
+            $('#scroll').fadeIn(); 
+        } else { 
+            $('#scroll').fadeOut(); 
+        } 
+    }); 
+    $('#scroll').click(function(){ 
+        $("html, body").animate({ scrollTop: 0 }, 600); 
+        return false; 
+    }); 
+});
+</script>
