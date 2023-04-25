@@ -5,6 +5,10 @@ include_once $filepath . "/helpers/format.php";
 class AccountController
 {
   private $fm;
+  public function __construct()
+  {
+    $this->fm = new Format();
+  }
   public function login($username, $password)
   {
     $accountService = new AccountServices();
@@ -75,10 +79,67 @@ class AccountController
     return $result;
   }
 
+  public function insert_account_admin($data)
+  {
+    $accountService = new AccountServices();
+    $check_account = $accountService->check_account($data["username"]);
+    if ($check_account) {
+      $data["username"] = $this->fm->validation($data["username"]);
+      $data["password"] = $this->fm->validation($data["password"]);
+      $data["password"] = md5($data["password"]);
+      $data["dateofbirth"] = $this->fm->formatDate($data["dateofbirth"]);
+      if ($data["gender"] == 0) {
+        $data["gender"] = "Nam";
+      } else {
+        $data["gender"] = "Nữ";
+      }
+
+      $result = $accountService->insert_account_admin($data);
+      return $result;
+    }
+    $result = "<span class='error'>Username existed</span>";
+    return $result;
+  }
+
+  public function update_account($data, $id)
+  {
+    $data["dateofbirth"] = $this->fm->formatDate($data["dateofbirth"]);
+    if ($data["gender"] == 0) {
+      $data["gender"] = "Nam";
+    } else {
+      $data["gender"] = "Nữ";
+    }
+    $data["status"] = intval($data["status"]);
+    $accountService = new AccountServices();
+    $result = $accountService->update_account($data, $id);
+    return $result;
+  }
+
+  public function delete_account($id) 
+  {
+    $accountService = new AccountServices();
+    $result = $accountService->delete_account($id);
+    return $result;
+  }
+
   public function show_account_by_id($id)
   {
     $accountService = new AccountServices();
     $result = $accountService->show_account_by_id($id);
+    return $result;
+  }
+
+  public function show_account()
+  {
+    $accountService = new AccountServices();
+    $result = $accountService->show_account();
+    return $result;
+  }
+
+  public function show_account_user()
+  {
+    $accountService = new AccountServices();
+    $result = $accountService->show_account_user();
     return $result;
   }
 }

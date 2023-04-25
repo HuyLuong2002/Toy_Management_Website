@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
             <?php
                 if(isset($updateInventory))
                 {
-                    echo $updateInventory;
+                    echo (string) $updateInventory;
                 }
             ?>
             <div class="form-group">

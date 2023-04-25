@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "/controller/sale_addController.php";
 $sale_addController = new SaleAddController();
@@ -22,9 +22,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 <body>
     <div class="form-container">
         <form action="sale_add.php" method="post" enctype="multipart/form-data">
-            <?php if (isset($insertSale)) {
-                echo $insertSale;
-            } ?>
+            <div class="form-notify">
+                <p>
+                    <?php if (isset($insertSale)) {
+                        echo $insertSale;
+                    } ?>
+                </p>
+                <button class="back"><a href="index.php?id=8&page=1">Back</a></button>
+            </div>
+
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" required>
@@ -59,4 +65,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     </div>
 </body>
 
-</html> -->
+</html>

@@ -36,6 +36,9 @@
         case "11":
           include "inventory_detail.php";
           break;
+        case "12":
+          include "account_function.php";
+          break;
         default:
           include "dashboard.php";
           break;
