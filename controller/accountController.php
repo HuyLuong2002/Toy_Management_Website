@@ -63,10 +63,10 @@ class AccountController
           header("Location: ./index.php");
         }
       } else {
-        return "User account is disabled";
+        return "<span class='error'>User account is disabled</span>";
       }
     } else {
-      return "User and Pass not match";
+      return "<span class='error'>User and Pass not match</span>";
     }
   }
 

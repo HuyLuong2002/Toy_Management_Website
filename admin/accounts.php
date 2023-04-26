@@ -15,6 +15,12 @@ if (isset($_GET["deleteid"])) {
     <h3>Account List</h3>
 
     <button>
+      <a href="account_permission.php">
+        Add account permission <span class="las la-plus"></span>
+      </a>
+    </button>
+
+    <button>
       <a href="account_add.php">
         Add account <span class="las la-plus"></span>
       </a>

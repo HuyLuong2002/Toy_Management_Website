@@ -11,6 +11,34 @@
   margin: 0 auto 50px;
 }
 
+.product-category {
+  margin: 20px 0 0;
+}
+
+.name-category{
+  position: relative;
+  font-size: 20px;
+  margin: 0;
+  display: inline-block;
+  padding: 5px 30px 5px 10px;
+  background-color: #cccccc;
+}
+
+.name-category::before{
+  content: "";
+  position: absolute;
+  background-color: #cccccc;
+  width: 28px;
+  height: 28px;
+  right: -14px;
+  top: 6px;
+  transform: rotate(45deg);
+}
+
+.name-category a{
+  text-decoration: none;
+}
+
 .lg.title,
 .sm-title {
   font-family: "Nunito", sans-serif;

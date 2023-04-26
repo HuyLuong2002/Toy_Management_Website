@@ -297,6 +297,7 @@ header {
 }
 
 .search-bar {
+  display: none;
   width: 100vw;
   animation: fadeIn;
   position: absolute;
@@ -304,6 +305,10 @@ header {
   opacity: 0;
   transition: all .2s linear;
   border: 1px solid #ccc;
+}
+
+.search-bar.active{
+  display: block;
 }
 
 @keyframes fadeIn {
