@@ -127,6 +127,10 @@ button:hover {
   background-color: #c78d35;
 }
 
+.error{
+  color: #f00;
+}
+
 .mario {
   width: 5px;
   height: 5px;
