@@ -2,8 +2,12 @@
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "/controller/providersController.php";
 include_once $filepath . "/helpers/pagination.php";
+include_once $filepath . "/controller/provider_addController.php";
+
 $providerController = new ProviderController();
+$provider_addController = new ProductAddController();
 $pag = new Pagination();
+
 if (isset($_POST["input"])) {
   $input = $_POST["input"];
   $show_provider_live_search = $providerController->show_provider_live_search($input);
@@ -21,6 +25,10 @@ if (isset($_GET["page"])) {
 if (isset($_GET["deleteid"])) {
   $delete_id = $_GET["deleteid"];
   $delete_provider = $providerController->delete_provider($delete_id);
+}
+
+if(isset($_GET["detailid"])){
+  include "orders_detail.php";
 }
 
 /*

@@ -33,7 +33,7 @@ class AccountController
           );
 
           //Set the session timeout for 2 seconds
-          $timeout = 120;
+          $timeout = 900;
           Session::set("timeout", $timeout);
           //Set the maxlifetime of the session
           ini_set("session.gc_maxlifetime", $timeout);
