@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 11, 2023 lúc 03:12 AM
+-- Thời gian đã tạo: Th4 26, 2023 lúc 08:30 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.28
 
@@ -49,10 +49,8 @@ CREATE TABLE `account` (
 INSERT INTO `account` (`id`, `username`, `password`, `firstname`, `lastname`, `gender`, `date_birth`, `place_of_birth`, `create_date`, `permission_id`, `status`, `is_deleted`) VALUES
 (2, 'ABC', 'e10adc3949ba59abbe56e057f20f883e', 'abc', 'cbd', 'Nam', '18/02/2023', 'TPHCM', '15/03/2023', 1, 1, 0),
 (3, 'BBC', 'e10adc3949ba59abbe56e057f20f883e', 'ABC', 'BCD', 'Nữ', '22/03/2023', 'Hà Nội', '15/03/2023', 3, 1, 0),
-(6, 'BBC1', 'e10adc3949ba59abbe56e057f20f883e', 'ABC', 'BCD', 'Nữ', '22/03/2023', 'Hà Nội', '15/03/2023', 4, 1, 0),
-(7, 'ABC1', 'd41d8cd98f00b204e9800998ecf8427e', '', '', '', '', '', '', 4, 1, 0),
-(8, 'ABC1', 'd41d8cd98f00b204e9800998ecf8427e', '', '', '', '', '', '', 4, 1, 0),
-(9, 'ABC1', 'd41d8cd98f00b204e9800998ecf8427e', '', '', '', '', '', '', 4, 1, 0);
+(6, 'BBC1', 'e10adc3949ba59abbe56e057f20f883e', 'ABC', 'BCD', 'Nam', '25/02/2003', 'Bắc Ninh', '24/04/2023', 4, 1, 0),
+(13, 'hahahihi', 'e10adc3949ba59abbe56e057f20f883e', 'DHG', 'DHG', 'Nam', '25/02/2002', 'Bắc Ninh', '24/04/2023', 4, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -62,18 +60,20 @@ INSERT INTO `account` (`id`, `username`, `password`, `firstname`, `lastname`, `g
 
 CREATE TABLE `account_function` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `account_function`
 --
 
-INSERT INTO `account_function` (`id`, `name`) VALUES
-(1, 'Quản lý khách hàng'),
-(2, 'Quản lý nhân viên'),
-(3, 'Quản lý sản phẩm'),
-(4, 'Quản lý hóa đơn');
+INSERT INTO `account_function` (`id`, `name`, `is_deleted`) VALUES
+(1, 'Quản lý khách hàng', 0),
+(2, 'Quản lý nhân viên', 0),
+(3, 'Quản lý sản phẩm', 0),
+(4, 'Quản lý hóa đơn', 0),
+(6, 'Quản lý thể loại', 1);
 
 -- --------------------------------------------------------
 
@@ -98,12 +98,17 @@ INSERT INTO `category` (`id`, `name`, `is_deleted`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `customer_favorite_product`
+-- Cấu trúc bảng cho bảng `comment`
 --
 
-CREATE TABLE `customer_favorite_product` (
+CREATE TABLE `comment` (
+  `id` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `reply_id` int(11) DEFAULT NULL,
+  `rate` tinyint(5) NOT NULL,
+  `time` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -125,7 +130,8 @@ CREATE TABLE `detail_enter_product` (
 --
 
 INSERT INTO `detail_enter_product` (`id`, `enter_id`, `product_id`, `quantity`, `price`) VALUES
-(1, 1, 1, 20, 3000);
+(1, 1, 44, 25, 3500),
+(4, 1, 43, 10, 3000);
 
 -- --------------------------------------------------------
 
@@ -140,6 +146,19 @@ CREATE TABLE `detail_orders` (
   `quantity` int(11) NOT NULL,
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `detail_orders`
+--
+
+INSERT INTO `detail_orders` (`id`, `order_id`, `product_id`, `quantity`, `price`) VALUES
+(10, 8, 7, 1, 2250),
+(11, 8, 13, 1, 3000),
+(12, 8, 14, 1, 3000),
+(13, 12, 13, 1, 3000),
+(14, 12, 7, 1, 2250),
+(15, 13, 7, 1, 2250),
+(16, 13, 13, 1, 3000);
 
 -- --------------------------------------------------------
 
@@ -175,6 +194,19 @@ INSERT INTO `detail_permission_function` (`id`, `permission_id`, `function_id`, 
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `detail_review`
+--
+
+CREATE TABLE `detail_review` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `star` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `enter_product`
 --
 
@@ -185,7 +217,7 @@ CREATE TABLE `enter_product` (
   `total_price` int(11) NOT NULL,
   `provider_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `status` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL,
   `create_date` varchar(255) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -195,8 +227,11 @@ CREATE TABLE `enter_product` (
 --
 
 INSERT INTO `enter_product` (`id`, `enter_date`, `total_quantity`, `total_price`, `provider_id`, `user_id`, `status`, `create_date`, `is_deleted`) VALUES
-(1, '03/04/2023', 60, 3000, 1, 2, 'Đã giao', '03/04/2023', 0),
-(2, '02/04/2023', 50, 3000, 2, 2, 'Đang giao', '02/04/2023', 0);
+(1, '19/04/2023', 65, 3500, 3, 2, 1, '17/04/2023', 0),
+(2, '02/04/2023', 50, 3000, 2, 2, 0, '02/04/2023', 1),
+(15, '17/04/2023', 30, 25000, 2, 2, 1, '17/04/2023', 1),
+(16, '19/04/2023', 30, 25000, 5, 2, 0, '17/04/2023', 1),
+(17, '17/04/2023', 30, 25000, 3, 2, 1, '17/04/2023', 1);
 
 -- --------------------------------------------------------
 
@@ -211,7 +246,7 @@ CREATE TABLE `orders` (
   `date` varchar(255) NOT NULL,
   `total_price` int(11) NOT NULL,
   `pay_method` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -220,7 +255,12 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `quantity`, `date`, `total_price`, `pay_method`, `status`, `is_deleted`) VALUES
-(1, 2, 30, '02/04/2023', 3500, 'cash', '', 0);
+(8, 6, 3, '14/04/2023', 8250, 'cash', 0, 0),
+(9, 6, 3, '14/08/2023', 3000, 'cash', 0, 0),
+(10, 6, 3, '14/01/2023', 8250, 'cash', 0, 0),
+(11, 6, 3, '14/11/2023', 15000, 'cash', 0, 0),
+(12, 6, 2, '19/04/2023', 5250, 'cash', 0, 0),
+(13, 6, 2, '19/04/2023', 5250, 'cash', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -230,18 +270,21 @@ INSERT INTO `orders` (`id`, `user_id`, `quantity`, `date`, `total_price`, `pay_m
 
 CREATE TABLE `permission` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `permission`
 --
 
-INSERT INTO `permission` (`id`, `name`) VALUES
-(1, 'Admin'),
-(2, 'Quản lý'),
-(3, 'Nhân viên'),
-(4, 'Khách hàng');
+INSERT INTO `permission` (`id`, `name`, `is_deleted`) VALUES
+(1, 'Admin', 0),
+(2, 'Quản lý', 0),
+(3, 'Nhân viên', 0),
+(4, 'Khách hàng', 0),
+(6, 'Quản lý nhân sự', 1),
+(16, 'Quản lý phòng ban', 0);
 
 -- --------------------------------------------------------
 
@@ -273,9 +316,9 @@ INSERT INTO `product` (`id`, `name`, `image`, `price`, `description`, `create_da
 (2, 'Product 2', 'ef314b1615.png', '3500', 'Sản phẩm mới', '01/04/2023', 0, 1, 2, 0, 20, 0),
 (3, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '01/04/2023', 0, 1, 2, 0, 20, 0),
 (6, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01/04/2023', 0, 2, 1, 3, 30, 0),
-(7, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 1, 1, 1, 5, 30, 0),
+(7, 'Product 3', '662359cdaf.png', '3000', 'Sản phẩm mới 3', '11/04/2023', 1, 1, 2, 5, 30, 0),
 (8, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01/04/2023', 0, 2, 1, 3, 30, 0),
-(13, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(13, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 1, 1, 1, 5, 30, 0),
 (14, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
 (15, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
 (16, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
@@ -291,7 +334,7 @@ INSERT INTO `product` (`id`, `name`, `image`, `price`, `description`, `create_da
 (26, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
 (27, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
 (28, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
-(29, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(29, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 1),
 (30, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
 (31, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
 (32, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
@@ -302,12 +345,13 @@ INSERT INTO `product` (`id`, `name`, `image`, `price`, `description`, `create_da
 (37, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
 (38, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
 (39, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
-(40, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
+(40, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 1),
 (41, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
 (42, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
 (43, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
 (44, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
-(46, 'Product 6', '2c19f85c9d.png', '3000', 'Sản phẩm mới', '09/04/2023', 1, 1, 2, 0, 35, 0);
+(46, 'Product 6', '2c19f85c9d.png', '3000', 'Sản phẩm mới', '09/04/2023', 1, 1, 2, 0, 35, 1),
+(47, 'Product 6', 'f5c04df7ab.png', '3500', 'Sản phẩm mới 2', '14/04/2023', 1, 1, 2, 0, 35, 0);
 
 -- --------------------------------------------------------
 
@@ -329,7 +373,18 @@ INSERT INTO `provider` (`id`, `name`, `is_deleted`) VALUES
 (1, 'Đồ Chơi Hòa Phú - Công Ty TNHH Đồ Chơi Hòa Phú', 0),
 (2, 'Đồ Chơi Bến Tre - Công Ty TNHH MTV Thương Mại Dịch Vụ Khánh Kỳ BT', 0),
 (3, 'Đồ Chơi Mỹ Hải - Công Ty TNHH Thương Mại Mỹ Hải', 0),
-(5, 'Đồ chơi MyKingDom 1', 0);
+(5, 'Đồ chơi MyKingDom', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `reply`
+--
+
+CREATE TABLE `reply` (
+  `id` int(11) NOT NULL,
+  `content` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -354,7 +409,14 @@ CREATE TABLE `sale` (
 
 INSERT INTO `sale` (`id`, `name`, `create_date`, `start_date`, `end_date`, `percent_sale`, `status`, `is_deleted`) VALUES
 (1, 'Không áp dụng', '02/04/2023', '08/03/2023', '20/03/2023', 0, 1, 0),
-(2, 'Khuyến mãi', '22/03/2023', '22/03/2023', '25/03/2023', 25, 1, 0);
+(2, 'Khuyến mãi', '22/03/2023', '22/03/2023', '25/03/2023', 25, 1, 0),
+(5, 'Khuyến mãi 1', '24/04/2023', '22/04/2023', '28/04/2023', 15, 1, 0),
+(6, 'Khuyến mãi 1', '24/04/2023', '25/04/2023', '30/04/2023', 30, 1, 0),
+(7, 'Khuyến mãi 1', '24/04/2023', '25/04/2023', '26/04/2023', 30, 1, 0),
+(8, 'Khuyến mãi 2', '24/04/2023', '25/04/2023', '26/04/2023', 35, 1, 1),
+(9, 'Khuyến mãi 2', '24/04/2023', '25/04/2023', '26/04/2023', 35, 1, 1),
+(10, 'Khuyến mãi 2', '24/04/2023', '25/04/2002', '26/04/2000', 2, 1, 1),
+(11, 'Khuyến mãi 1', '24/04/2023', '25/04/2023', '26/04/2023', 25, 1, 0);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -380,11 +442,13 @@ ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `customer_favorite_product`
+-- Chỉ mục cho bảng `comment`
 --
-ALTER TABLE `customer_favorite_product`
+ALTER TABLE `comment`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `product_id` (`product_id`),
-  ADD KEY `customer_favorite_product_ibfk_1` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `reply_id` (`reply_id`);
 
 --
 -- Chỉ mục cho bảng `detail_enter_product`
@@ -409,6 +473,14 @@ ALTER TABLE `detail_permission_function`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_permission` (`permission_id`),
   ADD KEY `id_function` (`function_id`) USING BTREE;
+
+--
+-- Chỉ mục cho bảng `detail_review`
+--
+ALTER TABLE `detail_review`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Chỉ mục cho bảng `enter_product`
@@ -446,6 +518,12 @@ ALTER TABLE `provider`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `reply`
+--
+ALTER TABLE `reply`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `sale`
 --
 ALTER TABLE `sale`
@@ -459,13 +537,13 @@ ALTER TABLE `sale`
 -- AUTO_INCREMENT cho bảng `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT cho bảng `account_function`
 --
 ALTER TABLE `account_function`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `category`
@@ -474,16 +552,22 @@ ALTER TABLE `category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT cho bảng `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT cho bảng `detail_enter_product`
 --
 ALTER TABLE `detail_enter_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `detail_orders`
 --
 ALTER TABLE `detail_orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT cho bảng `detail_permission_function`
@@ -492,28 +576,34 @@ ALTER TABLE `detail_permission_function`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
+-- AUTO_INCREMENT cho bảng `detail_review`
+--
+ALTER TABLE `detail_review`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT cho bảng `enter_product`
 --
 ALTER TABLE `enter_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT cho bảng `permission`
 --
 ALTER TABLE `permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT cho bảng `provider`
@@ -522,10 +612,16 @@ ALTER TABLE `provider`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT cho bảng `reply`
+--
+ALTER TABLE `reply`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT cho bảng `sale`
 --
 ALTER TABLE `sale`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -538,11 +634,12 @@ ALTER TABLE `account`
   ADD CONSTRAINT `account_ibfk_1` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`);
 
 --
--- Các ràng buộc cho bảng `customer_favorite_product`
+-- Các ràng buộc cho bảng `comment`
 --
-ALTER TABLE `customer_favorite_product`
-  ADD CONSTRAINT `customer_favorite_product_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `account` (`id`),
-  ADD CONSTRAINT `customer_favorite_product_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
+ALTER TABLE `comment`
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `account` (`id`),
+  ADD CONSTRAINT `comment_ibfk_3` FOREIGN KEY (`reply_id`) REFERENCES `comment` (`id`);
 
 --
 -- Các ràng buộc cho bảng `detail_enter_product`
@@ -564,6 +661,13 @@ ALTER TABLE `detail_orders`
 ALTER TABLE `detail_permission_function`
   ADD CONSTRAINT `detail_permission_function_ibfk_1` FOREIGN KEY (`function_id`) REFERENCES `account_function` (`id`),
   ADD CONSTRAINT `detail_permission_function_ibfk_2` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`);
+
+--
+-- Các ràng buộc cho bảng `detail_review`
+--
+ALTER TABLE `detail_review`
+  ADD CONSTRAINT `detail_review_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `detail_review_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `account` (`id`);
 
 --
 -- Các ràng buộc cho bảng `enter_product`
