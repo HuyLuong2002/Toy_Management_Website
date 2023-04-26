@@ -14,7 +14,7 @@ include_once $filepath . "\database\connectDB.php";
 
   public function show_category()
   {
-    $query = "SELECT * FROM category ORDER BY id desc";
+    $query = "SELECT * FROM category where is_deleted = '0'";
     $result = $this->db->select($query);
     return $result;
   }
