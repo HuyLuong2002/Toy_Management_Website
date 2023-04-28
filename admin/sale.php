@@ -58,7 +58,7 @@ if (isset($current_position)) {
         echo $delete_sale;
       } ?>
     </div>
-    <button type="button" onclick="Dialog()">
+    <button type="button">
       <a href="sale_add.php">
         Add sale <span class="las la-plus"></span>
       </a>
@@ -209,18 +209,6 @@ if (isset($current_position)) {
     </div>
   </div>
 </div>
-
-<script>
-  function Dialog() {
-    var x = document.getElementById("dialog");
-
-    if (x.open == true) {
-      x.open = false;
-    } else {
-      x.open = true;
-    }
-  }
-</script>
 
 <script type="text/javascript">
   $(document).ready(function() {

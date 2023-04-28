@@ -2,11 +2,47 @@
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "/database/connectDB.php";
 include_once $filepath . "/controller/accountController.php";
+include_once $filepath . "/helpers/pagination.php";
+
 $accountController = new AccountController();
+$pag = new Pagination();
 
 if (isset($_GET["deleteid"])) {
   $delete_id = $_GET["deleteid"];
   $delete_account = $accountController->delete_account($delete_id);
+}
+
+if (isset($_GET["id"])) {
+  $id = $_GET["id"];
+}
+
+if (isset($_GET["page"])) {
+  $page_id = $_GET["page"];
+  $pagination_id = $page_id;
+}
+
+/*
+Tính giá trị của phân trang, 10 sale trên 1 trang
+*/
+$result_pagination = $accountController->show_account();
+$account_total = mysqli_num_rows($result_pagination);
+
+// Số sản phẩm trên 1 trang
+$page_total = ceil($account_total / 10);
+
+// trang hiện tại
+if (isset($page_id)) {
+  $current_page = $page_id;
+}
+// Vị trí hiện tại
+if (isset($current_page)) {
+  $current_position = ($current_page - 1) * 10;
+}
+if (isset($current_position)) {
+  $result_pagination = $accountController->show_account_by_pagination(
+    $current_position,
+    10
+  );
 }
 ?>
 
@@ -48,11 +84,9 @@ if (isset($_GET["deleteid"])) {
         </thead>
         <tbody>
           <?php
-            $show_account = $accountController->show_account();
-            if($show_account)
+            if($result_pagination)
             {
-              while($result = $show_account->fetch_array()){
-
+              while($result = $result_pagination->fetch_array()){
           ?>
           <tr>
             <td><?php echo $result[0]; ?></td>
@@ -75,7 +109,7 @@ if (isset($_GET["deleteid"])) {
             <td><?php echo $status; ?></td>
             <td>
               <a href="account_edit.php?id=<?php echo $result[0]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
-              <a href="?id=5&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+              <a href="?id=5&page=<?php echo $page_id?>&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
             <td>
           </tr>
           <?php
@@ -86,4 +120,47 @@ if (isset($_GET["deleteid"])) {
       </table>
     </div>
   </div>
+  <?php if (empty($_POST["input"])) { ?>
+        <div class="bottom-pagination" id="pagination">
+          <ul class="pagination">
+            <?php if ($pagination_id > 1) { ?>
+              <li class="item prev-page">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id -
+                                                                1; ?>">
+                  <i class="fa-solid fa-chevron-left"></i>
+                </a>
+              </li>
+            <?php } ?>
+            <?php
+            $pagination = $pag->pageNumber($page_total, 4, $pagination_id);
+            $length = count($pagination);
+            for ($i = 1; $i <= $length; $i++) {
+              if ($pagination[$i] > 0) {
+                if ($pagination[$i] == $pagination_id) {
+                  $current = "current";
+                } else {
+                  $current = "";
+                } ?>
+                <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
+                  <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
+                    <?php echo $pagination[$i]; ?>
+                  </a>
+                </li>
+            <?php
+              }
+            }
+            ?>
+            <?php if ($page_total - 1 > $pagination_id + 1) { ?>
+              <li class="item next-page">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id +
+                                                                1; ?>">
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+              </li>
+            <?php } ?>
+          </ul>
+        </div>
+      <?php
+      }
+      ?>
 </div>

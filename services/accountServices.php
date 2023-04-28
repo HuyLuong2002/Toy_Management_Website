@@ -27,6 +27,14 @@ include_once $filepath . "\lib\session.php";
     return $result;
   }
 
+  public function show_account_by_pagination($offset, $limit_per_page)
+  {
+    $query = "SELECT * FROM account, permission WHERE account.is_deleted = 0 AND permission_id = permission.id
+    LIMIT $offset, $limit_per_page";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
   public function login($username, $password)
   {
     $query = "SELECT * FROM account WHERE username='{$username}' and password='{$password}'";

@@ -26,6 +26,13 @@ include_once $filepath . "\database\connectDB.php";
     return $result;
   }
 
+  public function show_permission_by_pagination($offset, $limit_per_page)
+  {
+    $query = "SELECT * FROM permission WHERE is_deleted = 0 LIMIT $offset, $limit_per_page";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
   public function insert_permission($data)
   {
     $name = mysqli_real_escape_string($this->db->link, $data["name"]);

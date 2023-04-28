@@ -142,5 +142,12 @@ class AccountController
     $result = $accountService->show_account_user();
     return $result;
   }
+
+  public function show_account_by_pagination($offset, $limit_per_page)
+  {
+    $accountService = new AccountServices();
+    $result = $accountService->show_account_by_pagination($offset, $limit_per_page);
+    return $result;
+  }
 }
 ?>

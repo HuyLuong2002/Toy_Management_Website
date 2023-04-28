@@ -288,10 +288,16 @@ td .status {
 
 .table-responsive .delete{
   color: red;
+  display: flex;
 }
 
 .table-responsive .edit{
   color: blue;
+}
+
+.table-responsive .detail{
+  color: #03a945;
+  display: flex;
 }
 
 .customer {

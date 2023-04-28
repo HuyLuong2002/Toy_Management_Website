@@ -87,7 +87,6 @@ td {
 
 #product-data .Detail {
   display: flex;
-  justify-content: space-between;
   color: #03a945;
 }
 
