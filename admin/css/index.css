@@ -134,6 +134,11 @@ header {
   display: none;
 }
 
+.las.la-bars:hover{
+  color: var(--carribean-green);
+  transition: 0.3s;
+}
+
 header h2 {
   color: #222;
 }

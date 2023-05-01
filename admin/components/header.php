@@ -123,6 +123,7 @@ if (isset($_GET["id"])) {
         else
         {
           $("#searchresultproduct").css("display","block");
+          $("#searchresultsale").css("display","block");
         }
       });
     });
