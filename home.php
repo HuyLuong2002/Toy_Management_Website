@@ -56,12 +56,13 @@ $category_total = mysqli_num_rows($product_category);
       while ($result = $product_category->fetch_array()) {
     ?>
         <div class="product-category" id="<?php echo $result[0] ?>">
+        
           <div class="name-category"><a href="category.php?id=<?php echo $result[0] ?>&page=1"><?php echo $result[1] ?></a></div>
-          <div class="product-items">
+          <div class="product-items" id="product-items">
             <?php
-            $show_product = $productsController->show_product_by_category_id($result[0]);
-            if ($show_product) {
-              while ($result_product = $show_product->fetch_array()) {
+              $show_product = $productsController->show_product_by_category_id($result[0]);
+              if ($show_product) {
+                while ($result_product = $show_product->fetch_array()) {
             ?>
                 <!-- Single product -->
                 <div class="product id-<?php echo $result[0] ?>">
@@ -132,13 +133,21 @@ $category_total = mysqli_num_rows($product_category);
                   </div>
                 </div>
                 <!-- end of single product -->
+
+                
             <?php
               }
             }
             ?>
-            <div id="load-more">Load More <i class="fa-solid fa-circle-arrow-down"></i></div>
-            <div id="unload-more">Unload More <i class="fa-solid fa-circle-arrow-up"></i></div>
           </div>
+
+          <div class="load-more" id="load-more-<?php echo $result[0]; ?>" onclick="handleLoadMore(<?php echo $result[0]; ?>)">Load More <i class="fa-solid fa-circle-arrow-down"></i>
+          </div>
+          <div class="unload" id="unload-<?php echo $result[0]; ?>" onclick="handleUnload(<?php echo $result[0]; ?>)">
+            Unload <i class="fa-solid fa-circle-arrow-up"></i>
+          </div>
+
+         
         </div>
     <?php }
     } ?>
@@ -150,49 +159,10 @@ $category_total = mysqli_num_rows($product_category);
     </a>
   </div>
 </div>
+
 <script src="./js/newWishList.js"></script>
 <script src="./js/cartclick.js"></script>
-
-<script>
-  let category = document.querySelector('.add_to_cart');
-  let category_total = category.getAttribute('id');
-
-  let loadmoreBtnList = document.querySelectorAll('#load-more');
-  let loadmoreBtn_1 = loadmoreBtnList[0];
-  let unloadmoreBtnList = document.querySelectorAll("#unload-more");
-  let unloadmoreBtn_1 = unloadmoreBtnList[0];
-
-  let products_1 = [...document.querySelectorAll('.product.id-1')];
-  let products_2 = [...document.querySelectorAll('.product.id-2')];
-
-  let currentItem = 4;
-
-  loadmoreBtnList.forEach(function(loadmoreBtn) {
-    loadmoreBtn.addEventListener('click', function() {
-      products_1.forEach(element => {
-        currentItem += products_1.length
-        element.style.display = 'block';
-      });
-
-      if (currentItem >= products_1.length) {
-        loadmoreBtn.style.display = 'none';
-        unloadmoreBtn_1.style.display = 'inline-block';
-      }
-    });
-  });
-
-  unloadmoreBtnList.forEach(function(unloadmoreBtn) {
-    unloadmoreBtn.addEventListener('click', function() {
-      for (var i = 4; i < products_1.length; i++) {
-        products_1[i].style.display = 'none';
-      }
-      if (loadmoreBtn_1 !== null && unloadmoreBtn !== null) {
-        loadmoreBtn_1.style.display = 'inline-block';
-        unloadmoreBtn.style.display = 'none';
-      }
-    });
-  });
-</script>
+<script src="./js/loadMoreProduct.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function() {
