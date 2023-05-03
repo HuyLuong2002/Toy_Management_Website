@@ -8,6 +8,9 @@
   --main-boxshadow: 0 0 10px 0 #80808026;
   --red-color: #ee3158;
   --icon-color: #172b4c;
+  --blue-color: #3596f7;
+  --yellow-color: #ffa800;
+  --green-color: #0be881;
 }
 
 .card {
@@ -28,16 +31,7 @@
   position: relative;
 }
 
-/* .card-header button {
-  background: var(--main-color);
-  border-radius: 10px;
-  color: #fff;
-  font-size: 0.8rem;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--main-color);
-} */
-
-.card-header button a:hover {
+.card-header button:hover p {
   transition: 0.3s;
   color: #fff;
 }
@@ -89,8 +83,19 @@ td {
   overflow-x: auto;
 }
 
-.table-responsive .action-btn-delete {
+.table-responsive .action-btn-delete button {
   color: red;
+  background-color: #fff;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.table-responsive .action-btn-edit button {
+  color: blue;
+  background-color: #fff;
+  border: none;
+  font-size: 15px;
   cursor: pointer;
 }
 
@@ -112,10 +117,12 @@ td {
   visibility: visible;
 }
 
-.modal-container-delete {
+.modal-container-delete,
+.modal-container-edit,
+.modal-container-add {
   position: fixed;
   z-index: 2001;
-  top: 40%;
+  top: 50%;
   left: 60%;
   transform: translate(-50%, -50%);
   background-color: #fff;
@@ -129,15 +136,27 @@ td {
   opacity: 0;
   visibility: hidden;
   transition: 0.3s;
+}
+
+.modal-container-edit,
+.modal-container-add {
+  width: 500px;
+  height: auto;
+}
+
+.modal-container-delete {
   width: 400px;
   height: 100px;
 }
 
-.modal-container-delete.active {
+.modal-container-delete.active,
+.modal-container-edit.active,
+.modal-container-add.active {
   opacity: 1;
   visibility: visible;
 }
 
+/* modal delete */
 .modal-delete-title {
   font-weight: 500;
   font-size: 18px;
@@ -147,8 +166,8 @@ td {
 
 .modal-delete-btn-group {
   display: flex;
-  gap: 20px;
-  width: 70%;
+  flex-direction: row;
+  width: 100%;
   justify-content: space-around;
 }
 
@@ -174,6 +193,95 @@ td {
 .modal-delete-btn.delete-btn-cancel {
   background-color: #8080801f;
 }
+
+/* modal delete end*/
+
+/* modal edit */
+.modal-container-edit-close,
+.modal-container-add-close {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  font-size: 25px;
+  color: var(--red-color);
+  cursor: pointer;
+}
+
+.modal-edit-info,
+.modal-add-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-edit-info-item,
+.modal-add-info-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.modal-edit-info-item label,
+.modal-add-info-item label {
+  font-size: 15px;
+  color: var(--blue-color);
+}
+
+.modal-edit-info-item input,
+.modal-add-info-item input {
+  padding: 8px 20px;
+  border: 0.5px solid #0000ff29;
+  border-radius: 5px;
+  transition: 0.2s;
+}
+
+.modal-edit-info-item input:focus,
+.modal-add-info-item input:focus {
+  border-color: var(--blue-color);
+}
+
+select.modal-edit-input-select,
+select.modal-add-input-select {
+  text-align: center;
+  border: 0.5px solid #0000ff29;
+  height: 37.6px;
+  border-radius: 5px;
+}
+
+.modal-edit-input-select option,
+.modal-add-input-select option  {
+  width: 100%;
+  font-size: 15px;
+}
+
+select.modal-edit-input-select:focus,
+select.modal-add-input-select:focus {
+  outline-color: var(--blue-color);
+}
+
+.modal-edit-btn,
+.modal-add-btn{
+  padding: 8px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--yellow-color);
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+}
+
+.modal-add-btn{
+  background-color: var(--green-color);
+}
+
+/* modal edit end*/
 
 /* config the toggle button */
 /* The switch - the box around the slider */
