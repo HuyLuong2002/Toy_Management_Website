@@ -1,8 +1,9 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once $filepath . "\controller\categoryController.php";
-include_once $filepath . "\lib\session.php";
+include_once $filepath . "/controller/categoryController.php";
+include_once $filepath . "/lib/session.php";
 $categoryController = new CategoryController();
+
 Session::init();
 
 //Set the default session name
@@ -10,9 +11,9 @@ $s_name = session_name();
 $timeout = Session::get("timeout");
 //Check the session exists or not
 if (isset($_COOKIE[$s_name])) {
-    setcookie($s_name, $_COOKIE[$s_name], time() + $timeout, "/");
+  setcookie($s_name, $_COOKIE[$s_name], time() + $timeout, "/");
 } else {
-    session_destroy();
+  session_destroy();
 }
 ?>
 
@@ -89,9 +90,13 @@ if (isset($_COOKIE[$s_name])) {
                         <?php
                         $show_category = $categoryController->show_category();
                         if ($show_category) {
-                            while ($result = $show_category->fetch_assoc()) { ?>
+                          while ($result = $show_category->fetch_assoc()) { ?>
                                 <li>
-                                    <a href="category.php?id=<?php echo $result["id"]; ?>&page=1"> <?php echo $result["name"]; ?></a>
+                                    <a href="category.php?id=<?php echo $result[
+                                      "id"
+                                    ]; ?>&page=1"> <?php echo $result[
+  "name"
+]; ?></a>
                                 </li>
                         <?php }
                         }
@@ -125,33 +130,26 @@ if (isset($_COOKIE[$s_name])) {
                     <i class="fa-solid fa-user fa-xl"></i>
                     <div class="profile-menu">
                         <p>
-                            <?php
-                            if (Session::get("fullname") != null) {
-                                echo "Hello" . " " . Session::get("fullname");
+                            <?php if (Session::get("fullname") != null) {
+                              echo "Hello" . " " . Session::get("fullname");
                             } else {
-                                echo "Welcome";
-                            }
-                            ?>
+                              echo "Welcome";
+                            } ?>
                         </p>
                         <ul>
                             <li>
                                 <i class="fa-solid fa-circle-user"></i>
-                                <a href="profile.php?id=<?php echo Session::get("userID"); ?>" id="user-btn">My Profile</a>
+                                <a href="profile.php?id=<?php echo Session::get(
+                                  "userID"
+                                ); ?>" id="user-btn">My Profile</a>
                             </li>
                             <li>
                                 <i class="fa-solid fa-right-from-bracket"></i>
-                                <?php
-                                if (Session::get("user") == false) {
-                                ?>
+                                <?php if (Session::get("user") == false) { ?>
                                     <a href="login.php">Login</a>
-                                <?php
-                                } else {
-
-                                ?>
+                                <?php } else { ?>
                                     <a href="login.php?action=logout">Log out</a>
-                                <?php
-                                }
-                                ?>
+                                <?php } ?>
                             </li>
                         </ul>
                     </div>
@@ -162,32 +160,20 @@ if (isset($_COOKIE[$s_name])) {
     <div class="search-bar">
        <div class="wrap-search-top">
             <div class="wrap-key-search">
-                <input type="text" placeholder="Nhập sản phẩm muốn tìm kiếm vào đây">
+                <input type="text" placeholder="Nhập sản phẩm muốn tìm kiếm vào đây" id="searchuser">
                 <a onclick="" href="#">
                     <i class="fa-solid fa-magnifying-glass fa-xl"></i>
                 </a>
             </div>
             <div class="key-search" id="key-search">
-                <span class="key-child">All</span>
-                <span class="key-child">category</span>
-                <span class="key-child">price</span>
-                <span class="key-child">label</span>
-                <span class="key-child">rating</span>
-                <span class="key-child">highlight</span>
+                
             </div>
        </div>
-        <div class="wrap-product-search">
-            <div class="show-product-search">
-                <img src="./assets/images/home-img-3.png" alt="">
-                <div class="sub-product">
-                    <h4>Name Product</h4>
-                    <p>describe</p>
-                </div>
-            </div>
-
-            <span>&times</span>
+        <div class="wrap-product-search" id="searchresultproductuser">
+            
         </div>
     </div>
+
 </header>
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script>
@@ -221,20 +207,105 @@ if (isset($_COOKIE[$s_name])) {
 </script>
 
 <script>
+
+let typeKeySearch = [
+        {
+            id: 0,
+            title: "All",
+            active: true
+        },
+        {
+            id: 1,
+            title: "Category",
+            active: false
+        },
+        {
+            id: 2,
+            title: "Price",
+            active: false
+        },
+        {
+            id: 3,
+            title: "Name",
+            active: false
+        },
+        {
+            id: 4,
+            title: "Rating",
+            active: false
+        },
+    ]
+
     function menuToggle() {
         const toggle = document.querySelector('.profile-menu');
         toggle.classList.toggle('active');
     }
 
     let CartAdd = JSON.parse(localStorage.getItem('cartAdd'));
-    let Cart = document.getElementById("cart").innerText = `(${CartAdd.length})`;
+    let Cart = document.getElementById("cart").innerText = `(${CartAdd?.length})`;
 
     let FavoriteAdd = JSON.parse(localStorage.getItem('favorite'));
-    let Favorite = document.getElementById("favorite").innerText = `(${FavoriteAdd.length})`;
+    let Favorite = document.getElementById("favorite").innerText = `(${FavoriteAdd?.length})`;
 
-    let keySearch = ["category", "price", "label", "rating", "highlight"]
-    let keyWrap = document.getElementById("key-search")
-    let loadKeySearch = (arr = keySearch) => {
+    const loadKeySearch = (arr = typeKeySearch) => {
+        let keySearch = document.getElementById("key-search")
+        let keyChildList = arr.map((item, i) => {
+            return `<span class="${item.active ? "key-child active-bg-keychild" : "key-child"}" id=${item.id} key=${i} onclick="handleActiveKey(${item.id})">${item.title}</span>`
+        }).join("")
 
+        keySearch.innerHTML = keyChildList
     }
+
+    const handleActiveKey = (id) => {
+        typeKeySearch.forEach(item => {
+            let keyTag = document.getElementById(item.id)
+            if(keyTag.classList.contains("active-bg-keychild")) {
+                keyTag.classList.remove("active-bg-keychild")
+            }
+        });
+
+        typeKeySearch.forEach(item => {
+            if(item.id === id) {
+                let keyTag = document.getElementById(item.id)
+                keyTag.classList.add('active-bg-keychild')
+            }
+        })
+    }
+
+    loadKeySearch(typeKeySearch)
+    
 </script>
+
+<!-- coding live search function -->
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        var searchkey = 0;
+        $("#searchuser").keyup(function(){
+        var input = $(this).val();
+        if(input != "") {
+          $.ajax({
+            url: "../controller/headerController.php",
+            method: "POST",
+            data:{
+                input:input,
+                searchkey:searchkey,
+            },
+            success: function(data){
+              $("#searchresultproductuser").html(data);
+              $("#searchresultproductuser").css("display","block");
+            }
+          });
+        }
+        else
+        {
+            $("#searchresultproductuser").css("display","block");
+        }
+        });
+
+        $("#key-search span").click(function(){
+                searchkey = $(this).attr('id');
+                console.log(searchkey);
+        });
+    });
+  </script>

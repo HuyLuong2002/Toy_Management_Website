@@ -1,13 +1,11 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "\database\connectDB.php";
-
 ?>
 
 <?php class ProductServices
 {
   private $db;
-
 
   public function __construct()
   {
@@ -51,27 +49,26 @@ include_once $filepath . "\database\connectDB.php";
     return $result;
   }
 
-  public function show_product_by_panigation_admin(
-    $offset,
-    $limit_per_page
-  ) {
+  public function show_product_by_panigation_admin($offset, $limit_per_page)
+  {
     $query = "SELECT * FROM product, category, sale WHERE product.category_id = category.id and product.sale_id = sale.id and product.is_deleted = '0'
     ORDER BY product.create_date DESC LIMIT $offset,$limit_per_page";
     $result = $this->db->select($query);
     return $result;
   }
 
-
   public function show_product()
   {
-    $query = "SELECT * FROM product WHERE product.is_deleted = '0' ORDER BY id desc LIMIT 5";
+    $query =
+      "SELECT * FROM product WHERE product.is_deleted = '0' ORDER BY id desc LIMIT 5";
     $result = $this->db->select($query);
     return $result;
   }
 
   public function show_product_for_pagination()
   {
-    $query = "SELECT * FROM product, category, sale WHERE product.is_deleted = '0' AND product.category_id = category.id AND product.sale_id = sale.id ORDER BY product.id desc";
+    $query =
+      "SELECT * FROM product, category, sale WHERE product.is_deleted = '0' AND product.category_id = category.id AND product.sale_id = sale.id ORDER BY product.id desc";
     $result = $this->db->select($query);
     return $result;
   }
@@ -87,6 +84,35 @@ include_once $filepath . "\database\connectDB.php";
   public function show_product_live_search($input)
   {
     $query = "SELECT * FROM product, category, sale WHERE ((product.name LIKE '$input%') OR (product.price LIKE '$input%') OR (product.description LIKE '$input%') OR (product.create_date LIKE '$input%') OR (product.highlight LIKE '$input%') OR (sale.name LIKE '$input%') OR (category.name LIKE '$input%') OR (product.review LIKE '$input%') OR (product.quantity LIKE '$input%')) AND (category.id = product.category_id AND sale.id = product.sale_id AND product.is_deleted = '0')";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  //live search for admin
+  public function show_product_live_search_category($input)
+  {
+    $query = "SELECT * FROM product, category WHERE (category.name LIKE '$input%') AND (category.id = product.category_id AND product.is_deleted = '0')";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function show_product_live_search_price($input)
+  {
+    $query = "SELECT * FROM product WHERE (price LIKE '$input%' AND product.is_deleted = '0')";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function show_product_live_search_name($input)
+  {
+    $query = "SELECT * FROM product WHERE (name LIKE '$input%' AND product.is_deleted = '0')";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function show_product_live_search_rating($input)
+  {
+    $query = "SELECT * FROM product WHERE (review LIKE '$input%' AND product.is_deleted = '0')";
     $result = $this->db->select($query);
     return $result;
   }
@@ -193,11 +219,10 @@ include_once $filepath . "\database\connectDB.php";
 
   public function update_product_highlight($highlight, $id)
   {
-      $query = "UPDATE product SET highlight='{$highlight}' WHERE id='{$id}'";
-      $result = $this->db->update($query);
-      return $result;
+    $query = "UPDATE product SET highlight='{$highlight}' WHERE id='{$id}'";
+    $result = $this->db->update($query);
+    return $result;
   }
-
 
   public function delete_product($id)
   {
@@ -211,6 +236,5 @@ include_once $filepath . "\database\connectDB.php";
       return $alert;
     }
   }
-
 }
 ?>
