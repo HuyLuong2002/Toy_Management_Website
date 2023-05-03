@@ -1,11 +1,4 @@
-/* Set rates + misc */
-let taxRate = 0.05;
-let shippingRate = 15.0;
-let fadeTime = 300;
-
 let productWrapper = document.getElementById("product-wrapper");
-// let totalWrapper = document.getElementById("wrap-total");
-
 let favorite = JSON.parse(localStorage.getItem('favorite'));
 
 const handleLoadCart = (ListFavorite = favorite) => {
@@ -15,7 +8,7 @@ const handleLoadCart = (ListFavorite = favorite) => {
     }
 
     const cartListText = ListFavorite.map((product, index) => {
-            return `
+        return `
             <div class="product" key="${index}">
                 <div class="product-image">
                     <img src="${product.image}">
@@ -33,13 +26,12 @@ const handleLoadCart = (ListFavorite = favorite) => {
     }).join('');
 
     productWrapper.innerHTML = cartListText;
-
 };
 
 const handleRemove = (id) => {
-    const newFavorite = favorite.filter(item => item.id !== id)
+    let newFavorite = favorite.filter(item => item.id !== id)
     localStorage.setItem('favorite', JSON.stringify(newFavorite));
-    handleLoadCart(newFavorite)
+    location.reload();
 }
 
-handleLoadCart()
+handleLoadCart(favorite)

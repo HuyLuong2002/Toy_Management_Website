@@ -37,6 +37,22 @@ class InventoryServices
     return $result;
   }
 
+  public function show_inventory_by_pagination($offset, $limit_per_page){
+    $query = "SELECT enter_product.*, provider.name, account.firstname, account.lastname FROM enter_product, provider, account 
+    WHERE enter_product.provider_id = provider.id AND enter_product.user_id = enter_product.user_id 
+    AND enter_product.is_deleted = 0 GROUP BY enter_product.id 
+    LIMIT $offset, $limit_per_page";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function show_inventory_detail_by_pagination($offset, $limit_per_page, $enter_id)
+  {
+    $query = "SELECT detail_enter_product.*, product.name FROM detail_enter_product, product WHERE enter_id = {$enter_id} 
+    AND product.id = detail_enter_product.product_id LIMIT $offset, $limit_per_page";
+    $result = $this->db->select($query);
+    return $result;
+  }
 
   public function update_inventory($data, $id)
   {

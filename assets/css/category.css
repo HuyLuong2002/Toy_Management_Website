@@ -237,6 +237,11 @@ body {
     line-height: 1;
 }
 
+.product-info a:hover{
+    transition: 0.3s;
+    color: #fff;
+}
+
 .rating span {
     color: var(--carribean-green);
 }
@@ -310,6 +315,17 @@ body {
     z-index: 1;
     letter-spacing: 3px;
     cursor: pointer;
+}
+
+.off-info .favorite-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+}
+
+.off-info .fa-solid {
+    color: red;
 }
 
 .catalog-product-item:hover .product-btns {

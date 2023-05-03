@@ -144,7 +144,7 @@ $result_pagination = $productsController->show_product_by_category_panigation(
                       ?>
                     </div>
                   </div>
-                  <a href="" class="product-name" id="product-name-<?php echo $result_product[0]; ?>">
+                  <a href="product_detail.php?id=<?php echo $result_product[0]; ?>" class="product-name" id="product-name-<?php echo $result_product[0]; ?>">
                     <?php echo $result_product[1]; ?>
                   </a>
                   <?php echo $result_product[16] !== "Không áp dụng"
@@ -170,9 +170,9 @@ $result_pagination = $productsController->show_product_by_category_panigation(
                     echo "<h2 class='sm-title'>Sale $sale_percent%</h2>";
                   } ?>
 
-                  <!-- <div class="favorite-icon" onclick="AddFavorite(event, <?php echo $result_product[0]; ?>)">
+                  <div class="favorite-icon" onclick="AddFavorite(event, <?php echo $result_product[0]; ?>)">
                     <i class="fa-regular fa-heart fav-icon" id="favorite-<?php echo $result_product[0]; ?>" data-id="<?php echo $result_product[0]; ?>"></i>
-                  </div> -->
+                  </div>
                 </div>
               </div>
           <?php }
@@ -224,7 +224,7 @@ $result_pagination = $productsController->show_product_by_category_panigation(
   <?php include "./components/footer.php"; ?>
 
   
-  <!-- <script src="./js/newWishList.js"></script> -->
+  <script src="./js/newWishList.js"></script>
   <script src="./js/cartclick.js"></script>
 </body>
 <script>

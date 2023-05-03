@@ -24,5 +24,12 @@
             $result = $orderService->show_orders_user();
             return $result;
         }
+
+        public function show_order_by_pagination($offset, $limit_per_page)
+        {
+            $orderService = new OrderServices();
+            $result = $orderService->show_order_by_pagination($offset, $limit_per_page);
+            return $result;
+        }
     }
 ?>
