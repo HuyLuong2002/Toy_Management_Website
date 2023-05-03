@@ -4,10 +4,9 @@ include_once($filepath . "\Toy_Management_Website\controller\accountController.p
 
 $accountController = new AccountController();
 
-if(empty($_GET["id"]))
-{
+if (empty($_GET["id"])) {
     header("Location: login.php");
-    
+
 }
 ?>
 
@@ -23,32 +22,49 @@ if(empty($_GET["id"]))
 </head>
 
 <body>
-    <div class="profile-container">
+
+    <div class="container">
         <?php
         $show_account = $accountController->show_account_by_id($_GET["id"]);
         if ($show_account) {
             while ($result_account = $show_account->fetch_array()) {
                 ?>
-                <div class="profile-left">
-                    <div class="profile-img">
+                <div class="leftbox">
+                    <div class="avatar">
                         <img src="./assets/images/pic-1.png" alt="">
                     </div>
-                    <div class="profile-username"><?php echo $result_account[1]?></div>
+                    <?php echo $result_account[1] ?>
                 </div>
-                <div class="profile-right">
-                    <div class="profile-header">Information</div>
-                    <div class="profile-info">Firstname</div>
-                    <div class="profile-firstname"><?php echo $result_account[3]?></div>
-                    <div class="profile-info">Lastname</div>
-                    <div class="profile-lastname"><?php echo $result_account[4]?></div>
-                    <div class="profile-info">Gender</div>
-                    <div class="profile-gender"><?php echo $result_account[5]?></div>
-                    <div class="profile-info">Date of Birth</div>
-                    <div class="profile-dob"><?php echo $result_account[6]?></div>
-                    <div class="profile-info">Place of Birth</div>
-                    <div class="profile-pob"><?php echo $result_account[7]?></div>
-                    <div class="profile-info">Create Date</div>
-                    <div class="profile-createDate"><?php echo $result_account[8]?></div>
+                <div class="rightbox">
+                    <div class="profile">
+                        <h1>Personal Info</h1>
+                        <h2>First Name</h2>
+                        <p>
+                            <?php echo $result_account[3] ?>
+                        </p>
+
+                        <h2>Lastname</h2>
+                        <p>
+                            <?php echo $result_account[4] ?>
+                        </p>
+                        <h2>Gender</h2>
+                        <p>
+                            <?php echo $result_account[5] ?>
+                        </p>
+                        <h2>Date of Birth</h2>
+                        <p>
+                            <?php echo $result_account[6] ?>
+                        </p>
+                        <h2>Place of Birth </h2>
+                        <p>
+                            <?php echo $result_account[7] ?>
+                        </p>
+                        <h2>Create Date </h2>
+                        <p>
+                            <?php echo $result_account[8] ?>
+                        </p>
+                    </div>
+
                 </div>
                 <?php
             }

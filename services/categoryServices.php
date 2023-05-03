@@ -11,33 +11,23 @@ include_once $filepath . "\database\connectDB.php";
     {
         $this->db = new Database();
     }
-
-<<<<<<< HEAD
     public function show_category()
     {
-        $query = "SELECT * FROM category ORDER BY id desc";
+        $query = "SELECT * FROM category where is_deleted = '0' ORDER BY id desc";
         $result = $this->db->select($query);
         return $result;
     }
-=======
-  public function show_category()
-  {
-    $query = "SELECT * FROM category where is_deleted = '0'";
-    $result = $this->db->select($query);
-    return $result;
-  }
->>>>>>> 40fe95bb89a75e94e88d29748cd61d9002758208
 
     public function show_category_by_id($category_id)
     {
-        $query = "SELECT * FROM category WHERE id = '$category_id'";
+        $query = "SELECT * FROM category WHERE id = '$category_id' and is_deleted = '0'";
         $result = $this->db->select($query);
         return $result;
     }
 
     public function show_category_live_search($input)
     {
-        $query = "SELECT * FROM category WHERE (category.name LIKE '$input%')";
+        $query = "SELECT * FROM category WHERE (category.name LIKE '$input%') is_deleted = '0'";
         $result = $this->db->select($query);
         return $result;
     }
