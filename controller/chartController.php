@@ -9,7 +9,27 @@ class ChartController
         $chartService = new ChartServices();
         $result = $chartService->show_revenue_quarter(2023);
         return $result;
+    }
 
+    public function show_statistic_order()
+    {
+        $chartService = new ChartServices();
+        $result = $chartService->show_statistic_order();
+        return $result;
+    }
+
+    // compare revenue 2 year by month
+    public function show_statistic_revenue_by_month($year1, $year2)
+    {
+        if($year1 > $year2)
+        {
+            $tmp = $year1;
+            $year1 = $year2;
+            $year2 = $tmp;
+        }
+        $chartService = new ChartServices();
+        $result = $chartService->show_statistic_revenue_by_month($year1, $year2);
+        return $result;
     }
 }
 ?>
