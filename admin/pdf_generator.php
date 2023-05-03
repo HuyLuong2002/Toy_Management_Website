@@ -25,12 +25,12 @@ class PDFGenerator {
         $this->pdf->SetFont($fontName, $fontStyle, $fontSize);
     }
 
-    public function formatText($width, $height, $text, $row, $auto_enter = 1, $formatValue) {
-        $this->pdf->Cell($width, $height, $text, $row, $auto_enter, $formatValue);
+    public function formatText($width, $height, $text, $border, $auto_enter = 1, $formatValue) {
+        $this->pdf->Cell($width, $height, $text, $border, $auto_enter, $formatValue);
     }
 
-    public function formatTextDistance($width, $height, $text, $border, $formatValue) {
-        $this->pdf->Cell($width, $height, $text, $border, $formatValue);
+    public function formatTextDistance($width, $height, $text, $border) {
+        $this->pdf->Cell($width, $height, $text, $border);
     }
 
 

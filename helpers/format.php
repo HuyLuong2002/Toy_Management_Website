@@ -54,5 +54,11 @@ class Format
     $vnd = number_format($price, 0, ",", ".");
     return $vnd . " đ";
   }
+
+  public function formatPriceDecimal($price)
+  {
+    $vnd = number_format($price, 0, ",", ".");
+    return $vnd;
+  }
 }
 ?>

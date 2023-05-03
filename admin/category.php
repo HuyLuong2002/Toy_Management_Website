@@ -43,7 +43,7 @@ if (isset($_GET["deleteid"])) {
                 <thead>
                     <tr>
                         <td>ID</td>
-                        <td>category Name</td>
+                        <td>Category Name</td>
                         <td>Action</td>
                     </tr>
                 </thead>
