@@ -305,10 +305,17 @@ header {
   opacity: 0;
   transition: all .2s linear;
   border: 1px solid #ccc;
+
 }
 
 .search-bar.active{
   display: block;
+}
+
+.active-bg-keychild {
+  background-color: #40c9a2;
+  border: 1px solid #ccc;
+  color: red;
 }
 
 @keyframes fadeIn {
@@ -338,20 +345,27 @@ header {
   background-color: #fff;
   border: 1px solid #ccc;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
+  overflow-y: scroll;
 }
 
 .wrap-product-search:hover {
   opacity: 0.9;
 }
 
-.wrap-product-search > span {
-  margin-right: 3rem;
-  font-size: 2rem;
+.product-search {
+  border-top: 1px solid #ccc;
 }
 
-.wrap-product-search > span:hover {
+.product-search > span {
+  margin-right: 3rem;
+  font-size: 2rem;
+  float: right;
+}
+
+.product-search > span:hover {
   color: #27cd9e;
 }
 
@@ -365,6 +379,11 @@ header {
 .show-product-search > img {
   width: 10rem;
   object-fit: contain;
+}
+
+.active-bg-keychild {
+  background-color: #40c9a2!important;
+  border: 1px solid #ccc!important;
 }
 
 /* .key-search {

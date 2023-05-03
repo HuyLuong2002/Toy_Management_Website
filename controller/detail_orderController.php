@@ -24,5 +24,13 @@
             $result = $detail_orderservice->show_detail_order_by_id($id);
             return $result;
         }
+
+
+        public function show_detail_order_to_export($id)
+        {
+            $detail_orderservice = new DetailOrderServices();
+            $result = $detail_orderservice->show_detail_order_to_export($id);
+            return $result;
+        }
     }
 ?>

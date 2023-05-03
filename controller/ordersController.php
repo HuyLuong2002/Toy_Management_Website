@@ -11,6 +11,13 @@
             return $result;
         }
 
+        public function show_orders_to_export($id)
+        {
+            $orderService = new OrderServices();
+            $result = $orderService->show_orders_to_export($id);
+            return $result;
+        }
+
         public function delete_orders($id)
         {
             $orderService = new OrderServices();

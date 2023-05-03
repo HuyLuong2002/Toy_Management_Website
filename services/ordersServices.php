@@ -35,6 +35,13 @@ include_once $filepath . "\helpers\\format.php";
     return $result;
   }
 
+  public function show_orders_to_export($id)
+  {
+    $query = "SELECT * FROM orders, account WHERE orders.id = {$id} AND orders.user_id = account.id";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
   public function show_order_by_pagination($offset, $limit_per_page)
   {
     $query = "SELECT * FROM orders WHERE is_deleted = '0' LIMIT $offset, $limit_per_page";
@@ -72,27 +79,6 @@ include_once $filepath . "\helpers\\format.php";
       return true;
     } else {
       return false;
-    }
-  }
-
-  public function update_orders($data, $files, $id)
-  {
-    $ordersName = mysqli_real_escape_string($this->db->link, $data["name"]);
-
-    if ($ordersName == "") {
-      $alert = "<span class='error'>Fields must be not empty</span>";
-      return $alert;
-    } else {
-      $query = "UPDATE orders SET name='{$ordersName}' where id='{$id}'";
-
-      $result = $this->db->update($query);
-      if ($result) {
-        $alert = "<span class='success'>Update Orders Sucessfully</span>";
-        return $alert;
-      } else {
-        $alert = "<span class='error'>Update Orders Not Sucessfully</span>";
-        return $alert;
-      }
     }
   }
 
