@@ -103,7 +103,7 @@ if (isset($current_position)) {
         <ul class="pagination">
           <?php if ($pagination_id > 1) { ?>
             <li class="item prev-page">
-              <a href="index.php?id=<?php echo $id; ?>&page_detail=<?php echo $pagination_id - 1; ?>&enter_id=<?php echo $enter_id?>">
+              <a href="index.php?id=<?php echo(string) $id; ?>&page_detail=<?php echo $pagination_id - 1; ?>&enter_id=<?php echo $enter_id?>">
                 <i class="fa-solid fa-chevron-left"></i>
               </a>
             </li>
@@ -119,7 +119,7 @@ if (isset($current_position)) {
                 $current = "";
               } ?>
               <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
-                <a href="index.php?id=<?php echo $id; ?>&page_detail=<?php echo $pagination[$i]; ?>&enter_id=<?php echo $enter_id?>">
+                <a href="index.php?id=<?php echo (string) $id; ?>&page_detail=<?php echo $pagination[$i]; ?>&enter_id=<?php echo $enter_id?>">
                   <?php echo $pagination[$i]; ?>
                 </a>
               </li>
@@ -129,7 +129,7 @@ if (isset($current_position)) {
           ?>
           <?php if ($page_total - 1 > $pagination_id + 1) { ?>
             <li class="item next-page">
-              <a href="index.php?id=<?php echo $id; ?>&page_detail=<?php echo $pagination_id + 1; ?>&enter_id=<?php echo $enter_id?>">
+              <a href="index.php?id=<?php echo (string) $id; ?>&page_detail=<?php echo $pagination_id + 1; ?>&enter_id=<?php echo $enter_id?>">
                 <i class="fa-solid fa-chevron-right"></i>
               </a>
             </li>

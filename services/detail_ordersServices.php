@@ -19,9 +19,9 @@ include_once $filepath . "\database\connectDB.php";
     return $result;
   }
 
-  public function show_detail_order_by_id($id)
+  public function show_detail_order_to_export($id)
   {
-    $query = "SELECT * FROM detail_orders where order_id = $id";
+    $query = "SELECT * FROM detail_orders, product WHERE order_id = $id AND product.id = detail_orders.product_id";
     $result = $this->db->select($query);
     return $result;
   }

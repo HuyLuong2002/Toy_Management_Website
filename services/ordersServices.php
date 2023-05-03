@@ -35,6 +35,13 @@ include_once $filepath . "\helpers\\format.php";
     return $result;
   }
 
+  public function show_orders_to_export($id)
+  {
+    $query = "SELECT * FROM orders, account WHERE orders.id = {$id} AND orders.user_id = account.id";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
   public function show_order_by_pagination($offset, $limit_per_page)
   {
     $query = "SELECT * FROM orders WHERE is_deleted = '0' LIMIT $offset, $limit_per_page";
