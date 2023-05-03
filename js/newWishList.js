@@ -64,8 +64,8 @@ const LoadActiveHeart = () => {
     const CartArr = JSON.parse(localStorage.getItem('favorite'));
     CartArr.forEach(item => {
         let iTag = document.getElementById(`favorite-${item.id}`)
-        iTag.classList.remove('fa-regular');
-        iTag.classList.add('fa-solid');
+        iTag?.classList.remove('fa-regular');
+        iTag?.classList.add('fa-solid');
     })
 
     AmountHeartWasAdded()

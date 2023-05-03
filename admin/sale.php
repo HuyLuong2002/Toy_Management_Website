@@ -51,6 +51,7 @@ if (isset($current_position)) {
 
 
 <div class="card" id="searchresultsale">
+  <div class="bg-modal-box"></div>
   <div class="card-header">
     <h3>Sales List</h3>
     <div class="notification">
@@ -58,7 +59,7 @@ if (isset($current_position)) {
         echo $delete_sale;
       } ?>
     </div>
-    <button type="button" onclick="Dialog()">
+    <button type="button">
       <a href="sale_add.php">
         Add sale <span class="las la-plus"></span>
       </a>
@@ -154,8 +155,31 @@ if (isset($current_position)) {
                 } ?>
               </td>
               <td>
-                <a href="sale_edit.php?id=<?php echo $result[0]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
-                <a href="?id=<?php echo $id; ?>&page=<?php echo $page_id; ?>&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                <div class="action-btn-group">
+                  <div class="action-btn-edit">
+                    <a href="sale_edit.php?id=<?php echo $result[0]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
+                  </div>
+                  <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
+                    <span onclick="DeleteActive(<?php echo $result[0] ?>)">
+                      Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                    </span>
+                  </div>
+                  <!-- Modal delete -->
+                  <div class="modal-container-delete" id="modal-container-delete-<?php echo $result[0] ?>">
+                    <div class="modal-delete-title">
+                      Are you sure want to delete?
+                    </div>
+                    <div class="modal-delete-btn-group">
+                      <a href="?id=<?php echo $id; ?>&page=<?php echo $page_id; ?>&deleteid=<?php echo $result[0]; ?>" class="modal-delete-btn delete-btn">Delete</a>
+
+                      <button class="modal-delete-btn delete-btn-cancel" 
+                      id="delete-btn-cancel-<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                        <span>Cancel</span>
+                      </button>
+                    </div>
+                  </div>
+                  <!-- modal delete end -->
+                </div>
               <td>
             </tr>
       <?php }
@@ -211,16 +235,14 @@ if (isset($current_position)) {
 </div>
 
 <script>
-  function Dialog() {
-    var x = document.getElementById("dialog");
-
-    if (x.open == true) {
-      x.open = false;
-    } else {
-      x.open = true;
-    }
-  }
+  // const btn_delete = document.getElementById("action-btn-delete");
+  // const btn_delete_cancel = document.querySelector(".modal-delete-btn.delete-btn-cancel");
+  // const modal_delete = document.querySelector(".modal-container-delete");
+  // btn_delete.addEventListener("click", function(){
+  //   modal_delete.classList.add("active");
+  // });
 </script>
+<script src="./js/modal.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function() {

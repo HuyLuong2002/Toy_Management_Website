@@ -97,8 +97,8 @@ if (isset($current_position))
                     <?php echo $result[1]; ?>
                   </td>
                   <td>
-                    <a href="provider_edit.php?id=<?php echo $result[0]; ?>">Edit</a>
-                    <a href="?id=7&deleteid=<?php echo $result[0]; ?>">Delete</a>
+                    <a href="provider_edit.php?id=<?php echo $result[0]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
+                    <a href="?id=7&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
                   </td>
                 </tr>
             <?php }
@@ -122,7 +122,7 @@ if (isset($current_position))
                 <?php echo $result[1]; ?>
               </td>
               <td>
-                <a href="provider_edit.php?id=<?php echo $result[0]; ?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
+                <a href="provider_edit.php?id=<?php echo $result[0]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
                 <a href="?id=<?php echo $id; ?>&page=<?php echo $page_id;?>&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
               <td>
             </tr>

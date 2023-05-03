@@ -19,5 +19,11 @@ class InventoryDetailController
         return $result;
     }
 
+    public function show_inventory_detail_by_pagination($offset, $limit_per_page, $enter_id)
+    {
+        $inventoryService = new InventoryServices();
+        $result = $inventoryService->show_inventory_detail_by_pagination($offset, $limit_per_page, $enter_id);
+        return $result;
+    }
 }
 ?>

@@ -35,6 +35,13 @@ include_once $filepath . "\helpers\\format.php";
     return $result;
   }
 
+  public function show_order_by_pagination($offset, $limit_per_page)
+  {
+    $query = "SELECT * FROM orders WHERE is_deleted = '0' LIMIT $offset, $limit_per_page";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
   public function get_orders_by_id($id)
   {
     $query = "SELECT * FROM orders WHERE id = '{$id}'";

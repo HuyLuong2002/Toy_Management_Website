@@ -1,34 +1,73 @@
 <?php
-    $filepath = realpath(dirname(__DIR__));
-    include_once $filepath . "/controller/chartController.php";
-    $chartController = new ChartController();
-    $result_statistic = $chartController->show_revenue_quarter(2023);
-    $data_quarter_1 = 0;
-    $data_quarter_2 = 0;
-    $data_quarter_3 = 0;
-    $data_quarter_4 = 0;
-    if(isset($result_statistic))
-    {
-        while($result = $result_statistic->fetch_assoc())
-        {
-            if($result["Quy"] == 1)
-            {
-                $data_quarter_1 = $result["DoanhThu"];
-            }
-            if($result["Quy"] == 2)
-            {
-                $data_quarter_2 = $result["DoanhThu"];
-            }
-            if($result["Quy"] == 3)
-            {
-                $data_quarter_3 = $result["DoanhThu"];
-            }
-            if($result["Quy"] == 4)
-            {
-                $data_quarter_4 = $result["DoanhThu"];
-            }
-        }
+$filepath = realpath(dirname(__DIR__));
+include_once $filepath . "/controller/chartController.php";
+$chartController = new ChartController();
+//Solve chart 1
+$result_statistic_revenue = $chartController->show_revenue_quarter(2023);
+$data_quarter_1 = 0;
+$data_quarter_2 = 0;
+$data_quarter_3 = 0;
+$data_quarter_4 = 0;
+if (isset($result_statistic_revenue)) {
+  while ($result = $result_statistic_revenue->fetch_assoc()) {
+    if ($result["Quy"] == 1) {
+      $data_quarter_1 = $result["DoanhThu"];
     }
+    if ($result["Quy"] == 2) {
+      $data_quarter_2 = $result["DoanhThu"];
+    }
+    if ($result["Quy"] == 3) {
+      $data_quarter_3 = $result["DoanhThu"];
+    }
+    if ($result["Quy"] == 4) {
+      $data_quarter_4 = $result["DoanhThu"];
+    }
+  }
+}
+// Solve chart 2
+$result_statistic_order = $chartController->show_statistic_order();
+$result_statistic_2 = [];
+if (isset($result_statistic_order)) {
+  $i = 0;
+  while ($result = $result_statistic_order->fetch_assoc()) {
+    $result_statistic_2[$i] = $result["SoLuongHoaDon"];
+    $i++;
+  }
+}
+//Solve chart 3
+$result_statistic_revenue_month = $chartController->show_statistic_revenue_by_month(
+  2022,
+  2023
+);
+$result_statistic_3_year1 = [];
+$result_statistic_3_year2 = [];
+if (isset($result_statistic_revenue_month)) {
+  while ($result = $result_statistic_revenue_month->fetch_assoc()) {
+    if ($result["Nam"] == 2022) {
+      for ($j = 1; $j <= 12; $j++) {
+        if ($j == $result["Thang"]) {
+          $tmp = [$j, $result["DoanhThu"]];
+          array_push($result_statistic_3_year1, $tmp);
+        } else {
+          $tmp = [$j, 0];
+          array_push($result_statistic_3_year1, $tmp);
+        }
+      }
+    }
+
+    if ($result["Nam"] == 2023) {
+      for ($j = 1; $j <= 12; $j++) {
+        if ($j == $result["Thang"]) {
+          $tmp = [$j, $result["DoanhThu"]];
+          array_push($result_statistic_3_year2, $tmp);
+        } else {
+          $tmp = [$j, 0];
+          array_push($result_statistic_3_year2, $tmp);
+        }
+      }
+    }
+  }
+}
 ?>
 <div class="wrapper">
 
@@ -87,7 +126,7 @@
     </div>
 
     <div class="wrap-char">
-        <h2>Statistical Product</h2>
+        <h2>Statistical Orders</h2>
 
         <div class="chart-Pie">
             <canvas id="pieChart" width="500" height="500"></canvas>
@@ -98,9 +137,9 @@
                 var pieChart = new Chart(ctxPie, {
                     type: 'pie',
                     data: {
-                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        labels: ['Đang giao hàng', 'Đã giao'],
                         datasets: [{
-                            data: [12, 19, 3, 5, 2, 3],
+                            data: [<?php echo $result_statistic_2[0]; ?>, <?php echo $result_statistic_2[1]; ?>],
                             backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
                             borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
                             borderWidth: 1
@@ -136,17 +175,41 @@
                 var lineChart = new Chart(ctxLine, {
                     type: 'line', // Set type to line
                     data: {
-                        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                         datasets: [{
-                            label: 'Dataset 1', // Label for the dataset
-                            data: [65, 59, 80, 81, 56, 55], // Data points
+                            label: '2022', // Label for the dataset
+                            data: [
+                            <?php echo $result_statistic_3_year1[0][1]; ?>, 
+                            <?php echo $result_statistic_3_year1[1][1]; ?>, 
+                            <?php echo $result_statistic_3_year1[2][1]; ?>, 
+                            <?php echo $result_statistic_3_year1[3][1]; ?>, 
+                            <?php echo $result_statistic_3_year1[4][1]; ?>, 
+                            <?php echo $result_statistic_3_year1[5][1]; ?>, 
+                            <?php echo $result_statistic_3_year1[6][1]; ?>,
+                            <?php echo $result_statistic_3_year1[7][1]; ?>,
+                            <?php echo $result_statistic_3_year1[8][1]; ?>,
+                            <?php echo $result_statistic_3_year1[9][1]; ?>,
+                            <?php echo $result_statistic_3_year1[10][1]; ?>,
+                            <?php echo $result_statistic_3_year1[11][1]; ?>], // Data points
                             fill: false, // Set fill to false to draw only lines, not filled areas
                             borderColor: 'rgba(75, 192, 192, 1)', // Border color of the line
                             backgroundColor: 'rgba(75, 192, 192, 0.2)', // Background color of the filled area
                             borderWidth: 1 // Border width of the line
                         }, {
-                            label: 'Dataset 2', // Label for the dataset
-                            data: [28, 48, 40, 19, 86, 27], // Data points
+                            label: '2023', // Label for the dataset
+                            data: [
+                            <?php echo $result_statistic_3_year2[0][1]; ?>, 
+                            <?php echo $result_statistic_3_year2[1][1]; ?>, 
+                            <?php echo $result_statistic_3_year2[2][1]; ?>, 
+                            <?php echo $result_statistic_3_year2[3][1]; ?>, 
+                            <?php echo $result_statistic_3_year2[4][1]; ?>, 
+                            <?php echo $result_statistic_3_year2[5][1]; ?>, 
+                            <?php echo $result_statistic_3_year2[6][1]; ?>,
+                            <?php echo $result_statistic_3_year2[7][1]; ?>,
+                            <?php echo $result_statistic_3_year2[8][1]; ?>,
+                            <?php echo $result_statistic_3_year2[9][1]; ?>,
+                            <?php echo $result_statistic_3_year2[10][1]; ?>,
+                            <?php echo $result_statistic_3_year2[11][1]; ?>], // Data points
                             fill: false, // Set fill to false to draw only lines, not filled areas
                             borderColor: 'rgba(255, 99, 132, 1)', // Border color of the line
                             backgroundColor: 'rgba(255, 99, 132, 0.2)', // Background color of the filled area

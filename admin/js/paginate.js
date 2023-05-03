@@ -15,25 +15,25 @@ let listBar = [
   {
     id: 3,
     title: "Orders",
-    href: "index.php?id=3",
+    href: "index.php?id=3&page=1",
     icon: "la-shopping-cart"
   },
   {
     id: 4,
     title: "Inventory",
-    href: "index.php?id=4",
+    href: "index.php?id=4&page=1",
     icon: "la-box",
   },
   {
     id: 5,
     title: "Accounts",
-    href: "index.php?id=5",
+    href: "index.php?id=5&page=1",
     icon: "la-user-circle",
   },
   {
     id: 6,
     title: "Permission",
-    href: "index.php?id=6",
+    href: "index.php?id=6&page=1",
     icon: "la-user-check",
   },
   {

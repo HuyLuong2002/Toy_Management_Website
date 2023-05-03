@@ -8,11 +8,25 @@ let getAllStar = document.querySelectorAll('.rating .star')
 const listReview = [
     {
         id: 1,
-        username: "KietThu4",
+        userId: "blabla",
+        productId: "blabla",
         review: "San pham nhu cai dau bui re rach",
-        dateTime: "24/4/2023, 10:12:26",
+        reply: [
+            {
+                id: 1,
+                userId: "blabla",
+                review: "San pham nhu cai dau bui re rach",
+                img: "./assets/images/pic-6.png",
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            }
+        ],
         countStar: 3,
-        img: "./assets/images/pic-6.png"
+        img: "./assets/images/pic-6.png",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        dateTime: "24/4/2023, 10:12:26",
+        username: "Chú bé đôgêmon",
     },
     {
         id: 2,

@@ -10,7 +10,9 @@ $productsController = new ProductsController();
 
 if (isset($_POST["input"])) {
   $input = $_POST["input"];
-  $show_product_live_search = $productsController->show_product_live_search($input);
+  $show_product_live_search = $productsController->show_product_live_search(
+    $input
+  );
 }
 
 if (isset($_GET["id"])) {
@@ -43,13 +45,19 @@ $product_total = mysqli_num_rows($result_pagination);
 $num_product_on_page = 10;
 $page_total = ceil($product_total / $num_product_on_page);
 //Trang hiện tại
-if (isset($page_id))
+if (isset($page_id)) {
   $current_page = $page_id;
+}
 // vị trí hiện tại
-if (isset($current_page))
+if (isset($current_page)) {
   $current_position = ($current_page - 1) * $num_product_on_page;
-if (isset($current_position))
-  $result_pagination = $productsController->show_product_by_panigation_admin($current_position, $num_product_on_page);
+}
+if (isset($current_position)) {
+  $result_pagination = $productsController->show_product_by_panigation_admin(
+    $current_position,
+    $num_product_on_page
+  );
+}
 ?>
 
 <!DOCTYPE html>
@@ -110,7 +118,7 @@ if (isset($current_position))
                   </td>
                   <td>
                     <img src="<?php echo "uploads/" .
-                                $result[2]; ?>" alt="" width="100px" />
+                      $result[2]; ?>" alt="" width="100px" />
                   </td>
                   <td>
                     <?php echo $result[3]; ?>
@@ -124,7 +132,9 @@ if (isset($current_position))
                   <td>
                     <label class="switch">
                       <input type="checkbox" />
-                      <span class="slider round" onclick="<?php echo 'handleGetId(' . $result[0] . ')'; ?>"></span>
+                      <span class="slider round" onclick="<?php echo "handleGetId(" .
+                        $result[0] .
+                        ")"; ?>"></span>
                     </label>
                   </td>
                   <td>
@@ -141,25 +151,24 @@ if (isset($current_position))
                   </td>
                   <td>
                     <a href="product_edit.php?id=<?php echo $result[0]; ?>">Edit</a>
-                    <a href="?id=2&page=<?php echo $page_id?>&deleteid=<?php echo $result[0]; ?>">Delete</a>
+                    <a href="?id=2&page=<?php echo $page_id; ?>&deleteid=<?php echo $result[0]; ?>">Delete</a>
                     <a href="product_detail.php?id=<?php echo $result[0]; ?>">Details</a>
                   </td>
 
                 </tr>
-            <?php }
-            } else {
-              echo "<span class='error'>No Data Found</span>";
-            } ?>
+            <?php }} else {echo "<span class='error'>No Data Found</span>";} ?>
         </tbody>
       </table>
     <?php
           } else {
-    ?>
+             ?>
       <tbody id="product-data">
-        <?php
-            if ($result_pagination) {
-              while ($result = $result_pagination->fetch_array()) { ?>
-            <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] == 1 ? 'activeBg' : '' ?>">
+        <?php if ($result_pagination) {
+          while ($result = $result_pagination->fetch_array()) { ?>
+            <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] ==
+1
+  ? "activeBg"
+  : ""; ?>">
 
               <td>
                 <?php echo $result[0]; ?>
@@ -169,7 +178,7 @@ if (isset($current_position))
               </td>
               <td>
                 <img src="<?php echo "uploads/" .
-                            $result[2]; ?>" alt="" width="100px" />
+                  $result[2]; ?>" alt="" width="100px" />
               </td>
               <td>
                 <?php echo $result[3]; ?>
@@ -182,13 +191,11 @@ if (isset($current_position))
               </td>
               <td>
                 <label class="switch">
-                  <?php
-                  if ($result[6] == 1) {
-                    $checked  = "checked";
+                  <?php if ($result[6] == 1) {
+                    $checked = "checked";
                   } else {
                     $checked = "";
-                  }
-                  ?>
+                  } ?>
                   <input type="checkbox" <?php echo $checked; ?> id="check-<?php echo $result[0]; ?>" />
                   <span class="slider round" id="slider-<?php echo $result[0]; ?>" onclick="handleGetId(<?php echo $result[0]; ?>, <?php echo $result[6]; ?>)"></span>
                 </label>
@@ -207,29 +214,28 @@ if (isset($current_position))
               </td>
               <td>
                 <a href="product_edit.php?id=<?php echo $result[0]; ?>" class="Edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
-                <a href="?id=<?php echo $id; ?>&page=<?php echo $page_id?>&deleteid=<?php echo $result[0]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                <a href="?id=<?php echo $id; ?>&page=<?php echo $page_id; ?>&deleteid=<?php echo $result[0]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
                 <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
               <td>
 
             </tr>
       <?php }
-            }
+        }
           } ?>
       </tbody>
       </table>
-      <?php
-      if (empty($_POST["input"])) {
-      ?>
+      <?php if (empty($_POST["input"])) { ?>
         <div class="bottom-pagination" id="pagination">
           <ul class="pagination">
             <?php if ($pagination_id > 1) { ?>
               <li class="item prev-page">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id - 1; ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id -
+  1; ?>">
                   <i class="fa-solid fa-chevron-left"></i>
                 </a>
               </li>
             <?php } ?>
-            <?php 
+            <?php
             $pagination = $pag->pageNumber($page_total, 4, $pagination_id);
             $length = count($pagination);
             for ($i = 1; $i <= $length; $i++) {
@@ -237,26 +243,30 @@ if (isset($current_position))
                 $current = "current";
               } else {
                 $current = "";
-              }
-            ?>
-              <li class="item <?php echo $current?>" id="<?php echo $pagination[$i]; ?>">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
+              } ?>
+              <li class="item <?php echo $current; ?>" id="<?php echo $pagination[
+  $i
+]; ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[
+  $i
+]; ?>">
                   <?php echo $pagination[$i]; ?>
                 </a>
               </li>
-            <?php } ?>
+            <?php
+            }
+            ?>
             <?php if ($page_total - 1 > $pagination_id + 1) { ?>
               <li class="item next-page">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id + 1; ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id +
+  1; ?>">
                   <i class="fa-solid fa-chevron-right"></i>
                 </a>
               </li>
             <?php } ?>
           </ul>
         </div>
-      <?php
-      }
-      ?>
+      <?php } ?>
     </div>
   </div>
 </div>

@@ -25,5 +25,12 @@ class PermissionController
     $result = $permissionService->show_permission_live_search($input);
     return $result;
   }
+
+  public function show_permission_by_pagination($offset, $limit_per_page)
+  {
+    $permissionService = new PermissionServices();
+    $result = $permissionService->show_permission_by_pagination($offset, $limit_per_page);
+    return $result;
+  }
 }
 ?>

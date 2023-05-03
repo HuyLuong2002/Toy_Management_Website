@@ -18,12 +18,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-<<<<<<< HEAD
-  height: 500px;
-  margin-top: 10rem;
-=======
   height: 100vh;
->>>>>>> 16e00dbd31180abc3fd85245df454fc5277c96c8
 }
 
 form {
