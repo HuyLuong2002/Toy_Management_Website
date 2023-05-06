@@ -2,6 +2,14 @@
 $filepath = realpath(dirname(__DIR__));
 include_once($filepath . "\Toy_Management_Website\controller\product_detailController.php");
 include_once($filepath . "\helpers\\format.php");
+include "./lib/session.php";
+
+Session::init();
+$user_id = Session::get("userID");
+if(empty($user_id))
+{
+    header("Location: login.php");
+}
 $fm = new Format();
 $product_detailController = new ProductDetailController();
 
@@ -75,9 +83,9 @@ if (isset($_GET["id"])) {
               <span>(250 ratings)</span>
             </div>
             <p class="product-description">
-                <?php
-                  echo $fm->textShorten($result_product_detail[4]);
-                ?>
+              <?php
+              echo $fm->textShorten($result_product_detail[4]);
+              ?>
             </p>
             <div class="btn-groups">
               <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product_detail[0]; ?>)" data-id="<?php echo $result_product_detail[0]; ?>" data-quantity=1>
@@ -130,9 +138,9 @@ if (isset($_GET["id"])) {
                   <i class='bx bx-star star' style="--i: 3;"></i>
                   <i class='bx bx-star star' style="--i: 4;"></i>
                 </div>
-                <textarea id="review-opinion" name="opinion" cols="30" rows="5" placeholder="Your opinion..."></textarea>
+                <textarea id="review-opinion" required name="opinion" cols="30" rows="5" placeholder="Your opinion..."></textarea>
                 <div class="btn-group">
-                  <button type="submit" class="btn submit" id="submit-review" onclick="handleAddReview(event)">Submit</button>
+                  <button type="submit" class="btn submit" id="submit-review" onclick="handleAddReview(event, <?php echo $user_id; ?>, <?php echo $product_detail_id; ?>)">Submit</button>
                   <button class="btn cancel">Cancel</button>
                 </div>
               </form>
@@ -140,7 +148,7 @@ if (isset($_GET["id"])) {
           </div>
 
           <div class="list-user-review" id="list-user-review">
-            
+
             <!-- <div class="use-review">
               <img src="./assets/images/pic-6.png" alt="">
               <div class="detail-review">
@@ -212,6 +220,9 @@ if (isset($_GET["id"])) {
         }
       })
     })
+  </script>
+  <script>
+    
   </script>
 </body>
 
