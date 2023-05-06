@@ -59,6 +59,12 @@ class ProductsController
     return $result;
   }
 
+  public function show_product_by_category_id_unique($category, $id){
+    $productService = new ProductServices();
+    $result = $productService->show_product_by_category_id_unique($category, $id);
+    return $result;
+  }
+
   public function show_product_for_pagination()
   {
     $productService = new ProductServices();

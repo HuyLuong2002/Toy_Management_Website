@@ -184,7 +184,7 @@ if (isset($_GET["categoryID"])) {
 
     <div class="product-items" id="product-items">
       <?php
-      $show_related_products = $productsController->show_product_by_category_id($product_detail_category);
+      $show_related_products = $productsController->show_product_by_category_id_unique($product_detail_category, $product_detail_id);
       if ($show_related_products) {
         while ($result_product = $show_related_products->fetch_array()) {
           ?>
@@ -290,6 +290,26 @@ if (isset($_GET["categoryID"])) {
     });
   </script>
   <script src="./js/cartclick.js"></script> -->
+  <script src="./js/newWishList.js"></script>
+  <script src="./js/cartclick.js"></script>
+  <script src="./js/loadMoreProduct.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $(window).scroll(function () {
+        if ($(this).scrollTop() > 100) {
+          $('#scroll').fadeIn();
+        } else {
+          $('#scroll').fadeOut();
+        }
+      });
+      $('#scroll').click(function () {
+        $("html, body").animate({
+          scrollTop: 0
+        }, 600);
+        return false;
+      });
+    });
+  </script>
   <script src="./js/product_detail_listReview.js"></script>
   <script>
     const allStar = document.querySelectorAll('.rating .star')
