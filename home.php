@@ -54,30 +54,33 @@ $category_total = mysqli_num_rows($product_category);
     <?php
     if ($product_category) {
       while ($result = $product_category->fetch_array()) {
-    ?>
+        ?>
         <div class="product-category" id="<?php echo $result[0] ?>">
-        
-          <div class="name-category"><a href="category.php?id=<?php echo $result[0] ?>&page=1"><?php echo $result[1] ?></a></div>
+
+          <div class="name-category"><a href="category.php?id=<?php echo $result[0] ?>&page=1"><?php echo $result[1] ?></a>
+          </div>
           <div class="product-items" id="product-items">
             <?php
-              $show_product = $productsController->show_product_by_category_id($result[0]);
-              if ($show_product) {
-                while ($result_product = $show_product->fetch_array()) {
-            ?>
+            $show_product = $productsController->show_product_by_category_id($result[0]);
+            if ($show_product) {
+              while ($result_product = $show_product->fetch_array()) {
+                ?>
                 <!-- Single product -->
                 <div class="product id-<?php echo $result[0] ?>">
                   <div class="product-content">
                     <div class="product-img">
-                      <img src="<?php echo "admin/uploads/" . $result_product[2]; ?>" alt="" id="product-image-<?php echo $result_product[0]; ?>" />
+                      <img src="<?php echo "admin/uploads/" . $result_product[2]; ?>" alt=""
+                        id="product-image-<?php echo $result_product[0]; ?>" />
                     </div>
                     <div class="product-btns">
-                      <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product[0]; ?>)" data-id="<?php echo $result_product[0]; ?>" data-quantity=1>
+                      <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product[0]; ?>)"
+                        data-id="<?php echo $result_product[0]; ?>" data-quantity=1>
                         Add to cart
                         <i class="fa-solid fa-plus add-icon" id="icon-check-<?php echo $result_product[0]; ?>"></i>
                       </button>
-                      <a href="product_detail.php?id=<?php echo $result_product[0]; ?>">
+                      <a href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7];?>">
                         <button class="btn-buy">
-                          Buy now
+                          More Details
                           <span><i class="fas fa-shopping-cart"> </i> </span>
                         </button>
                       </a>
@@ -101,7 +104,8 @@ $category_total = mysqli_num_rows($product_category);
                         ?>
                       </div>
                     </div>
-                    <a href="product_detail.php?id=<?php echo $result_product[0]; ?>" class="product-name" id="product-name-<?php echo $result_product[0]; ?>">
+                    <a href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7];?>" class="product-name"
+                      id="product-name-<?php echo $result_product[0]; ?>">
                       <?php echo $result_product[1]; ?>
                     </a>
                     <?php echo $result_product[16] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$" . $result_product[3] . "</p>" : "";
@@ -128,28 +132,30 @@ $category_total = mysqli_num_rows($product_category);
                     ?>
 
                     <div class="favorite-icon" onclick="AddFavorite(event, <?php echo $result_product[0]; ?>)">
-                      <i class="fa-regular fa-heart fav-icon" id="favorite-<?php echo $result_product[0]; ?>" data-id="<?php echo $result_product[0]; ?>"></i>
+                      <i class="fa-regular fa-heart fav-icon" id="favorite-<?php echo $result_product[0]; ?>"
+                        data-id="<?php echo $result_product[0]; ?>"></i>
                     </div>
                   </div>
                 </div>
                 <!-- end of single product -->
 
-                
-            <?php
+
+                <?php
               }
             }
             ?>
           </div>
 
-          <div class="load-more" id="load-more-<?php echo $result[0]; ?>" onclick="handleLoadMore(<?php echo $result[0]; ?>)">Load More <i class="fa-solid fa-circle-arrow-down"></i>
+          <div class="load-more" id="load-more-<?php echo $result[0]; ?>"
+            onclick="handleLoadMore(<?php echo $result[0]; ?>)">Load More <i class="fa-solid fa-circle-arrow-down"></i>
           </div>
           <div class="unload" id="unload-<?php echo $result[0]; ?>" onclick="handleUnload(<?php echo $result[0]; ?>)">
             Unload <i class="fa-solid fa-circle-arrow-up"></i>
           </div>
 
-         
+
         </div>
-    <?php }
+      <?php }
     } ?>
   </div>
   <div id="scroll" class="totop">
@@ -165,15 +171,15 @@ $category_total = mysqli_num_rows($product_category);
 <script src="./js/loadMoreProduct.js"></script>
 
 <script type="text/javascript">
-  $(document).ready(function() {
-    $(window).scroll(function() {
+  $(document).ready(function () {
+    $(window).scroll(function () {
       if ($(this).scrollTop() > 100) {
         $('#scroll').fadeIn();
       } else {
         $('#scroll').fadeOut();
       }
     });
-    $('#scroll').click(function() {
+    $('#scroll').click(function () {
       $("html, body").animate({
         scrollTop: 0
       }, 600);
