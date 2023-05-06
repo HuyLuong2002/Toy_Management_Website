@@ -67,6 +67,7 @@ form.go-right textarea:focus + label {
   text-align: center;
   font-size: 0.75rem;
   line-height: 37px;
+  background-color: #80c0ff;
 }
 img {
   max-width: 100%;
