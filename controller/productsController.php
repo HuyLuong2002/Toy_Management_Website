@@ -53,6 +53,12 @@ class ProductsController
     return $result;
   }
 
+  public function show_product_by_category_id($category){
+    $productService = new ProductServices();
+    $result = $productService->show_product_by_category_id($category);
+    return $result;
+  }
+
   public function show_product_for_pagination()
   {
     $productService = new ProductServices();
@@ -85,12 +91,6 @@ class ProductsController
   }
 
   //list product by category id
-  public function show_product_by_category_id($category_id)
-  {
-    $productService = new ProductServices();
-    $result = $productService->show_product_by_category_id($category_id);
-    return $result;
-  }
 
   //list product by category id have off and limit
   public function show_product_by_category_panigation(
