@@ -3,6 +3,14 @@ $filepath = realpath(dirname(__DIR__));
 include_once($filepath . "\Toy_Management_Website\controller\product_detailController.php");
 include_once $filepath . "/controller/productsController.php";
 include_once($filepath . "\helpers\\format.php");
+include "./lib/session.php";
+
+Session::init();
+$user_id = Session::get("userID");
+if(empty($user_id))
+{
+    header("Location: login.php");
+}
 
 $fm = new Format();
 $product_detailController = new ProductDetailController();
@@ -140,10 +148,9 @@ if (isset($_GET["categoryID"])) {
                   <i class='bx bx-star star' style="--i: 3;"></i>
                   <i class='bx bx-star star' style="--i: 4;"></i>
                 </div>
-                <textarea id="review-opinion" name="opinion" cols="30" rows="5" placeholder="Your opinion..."></textarea>
+                <textarea id="review-opinion" required name="opinion" cols="30" rows="5" placeholder="Your opinion..."></textarea>
                 <div class="btn-group">
-                  <button type="submit" class="btn submit" id="submit-review"
-                    onclick="handleAddReview(event)">Submit</button>
+                  <button type="submit" class="btn submit" id="submit-review" onclick="handleAddReview(event, <?php echo $user_id; ?>, <?php echo $product_detail_id; ?>)">Submit</button>
                   <button class="btn cancel">Cancel</button>
                 </div>
               </form>
@@ -335,6 +342,9 @@ if (isset($_GET["categoryID"])) {
         }
       })
     })
+  </script>
+  <script>
+    
   </script>
 </body>
 

@@ -58,8 +58,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($cartAdd))
             <div id="wrap-total">
                 
             </div>
-
-            <input type="submit" class="checkout"></input>
+            <a href="payment.php" class="checkout">Check Out</a>
         </div>
     </form>
 
