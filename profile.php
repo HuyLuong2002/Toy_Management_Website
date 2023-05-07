@@ -22,7 +22,9 @@ if (empty($_GET["id"])) {
 </head>
 
 <body>
-
+    <a href="index.php" class="return-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+    </a>
     <div class="container">
         <?php
         $show_account = $accountController->show_account_by_id($_GET["id"]);
@@ -33,7 +35,10 @@ if (empty($_GET["id"])) {
                     <div class="avatar">
                         <img src="./assets/images/pic-1.png" alt="">
                     </div>
-                    <?php echo $result_account[1] ?>
+                    <div class="username">
+                        <?php echo $result_account[1] ?>
+
+                    </div>
                 </div>
                 <div class="rightbox">
                     <div class="profile">
@@ -41,11 +46,14 @@ if (empty($_GET["id"])) {
                         <h2>First Name</h2>
                         <p>
                             <?php echo $result_account[3] ?>
-                        </p>
+                            <button class="btn">update</button>
 
+                        </p>
                         <h2>Lastname</h2>
                         <p>
                             <?php echo $result_account[4] ?>
+                            <button class="btn">update</button>
+
                         </p>
                         <h2>Gender</h2>
                         <p>
@@ -59,9 +67,10 @@ if (empty($_GET["id"])) {
                         <p>
                             <?php echo $result_account[7] ?>
                         </p>
-                        <h2>Create Date </h2>
+                        <h2>Password </h2>
                         <p>
-                            <?php echo $result_account[8] ?>
+                            <?php echo "********" ?>
+                            <button class="btn">update</button>
                         </p>
                     </div>
 
@@ -71,3 +80,5 @@ if (empty($_GET["id"])) {
         }
         ?>
     </div>
+
+    <script src="https://kit.fontawesome.com/1b6e53cabd.js" crossorigin="anonymous"></script>

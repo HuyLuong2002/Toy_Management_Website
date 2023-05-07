@@ -213,8 +213,7 @@ label {
   background-color: #494;
 }
 
-.checkouta{
-  all: initial;
+.checkout{
   color: white;
   text-transform: uppercase;
   cursor: pointer;
