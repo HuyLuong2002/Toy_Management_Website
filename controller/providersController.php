@@ -3,11 +3,25 @@ $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "/services/providersServices.php";
 class ProviderController
 {
+
+  public function insert_provider($data)
+  {
+    $providerService = new ProviderServices();
+    $result = $providerService->insert_provider($data);
+    return $result;
+  }
   //list provider for home page
   public function show_provider_user()
   {
     $providerService = new ProviderServices();
     $result = $providerService->show_provider_user();
+    return $result;
+  }
+
+  public function update_provider($data, $id)
+  {
+    $providerService = new ProviderServices();
+    $result = $providerService->update_provider($data, $id);
     return $result;
   }
 
@@ -49,5 +63,3 @@ class ProviderController
     return $result;
   }
 }
-
-?>

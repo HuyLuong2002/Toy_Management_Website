@@ -281,12 +281,11 @@ if (isset($current_position)) {
     </div>
     <div class="modal-delete-btn-group">
       <button class="modal-delete-btn delete-btn" name="delete-btn">Delete</button>
-      <button class="modal-delete-btn delete-btn-cancel" id="delete-btn-cancel" onclick="cancelDeleteModal()">
+      <button type="button" class="modal-delete-btn delete-btn-cancel" id="delete-btn-cancel" onclick="cancelDeleteModal()">
         <span>Cancel</span>
       </button>
     </div>
   </form>
-
   <!-- modal delete end -->
 
   <!-- modal edit  -->
@@ -379,7 +378,7 @@ if (isset($current_position)) {
   </div>
 </div>
 
-<script src="./js/modal.js"></script>
+<!-- <script src="./js/modal.js"></script> -->
 
 <script type="text/javascript">
   $(document).ready(function() {

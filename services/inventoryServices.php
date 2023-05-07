@@ -87,22 +87,22 @@ class InventoryServices
 
   public function insert_inventory($data)
   {
-    $enter_date = $this->fm->formatDate($data["enter-date"]);
+    $enter_date = $this->fm->formatDate($data["enter-date_add"]);
 
     $total_quantity = mysqli_real_escape_string(
       $this->db->link,
-      $data["total-quantity"]
+      $data["total-quantity_add"]
     );
     $total_price = mysqli_real_escape_string(
       $this->db->link,
-      $data["total-price"]
+      $data["total-price_add"]
     );
     $provider_id = mysqli_real_escape_string(
       $this->db->link,
-      $data["provider"]
+      $data["provider_add"]
     );
     $user_id = Session::get("userID");
-    $status = mysqli_real_escape_string($this->db->link, $data["status"]);
+    $status = mysqli_real_escape_string($this->db->link, $data["status_add"]);
     $create_date = (string) date("d/m/Y");
 
     $query = "INSERT INTO enter_product(enter_date, total_quantity, total_price, provider_id, user_id, status, create_date, is_deleted) VALUES ('$enter_date',$total_quantity,$total_price,$provider_id,$user_id,$status,'$create_date',0)";

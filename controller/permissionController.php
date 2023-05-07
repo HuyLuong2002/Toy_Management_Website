@@ -11,6 +11,27 @@ class PermissionController
     return $result;
   }
 
+  public function insert_permission($data)
+  {
+    $permissionService = new PermissionServices();
+    $result = $permissionService->insert_permission($data);
+    return $result;
+  }
+
+  public function update_permission($data, $id)
+  {
+    $permissionService = new PermissionServices();
+    $result = $permissionService->update_permission($data, $id);
+    return $result;
+  }
+
+  public function get_permission_by_id($id)
+  {
+    $permissionService = new PermissionServices();
+    $result = $permissionService->get_permission_by_id($id);
+    return $result;
+  }
+
   public function delete_permission($id)
   {
     $permissionService = new PermissionServices();
@@ -33,4 +54,3 @@ class PermissionController
     return $result;
   }
 }
-?>

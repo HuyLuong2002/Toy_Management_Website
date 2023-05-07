@@ -27,11 +27,6 @@ if (isset($_GET["deleteid"])) {
   $delete_orders = $orderController->delete_orders($delete_id);
 }
 
-if (isset($_GET["deleteid"])) {
-  $delete_id = $_GET["deleteid"];
-  $delete_sale = $saleController->delete_sale($delete_id);
-}
-
 if (isset($_GET["page"])) {
   $page_id = $_GET["page"];
   $pagination_id = $page_id;
@@ -162,7 +157,7 @@ if (isset($current_position)) {
                 <?php echo $result[6] == 1 ? "Đã giao" : "Đang giao hàng"; ?>
               </td>
               <td>
-                <a href="?id=3&deleteid=<?php echo $result[0]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                <a href="?id=3&page=<?php echo $page_id?>&deleteid=<?php echo $result[0]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
                 <a href="?id=3&page=<?php echo $page_id?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
                 <a href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF</a>
               </td>
