@@ -14,7 +14,7 @@ include_once $filepath . "\database\connectDB.php";
 
     public function get_all_comment_of_product($id)
     {
-        $query = "SELECT * FROM comment WHERE id = '{$id}' ORDER BY time desc";
+        $query = "SELECT * FROM comment WHERE product_id = '{$id}' ORDER BY time desc";
         $result = $this->db->select($query);
         return $result;
     }
@@ -24,8 +24,9 @@ include_once $filepath . "\database\connectDB.php";
         $content = mysqli_real_escape_string($this->db->link, $data["content"]);
         $user_id = mysqli_real_escape_string($this->db->link, $data["user_id"]);
         $product_id = mysqli_real_escape_string($this->db->link, $data["product_id"]);
-        $rate = mysqli_real_escape_string($this->db->link, $data["price"]);
-        $create_date = (string) date("d/m/Y");
+        $rate = mysqli_real_escape_string($this->db->link, $data["rate"]);
+        date_default_timezone_set("Asia/Ho_Chi_Minh");
+        $create_date = (string) date("d/m/Y H:i:s a");
         
         if (
             $content == "" ||
@@ -37,8 +38,8 @@ include_once $filepath . "\database\connectDB.php";
             $alert = "<span class='error'>Something went wrong</span>";
             return $alert;
         } else {
-            $query = "INSERT INTO comment(content, user_id, product_id, rate, create_date) 
-            VALUES ($content, $user_id, '$product_id', $rate, '$create_date')";
+            $query = "INSERT INTO comment(content, user_id, product_id, rate, time) 
+            VALUES ('$content', '$user_id', '$product_id', '$rate', '$create_date')";
             $result = $this->db->insert($query);
             if ($result) {
                 $alert = "<span class='success'>Add Comment Successfully</span>";

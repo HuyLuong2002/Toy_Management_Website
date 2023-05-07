@@ -207,7 +207,7 @@ img {
 	font-weight: 600;
 	margin-bottom: 1rem;
 }
-/* .rating {
+.rating {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -222,7 +222,7 @@ img {
 .rating .star.active {
 	opacity: 0;
 	animation: animate .5s calc(var(--i) * .1s) ease-in-out forwards;
-} */
+}
 
 @keyframes animate {
 	0% {
