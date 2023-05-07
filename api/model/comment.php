@@ -29,11 +29,11 @@ class Comment
   }
 
   //show = get category by id
-  public function show($user_id)
+  public function show($product_id)
   {
-    $query = "SELECT * FROM comment where user_id=?";
+    $query = "SELECT * FROM comment where product_id=?";
     $stmt = $this->conn->prepare($query);
-    $stmt->bindParam(1, $this->user_id);
+    $stmt->bindParam(1, $this->product_id);
     $stmt->execute();
     $rowcount = $stmt->rowCount();
     if($rowcount == 0) return false;

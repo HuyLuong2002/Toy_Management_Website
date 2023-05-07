@@ -7,8 +7,8 @@ include_once "../model/comment.php";
 $db = new DB();
 $connect = $db->connect();
 $comment = new Comment($connect);
-$comment->user_id = isset($_GET["userID"]) ? $_GET["userID"] : die();
-$result = $comment->show($comment->user_id);
+$comment->product_id = isset($_GET["productID"]) ? $_GET["productID"] : die();
+$result = $comment->show($comment->product_id);
 if($result == false) {
   $comment_item = [
     "result" => "User ID comment not found",
