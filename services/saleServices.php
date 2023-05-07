@@ -24,7 +24,7 @@ include_once $filepath . "/helpers/format.php";
   // live search sale for admin
   public function show_sale_live_search($input)
   {
-    $query = "SELECT * FROM sale WHERE ((sale.name LIKE '$input%') OR (sale.percent_sale LIKE '$input%') OR (sale.start_date LIKE '$input%') OR (sale.end_date LIKE '$input%'))";
+    $query = "SELECT * FROM sale WHERE ((sale.name LIKE '$input%') OR (sale.percent_sale LIKE '$input%') OR (sale.start_date LIKE '$input%') OR (sale.end_date LIKE '$input%')) AND is_deleted = '0'";
     $result = $this->db->select($query);
     return $result;
   }
@@ -42,11 +42,11 @@ include_once $filepath . "/helpers/format.php";
   }
 
   public function insert_sale($data){
-    $saleName = mysqli_real_escape_string($this->db->link, $data["name"]);
-    $percent_sale = mysqli_real_escape_string($this->db->link, $data["percent"]);
-    $status = mysqli_real_escape_string($this->db->link, $data["status"]);
-    $start_date = mysqli_real_escape_string($this->db->link, $data["start"]);
-    $end_date = mysqli_real_escape_string($this->db->link, $data["end"]);
+    $saleName = mysqli_real_escape_string($this->db->link, $data["name_add"]);
+    $percent_sale = mysqli_real_escape_string($this->db->link, $data["percent_add"]);
+    $status = mysqli_real_escape_string($this->db->link, $data["status_add"]);
+    $start_date = mysqli_real_escape_string($this->db->link, $data["start_add"]);
+    $end_date = mysqli_real_escape_string($this->db->link, $data["end_add"]);
     $start_date = $this->fm->formatDate($start_date);
     $end_date = $this->fm->formatDate($end_date);
     $create_date = (string) date("d/m/Y");
@@ -75,11 +75,11 @@ include_once $filepath . "/helpers/format.php";
   }
 
   public function update_sale($data, $id){
-    $saleName = mysqli_real_escape_string($this->db->link, $data["name"]);
-    $percent_sale = mysqli_real_escape_string($this->db->link, $data["percent"]);
-    $status = mysqli_real_escape_string($this->db->link, $data["status"]);
-    $start_date = mysqli_real_escape_string($this->db->link, $data["start"]);
-    $end_date = mysqli_real_escape_string($this->db->link, $data["end"]);
+    $saleName = mysqli_real_escape_string($this->db->link, $data["name_edit"]);
+    $percent_sale = mysqli_real_escape_string($this->db->link, $data["percent_edit"]);
+    $status = mysqli_real_escape_string($this->db->link, $data["status_edit"]);
+    $start_date = mysqli_real_escape_string($this->db->link, $data["start_edit"]);
+    $end_date = mysqli_real_escape_string($this->db->link, $data["end_edit"]);
     $start_date = $this->fm->formatDate($start_date);
     $end_date = $this->fm->formatDate($end_date);
     $create_date = (string) date("d/m/Y");

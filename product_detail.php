@@ -1,12 +1,27 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
 include_once($filepath . "\Toy_Management_Website\controller\product_detailController.php");
+include_once $filepath . "/controller/productsController.php";
 include_once($filepath . "\helpers\\format.php");
+include "./lib/session.php";
+
+Session::init();
+$user_id = Session::get("userID");
+if(empty($user_id))
+{
+    header("Location: login.php");
+}
+
 $fm = new Format();
 $product_detailController = new ProductDetailController();
+$productsController = new ProductsController();
 
 if (isset($_GET["id"])) {
   $product_detail_id = $_GET["id"];
+}
+
+if (isset($_GET["categoryID"])) {
+  $product_detail_category = $_GET["categoryID"];
 }
 ?>
 
@@ -27,6 +42,7 @@ if (isset($_GET["id"])) {
   <link rel="stylesheet" href="./assets/css/home.css" />
   <link rel="stylesheet" href="./assets/css/slide.css" />
   <link rel="stylesheet" href="./assets/css/footer.css" />
+  <link rel="stylesheet" href="./assets/css/product_list.css" />
   <link rel="stylesheet" href="./assets/css/product_detail.css" />
 </head>
 
@@ -36,14 +52,15 @@ if (isset($_GET["id"])) {
   $show_product_detail_id = $product_detailController->show_product_detail($product_detail_id);
   if ($show_product_detail_id) {
     $result_product_detail = $show_product_detail_id->fetch_array();
-  ?>
+    ?>
     <div class="main-wrapper">
       <div class="main-wrapper-container">
         <div class="product-div">
           <div class="product-div-left">
 
             <div class="img-container">
-              <img src="<?php echo "admin/uploads/" . $result_product_detail[2] ?> " alt="watch image" id="product-image-<?php echo $result_product_detail[0]; ?>" />
+              <img src="<?php echo "admin/uploads/" . $result_product_detail[2] ?> " alt="watch image"
+                id="product-image-<?php echo $result_product_detail[0]; ?>" />
             </div>
           </div>
 
@@ -75,12 +92,13 @@ if (isset($_GET["id"])) {
               <span>(250 ratings)</span>
             </div>
             <p class="product-description">
-                <?php
-                  echo $fm->textShorten($result_product_detail[4]);
-                ?>
+              <?php
+              echo $fm->textShorten($result_product_detail[4]);
+              ?>
             </p>
             <div class="btn-groups">
-              <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product_detail[0]; ?>)" data-id="<?php echo $result_product_detail[0]; ?>" data-quantity=1>
+              <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product_detail[0]; ?>)"
+                data-id="<?php echo $result_product_detail[0]; ?>" data-quantity=1>
                 Add to cart
                 <i class="fa-solid fa-plus add-icon" id="icon-check-<?php echo $result_product_detail[0]; ?>"></i>
               </button>
@@ -130,9 +148,9 @@ if (isset($_GET["id"])) {
                   <i class='bx bx-star star' style="--i: 3;"></i>
                   <i class='bx bx-star star' style="--i: 4;"></i>
                 </div>
-                <textarea id="review-opinion" name="opinion" cols="30" rows="5" placeholder="Your opinion..."></textarea>
+                <textarea id="review-opinion" required name="opinion" cols="30" rows="5" placeholder="Your opinion..."></textarea>
                 <div class="btn-group">
-                  <button type="submit" class="btn submit" id="submit-review" onclick="handleAddReview(event)">Submit</button>
+                  <button type="submit" class="btn submit" id="submit-review" onclick="handleAddReview(event, <?php echo $user_id; ?>, <?php echo $product_detail_id; ?>)">Submit</button>
                   <button class="btn cancel">Cancel</button>
                 </div>
               </form>
@@ -140,7 +158,7 @@ if (isset($_GET["id"])) {
           </div>
 
           <div class="list-user-review" id="list-user-review">
-            
+
             <!-- <div class="use-review">
               <img src="./assets/images/pic-6.png" alt="">
               <div class="detail-review">
@@ -165,9 +183,101 @@ if (isset($_GET["id"])) {
       </div>
     </div>
 
-  <?php
+    <?php
   }
   ?>
+  <div class="related-products">Related Products</div>
+  <div class="product-container">
+
+    <div class="product-items" id="product-items">
+      <?php
+      $show_related_products = $productsController->show_product_by_category_id_unique($product_detail_category, $product_detail_id);
+      if ($show_related_products) {
+        while ($result_product = $show_related_products->fetch_array()) {
+          ?>
+          <!-- Single product -->
+          <div class="product id-<?php echo $result_product[0] ?>">
+            <div class="product-content">
+              <div class="product-img">
+                <img src="<?php echo "admin/uploads/" . $result_product[2]; ?>" alt=""
+                  id="product-image-<?php echo $result_product[0]; ?>" />
+              </div>
+              <div class="product-btns">
+                <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product[0]; ?>)"
+                  data-id="<?php echo $result_product[0]; ?>" data-quantity=1>
+                  Add to cart
+                  <i class="fa-solid fa-plus add-icon" id="icon-check-<?php echo $result_product[0]; ?>"></i>
+                </button>
+                <a
+                  href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7]; ?>">
+                  <button class="btn-buy">
+                    More Details
+                    <span><i class="fas fa-shopping-cart"> </i> </span>
+                  </button>
+                </a>
+              </div>
+            </div>
+            <div class="product-info">
+              <div class="product-info-top">
+                <h2 class="sm-title">
+                  <?php echo $result_product[13]; ?>
+                </h2>
+                <div class="rating">
+                  <?php
+                  $rating = $result_product[9];
+                  for ($i = 0; $i < 5; $i++) {
+                    if ($rating > $i) {
+                      echo '<span><i class="fas fa-star"></i></span>';
+                    } else {
+                      echo '<span><i class="far fa-star"></i></span>';
+                    }
+                  }
+                  ?>
+                </div>
+              </div>
+              <a href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7]; ?>"
+                class="product-name" id="product-name-<?php echo $result_product[0]; ?>">
+                <?php echo $result_product[1]; ?>
+              </a>
+              <?php echo $result_product[16] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$" . $result_product[3] . "</p>" : "";
+              ?>
+              <p class="product-price product-price-sale" id="product-price-<?php echo $result_product[0]; ?>">
+                <?php if (
+                  $result_product[16] !== "Không áp dụng"
+                ) {
+                  $sale_percent = $result_product[20];
+                  $sale_price = $result_product[3] - ($result_product[3] * ($sale_percent / 100));
+                  echo '$' . $sale_price;
+                } else {
+                  echo '$' . $result_product[3];
+                } ?>
+              </p>
+            </div>
+            <div class="off-info">
+              <?php if ($result_product[16] === "Không áp dụng") {
+                echo "";
+              } else {
+                $sale_percent = $result_product[20];
+                echo "<h2 class='sm-title'>Sale $sale_percent%</h2>";
+              }
+              ?>
+
+              <div class="favorite-icon" onclick="AddFavorite(event, <?php echo $result_product[0]; ?>)">
+                <i class="fa-regular fa-heart fav-icon" id="favorite-<?php echo $result_product[0]; ?>"
+                  data-id="<?php echo $result_product[0]; ?>"></i>
+              </div>
+            </div>
+          </div>
+          <!-- end of single product -->
+
+
+          <?php
+        }
+      }
+      ?>
+    </div>
+
+  </div>
 
   <?php include "./components/footer.php"; ?>
   <script src="./js/product_detail.js"></script>
@@ -187,13 +297,33 @@ if (isset($_GET["id"])) {
     });
   </script>
   <script src="./js/cartclick.js"></script> -->
+  <script src="./js/newWishList.js"></script>
+  <script src="./js/cartclick.js"></script>
+  <script src="./js/loadMoreProduct.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $(window).scroll(function () {
+        if ($(this).scrollTop() > 100) {
+          $('#scroll').fadeIn();
+        } else {
+          $('#scroll').fadeOut();
+        }
+      });
+      $('#scroll').click(function () {
+        $("html, body").animate({
+          scrollTop: 0
+        }, 600);
+        return false;
+      });
+    });
+  </script>
   <script src="./js/product_detail_listReview.js"></script>
   <script>
     const allStar = document.querySelectorAll('.rating .star')
     const ratingValue = document.querySelector('.rating input')
 
     allStar.forEach((item, idx) => {
-      item.addEventListener('click', function() {
+      item.addEventListener('click', function () {
         let click = 0
         ratingValue.value = idx + 1
 
@@ -212,6 +342,9 @@ if (isset($_GET["id"])) {
         }
       })
     })
+  </script>
+  <script>
+    
   </script>
 </body>
 
