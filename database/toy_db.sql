@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 07, 2023 lúc 09:42 AM
+-- Thời gian đã tạo: Th5 07, 2023 lúc 10:11 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.28
 
@@ -109,6 +109,13 @@ CREATE TABLE `comment` (
   `rate` tinyint(5) NOT NULL,
   `time` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `comment`
+--
+
+INSERT INTO `comment` (`id`, `content`, `user_id`, `product_id`, `rate`, `time`) VALUES
+(9, 'Sản phẩm như cc', 13, 6, 3, '12/02/2023');
 
 -- --------------------------------------------------------
 
@@ -590,7 +597,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT cho bảng `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `detail_enter_product`
