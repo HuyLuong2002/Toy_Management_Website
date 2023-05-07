@@ -23,7 +23,6 @@ if ($show == false) {
       "content" => $content,
       "user_id" => $user_id,
       "product_id" => $product_id,
-      "reply_id" => $reply_id,
       "rate" => $rate,
       "time" => $time,
     ];
