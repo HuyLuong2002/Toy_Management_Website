@@ -1,3 +1,4 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "/database/connectDB.php";
@@ -36,6 +37,10 @@ $pdfGenerator->setDocumentInformation(
 // add a page
 $pdfGenerator->addPage();
 // set font
+$pdfGenerator->setFont("dejavusans", "", 7);
+$pdfGenerator->formatText(0, 5, "Toy Shop", 0, 1, "L");
+$pdfGenerator->formatText(0, 5, "Địa chỉ: 153 Ngô Quyền P14. Q8", 0, 1, "L");
+$pdfGenerator->formatText(0, 5, "Hotline: 1900188628", 0, 1, "L");
 $pdfGenerator->setFont("dejavusans", "B", 11);
 // write content
 $pdfGenerator->formatText(0, 0, "Hóa đơn bán hàng", 0, 1, "C");
@@ -122,22 +127,19 @@ $pdfGenerator->formatText(20, 5, $sum_total_price, 1, 0, "R");
 $pdfGenerator->enterLine();
 $pdfGenerator->enterLine();
 //write payment information
-$pdfGenerator->setFont("dejavusans", "I", 5);
-$pdfGenerator->writeText("Bằng chữ: ");
-$pdfGenerator->enterLine();
 $pdfGenerator->setFont("dejavusans", "", 5);
-$pdfGenerator->formatTextDistance(40, 5, "Hình thức thanh toán: " . "Tiền mặt", 0);
-$pdfGenerator->formatTextDistance(45, 5, "Đã thanh toán: " . "900.000 VNĐ", 0);
-$pdfGenerator->formatTextDistance(45, 5, "Còn nợ: " . "0 VNĐ", 0);
+$pdfGenerator->formatTextDistance(40, 5, "Hình thức thanh toán: " . $result_order["pay_method"], 0);
+$pdfGenerator->formatTextDistance(45, 5, "Đã thanh toán: " . $sum_total_price, 0);
 $pdfGenerator->enterLine();
 //write signature information
 $pdfGenerator->setFont("dejavusans", "B", 5);
-$pdfGenerator->formatText(50, 5, "Thu ngân", 0, 0, "C");
-$pdfGenerator->formatText(50, 5, "Khách hàng", 0, 0, "C");
+$pdfGenerator->formatText(50, 2, "Thu ngân", 0, 0, "C");
+$pdfGenerator->formatText(50, 2, "Khách hàng", 0, 0, "C");
 $pdfGenerator->enterLine();
 $pdfGenerator->setFont("dejavusans", "", 5);
-$pdfGenerator->formatText(50, 5, "(Ký, ghi rõ họ tên)", 0, 0, "C");
-$pdfGenerator->formatText(50, 5, "(Ký, ghi rõ họ tên)", 0, 0, "C");
+$pdfGenerator->formatText(50, 3, "(Ký, ghi rõ họ tên)", 0, 0, "C");
+$pdfGenerator->formatText(50, 3, "(Ký, ghi rõ họ tên)", 0, 0, "C");
+$pdfGenerator->enterLine();
 $pdfGenerator->enterLine();
 $pdfGenerator->enterLine();
 $pdfGenerator->enterLine();

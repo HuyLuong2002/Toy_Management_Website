@@ -6,11 +6,12 @@ class Format
 {
   public function formatDate($date)
   {
-    return date("d/m/Y",strtotime($date));
+    return date("d/m/Y", strtotime($date));
   }
 
-  public function formatDateReverse($date){
-    $new_date = DateTime::createFromFormat('d/m/Y', $date)->format('Y-m-d');
+  public function formatDateReverse($date)
+  {
+    $new_date = DateTime::createFromFormat("d/m/Y", $date)->format("Y-m-d");
     return $new_date;
   }
 
@@ -52,7 +53,7 @@ class Format
   public function convertToVND($price)
   {
     $vnd = number_format($price, 0, ",", ".");
-    return $vnd . " đ";
+    return $vnd . " VNĐ";
   }
 
   public function formatPriceDecimal($price)
