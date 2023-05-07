@@ -31,7 +31,7 @@ class Comment
   //show = get category by id
   public function show($product_id)
   {
-    $query = "SELECT * FROM comment where product_id=?";
+    $query = "SELECT comment.*, account.username FROM comment, account where product_id=? AND comment.user_id = account.id";
     $stmt = $this->conn->prepare($query);
     $stmt->bindParam(1, $this->product_id);
     $stmt->execute();
