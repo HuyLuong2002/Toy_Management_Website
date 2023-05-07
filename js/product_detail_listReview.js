@@ -36,7 +36,7 @@ const handleLoadListReview = async () => {
         let flag = 0
         return `
             <div class="use-review" key="${index}">
-                <img src="${rev.img}" alt="avatar">
+                <img src=${rev.img ? rev.img : "./assets/images/user.png"} alt="avatar">
                 <div class="detail-review">
                     <p style="font-weight: 900;">${rev.username}</p>
                     <p>${rev.content}</p>
@@ -83,40 +83,32 @@ const countStarReview = () => {
 const handleAddReview = async (event, userId, productId) => {
     event.preventDefault();
     let apiGetCurrentUser = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/accounts/show.php?id=${userId}`) 
-    let apiGetCurrentProduct = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/product/show.php?id=${productId}`)
-    
+    // let apiGetCurrentProduct = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/product/show.php?id=${productId}`)
+
     newReview = {
-        product_id: apiGetCurrentProduct.id,
-        username: apiGetCurrentUser.username,
+        product_id: productId,
+        user_id: userId,
         content: txtReview.value,
         rate: countStarReview(),
-        img: apiGetCurrentUser.img || "./assets/images/pic-6.png",
-        date: new Date().toDateString()
+        img: apiGetCurrentUser.img || "./assets/images/user.png",
     }
 
-    // listReview.unshift(newReview)
+    // Lưu đánh giá vào cơ sở dữ liệu
+    await $.ajax({
+        url: "./controller/listReviewController.php",
+        method: "POST",
+        data: {review: newReview},
+        success: function(data){
+            console.log("data Ajax:", data);
+        },
+        error: function(xhr, status, error) {
+            console.log("Error:", error);
+        }
+    });
+
     handleLoadListReview()
     txtReview.value = ""
 }
 
-console.log(newReview);
 
-// save in db
-$(document).ready(function() {
-    $("#submit-review").click(function(){
-    if(newReview) {
-      $.ajax({
-        url: "../controller/commentController.php",
-        method: "POST",
-        data: newReview,
-        success: function(data){
-          console.log(data);
-        }
-      });
-    }
-    else
-    {
-        $("#list-user-review").css("display","block");
-    }
-    });
-});
+

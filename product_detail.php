@@ -209,7 +209,7 @@ if (isset($_GET["categoryID"])) {
                 <h2 class="sm-title">
                   <?php echo $result_product[13]; ?>
                 </h2>
-                <div class="rating">
+                <div class="related-rating">
                   <?php
                   $rating = $result_product[9];
                   for ($i = 0; $i < 5; $i++) {
