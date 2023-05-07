@@ -23,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
 <body>
     <div class="form-container">
-
         <form action="product_add.php" method="post" enctype="multipart/form-data">
             <?php if (isset($insertProduct)) {
               echo $insertProduct;
@@ -40,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea id="description" name="description" class="tinymce" required></textarea>
+                <textarea id="description" name="description" class="tinymce"></textarea>
             </div>
 
             <div class="form-group">
@@ -98,16 +97,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
             <input type="submit" name="submit" Value="Save" />
         </form>
     </div>
-<!-- Load TinyMCE -->
-<script src="./js/tiny-mce/jquery.tinymce.js" type="text/javascript"></script>
+</body>
+<script src="https://cdn.tiny.cloud/1/a4yip95kil5x5nn5y60qcu7jeg755ii26thhre1j0rxwg6ae/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
-<script type="text/javascript">
-  $(document).ready(function() {
-      setupTinyMCE();
+<script>
+  tinymce.init({
+    selector: '#description'
   });
 </script>
-<!-- Load TinyMCE -->
-</body>
-
 </html>
 
