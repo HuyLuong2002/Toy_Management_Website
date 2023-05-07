@@ -15,9 +15,40 @@ if (isset($_GET["id"])) {
   $id = $_GET["id"];
 }
 
-if (isset($_GET["deleteid"])) {
-  $delete_id = $_GET["deleteid"];
-  $delete_permission = $permissionController->delete_permission($delete_id);
+if (isset($_GET["permission_id"])) {
+  $show_permission = $permissionController->get_permission_by_id($_GET["permission_id"]);
+  if (mysqli_num_rows($show_permission) == 1) {
+    $sale = mysqli_fetch_array($show_permission);
+
+    $res = [
+      'status' => 200,
+      'message' => 'sale fetch successful by id',
+      'data' => $sale
+    ];
+    echo json_encode($res);
+    return;
+  } else {
+    $res = [
+      'status' => 404,
+      'message' => 'sale Id Not Found'
+    ];
+    echo json_encode($res);
+    return;
+  }
+}
+
+if (isset($_POST["delete-btn"])) {
+  $delete_id = $_POST["delete_id"];
+  $deletePermisson = $permissionController->delete_permission($delete_id);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add-btn"])) {
+  $insertPermission = $permissionController->insert_permission($_POST);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
+  $edit_id = $_POST["edit_id"];
+  $updatePermission = $permissionController->update_permission($_POST, $edit_id);
 }
 
 if (isset($_GET["page"])) {
@@ -53,14 +84,26 @@ if (isset($current_position)) {
 
 <div class="card" id="searchresultpermission">
   <div class="card-header">
+    <div class="bg-modal-box"></div>
     <h3>Permission List</h3>
-    <?php if (isset($delete_permission)) {
-      echo $delete_permission;
-    } ?>
-    <button>
-      <a href="permission_add.php">
-        Add permission <span class="las la-plus"></span>
-      </a>
+    <div class="notification">
+      <?php 
+      if (isset($deletePermisson)) {
+        echo $deletePermisson;
+      }
+      if (isset($insertPermission)) {
+        echo $insertPermission;
+      }
+      if (isset($updatePermission)) {
+        echo $updatePermission;
+      }
+      ?>
+    </div>
+
+    <button type="button" class="modal-btn-add" onclick="AddActive()">
+      <p>
+        Add sale <span class="las la-plus"></span>
+      </p>
     </button>
   </div>
 
@@ -77,14 +120,24 @@ if (isset($current_position)) {
         <tbody>
           <?php
           if (isset($result_pagination)) {
-            while ($result = $result_pagination->fetch_assoc()) {
+            while ($result = $result_pagination->fetch_array()) {
           ?>
               <tr>
-                <td><?php echo $result["id"]; ?></td>
-                <td><?php echo $result["name"]; ?></td>
+                <td><?php echo $result[0]; ?></td>
+                <td><?php echo $result[1]; ?></td>
                 <td>
-                  <a href="permission_edit.php?id=<?php echo $result["id"]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
-                  <a href="?id=6&deleteid=<?php echo $result["id"]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                  <div class="action-btn-group">
+                    <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
+                      <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                        Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
+                      </button>
+                    </div>
+                    <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
+                      <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                        Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                      </button>
+                    </div>
+                  </div>
                 <td>
               </tr>
           <?php
@@ -138,4 +191,77 @@ if (isset($current_position)) {
   <?php
   }
   ?>
+
+  <!-- Modal delete -->
+  <form class="modal-container-delete" id="modal-container-delete" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="delete_id" class="delete_id">
+    <div class="modal-delete-title">
+      Are you sure want to delete?
+    </div>
+    <div class="modal-delete-btn-group">
+      <button class="modal-delete-btn delete-btn" name="delete-btn">Delete</button>
+      <button type="button" class="modal-delete-btn delete-btn-cancel" id="delete-btn-cancel" onclick="cancelDeleteModal()">
+        <span>Cancel</span>
+      </button>
+    </div>
+  </form>
+  <!-- modal delete end -->
+
+  <!-- modal edit  -->
+  <form class="modal-container-edit" id="modal-container-edit" method="post" enctype="multipart/form-data">
+    <div class="modal-container-edit-close" onclick="closeCurdEditModal()"><span><i class="fa-solid fa-circle-xmark"></i></span></div>
+    <input type="hidden" id="edit_id" name="edit_id" class="edit_id">
+    <div class="modal-edit-info">
+      <div class="modal-edit-info-item">
+        <label for="name">Name</label>
+        <input type="text" id="name_edit" name="name_edit" required value="">
+      </div>
+    </div>
+
+    <input class="modal-edit-btn" name="edit-btn" type="submit" value="Save">
+  </form>
+  <!-- modal edit end -->
+
+  <!-- modal add  -->
+  <form class="modal-container-add" id="modal-container-add" method="post" enctype="multipart/form-data">
+    <div class="modal-container-add-close" onclick="closeCurdAddModal()"><span><i class="fa-solid fa-circle-xmark"></i></span></div>
+    <div class="modal-add-info">
+      <div class="modal-add-info-item">
+        <label for="name">Name</label>
+        <input type="text" id="name_add" name="name_add" required value="">
+      </div>
+    </div>
+
+    <input onclick="" class="modal-add-btn" name="add-btn" type="submit" value="Save">
+  </form>
+  <!-- modal add end -->
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.modal-btn-delete').click(function(e) {
+      e.preventDefault();
+      var delete_id = $(this).val();
+      $('.delete_id').val(delete_id);
+    });
+  });
+
+  $(document).on('click', '.modal-btn-edit', function() {
+    var edit_id = $(this).val();
+
+    $.ajax({
+      type: "GET",
+      url: 'permission.php?permission_id=' + edit_id,
+      success: function(response) {
+        var res = jQuery.parseJSON(response);
+        if (res.status == 404) {
+          alert(res.message);
+        } else if (res.status == 200) {
+
+          $('#edit_id').val(res.data.id);
+          $('#name_edit').val(res.data.name);
+        }
+      }
+    })
+  });
+</script>

@@ -1,8 +1,8 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once $filepath . "/controller/inventory_addController.php";
+include_once $filepath . "\controller\inventoryController.php";
 include_once $filepath . "/controller/providersController.php";
-$inventory_addController = new InventoryAddController();
+$inventory_addController = new InventoryServices();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
   $insertInventory = $inventory_addController->insert_inventory($_POST);
