@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea id="description" name="description" required></textarea>
+                <textarea id="description" name="description" class="tinymce" required></textarea>
             </div>
 
             <div class="form-group">
@@ -98,7 +98,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
             <input type="submit" name="submit" Value="Save" />
         </form>
     </div>
+<!-- Load TinyMCE -->
+<script src="./js/tiny-mce/jquery.tinymce.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+      setupTinyMCE();
+  });
+</script>
+<!-- Load TinyMCE -->
 </body>
 
 </html>
+

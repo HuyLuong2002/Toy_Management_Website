@@ -7,9 +7,7 @@ class Comment
   //category properties
   public $id;
   public $content;
-  public $user_id;
   public $product_id;
-  public $reply_id;
   public $rate;
   public $time;
 
