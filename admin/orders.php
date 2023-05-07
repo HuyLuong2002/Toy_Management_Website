@@ -27,11 +27,6 @@ if (isset($_GET["deleteid"])) {
   $delete_orders = $orderController->delete_orders($delete_id);
 }
 
-if (isset($_GET["deleteid"])) {
-  $delete_id = $_GET["deleteid"];
-  $delete_sale = $saleController->delete_sale($delete_id);
-}
-
 if (isset($_GET["page"])) {
   $page_id = $_GET["page"];
   $pagination_id = $page_id;
@@ -87,6 +82,11 @@ if (isset($current_position)) {
             <td>User ID</td>
             <td>Quantity</td>
             <td>Date</td>
+            <td>Address</td>
+            <td>Phone</td>
+            <td>Email</td>
+            <td>State</td>
+            <td>Country</td>
             <td>Total price</td>
             <td>Payment method</td>
             <td>Status</td>
@@ -119,7 +119,22 @@ if (isset($current_position)) {
                     <?php echo $result[5]; ?>
                   </td>
                   <td>
-                    <?php echo $result[6] == 1 ? "Đã giao" : "Đang giao hàng"; ?>
+                    <?php echo $result[6]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[7]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[8]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[9]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[10]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[11] == 1 ? "Đã giao" : "Đang giao hàng"; ?>
                   </td>
                   <td>
                     <a href="?id=3&deleteid=<?php echo $result[0]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
@@ -153,13 +168,28 @@ if (isset($current_position)) {
                 <?php echo $result[3]; ?>
               </td>
               <td>
-                <?php echo $result[4]; ?>
-              </td>
+                    <?php echo $result[4]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[5]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[6]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[7]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[8]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[9]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[10]; ?>
+                  </td>
               <td>
-                <?php echo $result[5]; ?>
-              </td>
-              <td>
-                <?php echo $result[6] == 1 ? "Đã giao" : "Đang giao hàng"; ?>
+                <?php echo $result[11] == 1 ? "Đã giao" : "Đang giao hàng"; ?>
               </td>
               <td>
                 <a href="?id=3&deleteid=<?php echo $result[0]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
