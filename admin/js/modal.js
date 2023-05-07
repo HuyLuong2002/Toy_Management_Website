@@ -6,6 +6,11 @@ var modal_add = document.querySelector(`.modal-container-add`);
 var close_edit_modal = document.querySelector(".modal-container-edit-close span");
 var close_add_modal = document.querySelector(".modal-container-add-close span");
 
+const modalAlert = document.querySelector('.modal-alert');
+const modalClose = document.querySelector('.modal-alert-close');
+const modalProcess = document.querySelector('.modal-alert-process');
+
+// Modal Delete start
 function closeCURDDeleteModal() {
     modal_delete.classList.remove("active");
     bg_modal_box.classList.remove("active");
@@ -16,7 +21,22 @@ function openCURDDeleteModal() {
     bg_modal_box.classList.add("active");
 }
 
-function openCURDEditModal(){
+var DeleteActive = (id) => {
+    let btn_delete = document.getElementById(`action-btn-delete-${id}`);
+    btn_delete.addEventListener("click", function () {
+        openCURDDeleteModal();
+    });
+}
+
+var cancelDeleteModal = () => {
+    btn_delete_cancel.addEventListener("click", function () {
+        closeCURDDeleteModal();
+    });
+}
+// modal delete end
+
+//modal edit start
+function openCURDEditModal() {
     modal_edit.classList.add("active");
     bg_modal_box.classList.add("active");
 }
@@ -26,40 +46,10 @@ function closeCURDEditModal() {
     bg_modal_box.classList.remove("active");
 }
 
-function openCURDAddModal(){
-    modal_add.classList.add("active");
-    bg_modal_box.classList.add("active");
-}
-
-function closeCURDAddModal() {
-    modal_add.classList.remove("active");
-    bg_modal_box.classList.remove("active");
-}
-
-var DeleteActive = (id) => {
-    let btn_delete = document.getElementById(`action-btn-delete-${id}`);
-    btn_delete.addEventListener("click", function () {
-        openCURDDeleteModal();
-    });
-}
-
 var EditActive = (id) => {
     let btn_edit = document.getElementById(`action-btn-edit-${id}`);
     btn_edit.addEventListener("click", function () {
         openCURDEditModal();
-    });
-}
-
-var AddActive = () => {
-    let btn_add = document.querySelector('.action-btn-add');
-    btn_add.addEventListener("click", function () {
-        openCURDAddModal();
-    });
-}
-
-var cancelDeleteModal = () => {
-    btn_delete_cancel.addEventListener("click", function () {
-        closeCURDDeleteModal();
     });
 }
 
@@ -69,11 +59,91 @@ var closeCurdEditModal = () => {
     });
 }
 
+// modal edit end
+
+// modal add start
+function openCURDAddModal() {
+    modal_add.classList.add("active");
+    bg_modal_box.classList.add("active");
+}
+
+function closeCURDAddModal() {
+    modal_add.classList.remove("active");
+    bg_modal_box.classList.remove("active");
+}
+
+var AddActive = () => {
+    let btn_add = document.querySelector('.modal-btn-add');
+    btn_add.addEventListener("click", function () {
+        openCURDAddModal();
+    });
+}
+
 var closeCurdAddModal = () => {
     close_add_modal.addEventListener("click", function () {
         closeCURDAddModal();
     });
 }
 
+//modal add end
+
+
+// modal alert
+
+function addShowModalAlert(icon, title, color, obj) {
+    if (obj === undefined) {
+        clearTimeout(myTimeOut);
+        addRemoveModalAlert();
+        setTimeout(function () {
+            modalAlert.querySelector('.modal-alert-content .modal-alert-left').innerHTML = `<i class="${icon}></i>`;
+            modalAlert.querySelector('.modal-alert-content .modal-alert-right .modal-alert-right-title').innerHTML = title;
+            modalAlert.style.backgroundColor = color;
+            modalAlert.classList.remove('hide');
+            modalAlert.classList.add('show');
+            modalProcess.classList.add('active');
+            myTimeOut = setTimeout(function () {
+                addRemoveModalAlert();
+                // console.log("Me end");
+            }, 5000);
+        }, 300);
+        return;
+    }
+
+    obj.addEventListener("click", function () {
+        clearTimeout(myTimeOut);
+        addRemoveModalAlert();
+        setTimeout(function () {
+            modalAlert.querySelector('.modal-alert-content .modal-alert-left').innerHTML = `<i class="${icon}></i>`;
+            modalAlert.querySelector('.modal-alert-content .modal-alert-right .modal-alert-right-title').innerHTML = title;
+            modalAlert.style.backgroundColor = color;
+            modalAlert.classList.remove('hide');
+            modalAlert.classList.add('show');
+            modalProcess.classList.add('active');
+            myTimeOut = setTimeout(function () {
+                addRemoveModalAlert();
+                // console.log("Me end");
+            }, 5000);
+        }, 300);
+    })
+}
+
+addRemoveModalAlert(modalClose);
+function addRemoveModalAlert(obj) {
+    if (obj === undefined) {
+        modalAlert.classList.remove('show');
+        modalAlert.classList.add('hide');
+        modalProcess.classList.remove('active');
+        return;
+    }
+    obj.addEventListener('click', function () {
+        modalAlert.classList.remove('show');
+        modalAlert.classList.add('hide');
+        modalProcess.classList.remove('active');
+    })
+}
+
+function saveEditAction() {
+
+}
 
 

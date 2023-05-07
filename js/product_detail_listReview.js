@@ -3,6 +3,10 @@ let formReview = document.getElementById("wrap-list-reviews")
 let btnAddReview = document.getElementById("submit-review")
 let txtReview = document.getElementById('review-opinion')
 let getAllStar = document.querySelectorAll('.rating .star')
+const uri = window.location.href;
+const match = uri.match(/id=([^&]*)/);
+const idPage = match ? match[1] : null;
+const newIdProduct = Number(idPage)
 
 let newReview = {
     product_id: "",
@@ -12,75 +16,23 @@ let newReview = {
     img: ""
 }
 
-// const listReview = [
-//     {
-//         id: 1,
-//         userId: "blabla",
-//         productId: "blabla",
-//         review: "San pham nhu cai dau bui re rach",
-//         reply: [
-//             {
-//                 id: 1,
-//                 userId: "blabla",
-//                 review: "San pham nhu cai dau bui re rach",
-//                 img: "./assets/images/pic-6.png",
-//                 createdAt: new Date(),
-//                 updatedAt: new Date(),
-//             }
-//         ],
-//         countStar: 3,
-//         img: "./assets/images/pic-6.png",
-//         createdAt: new Date(),
-//         updatedAt: new Date(),
-//         dateTime: "24/4/2023, 10:12:26",
-//         username: "Chú bé đôgêmon",
-//     },
-//     {
-//         id: 2,
-//         username: "Chú bé đôgêmon",
-//         review: "San pham nhu cai dau bui re rach",
-//         dateTime: "24/4/2023, 10:12:26",
-//         countStar: 1,
-//         img: "./assets/images/pic-6.png"
-//     },
-//     {
-//         id: 3,
-//         username: "Viên Huy Lương",
-//         review: "San pham nhu cai dau bui re rach",
-//         dateTime: "24/4/2023, 10:12:26",
-//         countStar: 4,
-//         img: "./assets/images/pic-6.png"
-//     },
-//     {
-//         id: 4,
-//         username: "Ông Hoàng",
-//         review: "San pham nhu cai dau bui re rach",
-//         dateTime: "24/4/2023, 10:12:26",
-//         countStar: 2,
-//         img: "./assets/images/pic-6.png"
-//     },
-//     {
-//         id: 5,
-//         username: "Luccode",
-//         review: "San pham nhu cai dau bui re rach",
-//         dateTime: "24/4/2023, 10:12:26",
-//         countStar: 0,
-//         img: "./assets/images/pic-6.png"
-//     }
-// ]
-
-// Call API all comments of product
-const listReview = []
+const fetchAPI = async (api) => {
+    return await fetch(api)
+        .then(response => response.json())
+        .then(data => data)
+        .catch(error => console.error(error));
+}
 
 let arrStar = [0,0,0,0,0]
 
-const handleShowListReview = (arr = listReview) => {
-    if (!arr.length) {
+const handleLoadListReview = async () => {
+    let arr = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/comment/show.php?productID=${newIdProduct}`)
+    if (!arr.comment.length) {
         listUserReview.innerHTML = "<h1>Not found review!</h1>";
         return;
     }
 
-    const ListUserReview = arr.map((rev, index) => { 
+    const UserReview = arr.comment.map((rev, index) => { 
         let flag = 0
         return `
             <div class="use-review" key="${index}">
@@ -97,20 +49,20 @@ const handleShowListReview = (arr = listReview) => {
                             }).join("")
                         }
                         </div>
-                        <span>${rev.date}</span>
+                        <span>${rev.time}</span>
                     </div>
                 </div>
             </div>
         `;
     }).join('');
 
-    listUserReview.innerHTML = ListUserReview;
+    listUserReview.innerHTML = UserReview;
 }
 
 const HandleShowListReview = () => {
+    console.log("id product:", newIdProduct)
     formReview.style.display = "flex"
-    handleShowListReview(listReview)
-    console.log(getAllStar);
+    handleLoadListReview()
 }
 
 const handleClose = () => {
@@ -126,17 +78,13 @@ const countStarReview = () => {
     return checkStar
 }
 
-const fetchAPI = async (api) => {
-    return await fetch(api)
-        .then(response => response.json())
-        .then(data => data)
-        .catch(error => console.error(error));
-}
+
 
 const handleAddReview = async (event, userId, productId) => {
     event.preventDefault();
     let apiGetCurrentUser = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/accounts/show.php?id=${userId}`) 
     let apiGetCurrentProduct = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/product/show.php?id=${productId}`)
+    
     newReview = {
         product_id: apiGetCurrentProduct.id,
         username: apiGetCurrentUser.username,
@@ -146,26 +94,12 @@ const handleAddReview = async (event, userId, productId) => {
         date: new Date().toDateString()
     }
 
-    console.log(newReview);
-    listReview.unshift(newReview)
-    handleShowListReview(listReview)
+    // listReview.unshift(newReview)
+    handleLoadListReview()
     txtReview.value = ""
 }
 
-// const handleAddReview = (event, userId, productId) => {
-//     event.preventDefault();
-//     let newReview = {
-//         id: listReview.length,
-//         username: "Ông Hoàng",
-//         review: txtReview.value,
-//         dateTime: "24/4/2023, 10:12:26",
-//         countStar: countStarReview(),
-//         img: "./assets/images/pic-6.png"
-//     }
-//     listReview.unshift(newReview)
-//     handleShowListReview(listReview)
-//     txtReview.value = ""
-// }
+console.log(newReview);
 
 // save in db
 $(document).ready(function() {
