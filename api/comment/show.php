@@ -21,9 +21,8 @@ if ($show == false) {
     $comment_item = [
       "id" => $id,
       "content" => $content,
-      "user_id" => $user_id,
+      "username" => $username,
       "product_id" => $product_id,
-      "reply_id" => $reply_id,
       "rate" => $rate,
       "time" => $time,
     ];
