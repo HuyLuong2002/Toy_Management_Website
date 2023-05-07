@@ -1,16 +1,8 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once($filepath . "\Toy_Management_Website\controller\product_detailController.php");
+include_once($filepath . "/Toy_Management_Website/controller/product_detailController.php");
 include_once $filepath . "/controller/productsController.php";
-include_once($filepath . "\helpers\\format.php");
-include "./lib/session.php";
-
-Session::init();
-$user_id = Session::get("userID");
-if(empty($user_id))
-{
-    header("Location: login.php");
-}
+include_once($filepath . "/helpers/format.php");
 
 $fm = new Format();
 $product_detailController = new ProductDetailController();
@@ -91,11 +83,11 @@ if (isset($_GET["categoryID"])) {
               ?>
               <span>(250 ratings)</span>
             </div>
-            <p class="product-description">
+            <div class="product-description">
               <?php
-              echo $fm->textShorten($result_product_detail[4]);
+              echo $fm->textShorten($result_product_detail[4], 50);
               ?>
-            </p>
+            </div>
             <div class="btn-groups">
               <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product_detail[0]; ?>)"
                 data-id="<?php echo $result_product_detail[0]; ?>" data-quantity=1>
@@ -110,14 +102,9 @@ if (isset($_GET["categoryID"])) {
           </div>
 
           <div class="product-information">
-            <div class="product-content">
-              <span>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy text
-                ever since the 1500s, when an unknown printer took a galley of
-                type and scrambled it to make a type specimen book.
-              </span>
-            </div>
+                <?php
+                  echo $fm->textShorten($result_product_detail[4]);
+                ?>
           </div>
 
           <div class="product-review">

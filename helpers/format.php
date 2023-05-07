@@ -6,20 +6,25 @@ class Format
 {
   public function formatDate($date)
   {
-    return date("d/m/Y",strtotime($date));
+    return date("d/m/Y", strtotime($date));
   }
 
-  public function formatDateReverse($date){
-    $new_date = DateTime::createFromFormat('d/m/Y', $date)->format('Y-m-d');
+  public function formatDateReverse($date)
+  {
+    $new_date = DateTime::createFromFormat("d/m/Y", $date)->format("Y-m-d");
     return $new_date;
   }
 
   public function textShorten($text, $limit = 400)
   {
-    $text = $text . " ";
-    $text = substr($text, 0, $limit);
-    $text = substr($text, 0, strrpos($text, " "));
-    $text = $text . ".....";
+    if(strlen($text) > $limit)
+    {
+      $text = $text . " ";
+      $text = substr($text, 0, $limit);
+      $text = substr($text, 0, strrpos($text, " "));
+      $text = $text . ".....";
+      return $text;
+    }
     return $text;
   }
 
@@ -52,7 +57,7 @@ class Format
   public function convertToVND($price)
   {
     $vnd = number_format($price, 0, ",", ".");
-    return $vnd . " đ";
+    return $vnd . " VNĐ";
   }
 
   public function formatPriceDecimal($price)

@@ -36,9 +36,9 @@ include_once $filepath . "\helpers\\format.php";
         return $result;
     }
 
-    public function insert_provider($data, $files)
+    public function insert_provider($data)
     {
-        $providerName = mysqli_real_escape_string($this->db->link, $data["name"]);
+        $providerName = mysqli_real_escape_string($this->db->link, $data["name_add"]);
         
         if (
             $providerName == ""
@@ -57,9 +57,9 @@ include_once $filepath . "\helpers\\format.php";
             }
         }
     }
-    public function update_provider($data, $files, $id)
+    public function update_provider($data,$id)
     {
-        $providerName = mysqli_real_escape_string($this->db->link, $data["name"]);
+        $providerName = mysqli_real_escape_string($this->db->link, $data["name_edit"]);
 
         if (
             $providerName == ""

@@ -1,3 +1,19 @@
+<?php
+$filepath = realpath(dirname(__DIR__));
+include "./lib/session.php";
+include_once($filepath . "\Toy_Management_Website\controller\accountController.php");
+
+
+Session::init();
+$user_id = Session::get("userID");
+if (empty($user_id)) {
+    header("Location: login.php");
+}
+
+$accountController = new AccountController();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,61 +44,67 @@
                                             <span>1</span>
                                         </div>
                                         <div class="title">
-                                            <h1>Billing Information</h1>
+                                            <h1 Information</h1>
                                         </div>
                                     </div>
                                     <div class="content" id="address">
-                                        <form class="go-right">
-                                            <div>
-                                                <input type="name" name="first_name" value="" id="first_name" placeholder="First Name" data-trigger="change" data-validation-minlength="1" data-type="name" data-required="true" data-error-message="Enter Your First Name" /><label for="first_name">First Name</label>
-                                            </div>
 
-                                            <div>
-                                                <input type="name" name="last_name" value="" id="last_name" placeholder="Last Name" data-trigger="change" data-validation-minlength="1" data-type="name" data-required="true" data-error-message="Enter Your Last Name" /><label for="last_name">Last Name</label>
-                                            </div>
-                                            <div>
-                                                <input type="phone" name="telephone" value="" id="telephone" placeholder="Phone(+84)" data-trigger="change" data-validation-minlength="1" data-type="number" data-required="true" data-error-message="Enter Your Telephone Number" /><label for="telephone">Telephone</label>
-                                            </div>
-                                            <div>
-                                                <input type="text" name="address" value="" id="address" placeholder="Address" data-trigger="change" data-validation-minlength="1" data-type="text" data-required="true" data-error-message="Enter Your Billing Address" /><label for="Address">Address</label>
-                                            </div>
-                                            <div>
-                                                <input type="email" name="email" value="" id="email" placeholder="Email" data-trigger="change" data-validation-minlength="1" data-type="text" data-required="true" data-error-message="Enter Your Email" /><label for="email">Email</label>
-                                            </div>
-                                            <div>
-                                                <div class="state_options">
-                                                    <div class="select">
-                                                        <select id="state">
-                                                            <option value="1">Alabama</option>
-                                                            <option value="2">Alaska</option>
-                                                            <option value="3">Arkansas</option>
-                                                            <option value="4">Etc.</option>
-                                                        </select>
+
+                                        <!--  -->
+                                        <?php
+                                        $show_account = $accountController->show_account_by_id($user_id);
+                                        if ($show_account) {
+                                            while ($result_account = $show_account->fetch_array()) {
+                                        ?>
+
+
+                                                <form class="go-right" id="form_1">
+                                                    <div>
+                                                        <input type="name" name="first_name" value="<?php echo $result_account[3] ?>" id="first_name" placeholder="First Name" data-trigger="change" data-validation-minlength="1" data-type="name" data-required="true" data-error-message="Enter Your First Name" /><label for="first_name">First Name</label>
                                                     </div>
-                                                    <label class="state" for="state">State</label>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <input type="text" name="zip" value="" id="zip" placeholder="Zip Code" data-trigger="change" data-validation-minlength="1" data-type="text" data-required="true" data-error-message="Enter Your Billing Zip Code" /><label for="zip">Zip Code</label>
-                                            </div>
-                                            <div>
-                                                <div class="country_options">
-                                                    <div class="select">
-                                                        <select id="country">
-                                                            <option value="1">United States</option>
-                                                            <option value="2">United Kingdom</option>
-                                                            <option value="3">Uganda</option>
-                                                            <option value="4">Etc.</option>
-                                                        </select>
+
+                                                    <div>
+                                                        <input type="name" name="last_name" value="<?php echo $result_account[4] ?>" id="last_name" placeholder="Last Name" data-trigger="change" data-validation-minlength="1" data-type="name" data-required="true" data-error-message="Enter Your Last Name" /><label for="last_name">Last Name</label>
                                                     </div>
-                                                    <label class="country" for="country">Country</label>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <input type="checkbox" />
-                                                <label class="same" for="same_as_shipping">Same As Shipping Address</label><span></span>
-                                            </div>
-                                        </form>
+                                                    <div>
+                                                        <input type="phone" name="telephone" value="" id="telephone" placeholder="Phone(+84)" data-trigger="change" data-validation-minlength="10" data-type="number" data-required="true" data-error-message="Enter Your Telephone Number with length equal 10 " /><label for="telephone">Telephone</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="text" name="address" value="" id="address" placeholder="Address" data-trigger="change" data-validation-minlength="1" data-type="text" data-required="true" data-error-message="Enter Your Address" /><label for="Address">Address</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="email" name="email" value="" id="email" placeholder="Email" data-trigger="change" data-validation-minlength="1" data-type="text" data-required="true" data-error-message="Enter Your Email" /><label for="email"></label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="text" name="zip" value="" id="zip" placeholder="Zip Code" data-trigger="change" data-validation-minlength="1" data-type="text" data-error-message="Enter Your Zip Code" /><label for="zip">Zip Code</label>
+                                                    </div>
+                                                    <div>
+                                                        <div class="country_options">
+                                                            <div class="select">
+                                                                <select id="country">
+                                                                    <option value="1">VietNam</option>
+                                                                    <option value="2">United Kingdom</option>
+                                                                    <option value="3">United States</option>
+                                                                    <option value="4">Etc.</option>
+                                                                </select>
+                                                            </div>
+                                                            <label class="country" for="country">Country</label>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" />
+                                                        <label class="same" for="same_as_shipping">Same As Shipping Address</label><span></span>
+                                                    </div>
+                                                </form>
+
+
+                                        <?php
+                                            }
+                                        }
+                                        ?>
+                                        <!--  -->
+
+
                                         <p class="continue" onclick="handleClickNext()">Continue</p>
                                     </div>
                                 </div>
@@ -127,7 +149,7 @@
 
                             </div>
                         </div>
-                        
+
                         <div class="swiper-slide">
                             <div class="swiper-center">
 
@@ -147,12 +169,12 @@
                                         <div class="left">
                                             <form class="go-right">
                                                 <div>
-                                                    <input type="text" name="card_number" value="" id="card_number" placeholder="xxxx-xxxx-xxxx-xxxx" data-trigger="change" data-validation-minlength="1" data-type="name" data-required="true" data-error-message="Enter Your Credit Card Number" /><label for="card_number">Card Number</label>
+                                                    <input type="text" name="card_number" value="" id="card_number" placeholder="xxxx-xxxx-xxxx-xxxx" data-trigger="change" data-validation-minlength="1" data-type="name" data-error-message="Enter Your Credit Card Number" /><label for="card_number">Card Number</label>
                                                 </div>
                                                 <div>
                                                     <div class="expiry">
                                                         <div class="month_select">
-                                                            <select name="exp_month" value="" id="exp_month" placeholder="" data-trigger="change" data-type="name" data-required="true" data-error-message="Enter Your Credit Card Expiration Date">
+                                                            <select name="exp_month" value="" id="exp_month" placeholder="" data-trigger="change" data-type="name" data-error-message="Enter Your Credit Card Expiration Date">
                                                                 <option value="1">01 (Jan)</option>
                                                                 <option value="2">02 (Feb)</option>
                                                                 <option value="3">03 (Mar)</option>
@@ -168,7 +190,7 @@
                                                             </select>
                                                         </div>
                                                         <div class="year_select">
-                                                            <select name="exp_year" value="" id="exp_year" placeholder="" data-trigger="change" data-type="name" data-required="true" data-error-message="Enter Your Credit Card Expiration Date">
+                                                            <select name="exp_year" value="" id="exp_year" placeholder="" data-trigger="change" data-type="name" data-error-message="Enter Your Credit Card Expiration Date">
                                                                 <option value="1">14 </option>
                                                                 <option value="2">15 (Feb)</option>
                                                                 <option value="3">16 (Mar)</option>
@@ -188,7 +210,7 @@
                                                 </div>
                                                 <div class="sec_num">
                                                     <div>
-                                                        <input type="text" name="ccv" value="" id="ccv" placeholder="123" data-trigger="change" data-validation-minlength="3" data-type="name" data-required="true" data-error-message="Enter Your Card Security Code" /><label for="ccv">Security Code</label>
+                                                        <input type="text" name="ccv" value="" id="ccv" placeholder="123" data-trigger="change" data-validation-minlength="3" data-type="name" data-error-message="Enter Your Card Security Code" /><label for="ccv">Security Code</label>
                                                     </div>
                                                 </div>
                                             </form>
@@ -216,8 +238,8 @@
 
                             </div>
                         </div>
-                        
-                        
+
+
 
                         <!-- <div class="swiper-slide">
                             <div class="swiper-center">
@@ -247,8 +269,6 @@
     let step = [1, 2, 3]
 </script>
 <script>
-    
-
     var swiper = new Swiper(".swiper-container", {
         pagination: {
             el: ".swiper-pagination",
@@ -259,10 +279,6 @@
             prevEl: ".swiper-button-prev",
         },
         loop: true,
-        // autoplay: {
-        //     delay: 2000,
-        //     disableOnInteraction: false,
-        // },
         speed: 700,
     });
 
@@ -272,7 +288,54 @@
     prevButton.style.display = "none";
 
     const handleClickNext = () => {
-        swiper.slideNext();
+        if (validateForm()) {
+            swiper.slideNext();
+        }
+        return
+    }
+
+    function validateForm() {
+        let inputs = document.querySelectorAll('input[data-required="true"]');
+        let valid = true;
+
+        for (let i = 0; i < inputs.length; i++) {
+            let input = inputs[i];
+            let error_message = input.getAttribute("data-error-message");
+            let is_required = input.getAttribute("data-required") === "true";
+            let type = input.getAttribute("data-type");
+            let value = input.value.trim();
+
+            if (is_required && value === "") {
+                alert(error_message);
+                valid = false;
+                break;
+            }
+
+            if (type === "name" && !/^[A-Za-z ]+$/.test(value)) {
+                alert(error_message);
+                valid = false;
+                break;
+            }
+
+            if (type === "email" && !/\S+@\S+\.\S+/.test(value)) {
+                alert(error_message);
+                valid = false;
+                break;
+            }
+
+            if (type === "number" && !/^\d+$/.test(value)) {
+                alert(error_message);
+                valid = false;
+                break;
+            }
+
+            if (input.name === "telephone" && !/^\d{10}$/.test(value)) {
+                alert(error_message);
+                valid = false;
+                break;
+            }
+        }
+        return valid;
     }
 </script>
 
