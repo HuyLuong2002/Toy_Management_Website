@@ -8,24 +8,31 @@ $db = new DB();
 $connect = $db->connect();
 $comment = new Comment($connect);
 $comment->product_id = isset($_GET["productID"]) ? $_GET["productID"] : die();
-$result = $comment->show($comment->product_id);
-if($result == false) {
+$show = $comment->show($comment->product_id);
+if ($show == false) {
   $comment_item = [
     "result" => "User ID comment not found",
   ];
-}
-else {
-  $comment_item = [
-    "id" => $comment->id,
-    "content" => $comment->content,
-    "user_id" => $comment->user_id,
-    "product_id" => $comment->product_id,
-    "reply_id" => $comment->reply_id,
-    "rate" => $comment->rate,
-    "time" => $comment->time,
-  ];
+} else {
+  $comment_array = array();
+  $comment_array['comment'] = [];
+  while ($row = $show->fetch(PDO::FETCH_ASSOC)) {
+    extract($row);
+    $comment_item = [
+      "id" => $id,
+      "content" => $content,
+      "user_id" => $user_id,
+      "product_id" => $product_id,
+      "reply_id" => $reply_id,
+      "rate" => $rate,
+      "time" => $time,
+    ];
+    //đẩy dữ liệu của mảng question_item vào mảng mới là category_array['data]
+    array_push($comment_array["comment"], $comment_item);
+  }
+  echo json_encode($comment_array);
+
 }
 
-print_r(json_encode($comment_item));
 
 ?>

@@ -38,15 +38,7 @@ class Comment
     $rowcount = $stmt->rowCount();
     if($rowcount == 0) return false;
 
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    $this->id = $row["id"];
-    $this->content = $row["content"];
-    $this->user_id = $row["user_id"];
-    $this->product_id = $row["product_id"];
-    $this->reply_id = $row["reply_id"];
-    $this->rate = $row["rate"];
-    $this->time = $row["time"];
-    return true;
+    return $stmt;
   }
 }
 ?>
