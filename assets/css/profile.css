@@ -8,7 +8,7 @@ body {
 
 .container {
     background: #FFFFFF;
-    width: 540px;
+    width: 660px;
     height: 540px;
     margin: 0 auto;
     position: relative;
@@ -29,25 +29,25 @@ body {
 
 .leftbox {
     float: left;
-    top: -5%;
-    left: 5%;
+    top: -3%;
+    left: 6%;
     position: absolute;
-    width: 20%;
-    height: 110%;
+    width: 26%;
+    height: 106%;
     background: #7ED386;
     box-shadow: 3px 3px 10px rgba(119, 119, 119, 0.5);
     text-align: center;
 }
 
 .avatar {
-    margin-top: 2rem;
+    margin-top: 1rem;
     margin-bottom: .5rem;
 }
 
 .avatar img {
     border-radius: 50%;
-    height: 70px;
-    width: 70px;
+    height: 150px;
+    width: 150px;
 }
 
 .username{
