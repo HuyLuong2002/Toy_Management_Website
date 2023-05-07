@@ -1,5 +1,5 @@
-let listUserReview = document.getElementById("list-user-review")
 let formReview = document.getElementById("wrap-list-reviews")
+let listUserReview = document.getElementById("list-user-review")
 let btnAddReview = document.getElementById("submit-review")
 let txtReview = document.getElementById('review-opinion')
 let getAllStar = document.querySelectorAll('.rating .star')
@@ -27,7 +27,7 @@ let arrStar = [0,0,0,0,0]
 
 const handleLoadListReview = async () => {
     let arr = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/comment/show.php?productID=${newIdProduct}`)
-    if (!arr.comment.length) {
+    if (!arr) {
         listUserReview.innerHTML = "<h1>Not found review!</h1>";
         return;
     }
@@ -60,7 +60,6 @@ const handleLoadListReview = async () => {
 }
 
 const HandleShowListReview = () => {
-    console.log("id product:", newIdProduct)
     formReview.style.display = "flex"
     handleLoadListReview()
 }
@@ -68,6 +67,12 @@ const HandleShowListReview = () => {
 const handleClose = () => {
     formReview.style.display = "none"
 }
+
+window.onclick = (e) => {
+    if(e.target == formReview) 
+        handleClose()
+}
+
 
 const countStarReview = () => {
     let checkStar = 0
@@ -85,6 +90,9 @@ const handleAddReview = async (event, userId, productId) => {
     let apiGetCurrentUser = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/accounts/show.php?id=${userId}`) 
     // let apiGetCurrentProduct = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/product/show.php?id=${productId}`)
 
+    let addSuccess = document.querySelector('.add-success')
+    let addFail = document.querySelector('.add-fail')
+
     newReview = {
         product_id: productId,
         user_id: userId,
@@ -99,9 +107,23 @@ const handleAddReview = async (event, userId, productId) => {
         method: "POST",
         data: {review: newReview},
         success: function(data){
-            console.log("data Ajax:", data);
+            $("#add-success").css("display","block");
+            addSuccess.classList.add("hide")
+
+            setTimeout(function() {
+                addSuccess.style.display = 'none';
+                addSuccess.classList.remove('hide');
+            }, 2500);
         },
         error: function(xhr, status, error) {
+            $("#add-fail").css("display","block");
+            addFail.classList.toggle("hide")
+
+            setTimeout(function() {
+                addFail.style.display = 'none';
+                addFail.classList.remove('hide');
+            }, 2500);
+
             console.log("Error:", error);
         }
     });
@@ -109,6 +131,7 @@ const handleAddReview = async (event, userId, productId) => {
     handleLoadListReview()
     txtReview.value = ""
 }
+
 
 
 
