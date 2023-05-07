@@ -1,11 +1,11 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "/controller/providersController.php";
+include_once $filepath . "\controller\provider_addController.php";
 include_once $filepath . "/helpers/pagination.php";
-include_once $filepath . "/controller/provider_addController.php";
 
 $providerController = new ProviderController();
-$provider_addController = new ProductAddController();
+$provider_addController = new ProviderAddController();
 $pag = new Pagination();
 
 if (isset($_POST["input"])) {

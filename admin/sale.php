@@ -2,13 +2,9 @@
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "/controller/saleController.php";
 include_once $filepath . "/helpers/pagination.php";
-include_once $filepath . "/controller/sale_editController.php";
-include_once $filepath . "/controller/sale_addController.php";
 include_once $filepath . "/helpers/format.php";
 
 $saleController = new SaleController();
-$sale_addController = new SaleAddController();
-$sale_editController = new SaleEditController();
 $pag = new Pagination();
 $fm = new Format();
 
@@ -22,7 +18,7 @@ if (isset($_GET["id"])) {
 }
 
 if (isset($_GET["sale_id"])) {
-  $show_sale = $sale_editController->get_sale_by_id($_GET["sale_id"]);
+  $show_sale = $saleController->get_sale_by_id($_GET["sale_id"]);
   if (mysqli_num_rows($show_sale) == 1) {
     $sale = mysqli_fetch_array($show_sale);
 
@@ -36,7 +32,7 @@ if (isset($_GET["sale_id"])) {
   } else {
     $res = [
       'status' => 404,
-      'message' => 'Student Id Not Found'
+      'message' => 'sale Id Not Found'
     ];
     echo json_encode($res);
     return;
@@ -49,12 +45,12 @@ if (isset($_POST["delete-btn"])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add-btn"])) {
-  $insertSale = $sale_addController->insert_sale($_POST);
+  $insertSale = $saleController->insert_sale($_POST);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
   $edit_id = $_POST["edit_id"];
-  $updateSale = $sale_editController->update_sale($_POST, $edit_id);
+  $updateSale = $saleController->update_sale($_POST, $edit_id);
 }
 
 if (isset($_GET["page"])) {
@@ -103,7 +99,7 @@ if (isset($current_position)) {
         echo $insertSale;
       } ?>
     </div>
-    <button type="button" class="action-btn-add" onclick="AddActive()">
+    <button type="button" class="modal-btn-add" onclick="AddActive()">
       <p>
         Add sale <span class="las la-plus"></span>
       </p>
@@ -159,7 +155,6 @@ if (isset($current_position)) {
                   <td>
                     <div class="action-btn-group">
                       <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
-                        <!-- <a href="sale_edit.php?id=<?php echo $result[0]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a> -->
                         <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
                           Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
                         </button>
@@ -367,9 +362,21 @@ if (isset($current_position)) {
       </div>
     </div>
 
-    <input class="modal-add-btn" name="add-btn" type="submit" value="Save">
+    <input onclick="" class="modal-add-btn" name="add-btn" type="submit" value="Save">
   </form>
   <!-- modal add end -->
+
+  <!-- modal alert -->
+  <div class="modal-alert hide">
+    <div class="modal-alert-close"><i class="fa-solid fa-circle-xmark"></i></div>
+    <div class="modal-alert-content">
+      <div class="modal-alert-left"></div>
+      <div class="modal-alert-right">
+        <div class="modal-alert-right-title"></div>
+      </div>
+    </div>
+    <div class="modal-alert-process"></div>
+  </div>
 </div>
 
 <script src="./js/modal.js"></script>
@@ -412,9 +419,16 @@ if (isset($current_position)) {
     })
   });
 
-  $(document).on('click', '.action-btn-add', function(e) {
+  $(document).on('click', '.modal-btn-add', function(e) {
     e.preventDefault();
-
+    // $.ajax({
+    //   type: "GET",
+    //   url: 'sale.php?edit-btn',
+    //   success: function(response) {
+    //     var res = jQuery.parseJSON(response);
+    //       // console.log(response);
+    //   }
+    // });
   });
 </script>
 
