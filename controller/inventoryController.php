@@ -22,5 +22,26 @@ class InventoryController
         $result = $inventoryServices->show_inventory_by_pagination($offset, $limit_per_page);
         return $result;
     }
+
+    public function insert_inventory($data)
+    {
+        $inventoryServices = new InventoryServices();
+        $result = $inventoryServices->insert_inventory($data);
+        return $result;
+    }
+
+    public function update_inventory($data, $id)
+    {
+        $inventoryService = new InventoryServices();
+        $result = $inventoryService->update_inventory($data, $id);
+        return $result;
+    }
+
+    public function get_inventory_by_id($id)
+    {
+        $inventoryService = new InventoryServices();
+        $result = $inventoryService->get_inventory_by_id($id);
+        return $result;
+    }
 }
 ?>

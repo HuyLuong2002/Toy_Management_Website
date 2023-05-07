@@ -61,38 +61,58 @@ if (isset($_GET["deleteid"])) {
                                         <?php echo $result[1]; ?>
                                     </td>
                                     <td>
-                                        <a href="category_edit.php?id=<?php echo $result[0]; ?>">Edit</a> |
-                                        <a href="?id=10&deleteid=<?php echo $result[0]; ?>">Delete</a>
+                                        <div class="action-btn-group">
+                                            <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
+                                                <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                                                    Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
+                                                </button>
+                                            </div>
+                                            <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
+                                                <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                                                    Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
-                            <?php }
+                        <?php }
                         } else {
                             echo "<span class='error'>No Data Found</span>";
                         } ?>
-                    </tbody>
-                </table>
-                <?php
+                </tbody>
+            </table>
+        <?php
                     } else {
-                        ?>
-                <tbody>
-                    <?php
-                    $show_category = $categoryController->show_category();
-                    if ($show_category) {
-                        while ($result = $show_category->fetch_array()) { ?>
-                            <tr>
-                                <td>
-                                    <?php echo $result[0]; ?>
-                                </td>
-                                <td>
-                                    <?php echo $result[1]; ?>
-                                </td>
-                                <td>
-                                    <a href="category_edit.php?id=<?php echo $result[0]; ?>">Edit</a> |
-                                    <a href="?id=10&deleteid=<?php echo $result[0]; ?>">Delete</a>
-                                </td>
-                            </tr>
-                        <?php }
-                    }
+        ?>
+            <tbody>
+                <?php
+                        $show_category = $categoryController->show_category();
+                        if ($show_category) {
+                            while ($result = $show_category->fetch_array()) { ?>
+                        <tr>
+                            <td>
+                                <?php echo $result[0]; ?>
+                            </td>
+                            <td>
+                                <?php echo $result[1]; ?>
+                            </td>
+                            <td>
+                                <div class="action-btn-group">
+                                    <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
+                                        <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                                            Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
+                                        </button>
+                                    </div>
+                                    <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
+                                        <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                                            Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+            <?php }
+                        }
                     } ?>
             </tbody>
             </table>

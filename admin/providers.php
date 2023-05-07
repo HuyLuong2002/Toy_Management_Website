@@ -2,10 +2,8 @@
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "/controller/providersController.php";
 include_once $filepath . "/helpers/pagination.php";
-include_once $filepath . "/controller/provider_addController.php";
 
 $providerController = new ProviderController();
-$provider_addController = new ProviderAddController();
 $pag = new Pagination();
 
 if (isset($_POST["input"])) {
@@ -17,17 +15,48 @@ if (isset($_GET["id"])) {
   $id = $_GET["id"];
 }
 
+if (isset($_GET["provider_id"])) {
+  $show_provider = $providerController->get_provider_by_id($_GET["provider_id"]);
+  if (mysqli_num_rows($show_provider) == 1) {
+    $sale = mysqli_fetch_array($show_provider);
+
+    $res = [
+      'status' => 200,
+      'message' => 'sale fetch successful by id',
+      'data' => $sale
+    ];
+    echo json_encode($res);
+    return;
+  } else {
+    $res = [
+      'status' => 404,
+      'message' => 'sale Id Not Found'
+    ];
+    echo json_encode($res);
+    return;
+  }
+}
+
 if (isset($_GET["page"])) {
   $page_id = $_GET["page"];
   $pagination_id = $page_id;
 }
 
-if (isset($_GET["deleteid"])) {
-  $delete_id = $_GET["deleteid"];
+if (isset($_POST["delete-btn"])) {
+  $delete_id = $_POST["delete_id"];
   $delete_provider = $providerController->delete_provider($delete_id);
 }
 
-if(isset($_GET["detailid"])){
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add-btn"])) {
+  $insertProvider = $providerController->insert_provider($_POST);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
+  $edit_id = $_POST["edit_id"];
+  $updateUpdate = $providerController->update_provider($_POST, $edit_id);
+}
+
+if (isset($_GET["detailid"])) {
   include "orders_detail.php";
 }
 
@@ -58,18 +87,28 @@ if (isset($current_position))
 
 
 <div class="card" id="searchresultprovider">
+  <div class="bg-modal-box"></div>
   <div class="card-header">
     <h3>Providers List</h3>
-    <?php
 
-    if (isset($delete_provider)) {
-      echo $delete_provider;
-    }
-    ?>
-    <button>
-      <a href="provider_add.php">
-        Add provider <span class="las la-plus"></span>
-      </a>
+    <div class="notification">
+      <?php
+
+      if (isset($delete_provider)) {
+        echo $delete_provider;
+      }
+      if (isset($insertProvider)) {
+        echo $insertProvider;
+      }
+      if (isset($updateProvider)) {
+        echo $updateProvider;
+      }
+      ?>
+    </div>
+    <button type="button" class="modal-btn-add" onclick="AddActive()">
+      <p>
+        Add Provider <span class="las la-plus"></span>
+      </p>
     </button>
   </div>
 
@@ -97,8 +136,18 @@ if (isset($current_position))
                     <?php echo $result[1]; ?>
                   </td>
                   <td>
-                    <a href="provider_edit.php?id=<?php echo $result[0]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
-                    <a href="?id=7&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                    <div class="action-btn-group">
+                      <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
+                        <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                          Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
+                        </button>
+                      </div>
+                      <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
+                        <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                          Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                        </button>
+                      </div>
+                    </div>
                   </td>
                 </tr>
             <?php }
@@ -109,12 +158,12 @@ if (isset($current_position))
       </table>
     <?php
           } else {
-            ?>
-        <tbody id="provider-data">
-          <?php
-          if ($result_pagination) {
-            while ($result = $result_pagination->fetch_array()) { ?>
-              <tr>
+    ?>
+      <tbody id="provider-data">
+        <?php
+            if ($result_pagination) {
+              while ($result = $result_pagination->fetch_array()) { ?>
+            <tr>
               <td>
                 <?php echo $result[0]; ?>
               </td>
@@ -122,8 +171,18 @@ if (isset($current_position))
                 <?php echo $result[1]; ?>
               </td>
               <td>
-                <a href="provider_edit.php?id=<?php echo $result[0]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
-                <a href="?id=<?php echo $id; ?>&page=<?php echo $page_id;?>&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                <div class="action-btn-group">
+                  <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
+                    <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                      Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
+                    </button>
+                  </div>
+                  <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
+                    <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                      Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                    </button>
+                  </div>
+                </div>
               <td>
             </tr>
       <?php }
@@ -143,23 +202,24 @@ if (isset($current_position))
                 </a>
               </li>
             <?php } ?>
-            <?php 
+            <?php
             $pagination = $pag->pageNumber($page_total, 4, $pagination_id);
             $length = count($pagination);
             for ($i = 1; $i <= $length; $i++) {
               if ($pagination[$i] > 0) {
-              if ($pagination[$i] == $pagination_id) {
-                $current = "current";
-              } else {
-                $current = "";
-              }
+                if ($pagination[$i] == $pagination_id) {
+                  $current = "current";
+                } else {
+                  $current = "";
+                }
             ?>
-              <li class="item <?php echo $current?>" id="<?php echo $pagination[$i]; ?>">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
-                  <?php echo $pagination[$i]; ?>
-                </a>
-              </li>
-            <?php } }?>
+                <li class="item <?php echo $current ?>" id="<?php echo $pagination[$i]; ?>">
+                  <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
+                    <?php echo $pagination[$i]; ?>
+                  </a>
+                </li>
+            <?php }
+            } ?>
             <?php if ($page_total - 1 > $pagination_id + 1) { ?>
               <li class="item next-page">
                 <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id + 1; ?>">
@@ -174,6 +234,50 @@ if (isset($current_position))
       ?>
     </div>
   </div>
+
+  <!-- Modal delete -->
+  <form class="modal-container-delete" id="modal-container-delete" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="delete_id" class="delete_id">
+    <div class="modal-delete-title">
+      Are you sure want to delete?
+    </div>
+    <div class="modal-delete-btn-group">
+      <button class="modal-delete-btn delete-btn" name="delete-btn">Delete</button>
+      <button type="button" class="modal-delete-btn delete-btn-cancel" id="delete-btn-cancel" onclick="cancelDeleteModal()">
+        <span>Cancel</span>
+      </button>
+    </div>
+  </form>
+  <!-- modal delete end -->
+
+  <!-- modal edit  -->
+  <form class="modal-container-edit" id="modal-container-edit" method="post" enctype="multipart/form-data">
+    <div class="modal-container-edit-close" onclick="closeCurdEditModal()"><span><i class="fa-solid fa-circle-xmark"></i></span></div>
+    <input type="hidden" id="edit_id" name="edit_id" class="edit_id">
+    <div class="modal-edit-info">
+      <div class="modal-edit-info-item">
+        <label for="name">Name</label>
+        <input type="text" id="name_edit" name="name_edit" required value="">
+      </div>
+    </div>
+
+    <input class="modal-edit-btn" name="edit-btn" type="submit" value="Save">
+  </form>
+  <!-- modal edit end -->
+
+  <!-- modal add -->
+  <form class="modal-container-add" id="modal-container-add" method="post" enctype="multipart/form-data">
+    <div class="modal-container-add-close" onclick="closeCurdAddModal()"><span><i class="fa-solid fa-circle-xmark"></i></span></div>
+    <div class="modal-add-info">
+      <div class="modal-add-info-item">
+        <label for="name">Name</label>
+        <input type="text" id="name_add" name="name_add" required value="">
+      </div>
+    </div>
+
+    <input onclick="" class="modal-add-btn" name="add-btn" type="submit" value="Save">
+  </form>
+  <!-- modal add end -->
 </div>
 
 <!-- ajax to pagination for provider -->
@@ -200,5 +304,32 @@ if (isset($current_position))
       loadProduct(page);
     });
 
+  });
+
+  $(document).ready(function() {
+    $('.modal-btn-delete').click(function(e) {
+      e.preventDefault();
+      var delete_id = $(this).val();
+      $('.delete_id').val(delete_id);
+    });
+  });
+
+  $(document).on('click', '.modal-btn-edit', function() {
+    var edit_id = $(this).val();
+
+    $.ajax({
+      type: "GET",
+      url: 'providers.php?provider_id=' + edit_id,
+      success: function(response) {
+        var res = jQuery.parseJSON(response);
+        if (res.status == 404) {
+          alert(res.message);
+        } else if (res.status == 200) {
+
+          $('#edit_id').val(res.data.id);
+          $('#name_edit').val(res.data.name);
+        }
+      }
+    })
   });
 </script>

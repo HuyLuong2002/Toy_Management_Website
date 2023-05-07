@@ -35,7 +35,7 @@ include_once $filepath . "\database\connectDB.php";
 
   public function insert_permission($data)
   {
-    $name = mysqli_real_escape_string($this->db->link, $data["name"]);
+    $name = mysqli_real_escape_string($this->db->link, $data["name_add"]);
     $query = "INSERT INTO permission(name) VALUES ('$name')";
     $result = $this->db->insert($query);
     if ($result) {
@@ -49,7 +49,7 @@ include_once $filepath . "\database\connectDB.php";
 
   public function update_permission($data, $id)
   {
-    $name = mysqli_real_escape_string($this->db->link, $data["name"]);
+    $name = mysqli_real_escape_string($this->db->link, $data["name_edit"]);
     $query = "UPDATE permission SET name = '$name' WHERE id = '$id'";
     $result = $this->db->update($query);
     if ($result) {
