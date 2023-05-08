@@ -8,11 +8,12 @@ $user_id = Session::get("userID");
 if (empty($user_id)) {
     header("Location: login.php");
 }
-$cartAddCookie = isset($_COOKIE['cartAdd']) ? $_COOKIE['cartAdd'] : null;
+$cartAddCookie = isset($_COOKIE['Order']) ? $_COOKIE['Order'] : null;
 $cartAdd = json_decode($cartAddCookie, true);
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($cartAdd)) {
     $cartController = new CartController();
     $alert = $cartController->addCart($cartAdd, $user_id);
+    
 }
 
 ?>
