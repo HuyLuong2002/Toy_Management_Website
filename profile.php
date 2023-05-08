@@ -1,12 +1,13 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
 include_once($filepath . "\Toy_Management_Website\controller\accountController.php");
+include_once $filepath . "/helpers/format.php";
 
 $accountController = new AccountController();
+$fm = new Format();
 
 if (empty($_GET["id"])) {
     header("Location: login.php");
-
 }
 ?>
 
@@ -30,7 +31,7 @@ if (empty($_GET["id"])) {
         $show_account = $accountController->show_account_by_id($_GET["id"]);
         if ($show_account) {
             while ($result_account = $show_account->fetch_array()) {
-                ?>
+        ?>
                 <div class="leftbox">
                     <div class="avatar">
                         <img src="./assets/images/pic-1.png" alt="">
@@ -40,41 +41,57 @@ if (empty($_GET["id"])) {
                     </div>
                 </div>
                 <div class="rightbox">
-                    <div class="profile">
-                        <h1>Personal Info</h1>
-                        <h2>First Name</h2>
-                        <p>
-                            <?php echo $result_account[3] ?>
-                            <button class="btn">update</button>
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <div class="profile">
+                            <h1>Personal Info</h1>
+                            <div class="form-group">
+                                <h2>First Name</h2>
+                                <input type="text" class="firstname" name="firstname" id="firstname" value="<?php echo $result_account[3] ?>">
+                            </div>
 
-                        </p>
-                        <h2>Lastname</h2>
-                        <p>
-                            <?php echo $result_account[4] ?>
-                            <button class="btn">update</button>
+                            <div class="form-group">
+                                <h2>Lastname</h2>
+                                <input type="text" class="lastname" name="lastname" id="lastname" value="<?php echo $result_account[4] ?>">
+                            </div>
 
-                        </p>
-                        <h2>Gender</h2>
-                        <p>
-                            <?php echo $result_account[5] ?>
-                        </p>
-                        <h2>Date of Birth</h2>
-                        <p>
-                            <?php echo $result_account[6] ?>
-                        </p>
-                        <h2>Place of Birth </h2>
-                        <p>
-                            <?php echo $result_account[7] ?>
-                        </p>
-                        <h2>Password </h2>
-                        <p>
-                            <?php echo "********" ?>
-                            <button class="btn">update</button>
-                        </p>
-                    </div>
+                            <div class="form-group">
+                                <h2>Gender</h2>
+                                <select name="gender" id="gender" class="gender">
+                                    <?php
+                                    if ($result_account[5] == "Nam") {
+                                        $gender_Name = "selected";
+                                        $gender_Nu = "";
+                                    } else {
+                                        $gender_Name = "";
+                                        $gender_Nu = "selected";
+                                    }
+                                    ?>
+                                    <option value="Nam" <?php echo $gender_Name ?>>Nam</option>
+                                    <option value="Nữ" <?php echo $gender_Nu ?>>Nữ</option>
+                                </select>
+                            </div>
 
+                            <div class="form-group">
+                                <h2>Date of Birth</h2>
+                                <input type="date" class="date_birth" name="date_birth" value="<?php echo $fm->formatDateReverse($result_account[6]); ?>">
+                            </div>
+
+                            <div class="form-group">
+                                <h2>Place of Birth </h2>
+                                <input type="text" class="place_of_birth" name="place_of_birth" value="<?php echo $result_account[7] ?>">
+                            </div>
+
+                            <div class="form-group">
+                                <h2>Password </h2>
+                                <p>
+                                    <input type="password" class="password" name="password" id="password" value="<?php echo $result_account[2] ?>">
+                                    <button class="btn">update</button>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <?php
+        <?php
             }
         }
         ?>
