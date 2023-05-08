@@ -77,7 +77,7 @@ include_once $filepath . "\database\connectDB.php";
   //live search for admin
   public function show_permission_live_search($input)
   {
-    $query = "SELECT * FROM permission WHERE permission.name LIKE '$input%' AND permission.is_deleted = 0";
+    $query = "SELECT * FROM permission WHERE permission.name LIKE '%$input%' AND permission.is_deleted = 0";
     $result = $this->db->select($query);
     return $result;
   }
