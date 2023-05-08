@@ -13,7 +13,6 @@ $cartAdd = json_decode($cartAddCookie, true);
 if (isset($cartAdd)) {
     $cartController = new CartController();
     $alert = $cartController->addCart($cartAdd, $user_id);
-    
 }
 
 ?>
@@ -40,9 +39,12 @@ if (isset($cartAdd)) {
         <div class="shopping-cart">
             <?php
             if (isset($alert)) {
-                echo $alert;
+                echo '<div class="check-info check-success" id="check-success">
+                        <span>&#x2713;</span> Place Order Successfully
+                    </div>';
             }
             ?>
+
 
             <div class="column-labels">
                 <label class="product-image">Image</label>
@@ -67,4 +69,15 @@ if (isset($cartAdd)) {
 
     <script src="./js/cart.js">
 
+    </script>
+    
+    <script>
+        let checkSuccess = document.getElementById("check-success")
+        checkSuccess.style.display = "block"
+        checkSuccess.classList.add("hide")
+
+        setTimeout(function() {
+            checkSuccess.style.display = 'none';
+            checkSuccess.classList.remove('hide');
+        }, 5000);
     </script>
