@@ -91,7 +91,7 @@ $user_id = Session::get("userID");
         const handlePlaceAnOrder = (userId) => {
             var expireDate = new Date();
             expireDate.setDate(expireDate.getDate() + 3);
-            let totalPrice = document.getElementById("total-price").innerText
+            let totalPrice = document.getElementById("calculated_total").innerText
             let Order = {
                 user_id: userId,
                 first_name: shipInfo.first_name,
@@ -102,7 +102,7 @@ $user_id = Session::get("userID");
                 paymentMethod:  shipInfo.paymentMethod,
                 discount: shipInfo.paymentMethod,
                 country:  shipInfo.country,
-                totalPrice: totalPrice,
+                totalPrice:  parseFloat(totalPrice.slice(1)),
                 product: CartAdd
             }
             localStorage.setItem("Order", JSON.stringify(Order));
