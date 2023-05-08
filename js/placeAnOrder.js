@@ -23,7 +23,7 @@ const handleLoadPayCheck = () => {
                     <span class="product_name">${product.name}</span>
                     <span class="quantity">X${product.quantity}</span>
                     <span class="price">$${product.price}</span>
-                    <span class="total-price">$${total}</span>
+                    <span class="total-price" id="total-price">$${total}</span>
                 </div>
             </div>`;
     }).join('');

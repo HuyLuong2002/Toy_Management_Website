@@ -26,8 +26,8 @@ const fetchAPI = async (api) => {
 let arrStar = [0,0,0,0,0]
 
 const handleLoadListReview = async () => {
-    let arr = await fetchAPI(`http://localhost:3000/api/comment/show.php?productID=${newIdProduct}`)
-    // let arr = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/comment/show.php?productID=${newIdProduct}`)
+    // let arr = await fetchAPI(`http://localhost:3000/api/comment/show.php?productID=${newIdProduct}`)
+    let arr = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/comment/show.php?productID=${newIdProduct}`)
     if (!arr) {
         listUserReview.innerHTML = "<h1>Not found review!</h1>";
         return;

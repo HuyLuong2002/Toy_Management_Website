@@ -35,35 +35,7 @@
                         </div>
                     </div>
                     <div class="right" id="reviewed">
-                        <div class="billing">
-                            <span class="title">Billing:</span>
-                            <div class="address_reviewed">
-                                <span class="name">John Smith</span>
-                                <span class="address">123 Main Street</span>
-                                <span class="location">Everytown, USA, 12345</span>
-                                <span class="phone">(123)867-5309</span>
-                            </div>
-                        </div>
-                        <div class="shipping">
-                            <span class="title">Shipping:</span>
-                            <div class="address_reviewed">
-                                <span class="name">John Smith</span>
-                                <span class="address">123 Main Street</span>
-                                <span class="location">Everytown, USA, 12345</span>
-                                <span class="phone">(123)867-5309</span>
-                            </div>
-                        </div>
-                        <div class="payment">
-                            <span class="title">Payment:</span>
-                            <div class="payment_reviewed">
-                                <span class="method">Visa</span>
-                                <span class="number_hidden">xxxx-xxxx-xxxx-1111</span>
-                            </div>
-                        </div>
-                        <div id="complete">
-                            <a class="big_button" id="complete" href="#">Complete Order</a>
-                            <span class="sub">By selecting this button you agree to the purchase and subsequent payment for this order.</span>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -71,6 +43,65 @@
     </div>
 
     <script src="./js/placeAnOrder.js"></script>
+    <script>
+        let shipInfo = JSON.parse(localStorage.getItem('shipInfo'));
+        let reviewed = document.getElementById("reviewed")
+
+        reviewed.innerHTML = `
+            <div class="billing">
+                <span class="title">Billing:</span>
+                <div class="address_reviewed">
+                    <span class="name">${shipInfo.first_name} ${shipInfo.last_name}</span>
+                    <span class="email">${shipInfo.email}</span>
+                    <span class="address">${shipInfo.address}</span>
+                    <span class="location">${shipInfo.country}</span>
+                    <span class="phone">${shipInfo.telephone}</span>
+                </div>
+            </div>
+            <div class="shipping">
+                <span class="title">Shipping:</span>
+                <div class="address_reviewed">
+                    <span class="name">${shipInfo.first_name} ${shipInfo.last_name}</span><br/>
+                    <span class="address">${shipInfo.address}</span><br/>
+                    <span class="location">${shipInfo.country}</span><br/>
+                    <span class="phone">${shipInfo.telephone}</span><br/>
+                    <span class="shipMethod">${shipInfo.shipMethod}</span>
+                </div>
+            </div>
+            <div class="payment">
+                <span class="title">Payment:</span>
+                <div class="payment_reviewed">
+                    <span class="method">${shipInfo.paymentMethod}</span>
+                    <span class="number_hidden"></span>
+                </div>
+            </div>
+            <div id="complete">
+                <a class="big_button" id="complete" href="/" onclick="handlePlaceAnOrder()">Complete Order</a>
+                <span class="sub">By selecting this button you agree to the purchase and subsequent payment for this order.</span>
+            </div>
+        `
+
+        const handlePlaceAnOrder = () => {
+            var expireDate = new Date();
+            expireDate.setDate(expireDate.getDate() + 3);
+            let totalPrice = document.getElementById("total-price").innerText
+            let Order = {
+                first_name: shipInfo.first_name,
+                last_name: shipInfo.last_name,
+                telephone: shipInfo.telephone,
+                address: shipInfo.address,
+                email: shipInfo.email,
+                paymentMethod:  shipInfo.paymentMethod,
+                discount: shipInfo.paymentMethod,
+                country:  shipInfo.country,
+                totalPrice: totalPrice,
+                product: CartAdd
+            }
+            localStorage.setItem("Order", JSON.stringify(Order));
+            document.cookie = "Order=" + JSON.stringify(Order) + "; expires=" + expireDate.toUTCString() + "; path=/";
+            
+        }
+    </script>
 </body>
 
 </html>
