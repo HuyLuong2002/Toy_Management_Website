@@ -37,7 +37,6 @@ if (empty($_GET["id"])) {
                     </div>
                     <div class="username">
                         <?php echo $result_account[1] ?>
-
                     </div>
                 </div>
                 <div class="rightbox">

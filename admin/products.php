@@ -292,43 +292,43 @@ if (isset($current_position)) {
       <?php if (empty($_POST["input"])) {
         if (isset($_POST["input"])) {
           if ($_POST["input"] !== "0") { ?>
-        <div class="bottom-pagination" id="pagination">
-          <ul class="pagination">
-            <?php if ($pagination_id > 1) { ?>
-              <li class="item prev-page">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id -
-                                                                1; ?>">
-                  <i class="fa-solid fa-chevron-left"></i>
-                </a>
-              </li>
-            <?php } ?>
-            <?php
-            $pagination = $pag->pageNumber($page_total, 4, $pagination_id);
-            $length = count($pagination);
-            for ($i = 1; $i <= $length; $i++) {
-              if ($pagination[$i] == $pagination_id) {
-                $current = "current";
-              } else {
-                $current = "";
-              } ?>
-              <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
-                  <?php echo $pagination[$i]; ?>
-                </a>
-              </li>
-            <?php
-            }
-            ?>
-            <?php if ($page_total - 1 > $pagination_id + 1) { ?>
-              <li class="item next-page">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id +
-                                                                1; ?>">
-                  <i class="fa-solid fa-chevron-right"></i>
-                </a>
-              </li>
-            <?php } ?>
-          </ul>
-        </div>
+            <div class="bottom-pagination" id="pagination">
+              <ul class="pagination">
+                <?php if ($pagination_id > 1) { ?>
+                  <li class="item prev-page">
+                    <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id -
+                                                                    1; ?>">
+                      <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                  </li>
+                <?php } ?>
+                <?php
+                $pagination = $pag->pageNumber($page_total, 4, $pagination_id);
+                $length = count($pagination);
+                for ($i = 1; $i <= $length; $i++) {
+                  if ($pagination[$i] == $pagination_id) {
+                    $current = "current";
+                  } else {
+                    $current = "";
+                  } ?>
+                  <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
+                    <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
+                      <?php echo $pagination[$i]; ?>
+                    </a>
+                  </li>
+                <?php
+                }
+                ?>
+                <?php if ($page_total - 1 > $pagination_id + 1) { ?>
+                  <li class="item next-page">
+                    <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id +
+                                                                    1; ?>">
+                      <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                  </li>
+                <?php } ?>
+              </ul>
+            </div>
       <?php }
         }
       } ?>
@@ -500,6 +500,14 @@ if (isset($current_position)) {
   </form>
   <!-- modal add end -->
 </div>
+
+<script src="https://cdn.tiny.cloud/1/a4yip95kil5x5nn5y60qcu7jeg755ii26thhre1j0rxwg6ae/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script>
+  tinymce.init({
+    selector: '.tinymce'
+  });
+</script>
 
 <!-- javascript to check hight product -->
 <script>
