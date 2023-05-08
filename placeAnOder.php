@@ -1,3 +1,10 @@
+<?php
+include_once "./lib/session.php";
+
+Session::init();
+$user_id = Session::get("userID");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,16 +83,17 @@
                 </div>
             </div>
             <div id="complete">
-                <a class="big_button" id="complete" href=".php" onclick="handlePlaceAnOrder()">Complete Order</a>
+                <a class="big_button" id="complete" href="cart.php" onclick="handlePlaceAnOrder(<?php echo $user_id ?>)">Complete Order</a>
                 <span class="sub">By selecting this button you agree to the purchase and subsequent payment for this order.</span>
             </div>
         `
 
-        const handlePlaceAnOrder = () => {
+        const handlePlaceAnOrder = (userId) => {
             var expireDate = new Date();
             expireDate.setDate(expireDate.getDate() + 3);
             let totalPrice = document.getElementById("total-price").innerText
             let Order = {
+                user_id: userId,
                 first_name: shipInfo.first_name,
                 last_name: shipInfo.last_name,
                 telephone: shipInfo.telephone,
