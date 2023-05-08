@@ -108,7 +108,10 @@ if (isset($current_position)) {
               <?php while (
                 $result = $show_product_live_search->fetch_array()
               ) { ?>
-                <tr id="switch-<?php echo $result[0]; ?>">
+            <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] ==
+            1
+              ? "activeBg"
+              : ""; ?>">
 
                   <td>
                     <?php echo $result[0]; ?>
@@ -131,11 +134,14 @@ if (isset($current_position)) {
                   </td>
                   <td>
                     <label class="switch">
-                      <input type="checkbox" />
-                      <span class="slider round" onclick="<?php echo "handleGetId(" .
-                        $result[0] .
-                        ")"; ?>"></span>
-                    </label>
+                    <?php if ($result[6] == 1) {
+                      $checked = "checked";
+                    } else {
+                      $checked = "";
+                    } ?>
+                    <input type="checkbox" <?php echo $checked; ?> id="check-<?php echo $result[0]; ?>" />
+                    <span class="slider round" id="slider-<?php echo $result[0]; ?>" onclick="handleGetId(<?php echo $result[0]; ?>, <?php echo $result[6]; ?>)"></span>
+                  </label>
                   </td>
                   <td>
                     <?php echo $result[13]; ?>
@@ -220,8 +226,8 @@ if (isset($current_position)) {
 
             </tr>
       <?php }
-        }
-          } ?>
+          }
+        } ?>
       </tbody>
       </table>
       <?php if (empty($_POST["input"])) {
@@ -231,8 +237,7 @@ if (isset($current_position)) {
           <ul class="pagination">
             <?php if ($pagination_id > 1) { ?>
               <li class="item prev-page">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id -
-  1; ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id - 1; ?>">
                   <i class="fa-solid fa-chevron-left"></i>
                 </a>
               </li>
@@ -246,12 +251,8 @@ if (isset($current_position)) {
               } else {
                 $current = "";
               } ?>
-              <li class="item <?php echo $current; ?>" id="<?php echo $pagination[
-  $i
-]; ?>">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[
-  $i
-]; ?>">
+              <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
                   <?php echo $pagination[$i]; ?>
                 </a>
               </li>
@@ -260,8 +261,7 @@ if (isset($current_position)) {
             ?>
             <?php if ($page_total - 1 > $pagination_id + 1) { ?>
               <li class="item next-page">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id +
-  1; ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id + 1; ?>">
                   <i class="fa-solid fa-chevron-right"></i>
                 </a>
               </li>

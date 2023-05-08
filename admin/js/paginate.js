@@ -10,7 +10,7 @@ let listBar = [
     id: 2,
     title: "Products",
     href: "index.php?id=2&page=1",
-    icon: "la-users"
+    icon: "la-cube"
   },
   {
     id: 3,
@@ -58,13 +58,13 @@ let listBar = [
     id: 10,
     title: "Category",
     href: "index.php?id=10",
-    icon: "la-chart-bar",
+    icon: "la-gift",
   },
   {
     id: 12,
     title: "Account Function",
     href: "index.php?id=12",
-    icon: "la-chart-bar",
+    icon: "la-user-plus",
   },
 ];
 

@@ -52,7 +52,7 @@ if (isset($current_position)) {
 
     <button>
       <a href="account_permission.php">
-        Add account permission <span class="las la-plus"></span>
+        Add account permission and function <span class="las la-plus"></span>
       </a>
     </button>
 
