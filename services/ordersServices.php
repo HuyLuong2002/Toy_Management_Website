@@ -44,7 +44,7 @@ include_once $filepath . "\helpers\\format.php";
 
   public function show_order_by_pagination($offset, $limit_per_page)
   {
-    $query = "SELECT * FROM orders WHERE is_deleted = '0' LIMIT $offset, $limit_per_page";
+    $query = "SELECT * FROM orders WHERE is_deleted = '0' ORDER BY orders.date DESC LIMIT $offset, $limit_per_page";
     $result = $this->db->select($query);
     return $result;
   }

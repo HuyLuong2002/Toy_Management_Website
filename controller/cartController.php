@@ -7,7 +7,6 @@ class CartController
   public function addCart($cartAdd, $user_id)
   {
     $total_price = (string) $cartAdd["totalPrice"];
-    echo $total_price;
     $total_quantity = count($cartAdd["product"]);
     $address = $cartAdd["address"];
     $country = $cartAdd["country"];
@@ -33,6 +32,7 @@ class CartController
     }
 
     if ($result_detail_order == true && $result_order == true) {
+
       $alert = "<span class='success'>Add Cart Sucessfully</span>";
       // Xóa sản phẩm trong cookie
       setcookie("Order", "", time() - 3600, "/");
