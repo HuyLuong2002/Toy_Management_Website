@@ -126,11 +126,11 @@ if (isset($current_position)) {
             <td>Action</td>
           </tr>
         </thead>
+        <tbody>
         <?php if (isset($show_sale_live_search)) {
           if ($show_sale_live_search) {
             while ($result = $show_sale_live_search->fetch_array()) {
         ?>
-              <tbody>
                 <tr>
                   <td>
                     <?php echo $result[0]; ?>

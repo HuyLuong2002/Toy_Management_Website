@@ -122,11 +122,11 @@ if (isset($current_position)) {
             <td>Action</td>
           </tr>
         </thead>
-        <?php if (isset($show_inventory_live_search)) {
-          if ($show_inventory_live_search) {
-            while ($result = $show_inventory_live_search->fetch_array()) {
-        ?>
-              <tbody>
+        <tbody>
+          <?php if (isset($show_inventory_live_search)) {
+            if ($show_inventory_live_search) {
+              while ($result = $show_inventory_live_search->fetch_array()) {
+          ?>
                 <tr>
                   <td><?php echo $result[0]; ?></td>
                   <td><?php echo $result[1]; ?></td>
@@ -137,8 +137,6 @@ if (isset($current_position)) {
                   <td><?php echo $result[6] == 1 ?  "Đã giao" : "Đang giao hàng"; ?></td>
                   <td><?php echo $result[7]; ?></td>
                   <td>
-                    <!-- <a href="inventory_edit.php?id=<?php echo $result[0]; ?>" class="Edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a><br>
-                  <a href="?id=4&page=<?php echo $page_id ?>&deleteid=<?php echo $result["id"]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a> -->
                     <div class="action-btn-group">
                       <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
                         <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
@@ -155,18 +153,18 @@ if (isset($current_position)) {
                   <td>
                 </tr>
             <?php
+              }
+            } else {
+              echo "<span class='error'>No Data Found</span>";
             }
-          } else {
-            echo "<span class='error'>No Data Found</span>";
-          }
             ?>
-              </tbody>
+        </tbody>
       </table>
     <?php } else { ?>
       <tbody id="inventory-data">
         <?php
-          if (isset($result_pagination)) {
-            while ($result = $result_pagination->fetch_array()) {
+            if (isset($result_pagination)) {
+              while ($result = $result_pagination->fetch_array()) {
         ?>
             <tr>
               <td><?php echo $result[0]; ?></td>
@@ -178,8 +176,6 @@ if (isset($current_position)) {
               <td><?php echo $result[6] == 1 ?  "Đã giao" : "Đang giao hàng"; ?></td>
               <td><?php echo $result[7]; ?></td>
               <td>
-                <!-- <a href="inventory_edit.php?id=<?php echo $result[0]; ?>" class="Edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a><br>
-                  <a href="?id=4&page=<?php echo $page_id ?>&deleteid=<?php echo $result["id"]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a> -->
                 <div class="action-btn-group">
                   <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
                     <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
@@ -191,14 +187,17 @@ if (isset($current_position)) {
                       Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                     </button>
                   </div>
+                  <?php
+                  ?>
                   <a href="?id=11&page_detail=<?php echo $page_id ?>&enter_id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+                  <?php ?>
                 </div>
               <td>
             </tr>
       <?php
+              }
             }
           }
-        }
       ?>
       </tbody>
       </table>
