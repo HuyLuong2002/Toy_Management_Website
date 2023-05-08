@@ -48,9 +48,9 @@ if (isset($_POST["delete-btn"])) {
   $deleteProduct = $productsController->delete_product($delete_id);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add-btn"])) {
-  $insertProduct = $productsController->insert_product($_POST);
-}
+// if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add-btn"])) {
+//   $insertProduct = $productsController->insert_product($_POST);
+// }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
   $edit_id = $_POST["edit_id"];
@@ -102,13 +102,6 @@ if (isset($current_position)) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-  
-  <script src="https://cdn.tiny.cloud/1/a4yip95kil5x5nn5y60qcu7jeg755ii26thhre1j0rxwg6ae/tinymce/6/tinymce.min.js" referrerpolicy="origin">
-    tinymce.init({
-    // Select the element(s) to add TinyMCE to using any valid CSS selector
-    selector: "#description_add"
-    });
-  </script>
 </head>
 <div class="card" id="searchresultproduct">
   <div class="card-header">
@@ -118,18 +111,22 @@ if (isset($current_position)) {
     if (isset($deleteProduct)) {
       echo $deleteProduct;
     }
-    if (isset($insertProduct)) {
-      echo $insertProduct;
-    }
+    // if (isset($insertProduct)) {
+    //   echo $insertProduct;
+    // }
     if (isset($updateProduct)) {
       echo $updateProduct;
     }
     ?>
-    <button type="button" class="modal-btn-add" onclick="AddActive()">
+    <button>
+      <a href="product_add.php"> Add product<span class="las la-plus"></span></a>
+    </button>
+
+    <!-- <button type="button" class="modal-btn-add" onclick="AddActive()">
       <p>
         Add product <span class="las la-plus"></span>
       </p>
-    </button>
+    </button> -->
   </div>
 
   <div class="card-body">
@@ -157,10 +154,10 @@ if (isset($current_position)) {
               <?php while (
                 $result = $show_product_live_search->fetch_array()
               ) { ?>
-            <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] ==
-1
-  ? "activeBg"
-  : ""; ?>">
+                <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] ==
+                                                                    1
+                                                                    ? "activeBg"
+                                                                    : ""; ?>">
 
                   <td>
                     <?php echo $result[0]; ?>
@@ -170,7 +167,7 @@ if (isset($current_position)) {
                   </td>
                   <td>
                     <img src="<?php echo "uploads/" .
-                      $result[2]; ?>" alt="" width="100px" />
+                                $result[2]; ?>" alt="" width="100px" />
                   </td>
                   <td>
                     <?php echo $result[3]; ?>
@@ -183,14 +180,14 @@ if (isset($current_position)) {
                   </td>
                   <td>
                     <label class="switch">
-                    <?php if ($result[6] == 1) {
-                      $checked = "checked";
-                    } else {
-                      $checked = "";
-                    } ?>
-                    <input type="checkbox" <?php echo $checked; ?> id="check-<?php echo $result[0]; ?>" />
-                    <span class="slider round" id="slider-<?php echo $result[0]; ?>" onclick="handleGetId(<?php echo $result[0]; ?>, <?php echo $result[6]; ?>)"></span>
-                  </label>
+                      <?php if ($result[6] == 1) {
+                        $checked = "checked";
+                      } else {
+                        $checked = "";
+                      } ?>
+                      <input type="checkbox" <?php echo $checked; ?> id="check-<?php echo $result[0]; ?>" />
+                      <span class="slider round" id="slider-<?php echo $result[0]; ?>" onclick="handleGetId(<?php echo $result[0]; ?>, <?php echo $result[6]; ?>)"></span>
+                    </label>
                   </td>
                   <td>
                     <?php echo $result[13]; ?>
@@ -221,19 +218,22 @@ if (isset($current_position)) {
                   </td>
 
                 </tr>
-            <?php }} else {echo "<span class='error'>No Data Found</span>";} ?>
+            <?php }
+            } else {
+              echo "<span class='error'>No Data Found</span>";
+            } ?>
         </tbody>
       </table>
     <?php
           } else {
-             ?>
+    ?>
       <tbody id="product-data">
         <?php if ($result_pagination) {
-          while ($result = $result_pagination->fetch_array()) { ?>
+              while ($result = $result_pagination->fetch_array()) { ?>
             <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] ==
-1
-  ? "activeBg"
-  : ""; ?>">
+                                                                1
+                                                                ? "activeBg"
+                                                                : ""; ?>">
 
               <td>
                 <?php echo $result[0]; ?>
@@ -243,7 +243,7 @@ if (isset($current_position)) {
               </td>
               <td>
                 <img src="<?php echo "uploads/" .
-                  $result[2]; ?>" alt="" width="100px" />
+                            $result[2]; ?>" alt="" width="100px" />
               </td>
               <td>
                 <?php echo $result[3]; ?>
@@ -295,7 +295,7 @@ if (isset($current_position)) {
 
             </tr>
       <?php }
-        }
+            }
           } ?>
       </tbody>
       </table>
@@ -305,7 +305,7 @@ if (isset($current_position)) {
             <?php if ($pagination_id > 1) { ?>
               <li class="item prev-page">
                 <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id -
-  1; ?>">
+                                                                1; ?>">
                   <i class="fa-solid fa-chevron-left"></i>
                 </a>
               </li>
@@ -319,12 +319,8 @@ if (isset($current_position)) {
               } else {
                 $current = "";
               } ?>
-              <li class="item <?php echo $current; ?>" id="<?php echo $pagination[
-  $i
-]; ?>">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[
-  $i
-]; ?>">
+              <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
                   <?php echo $pagination[$i]; ?>
                 </a>
               </li>
@@ -334,7 +330,7 @@ if (isset($current_position)) {
             <?php if ($page_total - 1 > $pagination_id + 1) { ?>
               <li class="item next-page">
                 <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id +
-  1; ?>">
+                                                                1; ?>">
                   <i class="fa-solid fa-chevron-right"></i>
                 </a>
               </li>
@@ -378,7 +374,7 @@ if (isset($current_position)) {
 
       <div class="modal-edit-info-item">
         <label for="description">Description</label>
-        <textarea rows="4" cols="4" id="description_edit" name="description_edit" class="tinymce"></textarea>
+        <textarea rows="3" cols="4" id="description_edit" name="description_edit" class="tinymce"></textarea>
       </div>
 
       <div class="modal-edit-info-item">
@@ -392,9 +388,7 @@ if (isset($current_position)) {
             $i = 0;
             while ($result = $show_cat->fetch_assoc()) {
               $i++; ?>
-              <option value="<?php echo $result["id"]; ?>"><?php echo $result[
-  "name"
-]; ?></option>
+              <option value="<?php echo $result["id"]; ?>"><?php echo $result["name"]; ?></option>
           <?php
             }
           }
@@ -413,9 +407,7 @@ if (isset($current_position)) {
             $i = 0;
             while ($result = $show_sale->fetch_assoc()) {
               $i++; ?>
-              <option value="<?php echo $result["id"]; ?>"><?php echo $result[
-  "name"
-]; ?></option>
+              <option value="<?php echo $result["id"]; ?>"><?php echo $result["name"]; ?></option>
           <?php
             }
           }
@@ -442,7 +434,7 @@ if (isset($current_position)) {
   <!-- modal edit end -->
 
   <!-- modal add  -->
-  <form class="modal-container-add" id="modal-container-add" method="post" enctype="multipart/form-data">
+  <!-- <form class="modal-container-add product" id="modal-container-add" method="post" enctype="multipart/form-data">
     <div class="modal-container-add-close" onclick="closeCurdAddModal()"><span><i class="fa-solid fa-circle-xmark"></i></span></div>
     <div class="modal-add-info">
       <div class="modal-add-info">
@@ -472,9 +464,7 @@ if (isset($current_position)) {
               $i = 0;
               while ($result = $show_cat->fetch_assoc()) {
                 $i++; ?>
-                <option value="<?php echo $result["id"]; ?>"><?php echo $result[
-  "name"
-]; ?></option>
+                <option value="<?php echo $result["id"]; ?>"><?php echo $result["name"]; ?></option>
             <?php
               }
             }
@@ -493,9 +483,7 @@ if (isset($current_position)) {
               $i = 0;
               while ($result = $show_sale->fetch_assoc()) {
                 $i++; ?>
-                <option value="<?php echo $result["id"]; ?>"><?php echo $result[
-  "name"
-]; ?></option>
+                <option value="<?php echo $result["id"]; ?>"><?php echo $result["name"]; ?></option>
             <?php
               }
             }
@@ -516,7 +504,7 @@ if (isset($current_position)) {
     </div>
 
     <input onclick="" class="modal-add-btn" name="add-btn" type="submit" value="Save">
-  </form>
+  </form> -->
   <!-- modal add end -->
 </div>
 
