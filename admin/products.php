@@ -27,16 +27,16 @@ if (isset($_GET["product_id"])) {
     $sale = mysqli_fetch_array($show_product);
 
     $res = [
-      'status' => 200,
-      'message' => 'product fetch successful by id',
-      'data' => $sale
+      "status" => 200,
+      "message" => "product fetch successful by id",
+      "data" => $sale,
     ];
     echo json_encode($res);
     return;
   } else {
     $res = [
-      'status' => 404,
-      'message' => 'prodcut Id Not Found'
+      "status" => 404,
+      "message" => "prodcut Id Not Found",
     ];
     echo json_encode($res);
     return;
@@ -48,9 +48,9 @@ if (isset($_POST["delete-btn"])) {
   $deleteProduct = $productsController->delete_product($delete_id);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add-btn"])) {
-  $insertProduct = $productsController->insert_product($_POST);
-}
+// if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add-btn"])) {
+//   $insertProduct = $productsController->insert_product($_POST);
+// }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
   $edit_id = $_POST["edit_id"];
@@ -111,18 +111,22 @@ if (isset($current_position)) {
     if (isset($deleteProduct)) {
       echo $deleteProduct;
     }
-    if (isset($insertProduct)) {
-      echo $insertProduct;
-    }
+    // if (isset($insertProduct)) {
+    //   echo $insertProduct;
+    // }
     if (isset($updateProduct)) {
       echo $updateProduct;
     }
     ?>
-    <button type="button" class="modal-btn-add" onclick="AddActive()">
+    <button>
+      <a href="product_add.php"> Add product<span class="las la-plus"></span></a>
+    </button>
+
+    <!-- <button type="button" class="modal-btn-add" onclick="AddActive()">
       <p>
         Add product <span class="las la-plus"></span>
       </p>
-    </button>
+    </button> -->
   </div>
 
   <div class="card-body">
@@ -150,7 +154,10 @@ if (isset($current_position)) {
               <?php while (
                 $result = $show_product_live_search->fetch_array()
               ) { ?>
-                <tr id="switch-<?php echo $result[0]; ?>">
+                <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] ==
+                                                                    1
+                                                                    ? "activeBg"
+                                                                    : ""; ?>">
 
                   <td>
                     <?php echo $result[0]; ?>
@@ -173,10 +180,13 @@ if (isset($current_position)) {
                   </td>
                   <td>
                     <label class="switch">
-                      <input type="checkbox" />
-                      <span class="slider round" onclick="<?php echo "handleGetId(" .
-                                                            $result[0] .
-                                                            ")"; ?>"></span>
+                      <?php if ($result[6] == 1) {
+                        $checked = "checked";
+                      } else {
+                        $checked = "";
+                      } ?>
+                      <input type="checkbox" <?php echo $checked; ?> id="check-<?php echo $result[0]; ?>" />
+                      <span class="slider round" id="slider-<?php echo $result[0]; ?>" onclick="handleGetId(<?php echo $result[0]; ?>, <?php echo $result[6]; ?>)"></span>
                     </label>
                   </td>
                   <td>
@@ -193,13 +203,13 @@ if (isset($current_position)) {
                   </td>
                   <td style="background-color: #fff;">
                     <div class="action-btn-group">
-                      <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
-                        <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                      <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
+                        <button class="modal-btn-edit" type="button" value="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
                           Edit<i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
                         </button>
                       </div>
-                      <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
-                        <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                      <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
+                        <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                           Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                         </button>
                       </div>
@@ -269,13 +279,13 @@ if (isset($current_position)) {
               </td>
               <td style="background-color: #fff;">
                 <div class="action-btn-group">
-                  <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
-                    <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                  <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
+                    <button class="modal-btn-edit" type="button" value="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
                       Edit<i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
                     </button>
                   </div>
-                  <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
-                    <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                  <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
+                    <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                       Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                     </button>
                   </div>
@@ -289,49 +299,46 @@ if (isset($current_position)) {
           } ?>
       </tbody>
       </table>
-      <?php if (empty($_POST["input"])) {
-        if (isset($_POST["input"])) {
-          if ($_POST["input"] !== "0") { ?>
-            <div class="bottom-pagination" id="pagination">
-              <ul class="pagination">
-                <?php if ($pagination_id > 1) { ?>
-                  <li class="item prev-page">
-                    <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id -
-                                                                    1; ?>">
-                      <i class="fa-solid fa-chevron-left"></i>
-                    </a>
-                  </li>
-                <?php } ?>
-                <?php
-                $pagination = $pag->pageNumber($page_total, 4, $pagination_id);
-                $length = count($pagination);
-                for ($i = 1; $i <= $length; $i++) {
-                  if ($pagination[$i] == $pagination_id) {
-                    $current = "current";
-                  } else {
-                    $current = "";
-                  } ?>
-                  <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
-                    <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
-                      <?php echo $pagination[$i]; ?>
-                    </a>
-                  </li>
-                <?php
-                }
-                ?>
-                <?php if ($page_total - 1 > $pagination_id + 1) { ?>
-                  <li class="item next-page">
-                    <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id +
-                                                                    1; ?>">
-                      <i class="fa-solid fa-chevron-right"></i>
-                    </a>
-                  </li>
-                <?php } ?>
-              </ul>
-            </div>
+      <?php if (empty($_POST["input"])) { ?>
+        <div class="bottom-pagination" id="pagination">
+          <ul class="pagination">
+            <?php if ($pagination_id > 1) { ?>
+              <li class="item prev-page">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id -
+                                                                1; ?>">
+                  <i class="fa-solid fa-chevron-left"></i>
+                </a>
+              </li>
+            <?php } ?>
+            <?php
+            $pagination = $pag->pageNumber($page_total, 4, $pagination_id);
+            $length = count($pagination);
+            for ($i = 1; $i <= $length; $i++) {
+              if ($pagination[$i] == $pagination_id) {
+                $current = "current";
+              } else {
+                $current = "";
+              } ?>
+              <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
+                  <?php echo $pagination[$i]; ?>
+                </a>
+              </li>
+            <?php
+            }
+            ?>
+            <?php if ($page_total - 1 > $pagination_id + 1) { ?>
+              <li class="item next-page">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id +
+                                                                1; ?>">
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+              </li>
+            <?php } ?>
+          </ul>
+        </div>
       <?php }
-        }
-      } ?>
+      ?>
     </div>
   </div>
 
@@ -367,7 +374,7 @@ if (isset($current_position)) {
 
       <div class="modal-edit-info-item">
         <label for="description">Description</label>
-        <textarea rows="4" cols="4" id="description_edit" name="description_edit" class="tinymce"></textarea>
+        <textarea rows="3" cols="4" id="description_edit" name="description_edit" class="tinymce"></textarea>
       </div>
 
       <div class="modal-edit-info-item">
@@ -427,7 +434,7 @@ if (isset($current_position)) {
   <!-- modal edit end -->
 
   <!-- modal add  -->
-  <form class="modal-container-add" id="modal-container-add" method="post" enctype="multipart/form-data">
+  <!-- <form class="modal-container-add product" id="modal-container-add" method="post" enctype="multipart/form-data">
     <div class="modal-container-add-close" onclick="closeCurdAddModal()"><span><i class="fa-solid fa-circle-xmark"></i></span></div>
     <div class="modal-add-info">
       <div class="modal-add-info">
@@ -443,7 +450,7 @@ if (isset($current_position)) {
 
         <div class="modal-add-info-item">
           <label for="description">Description</label>
-          <textarea rows="4" cols="4" id="description_add" name="description_add" class="tinymce"></textarea>
+          <textarea id="description_add" name="description_add" class="tinymce"></textarea>
         </div>
 
         <div class="modal-add-info-item">
@@ -497,17 +504,9 @@ if (isset($current_position)) {
     </div>
 
     <input onclick="" class="modal-add-btn" name="add-btn" type="submit" value="Save">
-  </form>
+  </form> -->
   <!-- modal add end -->
 </div>
-
-<script src="https://cdn.tiny.cloud/1/a4yip95kil5x5nn5y60qcu7jeg755ii26thhre1j0rxwg6ae/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
-<script>
-  tinymce.init({
-    selector: '.tinymce'
-  });
-</script>
 
 <!-- javascript to check hight product -->
 <script>

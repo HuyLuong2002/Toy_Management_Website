@@ -156,6 +156,14 @@ td {
   height: auto;
 }
 
+/* .modal-container-add.product {
+  width: 100%;
+}
+
+.tinymce {
+  height: 300px;
+} */
+
 .modal-container-delete {
   width: 400px;
   height: 100px;

@@ -81,10 +81,23 @@ body {
   font-weight: 100;
 }
 
+
+.return-btn {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 50px;
+  border-radius: 50px;
+  background: #ccc;
+  cursor: pointer;
+}
+
 a {
   font-weight: 100;
   display: block;
-  font-size: 2em;
+  font-size: 18px;
   margin-block-start: 0.67em;
   margin-block-end: 0.67em;
   margin-inline-start: 0px;
@@ -92,13 +105,11 @@ a {
   text-decoration: none;
   color: #000;
   cursor: pointer;
-  transition: 0.3s;
-  transform: scaleX(0.9);
 }
 
-a:hover{
-  color: #40c9a2;
-  transform: scaleX(0.92);
+.return-btn:hover {
+  background: #40c9a2;
+  transition: 0.5s;
 }
 
 label {
@@ -213,11 +224,12 @@ label {
   background-color: #494;
 }
 
-.checkout{
+.checkout {
   color: white;
   text-transform: uppercase;
   cursor: pointer;
 }
+
 /* Make adjustments for tablet */
 @media screen and (max-width: 650px) {
   .shopping-cart {

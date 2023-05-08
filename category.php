@@ -1,6 +1,7 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once $filepath . "\Toy_Management_Website\controller\categoryController.php";
+include_once $filepath .
+  "\Toy_Management_Website\controller\categoryController.php";
 include_once $filepath . "\controller\productsController.php";
 include_once $filepath . "/helpers/pagination.php";
 
@@ -18,26 +19,29 @@ if (isset($_GET["page"])) {
 Tính giá trị của phân trang
 10 sản phẩm trên 1 trang
 */
-$result_pagination = $productsController->show_product_by_category_id($category_id);
-
-/*
+$result_pagination = $productsController->show_product_by_category_id(
+  $category_id
+);
+if ($result_pagination != false) {
+  /*
 Tính giá trị của phân trang
 10 sản phẩm trên 1 trang
 */
-// Tổng số sản phẩm
-$product_total = mysqli_num_rows($result_pagination);
-//số sản phẩm trên 1 trang
-$num_product_on_page = 10;
-$page_total = ceil($product_total / $num_product_on_page);
-//Trang hiện tại
-$current_page = $page_id;
-// vị trí hiện tại
-$current_position = ($current_page - 1) * $num_product_on_page;
-$result_pagination = $productsController->show_product_by_category_panigation(
-  $category_id,
-  $current_position,
-  $num_product_on_page
-);
+  // Tổng số sản phẩm
+  $product_total = mysqli_num_rows($result_pagination);
+  //số sản phẩm trên 1 trang
+  $num_product_on_page = 10;
+  $page_total = ceil($product_total / $num_product_on_page);
+  //Trang hiện tại
+  $current_page = $page_id;
+  // vị trí hiện tại
+  $current_position = ($current_page - 1) * $num_product_on_page;
+  $result_pagination = $productsController->show_product_by_category_panigation(
+    $category_id,
+    $current_position,
+    $num_product_on_page
+  );
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,10 +67,14 @@ $result_pagination = $productsController->show_product_by_category_panigation(
         <ul class="items">
           <li class="item"><i class="fa-solid fa-house"></i><a href="index.php">Home</a></li>
           <?php
-          $show_category_by_id = $categoryController->show_category_by_id($category_id);
+          $show_category_by_id = $categoryController->show_category_by_id(
+            $category_id
+          );
           if ($show_category_by_id) {
             $result = $show_category_by_id->fetch_assoc(); ?>
-            <li class="item"><a href="category.php?id=<?php echo $result["id"]; ?>&page=1">
+            <li class="item"><a href="category.php?id=<?php echo $result[
+              "id"
+            ]; ?>&page=1">
                 <?php echo $result["name"]; ?>
               </a></li>
           <?php
@@ -89,14 +97,16 @@ $result_pagination = $productsController->show_product_by_category_panigation(
                   $active = "active";
                 } else {
                   $active = "";
-                }
-            ?>
-                <li data-id="<?php echo $result["id"]; ?>" class="<?php echo $active ?>">
+                } ?>
+                <li data-id="<?php echo $result[
+                  "id"
+                ]; ?>" class="<?php echo $active; ?>">
                   <a href="category.php?id=<?php echo $result["id"]; ?>&page=1">
                     <?php echo $result["name"]; ?>
                   </a>
                 </li>
-            <?php }
+            <?php
+              }
             }
             ?>
           </ul>
@@ -111,7 +121,7 @@ $result_pagination = $productsController->show_product_by_category_panigation(
                 <div class="product-content">
                   <div class="product-img-box">
                     <img src="<?php echo " admin/uploads/" .
-                                $result_product[2]; ?>" alt="" id="product-image-<?php echo $result_product[0]; ?>"/>
+                      $result_product[2]; ?>" alt="" id="product-image-<?php echo $result_product[0]; ?>"/>
                   </div>
                   <div class="product-btns">
                     <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product[0]; ?>)">
@@ -184,12 +194,14 @@ $result_pagination = $productsController->show_product_by_category_panigation(
           <ul class="pagination">
             <?php if ($page_id > 1) { ?>
               <li class="item prev-page">
-                <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $page_id - 1; ?>">
+                <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $page_id -
+  1; ?>">
                   <i class="fa-solid fa-chevron-left"></i>
                 </a>
               </li>
             <?php } ?>
             <?php
+            if(isset($page_total)) {
             $pagination = $pag->pageNumber($page_total, 4, $page_id);
             $length = count($pagination);
             for ($i = 1; $i <= $length; $i++) {
@@ -198,22 +210,29 @@ $result_pagination = $productsController->show_product_by_category_panigation(
                   $current = "current";
                 } else {
                   $current = "";
-                }
-            ?>
-                <li class="item <?php echo $current ?>" id="<?php echo $pagination[$i]; ?>">
-                  <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $pagination[$i]; ?>">
+                } ?>
+                <li class="item <?php echo $current; ?>" id="<?php echo $pagination[
+  $i
+]; ?>">
+                  <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $pagination[
+  $i
+]; ?>">
                     <?php echo $pagination[$i]; ?>
                   </a>
                 </li>
-            <?php }
-            } ?>
+            <?php
+              }
+            }
+            ?>
             <?php if ($page_total - 1 > $page_id + 1) { ?>
               <li class="item next-page">
-                <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $page_id + 1; ?>">
+                <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $page_id +
+  1; ?>">
                   <i class="fa-solid fa-chevron-right"></i>
                 </a>
               </li>
-            <?php }
+            <?php } 
+            }
             ?>
           </ul>
         </div>

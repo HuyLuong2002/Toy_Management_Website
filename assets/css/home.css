@@ -362,7 +362,7 @@ header {
 .product-search > span {
   margin-right: 3rem;
   font-size: 2rem;
-  float: right;
+  float: left;
 }
 
 .product-search > span:hover {
