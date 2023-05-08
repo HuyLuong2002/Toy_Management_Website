@@ -48,7 +48,7 @@ if (isset($_GET["id"])) {
       <label for="nav-toggle">
         <span class="las la-bars"> </span>
       </label>
-      Dashboard 
+      Dashboard
     </h2>
 
     <div class="admin-search-wrapper">
@@ -60,7 +60,7 @@ if (isset($_GET["id"])) {
       <img src="assets/images/pic-1.png" width="40px" height="40px" alt="" />
       <div>
         <h4>
-           <?php echo Session::get("fullname"); ?>
+          <?php echo Session::get("fullname"); ?>
           <small>Super admin</small>
           <small>
             <?php if (isset($_GET["action"]) && $_GET["action"] == "logout") {
@@ -76,58 +76,115 @@ if (isset($_GET["id"])) {
   <!-- coding live search function -->
   <script type="text/javascript">
     $(document).ready(function() {
-      $("#search").keyup(function(){
+      $("#search").keyup(function() {
         var input = $(this).val();
-        
-        if(input != "") {
+
+        if (input != "") {
           $.ajax({
             url: "products.php",
             method: "POST",
-            data:{input:input},
-            success: function(data){
+            data: {
+              input: input
+            },
+            success: function(data) {
               $("#searchresultproduct").html(data);
-              $("#searchresultproduct").css("display","block");
+              $("#searchresultproduct").css("display", "block");
             }
           });
 
           $.ajax({
             url: "providers.php",
             method: "POST",
-            data:{input:input},
-            success: function(data){  
+            data: {
+              input: input
+            },
+            success: function(data) {
               $("#searchresultprovider").html(data);
-              $("#searchresultprovider").css("display","block");
+              $("#searchresultprovider").css("display", "block");
             }
           });
 
           $.ajax({
             url: "permission.php",
             method: "POST",
-            data:{input:input},
-            success: function(data){  
+            data: {
+              input: input
+            },
+            success: function(data) {
               $("#searchresultpermission").html(data);
-              $("#searchresultpermission").css("display","block");
+              $("#searchresultpermission").css("display", "block");
             }
           });
 
           $.ajax({
             url: "sale.php",
             method: "POST",
-            data: {input:input},
-            success: function(data){
+            data: {
+              input: input
+            },
+            success: function(data) {
               $("#searchresultsale").html(data);
-              $("#searchresultsale").css("display","block");
+              $("#searchresultsale").css("display", "block");
             }
           });
-        }
-        else
-        {
-          $("#searchresultproduct").css("display","block");
-          $("#searchresultpermission").css("display","block");
-          $("#searchresultprovider").css("display","block");
-          $("#searchresultsale").css("display","block");
+
+          $.ajax({
+            url: "orders.php",
+            method: "POST",
+            data: {
+              input: input
+            },
+            success: function(data) {
+              $("#searchresultorders").html(data);
+              $("#searchresultorders").css("display", "block");
+            }
+          });
+
+          $.ajax({
+            url: "accounts.php",
+            method: "POST",
+            data: {
+              input: input
+            },
+            success: function(data) {
+              $("#searchresultaccount").html(data);
+              $("#searchresultaccount").css("display", "block");
+            }
+          });
+
+          $.ajax({
+            url: "inventory.php",
+            method: "POST",
+            data: {
+              input: input
+            },
+            success: function(data) {
+              $("#searchresultinventory").html(data);
+              $("#searchresultinventory").css("display", "block");
+            }
+          });
+
+          $.ajax({
+            url: "category.php",
+            method: "POST",
+            data: {
+              input: input
+            },
+            success: function(data) {
+              $("#searchresultcategory").html(data);
+              $("#searchresultcategory").css("display", "block");
+            }
+          });
+        } else {
+          $("#searchresultproduct").css("display", "block");
+          $("#searchresultpermission").css("display", "block");
+          $("#searchresultprovider").css("display", "block");
+          $("#searchresultsale").css("display", "block");
+          $("#searchresultorders").css("display", "block");
+          $("#searchresultaccount").css("display", "block");
+          $("#searchresultinventory").css("display", "block");
+          $("#searchresultcategory").css("display", "block");
         }
       });
     });
   </script>
-

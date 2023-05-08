@@ -35,6 +35,15 @@ include_once $filepath . "\lib\session.php";
     return $result;
   }
 
+  public function show_accounts_live_search($input)
+  {
+    $query = "SELECT * FROM account, permission WHERE ((account.username LIKE '$input%') OR (account.password LIKE '$input%') OR (account.firstname LIKE '$input%') 
+    OR (account.lastname LIKE '$input%') OR (account.gender LIKE '$input%') OR (account.date_birth LIKE '$input%') OR (account.place_of_birth LIKE '$input%') OR (permission.name LIKE '$input%'))
+    AND account.permission_id = permission.id AND account.is_deleted = 0";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
   public function login($username, $password)
   {
     $query = "SELECT * FROM account WHERE username='{$username}' and password='{$password}'";

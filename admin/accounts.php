@@ -9,6 +9,11 @@ $accountController = new AccountController();
 $permissionController = new PermissionController();
 $pag = new Pagination();
 
+if (isset($_POST["input"])) {
+  $input = $_POST["input"];
+  $show_accounts_live_search = $accountController->show_accounts_live_search($input);
+}
+
 if (isset($_GET["accounts_id"])) {
   $show_account = $accountController->show_account_by_id($_GET["accounts_id"]);
   if (mysqli_num_rows($show_account) == 1) {
@@ -79,7 +84,7 @@ if (isset($current_position)) {
 }
 ?>
 
-<div class="card">
+<div class="card" id="searchresultaccount">
   <div class="card-header">
     <h3>Account List</h3>
     <div class="bg-modal-box"></div>
@@ -129,50 +134,95 @@ if (isset($current_position)) {
             <td>Action</td>
           </tr>
         </thead>
-        <tbody>
-          <?php
+        <?php
+        if (isset($show_accounts_live_search)) {
+          if ($show_accounts_live_search) {
+            while ($result = $show_accounts_live_search->fetch_array()) {
+        ?>
+              <tbody>
+                <tr>
+                  <td><?php echo $result[0]; ?></td>
+                  <td><?php echo $result["username"]; ?></td>
+                  <td><?php echo $result["password"]; ?></td>
+                  <td><?php echo $result["firstname"]; ?></td>
+                  <td><?php echo $result["lastname"]; ?></td>
+                  <td><?php echo $result["gender"]; ?></td>
+                  <td><?php echo $result["date_birth"]; ?></td>
+                  <td><?php echo $result["place_of_birth"]; ?></td>
+                  <td><?php echo $result["create_date"]; ?></td>
+                  <td><?php echo $result["name"]; ?></td>
+                  <?php
+                  if ($result["status"] == 1) {
+                    $status = "Đang hoạt động";
+                  } else $status = "Ngừng hoạt động";
+                  ?>
+                  <td><?php echo $status; ?></td>
+                  <td>
+                    <div class="action-btn-group">
+                      <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
+                        <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                          Edit<i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
+                        </button>
+                      </div>
+                      <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
+                        <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                          Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                        </button>
+                      </div>
+                    </div>
+                  <td>
+                </tr>
+            <?php }
+          } else {
+            echo "<span class='error'>No Data Found</span>";
+          } ?>
+              </tbody>
+      </table>
+    <?php
+        } else {
+    ?>
+      <tbody>
+        <?php
           if ($result_pagination) {
             while ($result = $result_pagination->fetch_array()) {
-          ?>
-              <tr>
-                <td><?php echo $result[0]; ?></td>
-                <td><?php echo $result["username"]; ?></td>
-                <td><?php echo $result["password"]; ?></td>
-                <td><?php echo $result["firstname"]; ?></td>
-                <td><?php echo $result["lastname"]; ?></td>
-                <td><?php echo $result["gender"]; ?></td>
-                <td><?php echo $result["date_birth"]; ?></td>
-                <td><?php echo $result["place_of_birth"]; ?></td>
-                <td><?php echo $result["create_date"]; ?></td>
-                <td><?php echo $result["name"]; ?></td>
-                <?php
-                if ($result["status"] == 1) {
-                  $status = "Đang hoạt động";
-                } else $status = "Ngừng hoạt động";
-                ?>
-                <td><?php echo $status; ?></td>
-                <td>
-                  <!-- <a href="account_edit.php?id=<?php echo $result[0]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
-                  <a href="?id=5&page=<?php echo $page_id ?>&deleteid=<?php echo $result[0]; ?>" class="delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a> -->
-                  <div class="action-btn-group">
-                    <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
-                      <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
-                        Edit<i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
-                      </button>
-                    </div>
-                    <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
-                      <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
-                        Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                      </button>
-                    </div>
+        ?>
+            <tr>
+              <td><?php echo $result[0]; ?></td>
+              <td><?php echo $result["username"]; ?></td>
+              <td><?php echo $result["password"]; ?></td>
+              <td><?php echo $result["firstname"]; ?></td>
+              <td><?php echo $result["lastname"]; ?></td>
+              <td><?php echo $result["gender"]; ?></td>
+              <td><?php echo $result["date_birth"]; ?></td>
+              <td><?php echo $result["place_of_birth"]; ?></td>
+              <td><?php echo $result["create_date"]; ?></td>
+              <td><?php echo $result["name"]; ?></td>
+              <?php
+              if ($result["status"] == 1) {
+                $status = "Đang hoạt động";
+              } else $status = "Ngừng hoạt động";
+              ?>
+              <td><?php echo $status; ?></td>
+              <td>
+                <div class="action-btn-group">
+                  <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
+                    <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                      Edit<i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
+                    </button>
                   </div>
-                <td>
-              </tr>
-          <?php
+                  <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
+                    <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                      Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                    </button>
+                  </div>
+                </div>
+              <td>
+            </tr>
+      <?php
             }
           }
-          ?>
-        </tbody>
+        } ?>
+      </tbody>
       </table>
     </div>
   </div>

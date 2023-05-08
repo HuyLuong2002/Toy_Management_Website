@@ -11,6 +11,11 @@ if (isset($_GET["id"])) {
   $id = $_GET["id"];
 }
 
+if (isset($_POST["input"])) {
+  $input = $_POST["input"];
+  $show_inventory_live_search = $inventoryController->show_inventory_live_search($input);
+}
+
 if (isset($_GET["inventory_id"])) {
   $show_inventory = $inventoryController->get_inventory_by_id($_GET["inventory_id"]);
   if (mysqli_num_rows($show_inventory) == 1) {
@@ -77,7 +82,7 @@ if (isset($current_position)) {
 }
 ?>
 
-<div class="card">
+<div class="card" id="searchresultinventory">
   <div class="card-header">
     <div class="bg-modal-box"></div>
     <h3>Receipt List</h3>
@@ -117,43 +122,85 @@ if (isset($current_position)) {
             <td>Action</td>
           </tr>
         </thead>
-        <tbody id="inventory-data">
-          <?php
+        <?php if (isset($show_inventory_live_search)) {
+          if ($show_inventory_live_search) {
+            while ($result = $show_inventory_live_search->fetch_array()) {
+        ?>
+              <tbody>
+                <tr>
+                  <td><?php echo $result[0]; ?></td>
+                  <td><?php echo $result[1]; ?></td>
+                  <td><?php echo $result[2]; ?></td>
+                  <td><?php echo $result[3]; ?></td>
+                  <td><?php echo $result[9]; ?></td>
+                  <td><?php echo $result[10] . " " . $result[11]; ?></td>
+                  <td><?php echo $result[6] == 1 ?  "Đã giao" : "Đang giao hàng"; ?></td>
+                  <td><?php echo $result[7]; ?></td>
+                  <td>
+                    <!-- <a href="inventory_edit.php?id=<?php echo $result[0]; ?>" class="Edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a><br>
+                  <a href="?id=4&page=<?php echo $page_id ?>&deleteid=<?php echo $result["id"]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a> -->
+                    <div class="action-btn-group">
+                      <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
+                        <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                          Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
+                        </button>
+                      </div>
+                      <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
+                        <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                          Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                        </button>
+                      </div>
+                      <a href="?id=11&page_detail=<?php echo $page_id ?>&enter_id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+                    </div>
+                  <td>
+                </tr>
+            <?php
+            }
+          } else {
+            echo "<span class='error'>No Data Found</span>";
+          }
+            ?>
+              </tbody>
+      </table>
+    <?php } else { ?>
+      <tbody id="inventory-data">
+        <?php
           if (isset($result_pagination)) {
             while ($result = $result_pagination->fetch_array()) {
-          ?>
-              <tr>
-                <td><?php echo $result[0]; ?></td>
-                <td><?php echo $result[1]; ?></td>
-                <td><?php echo $result[2]; ?></td>
-                <td><?php echo $result[3]; ?></td>
-                <td><?php echo $result[9]; ?></td>
-                <td><?php echo $result[10] . " " . $result[11]; ?></td>
-                <td><?php echo $result[6] == 1 ?  "Đã giao" : "Đang giao hàng"; ?></td>
-                <td><?php echo $result[7]; ?></td>
-                <td>
-                  <!-- <a href="inventory_edit.php?id=<?php echo $result[0]; ?>" class="Edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a><br>
+        ?>
+            <tr>
+              <td><?php echo $result[0]; ?></td>
+              <td><?php echo $result[1]; ?></td>
+              <td><?php echo $result[2]; ?></td>
+              <td><?php echo $result[3]; ?></td>
+              <td><?php echo $result[9]; ?></td>
+              <td><?php echo $result[10] . " " . $result[11]; ?></td>
+              <td><?php echo $result[6] == 1 ?  "Đã giao" : "Đang giao hàng"; ?></td>
+              <td><?php echo $result[7]; ?></td>
+              <td>
+                <!-- <a href="inventory_edit.php?id=<?php echo $result[0]; ?>" class="Edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a><br>
                   <a href="?id=4&page=<?php echo $page_id ?>&deleteid=<?php echo $result["id"]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a> -->
-                  <div class="action-btn-group">
-                    <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
-                      <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
-                        Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
-                      </button>
-                    </div>
-                    <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
-                      <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
-                        Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                      </button>
-                    </div>
-                    <a href="?id=11&page_detail=<?php echo $page_id ?>&enter_id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+                <div class="action-btn-group">
+                  <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
+                    <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                      Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
+                    </button>
                   </div>
-                <td>
-              </tr>
-          <?php
+                  <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
+                    <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                      Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                    </button>
+                  </div>
+                  <a href="?id=11&page_detail=<?php echo $page_id ?>&enter_id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+                </div>
+              <td>
+            </tr>
+      <?php
             }
           }
-          ?>
-        </tbody>
+        }
+      ?>
+      </tbody>
       </table>
     </div>
 

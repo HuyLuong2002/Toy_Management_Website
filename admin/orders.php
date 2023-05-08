@@ -93,7 +93,7 @@ if (isset($current_position)) {
             <td>Action</td>
           </tr>
         </thead>
-        <tbody id="product-data">
+        <tbody id="">
           <?php if (isset($show_orders_live_search)) {
             if ($show_orders_live_search) { ?>
               <?php while (
@@ -150,7 +150,7 @@ if (isset($current_position)) {
     <?php
           } else {
     ?>
-      <tbody id="product-data">
+      <tbody id="orders-data">
         <?php
             if ($result_pagination) {
               while ($result = $result_pagination->fetch_array()) { ?>

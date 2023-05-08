@@ -600,7 +600,6 @@ if (isset($current_position)) {
       url: 'products.php?product_id=' + edit_id,
       success: function(response) {
         var res = jQuery.parseJSON(response);
-        console.log(res);
         if (res.status == 404) {
           alert(res.message);
         } else if (res.status == 200) {
