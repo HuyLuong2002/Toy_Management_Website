@@ -2,18 +2,26 @@
 $filepath = realpath(dirname(__DIR__));
 include_once($filepath . "/Toy_Management_Website/controller/product_detailController.php");
 include_once $filepath . "/controller/productsController.php";
+include_once $filepath . "/controller/commentController.php";
 include_once($filepath . "/helpers/format.php");
 
 $fm = new Format();
 $product_detailController = new ProductDetailController();
+$commentController = new CommentController();
 $productsController = new ProductsController();
-
 if (isset($_GET["id"])) {
   $product_detail_id = $_GET["id"];
 }
 
 if (isset($_GET["categoryID"])) {
   $product_detail_category = $_GET["categoryID"];
+}
+
+$countComment = $commentController->show_all_comment_of_product($product_detail_id);
+if(isset($countComment->num_rows))
+  $rating = $countComment->num_rows;
+else {
+  $rating = 0;
 }
 ?>
 
@@ -81,7 +89,7 @@ if (isset($_GET["categoryID"])) {
                 }
               }
               ?>
-              <span>(250 ratings)</span>
+              <span>(<?php echo $rating; ?>)</span>
             </div>
             <div class="product-description">
               <?php
