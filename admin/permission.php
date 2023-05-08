@@ -1,6 +1,6 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once $filepath . "\controller\permissionController.php";
+include_once $filepath . "/controller/permissionController.php";
 include_once $filepath . "/helpers/pagination.php";
 
 $permissionController = new PermissionController();
@@ -8,7 +8,9 @@ $pag = new Pagination();
 
 if (isset($_POST["input"])) {
   $input = $_POST["input"];
-  $show_permission_live_search = $permissionController->show_permission_live_search($input);
+  $show_permission_live_search = $permissionController->show_permission_live_search(
+    $input
+  );
 }
 
 if (isset($_GET["id"])) {
@@ -16,21 +18,23 @@ if (isset($_GET["id"])) {
 }
 
 if (isset($_GET["permission_id"])) {
-  $show_permission = $permissionController->get_permission_by_id($_GET["permission_id"]);
+  $show_permission = $permissionController->get_permission_by_id(
+    $_GET["permission_id"]
+  );
   if (mysqli_num_rows($show_permission) == 1) {
     $sale = mysqli_fetch_array($show_permission);
 
     $res = [
-      'status' => 200,
-      'message' => 'sale fetch successful by id',
-      'data' => $sale
+      "status" => 200,
+      "message" => "Permission fetch successful by id",
+      "data" => $sale,
     ];
     echo json_encode($res);
     return;
   } else {
     $res = [
-      'status' => 404,
-      'message' => 'sale Id Not Found'
+      "status" => 404,
+      "message" => "Permission Id Not Found",
     ];
     echo json_encode($res);
     return;
@@ -48,7 +52,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add-btn"])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
   $edit_id = $_POST["edit_id"];
-  $updatePermission = $permissionController->update_permission($_POST, $edit_id);
+  $updatePermission = $permissionController->update_permission(
+    $_POST,
+    $edit_id
+  );
 }
 
 if (isset($_GET["page"])) {
@@ -87,7 +94,7 @@ if (isset($current_position)) {
     <div class="bg-modal-box"></div>
     <h3>Permission List</h3>
     <div class="notification">
-      <?php 
+      <?php
       if (isset($deletePermisson)) {
         echo $deletePermisson;
       }
@@ -117,44 +124,74 @@ if (isset($current_position)) {
             <td>Action</td>
           </tr>
         </thead>
+        <?php if (isset($show_permission_live_search)) {
+          if ($show_permission_live_search) {
+            while ($result = $show_permission_live_search->fetch_array()) { ?>
         <tbody>
-          <?php
-          if (isset($result_pagination)) {
-            while ($result = $result_pagination->fetch_array()) {
-          ?>
-              <tr>
+        <tr>
                 <td><?php echo $result[0]; ?></td>
                 <td><?php echo $result[1]; ?></td>
                 <td>
                   <div class="action-btn-group">
-                    <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
-                      <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                    <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
+                      <button class="modal-btn-edit" type="button" value="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
                         Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
                       </button>
                     </div>
-                    <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
-                      <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                    <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
+                      <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                         Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                       </button>
                     </div>
                   </div>
                 <td>
               </tr>
-          <?php
-            }
+              <?php }
+          } else {
+            echo "<span class='error'>No Data Found</span>";
+          } ?>
+        </tbody>
+        </table>
+        <?php
+        } else {
+           ?>
+        <tbody id="permission-data">
+          <?php if (isset($result_pagination)) {
+            while ($result = $result_pagination->fetch_array()) { ?>
+              <tr>
+                <td><?php echo $result[0]; ?></td>
+                <td><?php echo $result[1]; ?></td>
+                <td>
+                  <div class="action-btn-group">
+                    <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
+                      <button class="modal-btn-edit" type="button" value="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
+                        Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
+                      </button>
+                    </div>
+                    <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
+                      <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
+                        Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                      </button>
+                    </div>
+                  </div>
+                <td>
+              </tr>
+          <?php }
           }
-          ?>
+        } ?>
         </tbody>
       </table>
     </div>
   </div>
-  <?php if (empty($_POST["input"])) { ?>
+  <?php if (empty($_POST["input"])) {
+    if (isset($_POST["input"])) {
+      if ($_POST["input"] !== "0") { ?>
     <div class="bottom-pagination" id="pagination">
       <ul class="pagination">
         <?php if ($pagination_id > 1) { ?>
           <li class="item prev-page">
             <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id -
-                                                            1; ?>">
+  1; ?>">
               <i class="fa-solid fa-chevron-left"></i>
             </a>
           </li>
@@ -169,8 +206,12 @@ if (isset($current_position)) {
             } else {
               $current = "";
             } ?>
-            <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
-              <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
+            <li class="item <?php echo $current; ?>" id="<?php echo $pagination[
+  $i
+]; ?>">
+              <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[
+  $i
+]; ?>">
                 <?php echo $pagination[$i]; ?>
               </a>
             </li>
@@ -181,16 +222,16 @@ if (isset($current_position)) {
         <?php if ($page_total - 1 > $pagination_id + 1) { ?>
           <li class="item next-page">
             <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id +
-                                                            1; ?>">
+  1; ?>">
               <i class="fa-solid fa-chevron-right"></i>
             </a>
           </li>
         <?php } ?>
       </ul>
     </div>
-  <?php
-  }
-  ?>
+  <?php }
+    }
+  } ?>
 
   <!-- Modal delete -->
   <form class="modal-container-delete" id="modal-container-delete" method="post" enctype="multipart/form-data">
@@ -236,6 +277,34 @@ if (isset($current_position)) {
   </form>
   <!-- modal add end -->
 </div>
+
+
+<!-- ajax to pagination for product -->
+<script type="text/javascript">
+  $(document).ready(function() {
+    function loadProduct(page) {
+      $.ajax({
+        url: "permission.php",
+        type: "POST",
+        data: {
+          page_no: page
+        },
+        success: function(data) {
+          $('#permission-data').html(data);
+        }
+
+      });
+    }
+
+    // Pagination code
+    $(document).on("click", "#pagination a", function(e) {
+
+      var page = $(this).attr("id");
+      loadProduct(page);
+    });
+
+  });
+</script>
 
 <script type="text/javascript">
   $(document).ready(function() {

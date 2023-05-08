@@ -289,7 +289,9 @@ if (isset($current_position)) {
           } ?>
       </tbody>
       </table>
-      <?php if (empty($_POST["input"])) { ?>
+      <?php if (empty($_POST["input"])) {
+        if (isset($_POST["input"])) {
+          if ($_POST["input"] !== "0") { ?>
         <div class="bottom-pagination" id="pagination">
           <ul class="pagination">
             <?php if ($pagination_id > 1) { ?>
@@ -327,7 +329,9 @@ if (isset($current_position)) {
             <?php } ?>
           </ul>
         </div>
-      <?php } ?>
+      <?php }
+        }
+      } ?>
     </div>
   </div>
 

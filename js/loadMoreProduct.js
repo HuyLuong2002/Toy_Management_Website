@@ -99,7 +99,8 @@ const showProductList = (arr1, arr2, current1, current2) => {
             }
             
         } else {
-            document.getElementById(`load-more-1`).style.display = "none";
+            let loadMore1 = document.getElementById(`load-more-1`)
+            if(loadMore1) loadMore1.style.display = "none";
         }
     }
 
@@ -117,7 +118,8 @@ const showProductList = (arr1, arr2, current1, current2) => {
                     arr2[i].style.display = "block";
             }
         } else {
-            document.getElementById(`load-more-2`).style.display = "none";
+            let loadMore2 = document.getElementById(`load-more-2`)
+            if(loadMore2) loadMore2.style.display = "none";
         }
     }
 }
