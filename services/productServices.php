@@ -126,25 +126,25 @@ include_once $filepath . "\database\connectDB.php";
     return $result;
   }
 
-  public function insert_product($data, $files)
+  public function insert_product($data)
   {
-    $productName = mysqli_real_escape_string($this->db->link, $data["name"]);
-    $category = mysqli_real_escape_string($this->db->link, $data["category"]);
-    $sale = mysqli_real_escape_string($this->db->link, $data["sale"]);
+    $productName = mysqli_real_escape_string($this->db->link, $data["name_add"]);
+    $category = mysqli_real_escape_string($this->db->link, $data["category_add"]);
+    $sale = mysqli_real_escape_string($this->db->link, $data["sale_add"]);
     $description = mysqli_real_escape_string(
       $this->db->link,
-      $data["description"]
+      $data["description_add"]
     );
-    $price = mysqli_real_escape_string($this->db->link, $data["price"]);
-    $quantity = mysqli_real_escape_string($this->db->link, $data["quantity"]);
+    $price = mysqli_real_escape_string($this->db->link, $data["price_add"]);
+    $quantity = mysqli_real_escape_string($this->db->link, $data["quantity_add"]);
     $create_date = (string) date("d/m/Y");
     $highlight = 0;
     $review = 0;
     //Kiểm tra hình ảnh và lấy hình ảnh cho vào folder upload
     $permited = ["jpg", "jpeg", "png", "gif"];
-    $file_name = $_FILES["uploadfile"]["name"];
-    $file_size = $_FILES["uploadfile"]["size"];
-    $file_temp = $_FILES["uploadfile"]["tmp_name"];
+    $file_name = $_FILES["uploadfile_add"]["name"];
+    $file_size = $_FILES["uploadfile_add"]["size"];
+    $file_temp = $_FILES["uploadfile_add"]["tmp_name"];
 
     $div = explode(".", $file_name);
     $file_ext = strtolower(end($div));
@@ -175,25 +175,25 @@ include_once $filepath . "\database\connectDB.php";
       }
     }
   }
-  public function update_product($data, $files, $id)
+  public function update_product($data, $id)
   {
-    $productName = mysqli_real_escape_string($this->db->link, $data["name"]);
-    $category = mysqli_real_escape_string($this->db->link, $data["category"]);
-    $sale = mysqli_real_escape_string($this->db->link, $data["sale"]);
+    $productName = mysqli_real_escape_string($this->db->link, $data["name_edit"]);
+    $category = mysqli_real_escape_string($this->db->link, $data["category_edit"]);
+    $sale = mysqli_real_escape_string($this->db->link, $data["sale_edit"]);
     $description = mysqli_real_escape_string(
       $this->db->link,
-      $data["description"]
+      $data["description_edit"]
     );
-    $price = mysqli_real_escape_string($this->db->link, $data["price"]);
-    $quantity = mysqli_real_escape_string($this->db->link, $data["quantity"]);
+    $price = mysqli_real_escape_string($this->db->link, $data["price_edit"]);
+    $quantity = mysqli_real_escape_string($this->db->link, $data["quantity_edit"]);
 
     $create_date = (string) date("d/m/Y");
 
     //Kiểm tra hình ảnh và lấy hình ảnh cho vào folder upload
     $permited = ["jpg", "jpeg", "png", "gif"];
-    $file_name = $_FILES["uploadfile"]["name"];
-    $file_size = $_FILES["uploadfile"]["size"];
-    $file_temp = $_FILES["uploadfile"]["tmp_name"];
+    $file_name = $_FILES["uploadfile_edit"]["name"];
+    $file_size = $_FILES["uploadfile_edit"]["size"];
+    $file_temp = $_FILES["uploadfile_edit"]["tmp_name"];
 
     $div = explode(".", $file_name);
     $file_ext = strtolower(end($div));

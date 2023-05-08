@@ -53,13 +53,15 @@ class ProductsController
     return $result;
   }
 
-  public function show_product_by_category_id($category){
+  public function show_product_by_category_id($category)
+  {
     $productService = new ProductServices();
     $result = $productService->show_product_by_category_id($category);
     return $result;
   }
 
-  public function show_product_by_category_id_unique($category, $id){
+  public function show_product_by_category_id_unique($category, $id)
+  {
     $productService = new ProductServices();
     $result = $productService->show_product_by_category_id_unique($category, $id);
     return $result;
@@ -113,23 +115,31 @@ class ProductsController
     return $result;
   }
 
-  // public function pageNumber($page_total, $max, $current){
-  //   $half = ceil($max / 2);
-  //   $to = $max;
+  public function insert_product($data)
+  {
+    $productService = new ProductServices();
+    $result = $productService->insert_product($data);
+    return $result;
+  }
 
-  //   if ($current + $half >= $page_total)
-  //     $to = $page_total;
-  //   else if ($current > $half)
-  //     $to = $current + $half;
+  public function update_product($data, $id)
+  {
+    $productService = new ProductServices();
+    $result = $productService->update_product($data, $id);
+    return $result;
+  }
 
-  //     $from = $to - $max;
-  //     $result = array();
+  public function get_product_by_id($id)
+  {
+    $productService = new ProductServices();
+    $result = $productService->get_product_by_id($id);
+    return $result;
+  }
 
-  //     for ($i = 1; $i <= $max; $i++){
-  //       $result[$i] = ($i) + $from;
-  //     }
-  //     return $result;
-  // }
+  public function show_product_detail($product_detail_id)
+  {
+    $productService = new ProductServices();
+    $result = $productService->show_product_detail($product_detail_id);
+    return $result;
+  }
 }
-
-?>

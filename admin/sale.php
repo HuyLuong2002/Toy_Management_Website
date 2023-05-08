@@ -208,7 +208,6 @@ if (isset($current_position)) {
               <td>
                 <div class="action-btn-group">
                   <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
-                    <!-- <a href="sale_edit.php?id=<?php echo $result[0]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a> -->
                     <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
                       Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
                     </button>

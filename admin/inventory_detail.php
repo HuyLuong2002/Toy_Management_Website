@@ -20,6 +20,8 @@ if (isset($_GET["page_detail"])) {
   $pagination_id = $page_id;
 }
 
+// $result_pagination = $inventory_detailController->show_inventory_detail($enter_id);
+
 /*
 Tính giá trị của phân trang, 10 sale trên 1 trang
 */

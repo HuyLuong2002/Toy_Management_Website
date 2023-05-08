@@ -32,9 +32,9 @@ include_once $filepath . "\database\connectDB.php";
         return $result;
     }
 
-    public function insert_category($data, $files)
+    public function insert_category($data)
     {
-        $categoryName = mysqli_real_escape_string($this->db->link, $data["name"]);
+        $categoryName = mysqli_real_escape_string($this->db->link, $data["name_add"]);
 
         if (
             $categoryName == ""
@@ -53,9 +53,9 @@ include_once $filepath . "\database\connectDB.php";
             }
         }
     }
-    public function update_category($data, $files, $id)
+    public function update_category($data, $id)
     {
-        $categoryName = mysqli_real_escape_string($this->db->link, $data["name"]);
+        $categoryName = mysqli_real_escape_string($this->db->link, $data["name_edit"]);
 
         if (
             $categoryName == ""

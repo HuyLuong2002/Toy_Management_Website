@@ -5,6 +5,7 @@ var modal_edit = document.querySelector(`.modal-container-edit`);
 var modal_add = document.querySelector(`.modal-container-add`);
 var close_edit_modal = document.querySelector(".modal-container-edit-close span");
 var close_add_modal = document.querySelector(".modal-container-add-close span");
+var body = document.body;
 
 const modalAlert = document.querySelector('.modal-alert');
 const modalClose = document.querySelector('.modal-alert-close');
@@ -86,6 +87,17 @@ var closeCurdAddModal = () => {
 }
 
 //modal add end
+
+bg_modal_box.addEventListener("click", function (event) {
+    // Kiểm tra xem sự kiện click có xảy ra bên ngoài cửa sổ popup hay không
+    if (event.target === bg_modal_box) {
+        // Nếu có, đóng cửa sổ popup
+        // modal.style.display = "none";
+        closeCURDAddModal();
+        closeCURDDeleteModal();
+        closeCURDEditModal();
+    }
+});
 
 
 // modal alert

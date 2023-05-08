@@ -58,7 +58,7 @@ let listBar = [
     id: 10,
     title: "Category",
     href: "index.php?id=10",
-    icon: "la-chart-bar",
+    icon: "fa-list",
   },
   {
     id: 12,
