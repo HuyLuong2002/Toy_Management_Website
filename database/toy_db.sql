@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 07, 2023 lúc 10:11 AM
+-- Thời gian đã tạo: Th5 08, 2023 lúc 11:16 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.28
 
@@ -93,7 +93,8 @@ CREATE TABLE `category` (
 
 INSERT INTO `category` (`id`, `name`, `is_deleted`) VALUES
 (1, 'Đồ chơi mô hình', 0),
-(2, 'Đồ chơi Marvel', 0);
+(2, 'Đồ chơi Marvel', 0),
+(7, 'Đồ chơi búp bê', 0);
 
 -- --------------------------------------------------------
 
@@ -115,7 +116,27 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`id`, `content`, `user_id`, `product_id`, `rate`, `time`) VALUES
-(9, 'Sản phẩm như cc', 13, 6, 3, '12/02/2023');
+(12, 'Sản phẩm như cc', 6, 6, 3, '08/05/2023'),
+(13, 'Sản phẩm như cc', 13, 6, 5, '08/05/2023');
+
+--
+-- Bẫy `comment`
+--
+DELIMITER $$
+CREATE TRIGGER `update_product_rating` AFTER INSERT ON `comment` FOR EACH ROW BEGIN
+    -- Tính toán điểm trung bình của sản phẩm
+    DECLARE total_rating FLOAT;
+    DECLARE num_ratings INT;
+    SELECT COALESCE(SUM(rate), 0), COALESCE(COUNT(*), 0)
+    INTO total_rating, num_ratings
+    FROM comment
+    WHERE product_id = NEW.product_id;
+    UPDATE product
+    SET review = total_rating / num_ratings
+    WHERE id = NEW.product_id;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -375,7 +396,7 @@ INSERT INTO `product` (`id`, `name`, `image`, `price`, `description`, `create_da
 (1, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01/04/2023', 1, 2, 1, 3, 30, 0),
 (2, 'Product 2', 'ef314b1615.png', '3500', 'Sản phẩm mới', '01/04/2023', 0, 1, 2, 0, 20, 0),
 (3, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '01/04/2023', 0, 1, 2, 0, 30, 0),
-(6, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01/04/2023', 0, 2, 1, 3, 38, 0),
+(6, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01/04/2023', 0, 2, 1, 4, 38, 0),
 (7, 'Product 3', '662359cdaf.png', '3000', 'Sản phẩm mới 3', '11/04/2023', 1, 1, 2, 5, 30, 0),
 (8, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01/04/2023', 0, 2, 1, 3, 30, 0),
 (13, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 1, 1, 1, 5, 30, 0),
@@ -411,7 +432,8 @@ INSERT INTO `product` (`id`, `name`, `image`, `price`, `description`, `create_da
 (43, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
 (44, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
 (46, 'Product 6', '2c19f85c9d.png', '3000', 'Sản phẩm mới', '09/04/2023', 1, 1, 2, 0, 35, 1),
-(47, 'Product 6', 'f5c04df7ab.png', '3500', 'Sản phẩm mới 2', '14/04/2023', 1, 1, 2, 0, 35, 0);
+(47, 'Product 6', 'f5c04df7ab.png', '3500', 'Sản phẩm mới 2', '14/04/2023', 1, 1, 2, 0, 35, 0),
+(48, 'Product 15', 'f8b503a187.png', '3000', '<p><strong>Sản phẩm mới</strong></p>', '07/05/2023', 0, 2, 2, 0, 25, 0);
 
 -- --------------------------------------------------------
 
@@ -591,13 +613,13 @@ ALTER TABLE `account_function`
 -- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT cho bảng `detail_enter_product`
@@ -645,7 +667,7 @@ ALTER TABLE `permission`
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT cho bảng `provider`
