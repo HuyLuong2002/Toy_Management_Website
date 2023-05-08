@@ -10,7 +10,7 @@ if (empty($user_id)) {
 }
 $cartAddCookie = isset($_COOKIE['Order']) ? $_COOKIE['Order'] : null;
 $cartAdd = json_decode($cartAddCookie, true);
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($cartAdd)) {
+if (isset($cartAdd)) {
     $cartController = new CartController();
     $alert = $cartController->addCart($cartAdd, $user_id);
     

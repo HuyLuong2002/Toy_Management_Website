@@ -69,12 +69,16 @@ include_once $filepath . "\helpers\\format.php";
     $user_id,
     $total_quantity,
     $date,
+    $address,
+    $phone,
+    $email,
+    $country,
     $total_price,
     $pay_method,
     $status,
     $is_deleted
   ) {
-    $query = "INSERT INTO orders(user_id, quantity, date, total_price, pay_method, status, is_deleted) VALUES ($user_id, $total_quantity, '$date', $total_price, '$pay_method', '$status', $is_deleted)";
+    $query = "INSERT INTO orders(user_id, quantity, date, address, phone, email, country, total_price, pay_method, status, is_deleted) VALUES ('$user_id', '$total_quantity', '$date', '$address', '$phone', '$email', '$country', '$total_price', '$pay_method', '$status', '$is_deleted')";
     $result = $this->db->insert($query);
     if ($result) {
       return true;
