@@ -183,6 +183,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
             <div class="modal-edit-info-item">
                 <label for="name">Name</label>
                 <input type="text" id="name_edit" name="name_edit" required value="">
+                <div id="name_edit_result"></div>
             </div>
         </div>
 
@@ -197,6 +198,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
             <div class="modal-add-info-item">
                 <label for="name">Name</label>
                 <input type="text" id="name_add" name="name_add" required value="">
+                <div id="name_add_result"></div>
             </div>
         </div>
 
@@ -232,6 +234,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
             }
         })
     });
+</script>
+
+<script src="./js/validate_input.js"></script>
+
+<!-- coding check input value function -->
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#name_add").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEdit(input) == false) {
+        $("#name_add_result").html("<span class='error'>Category Name Not Valid</span>");
+        $("#name_add_result").css("display", "block");
+        $("#name_add_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#name_add_result").css("display", "none");
+      }
+    });
+
+    $("#name_edit").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEdit(input) == false) {
+        $("#name_edit_result").html("<span class='error'>Category Name Not Valid</span>");
+        $("#name_edit_result").css("display", "block");
+        $("#name_edit_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#name_edit_result").css("display", "none");
+      }
+    });
+  });
 </script>
 
 <!-- <script>

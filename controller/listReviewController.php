@@ -11,9 +11,3 @@ if (isset($_POST["review"])) {
 }
 
 ?>
-
-<?php
-if (isset($result)) {
-    echo "Ccc";
-}
-?>

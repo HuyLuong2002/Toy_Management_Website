@@ -85,7 +85,6 @@ if (isset($current_position)) {
             <td>Address</td>
             <td>Phone</td>
             <td>Email</td>
-            <td>State</td>
             <td>Country</td>
             <td>Total price</td>
             <td>Payment method</td>
@@ -131,14 +130,15 @@ if (isset($current_position)) {
                     <?php echo $result[9]; ?>
                   </td>
                   <td>
-                    <?php echo $result[10]; ?>
-                  </td>
-                  <td>
-                    <?php echo $result[11] == 1 ? "Đã giao" : "Đang giao hàng"; ?>
+                    <?php if($result[10] == "0") echo "Đang giao hàng";
+                      else if($result[10] == "1") echo "Đã giao";
+                      else if($result[10] == "2") echo "Chờ xử lý";
+                    ?>
                   </td>
                   <td>
                     <a href="?id=3&deleteid=<?php echo $result[0]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
                     <a href="orders_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+                    <a href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF</a>
                   </td>
                 </tr>
             <?php }
@@ -186,11 +186,11 @@ if (isset($current_position)) {
                     <?php echo $result[9]; ?>
                   </td>
                   <td>
-                    <?php echo $result[10]; ?>
+                    <?php if($result[10] == "0") echo "Đang giao hàng";
+                      else if($result[10] == "1") echo "Đã giao";
+                      else if($result[10] == "2") echo "Chờ xử lý";
+                    ?>
                   </td>
-              <td>
-                <?php echo $result[11] == 1 ? "Đã giao" : "Đang giao hàng"; ?>
-              </td>
               <td>
                 <a href="?id=3&page=<?php echo $page_id?>&deleteid=<?php echo $result[0]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
                 <a href="?id=3&page=<?php echo $page_id?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>

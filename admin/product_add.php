@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/add.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <title>Add product</title>
 </head>
 
@@ -34,12 +34,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
       } ?>
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" id="name" name="name_add" class="name" required>
+        <input type="text" id="name" name="name_add" class="name">
+        <div id="name_add_result"></div>
       </div>
 
       <div class="form-group">
         <label for="price">Price</label>
         <input type="text" id="price" name="price_add" class="price" required>
+        <div id="price_add_result"></div>
       </div>
 
       <div class="form-group">
@@ -88,11 +90,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
       <div class="form-group">
         <label for="quantity">Quantity</label>
         <input type="number" id="quantity" name="quantity_add" class="quantity" required>
+        <div id="quantity_add_result"></div>
       </div>
 
       <div class="form-group">
         <label for="uploadfile">Upload File</label>
-        <input type="file" id="uploadfile" name="uploadfile_add" class="uploadfile">
+        <input type="file" id="uploadfile" name="uploadfile_add" class="uploadfile" required>
       </div>
 
       <input type="submit" name="submit" class="submit" Value="Save" />
@@ -110,4 +113,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
   });
 </script>
 
+  <script src="./js/validate_input.js"></script>
+
+  <!-- coding check input value function -->
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#name").keyup(function() {
+        var input = $(this).val();
+        if (checkAddAndEdit(input) == false) {
+          $("#name_add_result").html("<span class='error'>Product Name Not Valid</span>");
+          $("#name_add_result").css("display", "block");
+          $("#name_add_result").css("margin-top", "1rem");
+        }
+        else {
+          $("#name_add_result").css("display", "none");
+        }
+      });
+
+      $("#price").keyup(function() {
+        var input = $(this).val();
+        if (checkAddAndEditPrice(input) == false) {
+          $("#price_add_result").html("<span class='error'>Product Price Not Valid</span>");
+          $("#price_add_result").css("display", "block");
+          $("#price_add_result").css("margin-top", "1rem");
+        }
+        else {
+          $("#price_add_result").css("display", "none");
+        }
+      });
+
+      $("#quantity").keyup(function() {
+        var input = $(this).val();
+        if (checkAddAndEditQuantity(input) == false) {
+          $("#quantity_add_result").html("<span class='error'>Product Quantity Not Valid</span>");
+          $("#quantity_add_result").css("display", "block");
+          $("#quantity_add_result").css("margin-top", "1rem");
+        }
+        else {
+          $("#quantity_add_result").css("display", "none");
+        }
+      });
+
+
+    });
+</script>
 </html>
+
