@@ -27,7 +27,7 @@ include_once $filepath . "\database\connectDB.php";
 
     public function show_category_live_search($input)
     {
-        $query = "SELECT * FROM category WHERE (category.name LIKE '$input%') AND is_deleted = '0'";
+        $query = "SELECT * FROM category WHERE (category.name LIKE '%$input%') AND is_deleted = '0'";
         $result = $this->db->select($query);
         return $result;
     }

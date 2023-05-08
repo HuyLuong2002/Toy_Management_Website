@@ -14,7 +14,7 @@ if (isset($_POST["input"])) {
   $input = $_POST["input"];
   $show_product_live_search = $productsController->show_product_live_search(
     $input
-  );
+  );  
 }
 
 if (isset($_GET["id"])) {

@@ -48,9 +48,9 @@ class InventoryServices
 
   public function show_inventory_live_search($input)
   {
-    $query = "SELECT enter_product.*, provider.name, account.firstname, account.lastname FROM enter_product, provider, account WHERE ((enter_product.enter_date LIKE '$input%') 
-    OR (enter_product.total_quantity LIKE '$input%') OR (enter_product.total_price LIKE '$input%') OR (provider.name LIKE '$input%') 
-    OR (account.firstname LIKE '$input%') OR (account.lastname LIKE '$input%')) AND enter_product.provider_id = provider.id AND enter_product.user_id = account.id AND enter_product.is_deleted = 0";
+    $query = "SELECT enter_product.*, provider.name, account.firstname, account.lastname FROM enter_product, provider, account WHERE ((enter_product.enter_date LIKE '%$input%') 
+    OR (enter_product.total_quantity LIKE '%$input%') OR (enter_product.total_price LIKE '%$input%') OR (provider.name LIKE '%$input%') 
+    OR (account.firstname LIKE '%$input%') OR (account.lastname LIKE '%$input%')) AND enter_product.provider_id = provider.id AND enter_product.user_id = account.id AND enter_product.is_deleted = 0";
     $result = $this->db->select($query);
     return $result;
   }

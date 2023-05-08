@@ -24,7 +24,7 @@ include_once $filepath . "/helpers/format.php";
   // live search sale for admin
   public function show_sale_live_search($input)
   {
-    $query = "SELECT * FROM sale WHERE ((sale.name LIKE '$input%') OR (sale.percent_sale LIKE '$input%') OR (sale.start_date LIKE '$input%') OR (sale.end_date LIKE '$input%')) AND is_deleted = '0'";
+    $query = "SELECT * FROM sale WHERE ((sale.name LIKE '%$input%') OR (sale.percent_sale LIKE '%$input%') OR (sale.start_date LIKE '%$input%') OR (sale.end_date LIKE '%$input%')) AND is_deleted = '0'";
     $result = $this->db->select($query);
     return $result;
   }
