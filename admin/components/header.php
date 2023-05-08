@@ -73,12 +73,56 @@ if (isset($_GET["id"])) {
     </div>
   </header>
 
+  <script src="./js/validate_input.js"></script>
+
   <!-- coding live search function -->
   <script type="text/javascript">
     $(document).ready(function() {
       $("#search").keyup(function() {
         var input = $(this).val();
-
+        if (checkSearchInput(input) == false) {
+          //product
+          $("#searchresultproduct").html("<span class='error'>Input Value Not Valid</span>");
+          $("#searchresultproduct").css("display", "block");
+          $("#searchresultproduct").css("margin-top", "6rem");
+          $("#searchresultproduct").css("margin-left", "2rem");
+          //provider
+          $("#searchresultprovider").html("<span class='error'>Input Value Not Valid</span>");
+          $("#searchresultprovider").css("display", "block");
+          $("#searchresultprovider").css("margin-top", "6rem");
+          $("#searchresultprovider").css("margin-left", "2rem");
+          //permission
+          $("#searchresultpermission").html("<span class='error'>Input Value Not Valid</span>");
+          $("#searchresultpermission").css("display", "block");
+          $("#searchresultpermission").css("margin-top", "6rem");
+          $("#searchresultpermission").css("margin-left", "2rem");
+          //sale
+          $("#searchresultsale").html("<span class='error'>Input Value Not Valid</span>");
+          $("#searchresultsale").css("display", "block");
+          $("#searchresultsale").css("margin-top", "6rem");
+          $("#searchresultsale").css("margin-left", "2rem");
+          //orders
+          $("#searchresultorders").html("<span class='error'>Input Value Not Valid</span>");
+          $("#searchresultorders").css("display", "block");
+          $("#searchresultorders").css("margin-top", "6rem");
+          $("#searchresultorders").css("margin-left", "2rem");
+          //account
+          $("#searchresultaccount").html("<span class='error'>Input Value Not Valid</span>");
+          $("#searchresultaccount").css("display", "block");
+          $("#searchresultaccount").css("margin-top", "6rem");
+          $("#searchresultaccount").css("margin-left", "2rem");
+          //inventory
+          $("#searchresultinventory").html("<span class='error'>Input Value Not Valid</span>");
+          $("#searchresultinventory").css("display", "block");
+          $("#searchresultinventory").css("margin-top", "6rem");
+          $("#searchresultinventory").css("margin-left", "2rem");
+          //category
+          $("#searchresultcategory").html("<span class='error'>Input Value Not Valid</span>");
+          $("#searchresultcategory").css("display", "block");
+          $("#searchresultcategory").css("margin-top", "6rem");
+          $("#searchresultcategory").css("margin-left", "2rem");
+          return;
+        }
         if (input != "") {
           $.ajax({
             url: "products.php",

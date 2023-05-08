@@ -92,36 +92,36 @@ include_once $filepath . "\database\connectDB.php";
   //live search for admin
   public function show_product_live_search($input)
   {
-    $query = "SELECT * FROM product, category, sale WHERE ((product.name LIKE '$input%') OR (product.price LIKE '$input%') OR (product.description LIKE '$input%') OR (product.create_date LIKE '$input%') OR (product.highlight LIKE '$input%') OR (sale.name LIKE '$input%') OR (category.name LIKE '$input%') OR (product.review LIKE '$input%') OR (product.quantity LIKE '$input%')) AND (category.id = product.category_id AND sale.id = product.sale_id AND product.is_deleted = '0')";
+    $query = "SELECT * FROM product, category, sale WHERE ((product.name LIKE '%$input%') OR (product.price LIKE '%$input%') OR (product.description LIKE '%$input%') OR (product.create_date LIKE '%$input%') OR (product.highlight LIKE '%$input%') OR (sale.name LIKE '%$input%') OR (category.name LIKE '%$input%') OR (product.review LIKE '%$input%') OR (product.quantity LIKE '%$input%')) AND (category.id = product.category_id AND sale.id = product.sale_id AND product.is_deleted = '0')";
     $result = $this->db->select($query);
     return $result;
   }
 
-  //live search for admin
+  //live search for user
   public function show_product_live_search_category($input)
   {
-    $query = "SELECT * FROM product, category WHERE (category.name LIKE '$input%') AND (category.id = product.category_id AND product.is_deleted = '0')";
+    $query = "SELECT * FROM product, category WHERE (category.name LIKE '%$input%') AND (category.id = product.category_id AND product.is_deleted = '0')";
     $result = $this->db->select($query);
     return $result;
   }
 
   public function show_product_live_search_price($input)
   {
-    $query = "SELECT * FROM product WHERE (price LIKE '$input%' AND product.is_deleted = '0')";
+    $query = "SELECT * FROM product WHERE (price LIKE '%$input%' AND product.is_deleted = '0')";
     $result = $this->db->select($query);
     return $result;
   }
 
   public function show_product_live_search_name($input)
   {
-    $query = "SELECT * FROM product WHERE (name LIKE '$input%' AND product.is_deleted = '0')";
+    $query = "SELECT * FROM product WHERE (name LIKE '%$input%' AND product.is_deleted = '0')";
     $result = $this->db->select($query);
     return $result;
   }
 
   public function show_product_live_search_rating($input)
   {
-    $query = "SELECT * FROM product WHERE (review LIKE '$input%' AND product.is_deleted = '0')";
+    $query = "SELECT * FROM product WHERE (review LIKE '%$input%' AND product.is_deleted = '0')";
     $result = $this->db->select($query);
     return $result;
   }
