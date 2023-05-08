@@ -53,15 +53,15 @@ include_once $filepath . "\lib\session.php";
   {
     $username = mysqli_real_escape_string($this->db->link, $data["username"]);
     $password = mysqli_real_escape_string($this->db->link, $data["password"]);
-    $firstname = mysqli_real_escape_string($this->db->link, $data["firstname"]);
-    $lastname = mysqli_real_escape_string($this->db->link, $data["lastname"]);
-    $gender = mysqli_real_escape_string($this->db->link, $data["gender"]);
-    $date_birth = mysqli_real_escape_string($this->db->link, $data["dateofbirth"]);
+    $firstname = mysqli_real_escape_string($this->db->link, $data["firstname_add"]);
+    $lastname = mysqli_real_escape_string($this->db->link, $data["lastname_add"]);
+    $gender = mysqli_real_escape_string($this->db->link, $data["gender_add"]);
+    $date_birth = mysqli_real_escape_string($this->db->link, $data["dateofbirth_add"]);
     
-    $place_of_birth = mysqli_real_escape_string($this->db->link, $data["placeofbirth"]);
+    $place_of_birth = mysqli_real_escape_string($this->db->link, $data["placeofbirth_add"]);
     $create_date = (string) date("d/m/Y");
-    $permission_id = mysqli_real_escape_string($this->db->link, $data["permission"]);
-    $status = mysqli_real_escape_string($this->db->link, $data["status"]);
+    $permission_id = mysqli_real_escape_string($this->db->link, $data["permission_add"]);
+    $status = mysqli_real_escape_string($this->db->link, $data["status_add"]);
 
     if (
       $username == "" ||
@@ -91,15 +91,15 @@ include_once $filepath . "\lib\session.php";
 
   public function update_account($data, $id)
   {
-    $firstname = mysqli_real_escape_string($this->db->link, $data["firstname"]);
-    $lastname = mysqli_real_escape_string($this->db->link, $data["lastname"]);
-    $gender = mysqli_real_escape_string($this->db->link, $data["gender"]);
-    $date_birth = mysqli_real_escape_string($this->db->link, $data["dateofbirth"]);
+    $firstname = mysqli_real_escape_string($this->db->link, $data["firstname_edit"]);
+    $lastname = mysqli_real_escape_string($this->db->link, $data["lastname_edit"]);
+    $gender = mysqli_real_escape_string($this->db->link, $data["gender_edit"]);
+    $date_birth = mysqli_real_escape_string($this->db->link, $data["dateofbirth_edit"]);
     
-    $place_of_birth = mysqli_real_escape_string($this->db->link, $data["placeofbirth"]);
+    $place_of_birth = mysqli_real_escape_string($this->db->link, $data["placeofbirth_edit"]);
     $create_date = (string) date("d/m/Y");
-    $permission_id = mysqli_real_escape_string($this->db->link, $data["permission"]);
-    $status = mysqli_real_escape_string($this->db->link, $data["status"]);
+    $permission_id = mysqli_real_escape_string($this->db->link, $data["permission_edit"]);
+    $status = mysqli_real_escape_string($this->db->link, $data["status_edit"]);
     if (
       $firstname == "" ||
       $lastname == "" ||

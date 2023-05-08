@@ -96,7 +96,7 @@ if (isset($current_position)) {
     </div>
     <button type="button" class="modal-btn-add" onclick="AddActive()">
       <p>
-        Add sale <span class="las la-plus"></span>
+        Add inventory <span class="las la-plus"></span>
       </p>
     </button>
   </div>
@@ -222,31 +222,45 @@ if (isset($current_position)) {
     <input type="hidden" id="edit_id" name="edit_id" class="edit_id">
     <div class="modal-edit-info">
       <div class="modal-edit-info-item">
-        <label for="name">Name</label>
-        <input type="text" id="name_edit" name="name_edit" required value="">
+        <label for="enter-date_edit">Enter Date</label>
+        <input type="date" id="enter-date_edit" name="enter-date_edit" required>
       </div>
 
       <div class="modal-edit-info-item">
-        <label for="start">Start date</label>
-        <input type="date" id="start_edit" name="start_edit" required value="">
+        <label for="total-quantity_edit">Total Quantity</label>
+        <input type="text" id="total-quantity_edit" name="total-quantity_edit" required>
       </div>
 
       <div class="modal-edit-info-item">
-        <label for="end">End date</label>
-        <input type="date" id="end_edit" name="end_edit" required value="">
+        <label for="total-price_edit">Total Price</label>
+        <input type="text" id="total-price_edit" name="total-price_edit" required>
       </div>
 
       <div class="modal-edit-info-item">
-        <label for="percent">Percent</label>
-        <input type="number" id="percent_edit" name="percent_edit" required value="">
+        <label for="provider">Provider</label>
+        <select class="modal-edit-input-select" id="provider_edit" name="provider_edit" required>
+          <option value="">Select provider</option>
+          <?php
+          $providerController = new ProviderController();
+          $show_provider = $providerController->show_provider_user();
+          if ($show_provider) {
+            $i = 0;
+            while ($result = $show_provider->fetch_assoc()) {
+              $i++; ?>
+              <option value="<?php echo $result["id"]; ?>"><?php echo $result["name"]; ?></option>
+          <?php
+            }
+          }
+          ?>
+        </select>
       </div>
 
       <div class="modal-edit-info-item">
-        <label for="status">Status</label>
+        <label for="provider">Status</label>
         <select class="modal-edit-input-select" id="status_edit" name="status_edit" required>
           <option value="">Select status</option>
-          <option value="1">Còn áp dụng</option>
-          <option value="0">Hết áp dụng</option>
+          <option value="1">Đã giao</option>
+          <option value="0">Đang giao hàng</option>
         </select>
       </div>
     </div>
@@ -275,11 +289,6 @@ if (isset($current_position)) {
       </div>
 
       <div class="modal-add-info-item">
-        <label for="percent">Percent</label>
-        <input type="number" id="percent_add" name="percent_add" required value="">
-      </div>
-
-      <div class="modal-add-info-item">
         <label for="provider">Provider</label>
         <select class="modal-add-input-select" id="provider_add" name="provider_add" required>
           <option value="">Select provider</option>
@@ -299,11 +308,11 @@ if (isset($current_position)) {
       </div>
 
       <div class="modal-add-info-item">
-        <label for="provider">Provider</label>
+        <label for="provider">Status</label>
         <select class="modal-add-input-select" id="status_add" name="status_add" required>
           <option value="">Select status</option>
-          <option value="1">Còn áp dụng</option>
-          <option value="0">Hết áp dụng</option>
+          <option value="1">Đã giao</option>
+          <option value="0">Đang giao hàng</option>
         </select>
       </div>
     </div>
@@ -330,12 +339,20 @@ if (isset($current_position)) {
       url: 'inventory.php?inventory_id=' + edit_id,
       success: function(response) {
         var res = jQuery.parseJSON(response);
+        console.log(res);
         if (res.status == 404) {
           alert(res.message);
         } else if (res.status == 200) {
 
+          var dateParts = res.data.enter_date.split("/");
+          var newEnterDate = dateParts[2] + "-" + dateParts[1].padStart(2, "0") + "-" + dateParts[0].padStart(2, "0");
+
           $('#edit_id').val(res.data.id);
-          $('#name_edit').val(res.data.name);
+          $('#enter-date_edit').val(newEnterDate);
+          $('#total-quantity_edit').val(res.data.total_quantity);
+          $('#total-price_edit').val(res.data.total_price);
+          $('#provider_edit').val(res.data.provider_id);
+          $('#status_edit').val(res.data.status);
         }
       }
     })

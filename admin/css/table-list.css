@@ -100,6 +100,17 @@ td {
   cursor: pointer;
 }
 
+.modal-btn-edit,
+.modal-btn-delete {
+  color: blue;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-btn-delete {
+  color: red;
+}
+
 .bg-modal-box {
   position: fixed;
   z-index: 2000;
@@ -363,6 +374,7 @@ select.modal-add-input-select:focus {
   from {
     width: 100%;
   }
+
   to {
     width: 0px;
   }
@@ -426,6 +438,11 @@ input:checked+.slider:before {
 }
 
 .activeBg {
+  background-color: #ccc;
+}
+
+.modal-btn-edit.activeBg,
+.modal-btn-delete.activeBg {
   background-color: #ccc;
 }
 

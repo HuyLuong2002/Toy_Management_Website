@@ -56,22 +56,22 @@ class InventoryServices
 
   public function update_inventory($data, $id)
   {
-    $enter_date = $this->fm->formatDate($data["enter-date"]);
+    $enter_date = $this->fm->formatDate($data["enter-date_edit"]);
 
     $total_quantity = mysqli_real_escape_string(
       $this->db->link,
-      $data["total-quantity"]
+      $data["total-quantity_edit"]
     );
     $total_price = mysqli_real_escape_string(
       $this->db->link,
-      $data["total-price"]
+      $data["total-price_edit"]
     );
     $provider_id = mysqli_real_escape_string(
       $this->db->link,
-      $data["provider"]
+      $data["provider_edit"]
     );
     $user_id = Session::get("userID");
-    $status = mysqli_real_escape_string($this->db->link, $data["status"]);
+    $status = mysqli_real_escape_string($this->db->link, $data["status_edit"]);
     $create_date = (string) date("d/m/Y");
 
     $query = "UPDATE enter_product SET enter_date='{$enter_date}', total_quantity={$total_quantity}, total_price={$total_price}, provider_id={$provider_id}, user_id={$user_id}, status={$status}, create_date='{$create_date}' WHERE id = {$id}";

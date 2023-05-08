@@ -87,11 +87,11 @@ class AccountController
       $data["username"] = $this->fm->validation($data["username"]);
       $data["password"] = $this->fm->validation($data["password"]);
       $data["password"] = md5($data["password"]);
-      $data["dateofbirth"] = $this->fm->formatDate($data["dateofbirth"]);
-      if ($data["gender"] == 0) {
-        $data["gender"] = "Nam";
+      $data["dateofbirth_add"] = $this->fm->formatDate($data["dateofbirth_add"]);
+      if ($data["gender_add"] == "Nam") {
+        $data["gender_add"] = "Nam";
       } else {
-        $data["gender"] = "Nữ";
+        $data["gender_add"] = "Nữ";
       }
 
       $result = $accountService->insert_account_admin($data);
@@ -103,13 +103,13 @@ class AccountController
 
   public function update_account($data, $id)
   {
-    $data["dateofbirth"] = $this->fm->formatDate($data["dateofbirth"]);
-    if ($data["gender"] == 0) {
-      $data["gender"] = "Nam";
+    $data["dateofbirth_edit"] = $this->fm->formatDate($data["dateofbirth_edit"]);
+    if ($data["gender_edit"] == 0) {
+      $data["gender_edit"] = "Nam";
     } else {
-      $data["gender"] = "Nữ";
+      $data["gender_edit"] = "Nữ";
     }
-    $data["status"] = intval($data["status"]);
+    $data["status_edit"] = intval($data["status_edit"]);
     $accountService = new AccountServices();
     $result = $accountService->update_account($data, $id);
     return $result;

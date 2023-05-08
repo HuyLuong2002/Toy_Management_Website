@@ -109,7 +109,7 @@ if (isset($current_position)) {
 
     <button type="button" class="modal-btn-add" onclick="AddActive()">
       <p>
-        Add sale <span class="las la-plus"></span>
+        Add permission <span class="las la-plus"></span>
       </p>
     </button>
   </div>
