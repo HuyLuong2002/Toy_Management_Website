@@ -11,11 +11,37 @@ body {
 .container {
     background: #FFFFFF;
     width: 660px;
-    height: 540px;
+    height: 600px;
     margin: 0 auto;
     position: relative;
-    margin-top: 3%;
+    margin-top: 1%;
     box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5);
+}
+
+.notification {
+    width: fit-content;
+    position: relative;
+    left: 45%;
+    padding: 5px 10px;
+    border-radius: 5px;
+    animation: fadeOut ease-in 0.4s forwards;
+    animation-delay: 3s;
+}
+
+.notification span {
+    font-size: 18px;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-200%);
+
+    }
 }
 
 .logo {
@@ -122,44 +148,30 @@ select:focus {
     border-radius: 5px;
 }
 
-/* p {
-    border-width: 1px;
-    border-style: solid;
-    border-image: linear-gradient(to right, #3FB6A8, rgba(126, 211, 134, 0.5)) 1 0%;
-    border-top: 0;
-    width: 70%;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1em;
-    padding: 5px 0;
-    color: #070707;
-} */
-
 span {
     font-size: 0.5em;
     color: #777777;
 }
 
-.btn {
-    float: right;
+input[type="submit"] {
     font-family: 'Roboto', sans-serif;
+    padding: .5rem .9rem;
+    margin-left: 27%;
+    text-align: center;
+    display: block;
     text-transform: uppercase;
-    font-size: 10px;
+    font-size: 16px;
     border: none;
-    color: #3FB6A8;
-    padding: .2rem;
+    color: #fff;
+    background-color: #3FB6A8;
+    transition: 0.3 hover;
+    border-radius: 5px;
 }
 
-.btn:hover {
+input[type="submit"]:hover {
     text-decoration: underline;
     font-weight: 900;
     cursor: pointer;
-}
-
-input {
-    border: 1px solid #ddd;
-    font-family: 'Roboto', sans-serif;
-    padding: 2px;
-    margin: 0;
 }
 
 .privacy h2 {
@@ -214,4 +226,12 @@ footer a:hover {
 
 .return-btn:hover {
     background: #ccc;
+}
+
+.success {
+    color: #fff;
+}
+
+.error {
+    color: red;
 }

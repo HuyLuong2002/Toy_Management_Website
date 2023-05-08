@@ -9,6 +9,14 @@ $fm = new Format();
 if (empty($_GET["id"])) {
     header("Location: login.php");
 }
+
+if (isset($_GET["id"])) {
+    $id = $_GET["id"];
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
+    $updateAccount = $accountController->update_account_user($_POST, $id);
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,6 +34,13 @@ if (empty($_GET["id"])) {
     <a href="index.php" class="return-btn">
         <i class="fa-solid fa-arrow-left"></i>
     </a>
+    <div class="notification">
+        <?php
+        if (isset($updateAccount)) {
+            echo $updateAccount;
+        }
+        ?>
+    </div>
     <div class="container">
         <?php
         $show_account = $accountController->show_account_by_id($_GET["id"]);
@@ -83,12 +98,12 @@ if (empty($_GET["id"])) {
 
                             <div class="form-group">
                                 <h2>Password </h2>
-                                <p>
-                                    <input type="password" class="password" name="password" id="password" value="<?php echo $result_account[2] ?>">
-                                    <button class="btn">update</button>
-                                </p>
+                                <input type="password" class="password" name="password" id="password" value="<?php echo $result_account[2] ?>">
                             </div>
+                            <input type="submit" name="submit" class="btn" value="Update">
+
                         </div>
+                        <!-- <button class="btn">update</button> -->
                     </form>
                 </div>
         <?php

@@ -115,6 +115,19 @@ class AccountController
     return $result;
   }
 
+  public function update_account_user($data, $id)
+  {
+    $data["date_birth"] = $this->fm->formatDate($data["date_birth"]);
+    if ($data["gender"] == 0) {
+      $data["gender"] = "Nam";
+    } else {
+      $data["gender"] = "Nữ";
+    }
+    $accountService = new AccountServices();
+    $result = $accountService->update_account_user($data, $id);
+    return $result;
+  }
+
   public function delete_account($id) 
   {
     $accountService = new AccountServices();
