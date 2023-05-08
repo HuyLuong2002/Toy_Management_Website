@@ -133,6 +133,40 @@ include_once $filepath . "\lib\session.php";
     }
   }
 
+  public function update_account_user($data, $id)
+  {
+    $firstname = mysqli_real_escape_string($this->db->link, $data["firstname"]);
+    $lastname = mysqli_real_escape_string($this->db->link, $data["lastname"]);
+    $gender = mysqli_real_escape_string($this->db->link, $data["gender"]);
+    $date_birth = mysqli_real_escape_string($this->db->link, $data["date_birth"]);
+    
+    $place_of_birth = mysqli_real_escape_string($this->db->link, $data["place_of_birth"]);
+    $create_date = (string) date("d/m/Y");
+    $password = mysqli_real_escape_string($this->db->link, $data["password"]);
+    $hasshed_string = md5($password);
+    if (
+      $firstname == "" ||
+      $lastname == "" ||
+      $gender == "" ||
+      $date_birth == "" ||
+      $place_of_birth == "" ||
+      $password == ""
+    ) {
+      $alert = "<span class='error'>Fields must be not empty</span>";
+      return $alert;
+    } else {
+      $query = "UPDATE account SET firstname='{$firstname}', lastname='{$lastname}', gender='{$gender}', date_birth='{$date_birth}', place_of_birth='{$place_of_birth}', create_date='{$create_date}', password = '{$hasshed_string}' WHERE id = '{$id}'";
+      $result = $this->db->update($query);
+      if ($result) {
+        $alert = "<span class='success'>Update Account Sucessfully</span>";
+        return $alert;
+      } else {
+        $alert = "<span class='error'>Update Account Not Sucessfully</span>";
+        return $alert;
+      }
+    }
+  }
+
   public function delete_account($id) 
   {
     $query = "UPDATE account SET is_deleted='1' WHERE id='$id' AND account.permission_id!='1'";

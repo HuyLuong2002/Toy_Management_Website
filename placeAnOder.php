@@ -83,7 +83,7 @@ $user_id = Session::get("userID");
                 </div>
             </div>
             <div id="complete">
-                <a class="big_button" id="complete" href="/" onclick="handlePlaceAnOrder(<?php echo $user_id ?>)">Complete Order</a>
+                <a class="big_button" id="complete" href="cart.php" onclick="handlePlaceAnOrder(<?php echo $user_id ?>)">Complete Order</a>
                 <span class="sub">By selecting this button you agree to the purchase and subsequent payment for this order.</span>
             </div>
         `
