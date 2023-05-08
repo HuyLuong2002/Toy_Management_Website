@@ -23,6 +23,13 @@ class InventoryController
         return $result;
     }
 
+    public function show_inventory_live_search($input)
+    {
+        $inventoryServices = new InventoryServices();
+        $result = $inventoryServices->show_inventory_live_search($input);
+        return $result;
+    }
+
     public function insert_inventory($data)
     {
         $inventoryServices = new InventoryServices();

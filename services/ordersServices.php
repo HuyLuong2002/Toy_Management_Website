@@ -60,7 +60,7 @@ include_once $filepath . "\helpers\\format.php";
   public function show_orders_live_search($input)
   {
     $query = "SELECT * FROM orders WHERE ((orders.user_id LIKE '$input%') OR (orders.quantity LIKE '$input%') OR 
-    (orders.date LIKE '$input%') OR (orders.total_price LIKE '$input%') OR (orders.pay_method LIKE '$input%') OR (orders.status LIKE '$input%'))";
+    (orders.date LIKE '$input%') OR (orders.total_price LIKE '$input%') OR (orders.pay_method LIKE '$input%') OR (orders.status LIKE '$input%'))  AND is_deleted = '0'";
     $result = $this->db->select($query);
     return $result;
   }

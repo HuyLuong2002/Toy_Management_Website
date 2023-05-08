@@ -149,5 +149,11 @@ class AccountController
     $result = $accountService->show_account_by_pagination($offset, $limit_per_page);
     return $result;
   }
+
+  public function show_accounts_live_search($input)
+  {
+    $accountService = new AccountServices();
+    $result = $accountService->show_accounts_live_search($input);
+    return $result;
+  }
 }
-?>
