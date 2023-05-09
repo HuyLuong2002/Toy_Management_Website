@@ -351,3 +351,61 @@ label {
 .CodeMirror  {
   display: none;
 }
+
+/*  */
+#cart-fail {
+  background-color: rgb(219, 20, 20, 0.8);
+  display: none;
+}
+
+.cart-status {
+  position: sticky;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  width: 10rem;
+  border-radius: 10px;
+  margin: 0.75rem auto;
+  text-align: center;
+  font-weight: 600;
+  z-index: 10000;
+  bottom: 50%;
+}
+
+.cart-status.hide {
+  animation: fadeOut 3s ease-in-out forwards;
+}
+
+/* Out of stock */
+#cart-fail-1 {
+  background-color: rgb(219, 20, 20, 0.8);
+  display: none;
+}
+
+.cart-status-1 {
+  position: sticky;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  width: 15rem;
+  border-radius: 10px;
+  margin: 0.75rem auto;
+  text-align: center;
+  font-weight: 600;
+  z-index: 10000;
+  bottom: 50%;
+}
+
+.cart-status-1.hide {
+  animation: fadeOut 3s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(0);
+  }
+} 
+

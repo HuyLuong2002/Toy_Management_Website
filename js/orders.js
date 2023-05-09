@@ -35,7 +35,7 @@ const handleShowListOrder = async () => {
                 <td>${item.order_list.phone}</td>
                 <td>${item.order_list.email}</td>
                 <td>${item.order_list.pay_method}</td>
-                <td class="status-2">PENDING</td>
+                <td class=${"status-"+item.order_list.status}>PENDING</td>
                 <td>$${item.order_list.total_price}</td>
                 <td><a href="#" onclick="handleShowDetailOrder(${item.id})">Detail</a></td>
             </tr>
@@ -46,8 +46,10 @@ const handleShowListOrder = async () => {
 }
 
 let handleShowDetailOrder = (idOrder) => {
-    // let Vat = orderList.total_price
 
+
+    console.log("cc: ", OrderListProductDetail);
+    
     if (!OrderListProductDetail) {
         infoDetail.innerHTML = "<h1>Not found Order!</h1>";
         return;
@@ -66,8 +68,8 @@ let handleShowDetailOrder = (idOrder) => {
                         <p>Country: <span>${newOrder[1].country}</span></p>
                     </div>
                     <div class="wrap-order-info">
-                        <p>VAT(10%): <span>$300</span></p>
-                        <p>Ship Method: <span>Express $12</span></p>
+                        <p>VAT(10%): <span>$${newOrder[1].vat}</span></p>
+                        <p>Ship Method: <span>${newOrder[1].ship_method}</span></p>
                         <p>Payment Method: <span>${newOrder[1].pay_method}</span></p>
                         <p style="font-size: 2rem;">Total Price: <span>$${newOrder[1].total_price}</span></p>
                     </div>
@@ -76,24 +78,26 @@ let handleShowDetailOrder = (idOrder) => {
             `;
 
     infoDetail.innerHTML = listOrder
-    loadProduct()
+    loadProduct(idOrder)
     modal.style.display = "flex"
 };
 
-const loadProduct = () => {
-    if(!Order) {
+const loadProduct = async (idOrder) => {
+    let Product = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/detail_orders/show_order.php?orderID=${idOrder}`)
+
+    if(!Product) {
         productDetailOrder.innerHTML = "<h1>Not found Order!</h1>"
         return;
     }
 
-    let listProduct = Order.product.map((item) => {
-        let total = item.price * item.quantity
+    let listProduct = Product.detail_orders.map((item) => {
+        let total = item.detail_order_list.price * item.detail_order_list.quantity
         return `
             <div class="order-product" key=${item.id}>
-                <img src=${item.image} alt="">
-                <p class="product_name">${item.name}</p>
-                <p class="product_price">$${item.price}</p>
-                <P class="product_quantity">${item.quantity}</P>
+                <img src=${'admin/uploads/'+item.detail_order_list.image} alt="">
+                <p class="product_name">${item.detail_order_list.name}</p>
+                <p class="product_price">$${item.detail_order_list.price}</p>
+                <P class="product_quantity">${item.detail_order_list.quantity}</P>
                 <P class="product_total">$${total}</P>
             </div>
         `;
@@ -107,5 +111,3 @@ const handleClose = () => {
 };
 
 handleShowListOrder()
-
-// Thêm vat, userid, product, ship method

@@ -60,21 +60,6 @@
   }
 }
 
-.notification-account {
-  position: absolute;
-  width: 400px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  animation: fadeOut ease-in 0.4s forwards;
-  animation-delay: 3s;
-  left: 35%;
-  top: 10%;
-}
-
-.notification-account span {
-  font-size: 18px;
-}
-
 table {
   border-collapse: collapse;
 }
@@ -101,25 +86,9 @@ td {
 
 .table-responsive .action-btn-delete button {
   color: red;
-  background-color: #fff;
-  border: none;
   font-size: 15px;
   cursor: pointer;
-}
-
-.table-responsive .action-btn-edit button {
-  color: blue;
-  background-color: #fff;
   border: none;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-.modal-btn-edit,
-.modal-btn-delete {
-  color: blue;
-  border: none;
-  cursor: pointer;
 }
 
 .modal-btn-delete {
