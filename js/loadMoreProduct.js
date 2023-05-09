@@ -1,5 +1,5 @@
 let ProductItem = document.getElementById("product-items")
-let apiCate = "http://localhost:8000/Toy_Management_Website/api/category/read.php"
+let apiCate = "http://localhost:8080/Toy_Management_Website/api/category/read.php"
 
 let arrContainer = []
 let currentItemsList = []

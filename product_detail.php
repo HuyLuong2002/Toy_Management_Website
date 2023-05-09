@@ -71,7 +71,7 @@ else {
             <span class="product-name" id="product-name-<?php echo $result_product_detail[0] ?>">
               <?php echo $result_product_detail[1] ?>
             </span>
-            <span class="product-price product-price-sale">
+            <span class="product-price product-price-sale" id="product-price-<?php echo $result_product_detail[0]; ?>">
               <?php if ($result_product_detail[18] !== "Không áp dụng") {
                 $sale_percent = $result_product_detail[20];
                 $sale_price = $result_product_detail[3] - $result_product_detail[3] * ($sale_percent / 100);
@@ -103,10 +103,6 @@ else {
               <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product_detail[0]; ?>)" data-id="<?php echo $result_product_detail[0]; ?>" data-quantity=1>
                 Add to cart
                 <i class="fa-solid fa-plus add-icon" id="icon-check-<?php echo $result_product_detail[0]; ?>"></i>
-              </button>
-
-              <button type="button" class="buy-now-btn">
-                <i class="fas fa-wallet"></i> Buy now
               </button>
             </div>
           </div>
@@ -215,7 +211,7 @@ else {
                 <a href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7]; ?>">
                   <button class="btn-buy">
                     More Details
-                    <span><i class="fas fa-shopping-cart"> </i> </span>
+                    <span><i class="fa-solid fa-circle-info"></i> </span>
                   </button>
                 </a>
               </div>

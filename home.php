@@ -84,7 +84,7 @@ $slider_product = $productsController->show_slider_product();
                       <a href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7];?>">
                         <button class="btn-buy">
                           More Details
-                          <span><i class="fas fa-shopping-cart"> </i> </span>
+                          <span><i class="fa-solid fa-circle-info"></i> </span>
                         </button>
                       </a>
                     </div>
