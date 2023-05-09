@@ -62,10 +62,17 @@ if (isset($cartAdd)) {
             <div id="wrap-total">
 
             </div>
-            <a href="payment.php" class="checkout">Check Out</a>
+            <a href="payment.php" onclick="handleCheckCheckOut(event)" class="checkout">Check Out</a>
         </div>
     </form>
 
+    <div class="cart-status cart-fail" id="cart-fail">
+        <span>&times;</span> Cart is empty
+    </div>
+
+    <div class="cart-status-1 cart-fail-1" id="cart-fail-1">
+        <span>&times;</span> This product is out of stock
+    </div>
 
     <script src="./js/cart.js">
 
@@ -73,11 +80,18 @@ if (isset($cartAdd)) {
     
     <script>
         let checkSuccess = document.getElementById("check-success")
-        checkSuccess.style.display = "block"
-        checkSuccess.classList.add("hide")
+        if(checkSuccess) {
+            checkSuccess.style.display = "block"
+            checkSuccess.classList.add("hide")
 
-        setTimeout(function() {
-            checkSuccess.style.display = 'none';
-            checkSuccess.classList.remove('hide');
-        }, 5000);
+            setTimeout(function() {
+                checkSuccess.style.display = 'none';
+                checkSuccess.classList.remove('hide');
+            }, 3000);
+        }
+    </script>
+
+    <script>
+
+
     </script>

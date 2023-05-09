@@ -286,6 +286,7 @@ else {
   <script src="./js/newWishList.js"></script>
   <script src="./js/cartclick.js"></script>
   <script src="./js/loadMoreProduct.js"></script>
+  
   <script type="text/javascript">
     $(document).ready(function() {
       $(window).scroll(function() {
