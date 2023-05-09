@@ -21,28 +21,6 @@ if (isset($_GET["id"])) {
   $id = $_GET["id"];
 }
 
-if (isset($_GET["product_id"])) {
-  $show_product = $productsController->get_product_by_id($_GET["product_id"]);
-  if (mysqli_num_rows($show_product) == 1) {
-    $sale = mysqli_fetch_array($show_product);
-
-    $res = [
-      "status" => 200,
-      "message" => "product fetch successful by id",
-      "data" => $sale,
-    ];
-    echo json_encode($res);
-    return;
-  } else {
-    $res = [
-      "status" => 404,
-      "message" => "prodcut Id Not Found",
-    ];
-    echo json_encode($res);
-    return;
-  }
-}
-
 if (isset($_POST["delete-btn"])) {
   $delete_id = $_POST["delete_id"];
   $deleteProduct = $productsController->delete_product($delete_id);
@@ -254,11 +232,6 @@ if (isset($current_position)) {
               </td>
               <td>
                 <div class="action-btn-group">
-                  <!-- <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
-                    <button class="modal-btn-edit" type="button" value="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
-                      Edit<i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
-                    </button>
-                  </div> -->
                   <a class="edit" href="product_edit.php?id=<?php echo $result[0]?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
                   <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
                     <p class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
