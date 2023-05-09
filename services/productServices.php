@@ -21,6 +21,14 @@ include_once $filepath . "\database\connectDB.php";
     return $result;
   }
 
+  public function show_slider_product()
+  {
+    $query = "SELECT * FROM product WHERE product.highlight = '1'
+    ORDER BY product.create_date DESC";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
   // product detail by product id
   public function show_product_detail($product_detail_id)
   {

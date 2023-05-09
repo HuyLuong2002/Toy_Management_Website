@@ -330,6 +330,7 @@ if (isset($current_position)) {
         const myData = await response.id;
         const myState = await response.state;
         // Xử lý dữ liệu trong biến myData ở đây
+        
 
       }
     });
