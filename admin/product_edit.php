@@ -8,7 +8,7 @@ if (isset($_GET["id"])) {
     $id = $_GET["id"];
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
-    $updateProduct = $product_editController->update_product($_POST, $_FILES, $id);
+    $updateProduct = $product_editController->update_product($_POST, $id);
 }
 ?>
 
@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
                             </div>
                             <div class="image-product-btn">
                                 <label for="uploadfile">Upload File</label>
-                                <input type="file" id="uploadfile" name="uploadfile" class="uploadfile edit" required>
+                                <input type="file" id="uploadfile" name="uploadfile" class="uploadfile" required>
                             </div>
                         </div>
 

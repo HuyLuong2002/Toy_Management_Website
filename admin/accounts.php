@@ -85,29 +85,24 @@ if (isset($current_position)) {
 ?>
 
 <div class="card" id="searchresultaccount">
-  <div class="notification-account">
-    <?php
-    if (isset($deleteAccount)) {
-      echo $deleteAccount;
-    }
-    if (isset($insertAccount)) {
-      echo $insertAccount;
-    }
-    if (isset($updateAccount)) {
-      echo $updateAccount;
-    }
-    ?>
-  </div>
+
 
   <div class="card-header">
     <h3>Account List</h3>
     <div class="bg-modal-box"></div>
-
-    <button>
-      <a href="account_permission.php">
-        Add account permission and function <span class="las la-plus"></span>
-      </a>
-    </button>
+    <div class="notification">
+      <?php
+      if (isset($deleteAccount)) {
+        echo $deleteAccount;
+      }
+      if (isset($insertAccount)) {
+        echo $insertAccount;
+      }
+      if (isset($updateAccount)) {
+        echo $updateAccount;
+      }
+      ?>
+    </div>
 
     <button type="button" class="modal-btn-add" onclick="AddActive()">
       <p>
