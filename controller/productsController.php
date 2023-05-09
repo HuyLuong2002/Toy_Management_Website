@@ -10,6 +10,13 @@ class ProductsController
     return $result;
   }
 
+  public function show_slider_product()
+  {
+    $productService = new ProductServices();
+    $result = $productService->show_slider_product();
+    return $result;
+  }
+
   //live search for admin
   public function show_product_live_search($input)
   {
