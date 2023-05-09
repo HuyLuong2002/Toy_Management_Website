@@ -136,8 +136,10 @@ if (isset($_GET["id"])) {
               input: input
             },
             success: function(data) {
-              $("#searchresultproduct").html(data);
-              $("#searchresultproduct").css("display", "block");
+              var $data = $(data);
+              var searchResult = $data.find('#card-product').html();
+              $("#card-product").html(searchResult);
+              $("#card-product").css("display", "block");
             }
           });
 
@@ -148,8 +150,10 @@ if (isset($_GET["id"])) {
               input: input
             },
             success: function(data) {
-              $("#searchresultprovider").html(data);
-              $("#searchresultprovider").css("display", "block");
+              var $data = $(data);
+              var searchResult = $data.find('#card-provider').html();
+              $("#card-provider").html(searchResult);
+              $("#card-provider").css("display", "block");
             }
           });
 
@@ -160,8 +164,10 @@ if (isset($_GET["id"])) {
               input: input
             },
             success: function(data) {
-              $("#searchresultpermission").html(data);
-              $("#searchresultpermission").css("display", "block");
+              var $data = $(data);
+              var searchResult = $data.find('#card-permission').html();
+              $("#card-permission").html(searchResult);
+              $("#card-permission").css("display", "block");
             }
           });
 
@@ -172,8 +178,10 @@ if (isset($_GET["id"])) {
               input: input
             },
             success: function(data) {
-              $("#searchresultsale").html(data);
-              $("#searchresultsale").css("display", "block");
+              var $data = $(data);
+              var searchResult = $data.find('#card-sale').html();
+              $("#card-sale").html(searchResult);
+              $("#card-sale").css("display", "block");
             }
           });
 
@@ -184,8 +192,10 @@ if (isset($_GET["id"])) {
               input: input
             },
             success: function(data) {
-              $("#searchresultorders").html(data);
-              $("#searchresultorders").css("display", "block");
+              var $data = $(data);
+              var searchResult = $data.find('#card-order').html();
+              $("#card-order").html(searchResult);
+              $("#card-order").css("display", "block");
             }
           });
 
@@ -196,8 +206,10 @@ if (isset($_GET["id"])) {
               input: input
             },
             success: function(data) {
-              $("#searchresultaccount").html(data);
-              $("#searchresultaccount").css("display", "block");
+              var $data = $(data);
+              var searchResult = $data.find('#card-account').html();
+              $("#card-account").html(searchResult);
+              $("#card-account").css("display", "block");
             }
           });
 
@@ -208,8 +220,10 @@ if (isset($_GET["id"])) {
               input: input
             },
             success: function(data) {
-              $("#searchresultinventory").html(data);
-              $("#searchresultinventory").css("display", "block");
+              var $data = $(data);
+              var searchResult = $data.find('#card-inventory').html();
+              $("#card-inventory").html(searchResult);
+              $("#card-inventory").css("display", "block");
             }
           });
 
@@ -220,8 +234,10 @@ if (isset($_GET["id"])) {
               input: input
             },
             success: function(data) {
-              $("#searchresultcategory").html(data);
-              $("#searchresultcategory").css("display", "block");
+              var $data = $(data);
+              var searchResult = $data.find('#card-category').html();
+              $("#card-category").html(searchResult);
+              $("#card-category").css("display", "block");
             }
           });
 
@@ -232,12 +248,14 @@ if (isset($_GET["id"])) {
               input: input
             },
             success: function(data) {
-              $("#searchresultinventorydetail").html(data);
-              $("#searchresultinventorydetail").css("display", "block");
+              var $data = $(data);
+              var searchResult = $data.find('#card-inventory-detail').html();
+              $("#card-inventory-detail").html(searchResult);
+              $("#card-inventory-detail").css("display", "block");
             }
           });
         } else {
-          $("#searchresultproduct").css("display", "block");
+          $("#card-product").css("display", "block");
           $("#searchresultpermission").css("display", "block");
           $("#searchresultprovider").css("display", "block");
           $("#searchresultsale").css("display", "block");

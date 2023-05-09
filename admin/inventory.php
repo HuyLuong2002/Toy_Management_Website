@@ -107,7 +107,7 @@ if (isset($current_position)) {
   </div>
 
   <div class="card-body">
-    <div class="table-responsive">
+    <div class="table-responsive" id="card-inventory">
       <table width="100%">
         <thead>
           <tr>
@@ -275,11 +275,13 @@ if (isset($current_position)) {
       <div class="modal-edit-info-item">
         <label for="total-quantity_edit">Total Quantity</label>
         <input type="text" id="total-quantity_edit" name="total-quantity_edit" required>
+        <div id="total-quantity_edit_result"></div>
       </div>
 
       <div class="modal-edit-info-item">
         <label for="total-price_edit">Total Price</label>
         <input type="text" id="total-price_edit" name="total-price_edit" required>
+        <div id="total-price_edit_result"></div>
       </div>
 
       <div class="modal-edit-info-item">
@@ -311,7 +313,7 @@ if (isset($current_position)) {
       </div>
     </div>
 
-    <input class="modal-edit-btn" name="edit-btn" type="submit" value="Save">
+    <input class="modal-edit-btn" id="edit-btn" name="edit-btn" type="submit" value="Save">
   </form>
   <!-- modal edit end -->
 
@@ -326,12 +328,14 @@ if (isset($current_position)) {
 
       <div class="modal-add-info-item">
         <label for="total-quantity_add">Total Quantity</label>
-        <input type="text" id="total-quantity_add" name="total-quantity_add" required>
+        <input type="number" id="total-quantity_add" name="total-quantity_add" required>
+        <div id="total-quantity_add_result"></div>
       </div>
 
       <div class="modal-add-info-item">
         <label for="total-price_add">Total Price</label>
-        <input type="text" id="total-price_add" name="total-price_add" required>
+        <input type="number" id="total-price_add" name="total-price_add" required>
+        <div id="total-price_add_result"></div>
       </div>
 
       <div class="modal-add-info-item">
@@ -363,7 +367,7 @@ if (isset($current_position)) {
       </div>
     </div>
 
-    <input onclick="" class="modal-add-btn" name="add-btn" type="submit" value="Save">
+    <input onclick="" class="modal-add-btn" id="add-btn" name="add-btn" type="submit" value="Save">
   </form>
   <!-- modal add end -->
 </div>
@@ -402,5 +406,77 @@ if (isset($current_position)) {
         }
       }
     })
+  });
+</script>
+
+<script src="./js/validate_input.js"></script>
+
+<!-- coding check input value function -->
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#total-quantity_add").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEditQuantity(input) == false) {
+        $("#total-quantity_add_result").html("<span class='error'>Total Quantity Not Valid</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
+        $("#total-quantity_add_result").css("display", "block");
+        $("#total-quantity_add_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#total-quantity_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
+      }
+    });
+
+    $("#total-price_add").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEditQuantity(input) == false) {
+        $("#total-price_add_result").html("<span class='error'>Total Price Not Valid</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
+        $("#total-price_add_result").css("display", "block");
+        $("#total-price_add_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#total-price_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
+      }
+    });
+
+    //edit
+    $("#total-quantity_edit").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEditQuantity(input) == false) {
+        $("#total-quantity_edit_result").html("<span class='error'>Total Price Not Valid</span>");
+        $("#edit-btn").prop("disabled", true);
+        $("#edit-btn").css("background-color", "red");
+        $("#total-quantity_edit_result").css("display", "block");
+        $("#total-quantity_edit_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#total-quantity_edit_result").css("display", "none");
+        $("#edit-btn").prop("disabled", false);
+        $("#edit-btn").css("background-color", "#ffa800");
+      }
+    });
+
+    $("#total-price_edit").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEditQuantity(input) == false) {
+        $("#total-price_edit_result").html("<span class='error'>Total Price Not Valid</span>");
+        $("#edit-btn").prop("disabled", true);
+        $("#edit-btn").css("background-color", "red");
+        $("#total-price_edit_result").css("display", "block");
+        $("#total-price_edit_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#total-price_edit_result").css("display", "none");
+        $("#edit-btn").prop("disabled", false);
+        $("#edit-btn").css("background-color", "#ffa800");
+      }
+    });
   });
 </script>

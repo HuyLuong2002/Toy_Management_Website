@@ -35,7 +35,7 @@ function checkAddAndEditProvider(input)
 
 function checkAddAndEditPrice(input)
 {
-    const regex = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?a-zA-Z]+/i;
+    const regex = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/i;
     const normalizedStr = input.normalize("NFC"); // chuẩn hóa chuỗi
     const isMatch = regex.test(normalizedStr); // true
     if(isMatch == true)

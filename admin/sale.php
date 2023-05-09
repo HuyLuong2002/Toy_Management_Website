@@ -110,7 +110,7 @@ if (isset($current_position)) {
   </div>
 
   <div class="card-body">
-    <div class="table-responsive">
+    <div class="table-responsive" id="card-sale">
       <table width="100%">
         <thead class="thead">
           <tr>

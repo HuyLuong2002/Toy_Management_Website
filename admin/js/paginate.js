@@ -60,12 +60,6 @@ let listBar = [
     href: "index.php?id=10",
     icon: "la-gift",
   },
-  {
-    id: 12,
-    title: "Account Function",
-    href: "index.php?id=12",
-    icon: "la-user-plus",
-  },
 ];
 
 const url = window.location.href;

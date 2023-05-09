@@ -8,30 +8,8 @@ if (isset($_GET["id"])) {
     $id = $_GET["id"];
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
-    $updateProduct = $product_editController->update_product($_POST, $_FILES, $id);
+    $updateProduct = $product_editController->update_product($_POST, $id);
 }
-
-if (isset($_GET["product_id"])) {
-    $show_product = $productsController->get_product_by_id($_GET["product_id"]);
-    if (mysqli_num_rows($show_product) == 1) {
-      $sale = mysqli_fetch_array($show_product);
-  
-      $res = [
-        "status" => 200,
-        "message" => "product fetch successful by id",
-        "data" => $sale,
-      ];
-      echo json_encode($res);
-      return;
-    } else {
-      $res = [
-        "status" => 404,
-        "message" => "prodcut Id Not Found",
-      ];
-      echo json_encode($res);
-      return;
-    }
-  }
 ?>
 
 <!DOCTYPE html>
@@ -58,26 +36,28 @@ if (isset($_GET["product_id"])) {
         ?>
 
                 <form action="product_edit.php?id=<?php echo $result_product[0]; ?>" method="post" enctype="multipart/form-data">
-                    <?php if (isset($updateProduct)) {
-                        echo $updateProduct;
-                    } ?>
+                    <div class="notification-product">
+                        <?php if (isset($updateProduct)) {
+                            echo $updateProduct;
+                        } ?>
+                    </div>
 
                     <div class="form-left-info">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" id="name" name="name_add" class="name" value="<?php echo $result_product[1]; ?>">
+                            <input type="text" id="name" name="name" class="name" value="<?php echo $result_product[1]; ?>">
                             <div id="name_add_result"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="price">Price</label>
-                            <input type="text" id="price" name="price_add" class="price" value="<?php echo $result_product[3]; ?>" required>
+                            <input type="text" id="price" name="price" class="price" value="<?php echo $result_product[3]; ?>" required>
                             <div id="price_add_result"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="category">Category</label>
-                            <select id="category" name="category_add" class="category" required>
+                            <select id="category" name="category" class="category" required>
                                 <option value="">Select category</option>
                                 <?php
                                 $categoryController = new CategoryController();
@@ -85,13 +65,13 @@ if (isset($_GET["product_id"])) {
                                 if ($show_cat) {
                                     $i = 0;
                                     while ($result = $show_cat->fetch_assoc()) {
-                                        if($result_product[7] == $result["id"]) {
-                                        $select_category = "selected";
-                                    } else {
-                                        $select_category = "";
-                                    }
+                                        if ($result_product[7] == $result["id"]) {
+                                            $select_category = "selected";
+                                        } else {
+                                            $select_category = "";
+                                        }
                                         $i++; ?>
-                                        <option value="<?php echo $result["id"]; ?>" <?php echo $select_category?> ><?php echo $result["name"]; ?></option>
+                                        <option value="<?php echo $result["id"]; ?>" <?php echo $select_category ?>><?php echo $result["name"]; ?></option>
                                 <?php
                                     }
                                 }
@@ -101,7 +81,7 @@ if (isset($_GET["product_id"])) {
 
                         <div class="form-group">
                             <label for="sale">Sale</label>
-                            <select id="sale" name="sale_add" class="sale" required>
+                            <select id="sale" name="sale" class="sale" required>
                                 <option value="">Select sale</option>
                                 <?php
                                 $saleController = new SaleController();
@@ -109,13 +89,13 @@ if (isset($_GET["product_id"])) {
                                 if ($show_sale) {
                                     $i = 0;
                                     while ($result = $show_sale->fetch_assoc()) {
-                                        if($result_product[8] == $result["id"]) {
+                                        if ($result_product[8] == $result["id"]) {
                                             $select_sale = "selected";
                                         } else {
                                             $select_sale = "";
                                         }
                                         $i++; ?>
-                                        <option value="<?php echo $result["id"]; ?>" <?php echo $select_sale?> ><?php echo $result["name"]; ?></option>
+                                        <option value="<?php echo $result["id"]; ?>" <?php echo $select_sale ?>><?php echo $result["name"]; ?></option>
                                 <?php
                                     }
                                 }
@@ -125,17 +105,17 @@ if (isset($_GET["product_id"])) {
 
                         <div class="form-group">
                             <label for="quantity">Quantity</label>
-                            <input type="number" id="quantity" name="quantity_add" class="quantity" value="<?php echo $result_product[10]; ?>" required>
+                            <input type="number" id="quantity" name="quantity" class="quantity" value="<?php echo $result_product[10]; ?>" required>
                             <div id="quantity_add_result"></div>
                         </div>
 
                         <div class="form-group image">
                             <div class="image-product">
-                                <img src="<?php echo "uploads/" .$result_product[2]; ?>" alt="">
+                                <img src="<?php echo "uploads/" . $result_product[2]; ?>" alt="">
                             </div>
                             <div class="image-product-btn">
                                 <label for="uploadfile">Upload File</label>
-                                <input type="file" id="uploadfile" name="uploadfile_add" class="uploadfile edit" required>
+                                <input type="file" id="uploadfile" name="uploadfile" class="uploadfile" required>
                             </div>
                         </div>
 
@@ -146,7 +126,7 @@ if (isset($_GET["product_id"])) {
                     <div class="form-right-info">
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <textarea id="description" name="description_add" class="tinymce"><?php echo $result_product[4]; ?></textarea>
+                            <textarea id="description" name="description" class="tinymce"><?php echo $result_product[4]; ?></textarea>
                         </div>
                     </div>
 
