@@ -109,6 +109,7 @@ class PDFOrder
       $result = $result_detail_order->fetch_array();
       $pdfGenerator->formatText(5, 5, $i + 1, 1, 0, "C");
       $pdfGenerator->formatText(20, 5, $result["product_id"], 1, 0, "L");
+
       $pdfGenerator->formatText(25, 5, $result["name"], 1, 0, "L");
       $pdfGenerator->formatText(10, 5, $result[3], 1, 0, "C");
       $price = $fm->formatPriceDecimal($result[4]);
@@ -130,7 +131,7 @@ class PDFOrder
     $end_index = strpos($result_order["ship_method"], ")", $start_index); // tìm vị trí của ký tự ")" bắt đầu từ vị trí $start_index
     $number = substr($result_order["ship_method"], $start_index, $end_index - $start_index); // trích xuất chuỗi con chứa số 6
     $sum_total_price = $sum_total_price + (int) $number;
-    echo $sum_total_price;
+
     //write total price of per column
     $pdfGenerator->setFont("dejavusans", "B", 5);
     $pdfGenerator->formatText(50, 5, "Tổng tiền", 1, 0, "C");
