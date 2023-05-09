@@ -5,6 +5,7 @@ let fadeTime = 300;
 let productWrapper = document.getElementById("wrap-product-left");
 let totalWrapper = document.getElementById("wrap-totals");
 let CartAdd = JSON.parse(localStorage.getItem('cartAdd'));
+let ShipInfo = JSON.parse(localStorage.getItem('shipInfo'));
 
 const handleLoadPayCheck = () => {
     if (!CartAdd.length) {
@@ -33,8 +34,8 @@ const handleLoadPayCheck = () => {
 
 const handleCalculateTotal = () => {
     let cartSubTotal = CartAdd.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
-    let tax = parseFloat((cartSubTotal * (5 / 100)).toFixed(3))
-    let shipFee = 15
+    let tax = parseFloat((cartSubTotal * (10 / 100)).toFixed(3))
+    let shipFee = ShipInfo.shipFee
     let grandTotal = (cartSubTotal + tax + shipFee).toFixed(2)
 
     let totalHTML = `

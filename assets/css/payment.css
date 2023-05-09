@@ -561,6 +561,7 @@ span.method {
 
 
 #grid {
+  position: relative;
   min-height: 90vh;
   padding: 1rem 0;
   display: flex;
@@ -583,6 +584,40 @@ span.method {
 .ship_method > label {
   display: block;
   margin-left: 3rem;
+}
+
+.check-info {
+  position: absolute;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  min-width: 10rem;
+  border-radius: 10px;
+  /* margin: 0.75rem auto; */
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  z-index: 10000;
+  top: 5%;
+  background-color: rgb(219, 20, 20, 0.8);
+}
+
+#check-fail {
+  display: none;
+}
+
+.check-info.hide {
+  animation: fadeOut 3s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(0);
+  }
 }
 
 .swiper-container {

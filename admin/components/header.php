@@ -121,6 +121,11 @@ if (isset($_GET["id"])) {
           $("#searchresultcategory").css("display", "block");
           $("#searchresultcategory").css("margin-top", "6rem");
           $("#searchresultcategory").css("margin-left", "2rem");
+          //inventoryDetail
+          $("#searchresultinventorydetail").html("<span class='error'>Input Value Not Valid</span>");
+          $("#searchresultinventorydetail").css("display", "block");
+          $("#searchresultinventorydetail").css("margin-top", "6rem");
+          $("#searchresultinventorydetail").css("margin-left", "2rem");
           return;
         }
         if (input != "") {
@@ -219,6 +224,18 @@ if (isset($_GET["id"])) {
               $("#searchresultcategory").css("display", "block");
             }
           });
+
+          $.ajax({
+            url: "inventory_detail.php",
+            method: "POST",
+            data: {
+              input: input
+            },
+            success: function(data) {
+              $("#searchresultinventorydetail").html(data);
+              $("#searchresultinventorydetail").css("display", "block");
+            }
+          });
         } else {
           $("#searchresultproduct").css("display", "block");
           $("#searchresultpermission").css("display", "block");
@@ -228,6 +245,7 @@ if (isset($_GET["id"])) {
           $("#searchresultaccount").css("display", "block");
           $("#searchresultinventory").css("display", "block");
           $("#searchresultcategory").css("display", "block");
+          $("#searchresultinventorydetail").css("display", "block");
         }
       });
     });

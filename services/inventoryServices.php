@@ -55,6 +55,14 @@ class InventoryServices
     return $result;
   }
 
+  public function show_inventory_detail_live_search($input)
+  {
+    $query = "SELECT detail_enter_product.*, product.name FROM detail_enter_product, product WHERE ((detail_enter_product.enter_id LIKE '%$input%') OR (detail_enter_product.product_id LIKE '%$input%') 
+    OR (detail_enter_product.quantity LIKE '%$input%') OR (detail_enter_product.price LIKE '%$input%') OR (product.name LIKE '%$input%')) AND detail_enter_product.product_id = product.id";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
   public function show_inventory_detail_by_pagination($offset, $limit_per_page, $enter_id)
   {
     $query = "SELECT detail_enter_product.*, product.name FROM detail_enter_product, product WHERE enter_id = {$enter_id} 
@@ -140,7 +148,7 @@ class InventoryServices
 
   public function show_inventory_detail($enter_id)
   {
-    $query = "SELECT detail_enter_product.*, product.name FROM detail_enter_product, product WHERE enter_id = {$enter_id} AND product.id = detail_enter_product.product_id";
+    $query = "SELECT detail_enter_product.*, product.name FROM detail_enter_product, product WHERE detail_enter_product.enter_id = {$enter_id} AND product.id = detail_enter_product.product_id";
     $result = $this->db->select($query);
     return $result;
   }
@@ -149,20 +157,20 @@ class InventoryServices
   {
     $enter_id = mysqli_real_escape_string(
       $this->db->link,
-      $data["enter-id"]
+      $data["enter-id_add"]
     );
 
     $product_id = mysqli_real_escape_string(
       $this->db->link,
-      $data["product"]
+      $data["product_add"]
     );
     $quantity = mysqli_real_escape_string(
       $this->db->link,
-      $data["quantity"]
+      $data["quantity_add"]
     );
     $price = mysqli_real_escape_string(
       $this->db->link,
-      $data["price"]
+      $data["price_add"]
     );
 
     $query = "INSERT INTO detail_enter_product(enter_id, product_id, quantity, price) VALUES ($enter_id,$product_id,$quantity,$price)";
@@ -180,19 +188,19 @@ class InventoryServices
   {
     $enter_id = mysqli_real_escape_string(
       $this->db->link,
-      $data["enter-id"]
+      $data["enter-id_edit"]
     );
     $product_id = mysqli_real_escape_string(
       $this->db->link,
-      $data["product"]
+      $data["product_edit"]
     );
     $quantity = mysqli_real_escape_string(
       $this->db->link,
-      $data["quantity"]
+      $data["quantity_edit"]
     );
     $price = mysqli_real_escape_string(
       $this->db->link,
-      $data["price"]
+      $data["price_edit"]
     );
 
     $query = "UPDATE detail_enter_product SET enter_id='{$enter_id}', product_id={$product_id}, quantity={$quantity}, price={$price} WHERE id = {$id}";

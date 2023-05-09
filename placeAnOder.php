@@ -107,7 +107,7 @@ $user_id = Session::get("userID");
             }
             localStorage.setItem("Order", JSON.stringify(Order));
             document.cookie = "Order=" + JSON.stringify(Order) + "; expires=" + expireDate.toUTCString() + "; path=/";
-            
+            localStorage.setItem('cartAdd', JSON.stringify([]));
         }
     </script>
 </body>
