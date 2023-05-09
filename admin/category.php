@@ -187,7 +187,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
             </div>
         </div>
 
-        <input class="modal-edit-btn" name="edit-btn" type="submit" value="Save">
+        <input class="modal-edit-btn" id="edit-btn" name="edit-btn" type="submit" value="Save">
     </form>
     <!-- modal edit end -->
 
@@ -202,7 +202,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
             </div>
         </div>
 
-        <input onclick="" class="modal-add-btn" name="add-btn" type="submit" value="Save">
+        <input onclick="" class="modal-add-btn" id="add-btn" name="add-btn" type="submit" value="Save">
     </form>
     <!-- modal add end -->
 </div>
@@ -245,11 +245,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
       var input = $(this).val();
       if (checkAddAndEdit(input) == false) {
         $("#name_add_result").html("<span class='error'>Category Name Not Valid</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
         $("#name_add_result").css("display", "block");
         $("#name_add_result").css("margin-top", "1rem");
       }
       else {
         $("#name_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
       }
     });
 
@@ -257,11 +261,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
       var input = $(this).val();
       if (checkAddAndEdit(input) == false) {
         $("#name_edit_result").html("<span class='error'>Category Name Not Valid</span>");
+        $("#edit-btn").prop("disabled", true);
+        $("#edit-btn").css("background-color", "red");
         $("#name_edit_result").css("display", "block");
         $("#name_edit_result").css("margin-top", "1rem");
       }
       else {
         $("#name_edit_result").css("display", "none");
+        $("#edit-btn").prop("disabled", false);
+        $("#edit-btn").css("background-color", "#ffa800");
       }
     });
   });
