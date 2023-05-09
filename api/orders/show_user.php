@@ -25,12 +25,16 @@ if ($num > 0) {
     $order_item = [
       "id" => $id,
       "order_list" => [
+        "user_id" => $user_id,
         "quantity" => $quantity,
         "date" => $date,
         "address" => $address,
         "phone" => $phone,
         "email" => $email,
         "country" => $country,
+        "vat" => $vat,
+        "ship_method" => $ship_method,
+        "status" => $status,
         "total_price" => $total_price,
         "pay_method" => $pay_method,
       ],
