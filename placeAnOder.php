@@ -100,9 +100,11 @@ $user_id = Session::get("userID");
                 address: shipInfo.address,
                 email: shipInfo.email,
                 paymentMethod:  shipInfo.paymentMethod,
+                shipMethod: shipInfo.shipMethod,
                 discount: shipInfo.paymentMethod,
                 country:  shipInfo.country,
                 totalPrice:  parseFloat(totalPrice.slice(1)),
+                vat: shipInfo.vat,
                 product: CartAdd
             }
             localStorage.setItem("Order", JSON.stringify(Order));

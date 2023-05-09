@@ -48,6 +48,9 @@ const handleCalculateTotal = () => {
             <span class="title">Total <span id="calculated_total">$${grandTotal}</span></span>
         </div>`;
 
+    let newShipInfo = ShipInfo
+    newShipInfo.vat = tax
+    localStorage.setItem("shipInfo", JSON.stringify(newShipInfo));
     totalWrapper.innerHTML = totalHTML;
 };
 
