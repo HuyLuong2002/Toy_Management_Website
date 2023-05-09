@@ -97,7 +97,6 @@ class PDFOrder
     $pdfGenerator->formatText(10, 0, "SL", 1, 0, "C");
     $pdfGenerator->formatText(20, 0, "Đơn giá", 1, 0, "C");
     $pdfGenerator->formatText(20, 0, "Thành tiền", 1, 0, "C");
-    $pdfGenerator->formatText(10, 0, "VAT", 1, 0, "C");
     $pdfGenerator->formatText(20, 0, "Tổng tiền", 1, 0, "C");
     $pdfGenerator->enterLine();
     //write table content - product content
@@ -106,7 +105,6 @@ class PDFOrder
     $total_quantity = 0;
     $total_money = 0;
     $sum_total_price = 0;
-    $sum_vat = 0;
     for ($i = 0; $i < $result_detail_order->num_rows; $i++) {
       $result = $result_detail_order->fetch_array();
       $pdfGenerator->formatText(5, 5, $i + 1, 1, 0, "C");
@@ -119,17 +117,20 @@ class PDFOrder
       $into_money = $result[3] * $result[4];
       $total_money = $total_money + $into_money; // Tính tổng thành tiền
       $vat = 10;
-      $sum_vat = $sum_vat + $vat;
       $total_price = $into_money + ($into_money * $vat) / 100;
       $sum_total_price = $sum_total_price + $total_price; // Tính tổng cột tổng tiền
       $into_money = $fm->formatPriceDecimal($into_money);
       $total_price = $fm->formatPriceDecimal($total_price);
       $pdfGenerator->formatText(20, 5, $into_money, 1, 0, "R");
-      $pdfGenerator->formatText(10, 5, $vat, 1, 0, "C");
       $pdfGenerator->formatText(20, 5, $total_price, 1, 0, "R");
       $pdfGenerator->enterLine();
     }
 
+    $start_index = strpos($result_order["ship_method"], "(") + 2; // tìm vị trí của ký tự "(" và cộng thêm 1 để bỏ qua ký tự này
+    $end_index = strpos($result_order["ship_method"], ")", $start_index); // tìm vị trí của ký tự ")" bắt đầu từ vị trí $start_index
+    $number = substr($result_order["ship_method"], $start_index, $end_index - $start_index); // trích xuất chuỗi con chứa số 6
+    $sum_total_price = $sum_total_price + (int) $number;
+    echo $sum_total_price;
     //write total price of per column
     $pdfGenerator->setFont("dejavusans", "B", 5);
     $pdfGenerator->formatText(50, 5, "Tổng tiền", 1, 0, "C");
@@ -137,8 +138,6 @@ class PDFOrder
     $pdfGenerator->formatText(20, 5, "", 1, 0, "");
     $total_money = $fm->formatPriceDecimal($total_money);
     $pdfGenerator->formatText(20, 5, $total_money, 1, 0, "R");
-    $sum_vat = $fm->formatPriceDecimal($sum_vat);
-    $pdfGenerator->formatText(10, 5, $sum_vat, 1, 0, "C");
     $sum_total_price = $fm->formatPriceDecimal($sum_total_price);
     $pdfGenerator->formatText(20, 5, $sum_total_price, 1, 0, "R");
     $pdfGenerator->enterLine();
@@ -155,6 +154,12 @@ class PDFOrder
       45,
       5,
       "Đã thanh toán: " . $sum_total_price,
+      0
+    );
+    $pdfGenerator->formatTextDistance(
+      45,
+      5,
+      "VAT: " . $vat,
       0
     );
     $pdfGenerator->enterLine();
