@@ -186,7 +186,6 @@ include_once $filepath . "\database\connectDB.php";
     );
     $price = mysqli_real_escape_string($this->db->link, $data["price"]);
     $quantity = mysqli_real_escape_string($this->db->link, $data["quantity"]);
-
     $create_date = (string) date("d/m/Y");
 
     //Kiểm tra hình ảnh và lấy hình ảnh cho vào folder upload
@@ -199,6 +198,8 @@ include_once $filepath . "\database\connectDB.php";
     $file_ext = strtolower(end($div));
     $unique_image = substr(md5(time()), 0, 10) . "." . $file_ext;
     $uploaded_image = "uploads/" . $unique_image;
+
+    echo var_dump($unique_image);
 
     if (
       $productName == "" ||
