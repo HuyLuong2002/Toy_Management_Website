@@ -98,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
         <input type="file" id="uploadfile" name="uploadfile_add" class="uploadfile" required>
       </div>
 
-      <input type="submit" name="submit" class="submit" Value="Save" />
+      <input type="submit" name="submit" id="add-btn" class="submit" Value="Save" />
     </form>
   </div>
 </body>
@@ -122,11 +122,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
         var input = $(this).val();
         if (checkAddAndEdit(input) == false) {
           $("#name_add_result").html("<span class='error'>Product Name Not Valid</span>");
+          $("#add-btn").prop("disabled", true);
+          $("#add-btn").css("background-color", "red");
           $("#name_add_result").css("display", "block");
           $("#name_add_result").css("margin-top", "1rem");
         }
         else {
           $("#name_add_result").css("display", "none");
+          $("#add-btn").prop("disabled", false);
+          $("#add-btn").css("background-color", "#0be881");
+
         }
       });
 
@@ -134,11 +139,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
         var input = $(this).val();
         if (checkAddAndEditPrice(input) == false) {
           $("#price_add_result").html("<span class='error'>Product Price Not Valid</span>");
+          $("#add-btn").prop("disabled", true);
+          $("#add-btn").css("background-color", "red");
           $("#price_add_result").css("display", "block");
           $("#price_add_result").css("margin-top", "1rem");
         }
         else {
           $("#price_add_result").css("display", "none");
+          $("#add-btn").prop("disabled", false);
+          $("#add-btn").css("background-color", "#0be881");
         }
       });
 
@@ -146,11 +155,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
         var input = $(this).val();
         if (checkAddAndEditQuantity(input) == false) {
           $("#quantity_add_result").html("<span class='error'>Product Quantity Not Valid</span>");
+          $("#add-btn").prop("disabled", true);
+          $("#add-btn").css("background-color", "red");
           $("#quantity_add_result").css("display", "block");
           $("#quantity_add_result").css("margin-top", "1rem");
         }
         else {
           $("#quantity_add_result").css("display", "none");
+          $("#add-btn").prop("disabled", false);
+          $("#add-btn").css("background-color", "#0be881");
         }
       });
 

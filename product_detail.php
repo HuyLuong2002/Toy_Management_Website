@@ -23,9 +23,9 @@ if (isset($_GET["categoryID"])) {
 
 $countComment = $commentController->show_all_comment_of_product($product_detail_id);
 if(isset($countComment->num_rows))
-  $rating = $countComment->num_rows;
+  $ratingCount = $countComment->num_rows;
 else {
-  $rating = 0;
+  $ratingCount = 0;
 }
 ?>
 
@@ -92,7 +92,7 @@ else {
                 }
               }
               ?>
-              <span>(<?php echo $rating; ?>)</span>
+              <span>(<?php echo $ratingCount; ?>)</span>
             </div>
             <div class="product-description">
               <?php
