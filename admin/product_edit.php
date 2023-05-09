@@ -10,6 +10,28 @@ if (isset($_GET["id"])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     $updateProduct = $product_editController->update_product($_POST, $_FILES, $id);
 }
+
+if (isset($_GET["product_id"])) {
+    $show_product = $productsController->get_product_by_id($_GET["product_id"]);
+    if (mysqli_num_rows($show_product) == 1) {
+      $sale = mysqli_fetch_array($show_product);
+  
+      $res = [
+        "status" => 200,
+        "message" => "product fetch successful by id",
+        "data" => $sale,
+      ];
+      echo json_encode($res);
+      return;
+    } else {
+      $res = [
+        "status" => 404,
+        "message" => "prodcut Id Not Found",
+      ];
+      echo json_encode($res);
+      return;
+    }
+  }
 ?>
 
 <!DOCTYPE html>
@@ -63,8 +85,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
                                 if ($show_cat) {
                                     $i = 0;
                                     while ($result = $show_cat->fetch_assoc()) {
+                                        if($result_product[7] == $result["id"]) {
+                                        $select_category = "selected";
+                                    } else {
+                                        $select_category = "";
+                                    }
                                         $i++; ?>
-                                        <option value="<?php echo $result["id"]; ?>"><?php echo $result["name"]; ?></option>
+                                        <option value="<?php echo $result["id"]; ?>" <?php echo $select_category?> ><?php echo $result["name"]; ?></option>
                                 <?php
                                     }
                                 }
@@ -82,8 +109,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
                                 if ($show_sale) {
                                     $i = 0;
                                     while ($result = $show_sale->fetch_assoc()) {
+                                        if($result_product[8] == $result["id"]) {
+                                            $select_sale = "selected";
+                                        } else {
+                                            $select_sale = "";
+                                        }
                                         $i++; ?>
-                                        <option value="<?php echo $result["id"]; ?>"><?php echo $result["name"]; ?></option>
+                                        <option value="<?php echo $result["id"]; ?>" <?php echo $select_sale?> ><?php echo $result["name"]; ?></option>
                                 <?php
                                     }
                                 }

@@ -109,6 +109,7 @@ td {
 
 .modal-btn-delete {
   color: red;
+  display: flex;
 }
 
 .bg-modal-box {
