@@ -27,6 +27,14 @@ const handleShowListOrder = async () => {
 
     let listOrderOfUser = orderList.orders.map((item, index) => {
         OrderListProductDetail.push([item.id, item.order_list])
+
+        let statusText = "PENDING"
+        if(item.order_list.status === 1) {
+            statusText = "DELIVERING"
+        } 
+        if(item.order_list.status === 0) {
+            statusText = "SHIPPED"
+        }
         return `
             <tr key=${index}>
                 <td>${item.id}</td>
@@ -35,7 +43,7 @@ const handleShowListOrder = async () => {
                 <td>${item.order_list.phone}</td>
                 <td>${item.order_list.email}</td>
                 <td>${item.order_list.pay_method}</td>
-                <td class=${"status-"+item.order_list.status}>PENDING</td>
+                <td class=${"status-"+item.order_list.status}>${statusText}</td>
                 <td>$${item.order_list.total_price}</td>
                 <td><a href="#" onclick="handleShowDetailOrder(${item.id})">Detail</a></td>
             </tr>

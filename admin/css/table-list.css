@@ -60,6 +60,19 @@
   }
 }
 
+.notification-order {
+  padding: 5px 10px;
+  border-radius: 5px;
+  animation: fadeOut ease-in 0.4s forwards;
+  animation-delay: 3s;
+  position: absolute;
+  left: 40%;
+}
+
+.notification-order span {
+  font-size: 18px;
+}
+
 table {
   border-collapse: collapse;
 }
@@ -95,6 +108,16 @@ td {
   color: red;
   display: flex;
 }
+
+.modal-btn-delete,
+.modal-btn-edit {
+  color: blue;
+  border: none;
+  background-color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+}
+
 
 .bg-modal-box {
   position: fixed;

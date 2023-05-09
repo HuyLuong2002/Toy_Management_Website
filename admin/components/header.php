@@ -84,6 +84,11 @@ if (isset($_GET["id"])) {
           //product
           $("#card-product").html("<span class='error'>Input Value Not Valid</span>");
           $("#card-product").css("display", "block");
+<<<<<<< HEAD
+=======
+          // $("#card-product").css("margin-top", "6rem");
+          // $("#card-product").css("margin-left", "2rem");
+>>>>>>> ea71b94c2658f322884491d99a9f14de1f10cbb0
           //provider
           $("#card-provider").html("<span class='error'>Input Value Not Valid</span>");
           $("#card-provider").css("display", "block");

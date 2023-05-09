@@ -160,7 +160,7 @@ if (isset($current_position)) {
                   </td>
                   <td>
                     <div class="action-btn-group">
-                      <a href="product_edit.php?id=<?php echo $result[0] ?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
+                      <a class="edit" href="product_edit.php?id=<?php echo $result[0] ?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
                       <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
                         <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                           Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
@@ -233,7 +233,7 @@ if (isset($current_position)) {
                 <div class="action-btn-group">
                   <a class="edit" href="product_edit.php?id=<?php echo $result[0] ?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
                   <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
-                    <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
+                    <button class="modal-btn-delete" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                       Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                     </button>
                   </div>
@@ -297,7 +297,7 @@ if (isset($current_position)) {
       Are you sure want to delete?
     </div>
     <div class="modal-delete-btn-group">
-      <button class="modal-delete-btn delete-btn" name="delete-btn">Delete</button>
+      <button type="submit" class="modal-delete-btn delete-btn" name="delete-btn">Delete</button>
       <button type="button" class="modal-delete-btn delete-btn-cancel" id="delete-btn-cancel" onclick="cancelDeleteModal()">
         <span>Cancel</span>
       </button>

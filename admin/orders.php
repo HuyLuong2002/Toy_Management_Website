@@ -61,7 +61,7 @@ if (isset($current_position)) {
   <div class="card-header">
     <div class="bg-modal-box order" onclick="closeCurdDeleteModal"></div>
     <h3>Orders List</h3>
-    <div class="notification">
+    <div class="notification-order">
       <?php
       if (isset($delete_order)) {
         echo $delete_order;
@@ -143,7 +143,7 @@ if (isset($current_position)) {
                   <td>
                     <a href="?id=3&deleteid=<?php echo $result[0]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
                     <a href="orders_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
-                    <a href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF</a>
+                    <a class="edit" href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF <i class="fa-solid fa-file-export"></i></a>
                   </td>
                 </tr>
             <?php }
@@ -203,14 +203,13 @@ if (isset($current_position)) {
                 ?>
               </td>
               <td>
-                <!-- <a href="?id=3&page=<?php echo $page_id ?>&deleteid=<?php echo $result[0]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a> -->
                 <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
                   <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
                     Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                   </button>
                 </div>
                 <a href="?id=3&page=<?php echo $page_id ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
-                <a href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF</a>
+                <a class="edit" href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF <i class="fa-solid fa-file-export"></i></a>
               </td>
             </tr>
       <?php }
@@ -281,24 +280,6 @@ if (isset($current_position)) {
 </div>
 
 <script>
-  // bg_modal_box_order.addEventListener("click", function(event) {
-  //   // Kiểm tra xem sự kiện click có xảy ra bên ngoài cửa sổ popup hay không
-  //   if (event.target === bg_modal_box_order) {
-  //     // Nếu có, đóng cửa sổ popup
-  //     // modal.style.display = "none";
-  //     modal_delete.classList.remove("active");
-  //     bg_modal_box_order.classList.remove("active");
-  //   }
-  // });
-  var bg_modal_box_order = document.querySelector(".bg-modal-box.order");
-
-  var closeCurdDeleteModal = () => {
-    let btn_add = document.querySelector('.bg-modal-box.order');
-    btn_add.addEventListener("click", function() {
-      modal_delete.classList.remove("active");
-      bg_modal_box_order.classList.remove("active");
-    });
-  }
 </script>
 
 <script>
