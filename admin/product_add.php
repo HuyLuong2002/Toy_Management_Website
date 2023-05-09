@@ -32,73 +32,80 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
       <?php if (isset($insertProduct)) {
         echo $insertProduct;
       } ?>
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name_add" class="name">
-        <div id="name_add_result"></div>
-      </div>
 
-      <div class="form-group">
-        <label for="price">Price</label>
-        <input type="text" id="price" name="price_add" class="price" required>
-        <div id="price_add_result"></div>
-      </div>
+      <div class="form-left-info">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name_add" class="name">
+          <div id="name_add_result"></div>
+        </div>
 
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea id="description" name="description_add" class="tinymce"></textarea>
-      </div>
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input type="text" id="price" name="price_add" class="price" required>
+          <div id="price_add_result"></div>
+        </div>
 
-      <div class="form-group">
-        <label for="category">Category</label>
-        <select id="category" name="category_add" class="category" required>
-          <option value="">Select category</option>
-          <?php
-          $categoryController = new CategoryController();
-          $show_cat = $categoryController->show_category();
-          if ($show_cat) {
-            $i = 0;
-            while ($result = $show_cat->fetch_assoc()) {
-              $i++; ?>
-              <option value="<?php echo $result["id"]; ?>"><?php echo $result["name"]; ?></option>
-          <?php
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select id="category" name="category_add" class="category" required>
+            <option value="">Select category</option>
+            <?php
+            $categoryController = new CategoryController();
+            $show_cat = $categoryController->show_category();
+            if ($show_cat) {
+              $i = 0;
+              while ($result = $show_cat->fetch_assoc()) {
+                $i++; ?>
+                <option value="<?php echo $result["id"]; ?>"><?php echo $result["name"]; ?></option>
+            <?php
+              }
             }
-          }
-          ?>
-        </select>
-      </div>
+            ?>
+          </select>
+        </div>
 
-      <div class="form-group">
-        <label for="sale">Sale</label>
-        <select id="sale" name="sale_add" class="sale" required>
-          <option value="">Select sale</option>
-          <?php
-          $saleController = new SaleController();
-          $show_sale = $saleController->show_sale();
-          if ($show_sale) {
-            $i = 0;
-            while ($result = $show_sale->fetch_assoc()) {
-              $i++; ?>
-              <option value="<?php echo $result["id"]; ?>"><?php echo $result["name"]; ?></option>
-          <?php
+        <div class="form-group">
+          <label for="sale">Sale</label>
+          <select id="sale" name="sale_add" class="sale" required>
+            <option value="">Select sale</option>
+            <?php
+            $saleController = new SaleController();
+            $show_sale = $saleController->show_sale();
+            if ($show_sale) {
+              $i = 0;
+              while ($result = $show_sale->fetch_assoc()) {
+                $i++; ?>
+                <option value="<?php echo $result["id"]; ?>"><?php echo $result["name"]; ?></option>
+            <?php
+              }
             }
-          }
-          ?>
-        </select>
+            ?>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="quantity">Quantity</label>
+          <input type="number" id="quantity" name="quantity_add" class="quantity" required>
+          <div id="quantity_add_result"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="uploadfile">Upload File</label>
+          <input type="file" id="uploadfile" name="uploadfile_add" class="uploadfile" required>
+        </div>
+
+        <input type="submit" name="submit" id="add-btn" class="submit" Value="Save" />
+
       </div>
 
-      <div class="form-group">
-        <label for="quantity">Quantity</label>
-        <input type="number" id="quantity" name="quantity_add" class="quantity" required>
-        <div id="quantity_add_result"></div>
+      <div class="form-right-info">
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" name="description_add" class="tinymce"></textarea>
+        </div>
       </div>
 
-      <div class="form-group">
-        <label for="uploadfile">Upload File</label>
-        <input type="file" id="uploadfile" name="uploadfile_add" class="uploadfile" required>
-      </div>
-
-      <input type="submit" name="submit" id="add-btn" class="submit" Value="Save" />
     </form>
   </div>
 </body>
@@ -109,66 +116,63 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     selector: '.tinymce',
 
     width: "100%",
-    height: "150",
+    height: "480",
   });
 </script>
 
-  <script src="./js/validate_input.js"></script>
+<script src="./js/validate_input.js"></script>
 
-  <!-- coding check input value function -->
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $("#name").keyup(function() {
-        var input = $(this).val();
-        if (checkAddAndEdit(input) == false) {
-          $("#name_add_result").html("<span class='error'>Product Name Not Valid</span>");
-          $("#add-btn").prop("disabled", true);
-          $("#add-btn").css("background-color", "red");
-          $("#name_add_result").css("display", "block");
-          $("#name_add_result").css("margin-top", "1rem");
-        }
-        else {
-          $("#name_add_result").css("display", "none");
-          $("#add-btn").prop("disabled", false);
-          $("#add-btn").css("background-color", "#0be881");
+<!-- coding check input value function -->
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#name").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEdit(input) == false) {
+        $("#name_add_result").html("<span class='error'>Product Name Not Valid</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
+        $("#name_add_result").css("display", "block");
+        $("#name_add_result").css("margin-top", "1rem");
+      } else {
+        $("#name_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
 
-        }
-      });
-
-      $("#price").keyup(function() {
-        var input = $(this).val();
-        if (checkAddAndEditPrice(input) == false) {
-          $("#price_add_result").html("<span class='error'>Product Price Not Valid</span>");
-          $("#add-btn").prop("disabled", true);
-          $("#add-btn").css("background-color", "red");
-          $("#price_add_result").css("display", "block");
-          $("#price_add_result").css("margin-top", "1rem");
-        }
-        else {
-          $("#price_add_result").css("display", "none");
-          $("#add-btn").prop("disabled", false);
-          $("#add-btn").css("background-color", "#0be881");
-        }
-      });
-
-      $("#quantity").keyup(function() {
-        var input = $(this).val();
-        if (checkAddAndEditQuantity(input) == false) {
-          $("#quantity_add_result").html("<span class='error'>Product Quantity Not Valid</span>");
-          $("#add-btn").prop("disabled", true);
-          $("#add-btn").css("background-color", "red");
-          $("#quantity_add_result").css("display", "block");
-          $("#quantity_add_result").css("margin-top", "1rem");
-        }
-        else {
-          $("#quantity_add_result").css("display", "none");
-          $("#add-btn").prop("disabled", false);
-          $("#add-btn").css("background-color", "#0be881");
-        }
-      });
-
-
+      }
     });
-</script>
-</html>
 
+    $("#price").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEditPrice(input) == false) {
+        $("#price_add_result").html("<span class='error'>Product Price Not Valid</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
+        $("#price_add_result").css("display", "block");
+        $("#price_add_result").css("margin-top", "1rem");
+      } else {
+        $("#price_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
+      }
+    });
+
+    $("#quantity").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEditQuantity(input) == false) {
+        $("#quantity_add_result").html("<span class='error'>Product Quantity Not Valid</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
+        $("#quantity_add_result").css("display", "block");
+        $("#quantity_add_result").css("margin-top", "1rem");
+      } else {
+        $("#quantity_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
+      }
+    });
+
+
+  });
+</script>
+
+</html>

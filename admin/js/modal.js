@@ -1,11 +1,12 @@
 var btn_delete_cancel = document.getElementById(`delete-btn-cancel`);
 var bg_modal_box = document.querySelector(".bg-modal-box");
+var bg_modal_box_product = document.querySelector(".bg-modal-box.product");
+var bg_modal_box_order = document.querySelector(".bg-modal-box.order");
 var modal_delete = document.querySelector(`.modal-container-delete`);
 var modal_edit = document.querySelector(`.modal-container-edit`);
 var modal_add = document.querySelector(`.modal-container-add`);
 var close_edit_modal = document.querySelector(".modal-container-edit-close span");
 var close_add_modal = document.querySelector(".modal-container-add-close span");
-var body = document.body;
 
 const modalAlert = document.querySelector('.modal-alert');
 const modalClose = document.querySelector('.modal-alert-close');
@@ -99,63 +100,15 @@ bg_modal_box.addEventListener("click", function (event) {
     }
 });
 
-
-// modal alert
-
-function addShowModalAlert(icon, title, color, obj) {
-    if (obj === undefined) {
-        clearTimeout(myTimeOut);
-        addRemoveModalAlert();
-        setTimeout(function () {
-            modalAlert.querySelector('.modal-alert-content .modal-alert-left').innerHTML = `<i class="${icon}></i>`;
-            modalAlert.querySelector('.modal-alert-content .modal-alert-right .modal-alert-right-title').innerHTML = title;
-            modalAlert.style.backgroundColor = color;
-            modalAlert.classList.remove('hide');
-            modalAlert.classList.add('show');
-            modalProcess.classList.add('active');
-            myTimeOut = setTimeout(function () {
-                addRemoveModalAlert();
-                // console.log("Me end");
-            }, 5000);
-        }, 300);
-        return;
+bg_modal_box_product.addEventListener("click", function (event) {
+    // Kiểm tra xem sự kiện click có xảy ra bên ngoài cửa sổ popup hay không
+    if (event.target === bg_modal_box_product) {
+        // Nếu có, đóng cửa sổ popup
+        // modal.style.display = "none";
+        closeCURDDeleteModal();
+        closeCURDEditModal();
     }
+});
 
-    obj.addEventListener("click", function () {
-        clearTimeout(myTimeOut);
-        addRemoveModalAlert();
-        setTimeout(function () {
-            modalAlert.querySelector('.modal-alert-content .modal-alert-left').innerHTML = `<i class="${icon}></i>`;
-            modalAlert.querySelector('.modal-alert-content .modal-alert-right .modal-alert-right-title').innerHTML = title;
-            modalAlert.style.backgroundColor = color;
-            modalAlert.classList.remove('hide');
-            modalAlert.classList.add('show');
-            modalProcess.classList.add('active');
-            myTimeOut = setTimeout(function () {
-                addRemoveModalAlert();
-                // console.log("Me end");
-            }, 5000);
-        }, 300);
-    })
-}
-
-// addRemoveModalAlert(modalClose);
-// function addRemoveModalAlert(obj) {
-//     if (obj === undefined) {
-//         modalAlert.classList.remove('show');
-//         modalAlert.classList.add('hide');
-//         modalProcess.classList.remove('active');
-//         return;
-//     }
-//     obj.addEventListener('click', function () {
-//         modalAlert.classList.remove('show');
-//         modalAlert.classList.add('hide');
-//         modalProcess.classList.remove('active');
-//     })
-// }
-
-function saveEditAction() {
-
-}
 
 

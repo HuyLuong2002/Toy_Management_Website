@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add-btn"])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
   $edit_id = $_POST["edit_id"];
-  $updateUpdate = $providerController->update_provider($_POST, $edit_id);
+  $updateProvider = $providerController->update_provider($_POST, $edit_id);
 }
 
 if (isset($_GET["detailid"])) {
@@ -258,10 +258,11 @@ if (isset($current_position))
       <div class="modal-edit-info-item">
         <label for="name">Name</label>
         <input type="text" id="name_edit" name="name_edit" required value="">
+        <div id="name_edit_result"></div>
       </div>
     </div>
 
-    <input class="modal-edit-btn" name="edit-btn" type="submit" value="Save">
+    <input class="modal-edit-btn" id="edit-btn" name="edit-btn" type="submit" value="Save">
   </form>
   <!-- modal edit end -->
 
@@ -272,10 +273,11 @@ if (isset($current_position))
       <div class="modal-add-info-item">
         <label for="name">Name</label>
         <input type="text" id="name_add" name="name_add" required value="">
+        <div id="name_add_result"></div>
       </div>
     </div>
 
-    <input onclick="" class="modal-add-btn" name="add-btn" type="submit" value="Save">
+    <input onclick="" class="modal-add-btn" id="add-btn" name="add-btn" type="submit" value="Save">
   </form>
   <!-- modal add end -->
 </div>
@@ -331,5 +333,45 @@ if (isset($current_position))
         }
       }
     })
+  });
+</script>
+
+
+<script src="./js/validate_input.js"></script>
+
+<!-- coding check input value function -->
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#name_add").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEditProvider(input) == false) {
+        $("#name_add_result").html("<span class='error'>Provider Name Not Valid</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
+        $("#name_add_result").css("display", "block");
+        $("#name_add_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#name_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
+      }
+    });
+
+    $("#name_edit").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEditProvider(input) == false) {
+        $("#name_edit_result").html("<span class='error'>Provider Name Not Valid</span>");
+        $("#edit-btn").prop("disabled", true);
+        $("#edit-btn").css("background-color", "red");
+        $("#name_edit_result").css("display", "block");
+        $("#name_edit_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#name_edit_result").css("display", "none");
+        $("#edit-btn").prop("disabled", false);
+        $("#edit-btn").css("background-color", "#ffa800");
+      }
+    });
   });
 </script>
