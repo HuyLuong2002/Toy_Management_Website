@@ -48,7 +48,7 @@ if (isset($_GET["id"])) {
       <label for="nav-toggle">
         <span class="las la-bars"> </span>
       </label>
-      Dashboard 
+      Dashboard
     </h2>
 
     <div class="admin-search-wrapper">
@@ -60,7 +60,7 @@ if (isset($_GET["id"])) {
       <img src="assets/images/pic-1.png" width="40px" height="40px" alt="" />
       <div>
         <h4>
-           <?php echo Session::get("fullname"); ?>
+          <?php echo Session::get("fullname"); ?>
           <small>Super admin</small>
           <small>
             <?php if (isset($_GET["action"]) && $_GET["action"] == "logout") {
@@ -73,59 +73,205 @@ if (isset($_GET["id"])) {
     </div>
   </header>
 
+  <script src="./js/validate_input.js"></script>
+
   <!-- coding live search function -->
   <script type="text/javascript">
     $(document).ready(function() {
-      $("#search").keyup(function(){
+      $("#search").keyup(function() {
         var input = $(this).val();
-        
-        if(input != "") {
+        if (checkSearchInput(input) == false) {
+          //product
+          $("#card-product").html("<span class='error'>Input Value Not Valid</span>");
+          $("#card-product").css("display", "block");
+<<<<<<< HEAD
+=======
+          // $("#card-product").css("margin-top", "6rem");
+          // $("#card-product").css("margin-left", "2rem");
+>>>>>>> ea71b94c2658f322884491d99a9f14de1f10cbb0
+          //provider
+          $("#card-provider").html("<span class='error'>Input Value Not Valid</span>");
+          $("#card-provider").css("display", "block");
+          //permission
+          $("#card-permission").html("<span class='error'>Input Value Not Valid</span>");
+          $("#card-permission").css("display", "block");
+          //sale
+          $("#card-sale").html("<span class='error'>Input Value Not Valid</span>");
+          $("#card-sale").css("display", "block");
+          //orders
+          $("#card-order").html("<span class='error'>Input Value Not Valid</span>");
+          $("#card-order").css("display", "block");
+          //account
+          $("#card-account").html("<span class='error'>Input Value Not Valid</span>");
+          $("#card-account").css("display", "block");
+          //inventory
+          $("#card-inventory").html("<span class='error'>Input Value Not Valid</span>");
+          $("#card-inventory").css("display", "block");
+          //category
+          $("#card-category").html("<span class='error'>Input Value Not Valid</span>");
+          $("#card-category").css("display", "block");
+          //inventoryDetail
+          $("#card-inventory-detail").html("<span class='error'>Input Value Not Valid</span>");
+          $("#card-inventory-detail").css("display", "block");
+          return;
+        }
+        else {
+          //product
+          $("#card-product").css("display", "none");
+          //provider
+          $("#card-provider").css("display", "none");
+          //permission
+          $("#card-permission").css("display", "none");
+          //sale
+          $("#card-sale").css("display", "none");
+          //orders
+          $("#card-order").css("display", "none");
+          //account
+          $("#card-account").css("display", "none");
+          //inventory
+          $("#card-inventory").css("display", "none");
+          //category
+          $("#card-category").css("display", "none");
+          //inventoryDetail
+          $("#card-inventory-detail").css("display", "none");
+        }
+        if (input != "") {
           $.ajax({
             url: "products.php",
             method: "POST",
-            data:{input:input},
-            success: function(data){
-              $("#searchresultproduct").html(data);
-              $("#searchresultproduct").css("display","block");
+            data: {
+              input: input
+            },
+            success: function(data) {
+              var $data = $(data);
+              var searchResult = $data.find('#card-product').html();
+              $("#card-product").html(searchResult);
+              $("#card-product").css("display", "block");
             }
           });
 
           $.ajax({
             url: "providers.php",
             method: "POST",
-            data:{input:input},
-            success: function(data){  
-              $("#searchresultprovider").html(data);
-              $("#searchresultprovider").css("display","block");
+            data: {
+              input: input
+            },
+            success: function(data) {
+              var $data = $(data);
+              var searchResult = $data.find('#card-provider').html();
+              $("#card-provider").html(searchResult);
+              $("#card-provider").css("display", "block");
             }
           });
 
           $.ajax({
             url: "permission.php",
             method: "POST",
-            data:{input:input},
-            success: function(data){  
-              $("#searchresultpermission").html(data);
-              $("#searchresultpermission").css("display","block");
+            data: {
+              input: input
+            },
+            success: function(data) {
+              var $data = $(data);
+              var searchResult = $data.find('#card-permission').html();
+              $("#card-permission").html(searchResult);
+              $("#card-permission").css("display", "block");
             }
           });
 
           $.ajax({
             url: "sale.php",
             method: "POST",
-            data: {input:input},
-            success: function(data){
-              $("#searchresultsale").html(data);
-              $("#searchresultsale").css("display","block");
+            data: {
+              input: input
+            },
+            success: function(data) {
+              var $data = $(data);
+              var searchResult = $data.find('#card-sale').html();
+              $("#card-sale").html(searchResult);
+              $("#card-sale").css("display", "block");
             }
           });
-        }
-        else
-        {
-          $("#searchresultproduct").css("display","block");
-          $("#searchresultsale").css("display","block");
+
+          $.ajax({
+            url: "orders.php",
+            method: "POST",
+            data: {
+              input: input
+            },
+            success: function(data) {
+              var $data = $(data);
+              var searchResult = $data.find('#card-order').html();
+              $("#card-order").html(searchResult);
+              $("#card-order").css("display", "block");
+            }
+          });
+
+          $.ajax({
+            url: "accounts.php",
+            method: "POST",
+            data: {
+              input: input
+            },
+            success: function(data) {
+              var $data = $(data);
+              var searchResult = $data.find('#card-account').html();
+              $("#card-account").html(searchResult);
+              $("#card-account").css("display", "block");
+            }
+          });
+
+          $.ajax({
+            url: "inventory.php",
+            method: "POST",
+            data: {
+              input: input
+            },
+            success: function(data) {
+              var $data = $(data);
+              var searchResult = $data.find('#card-inventory').html();
+              $("#card-inventory").html(searchResult);
+              $("#card-inventory").css("display", "block");
+            }
+          });
+
+          $.ajax({
+            url: "category.php",
+            method: "POST",
+            data: {
+              input: input
+            },
+            success: function(data) {
+              var $data = $(data);
+              var searchResult = $data.find('#card-category').html();
+              $("#card-category").html(searchResult);
+              $("#card-category").css("display", "block");
+            }
+          });
+
+          $.ajax({
+            url: "inventory_detail.php",
+            method: "POST",
+            data: {
+              input: input
+            },
+            success: function(data) {
+              var $data = $(data);
+              var searchResult = $data.find('#card-inventory-detail').html();
+              $("#card-inventory-detail").html(searchResult);
+              $("#card-inventory-detail").css("display", "block");
+            }
+          });
+        } else {
+          $("#card-product").css("display", "block");
+          $("#card-permission").css("display", "block");
+          $("#card-provider").css("display", "block");
+          $("#card-sale").css("display", "block");
+          $("#card-order").css("display", "block");
+          $("#card-account").css("display", "block");
+          $("#card-inventory").css("display", "block");
+          $("#card-category").css("display", "block");
+          $("#card-inventory-detail").css("display", "block");
         }
       });
     });
   </script>
-

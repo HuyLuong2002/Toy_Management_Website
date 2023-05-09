@@ -27,14 +27,14 @@ include_once $filepath . "\database\connectDB.php";
 
     public function show_category_live_search($input)
     {
-        $query = "SELECT * FROM category WHERE (category.name LIKE '$input%') is_deleted = '0'";
+        $query = "SELECT * FROM category WHERE (category.name LIKE '%$input%') AND is_deleted = '0'";
         $result = $this->db->select($query);
         return $result;
     }
 
-    public function insert_category($data, $files)
+    public function insert_category($data)
     {
-        $categoryName = mysqli_real_escape_string($this->db->link, $data["name"]);
+        $categoryName = mysqli_real_escape_string($this->db->link, $data["name_add"]);
 
         if (
             $categoryName == ""
@@ -45,17 +45,17 @@ include_once $filepath . "\database\connectDB.php";
             $query = "INSERT INTO category(name) VALUES ('$categoryName')";
             $result = $this->db->insert($query);
             if ($result) {
-                $alert = "<span class='success'>Insert category Sucessfully</span>";
+                $alert = "<span class='success'>Insert Category Sucessfully</span>";
                 return $alert;
             } else {
-                $alert = "<span class='error'>Insert category Not Sucessfully</span>";
+                $alert = "<span class='error'>Insert Category Not Sucessfully</span>";
                 return $alert;
             }
         }
     }
-    public function update_category($data, $files, $id)
+    public function update_category($data, $id)
     {
-        $categoryName = mysqli_real_escape_string($this->db->link, $data["name"]);
+        $categoryName = mysqli_real_escape_string($this->db->link, $data["name_edit"]);
 
         if (
             $categoryName == ""
@@ -67,10 +67,10 @@ include_once $filepath . "\database\connectDB.php";
 
             $result = $this->db->update($query);
             if ($result) {
-                $alert = "<span class='success'>Update category Sucessfully</span>";
+                $alert = "<span class='success'>Update Category Sucessfully</span>";
                 return $alert;
             } else {
-                $alert = "<span class='error'>Update category Not Sucessfully</span>";
+                $alert = "<span class='error'>Update Category Not Sucessfully</span>";
                 return $alert;
             }
         }
@@ -81,10 +81,10 @@ include_once $filepath . "\database\connectDB.php";
         $query = "UPDATE category SET is_deleted='1' WHERE id='$id'";
         $result = $this->db->delete($query);
         if ($result) {
-            $alert = "<span class='success'>category Deleted Sucessfully</span>";
+            $alert = "<span class='success'>Category Deleted Sucessfully</span>";
             return $alert;
         } else {
-            $alert = "<span class='error'>category Delete Not Sucessfully</span>";
+            $alert = "<span class='error'>Category Delete Not Sucessfully</span>";
             return $alert;
         }
     }

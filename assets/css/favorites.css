@@ -26,6 +26,36 @@
     text-align: center;
 }
 
+.title {
+    display: inline-flex;
+    position: relative;
+    left: 40%;
+}
+
+.return-btn {
+    width: 100px;
+    height: 50px;
+    border-radius: 50px;
+    background: #ccc;
+    position: relative;
+    top: -10px;
+    left: 50px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.return-btn {
+    color: #000;
+}
+
+.return-btn:hover {
+    background: #40c9a2;
+    color: #fff;
+}
+
 
 
 /* This is used as the traditional .clearfix class */

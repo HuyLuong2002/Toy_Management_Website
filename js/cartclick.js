@@ -65,8 +65,10 @@ const LoadCheckCart = () => {
     const CartArr = JSON.parse(localStorage.getItem('cartAdd'));
     CartArr.forEach(item => {
         let iTag = document.getElementById(`icon-check-${item.id}`)
-        iTag.classList.remove('fa-plus');
-        iTag.classList.add('fa-check');
+        if(iTag) {
+            iTag.classList.remove('fa-plus');
+            iTag.classList.add('fa-check');
+        }
     })
 
     AmountCartWasAdded()

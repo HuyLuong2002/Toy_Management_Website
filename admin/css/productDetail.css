@@ -1,72 +1,91 @@
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    list-style-type: none;
-    text-decoration: none;
-    font-family: "Poppins", sans-serif;
-  }
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+}
 
 .product-details {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 50px auto;
-    width: 80%;
-    max-width: 1200px;
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px #888;
-  }
-  
-  .product-image {
-    flex: 1;
-  }
-  
-  .product-image img {
-    width: 100%;
-    max-width: 500px;
-  }
-  
-  .product-info {
-    flex: 2;
-    padding: 50px;
-    background-color: #f4f4f4;
-  }
-  
-  .product-title {
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-  
-  .product-info p {
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-  
-  .product-info .product-highlight {
-    color: green;
-  }
-  
-  .product-actions {
-    display: flex;
-    flex-direction: row;
-    margin-top: 50px;
-  }
-  
-  .edit-button,
-  .delete-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    margin-right: 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .edit-button:hover,
-  .delete-button:hover {
-    background-color: #3e8e41;
-  }
-  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 50px auto;
+  width: 80%;
+  max-width: 1200px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px #888;
+}
+
+.product-image {
+  flex: 1;
+}
+
+.product-image img {
+  width: 100%;
+  max-width: 500px;
+}
+
+.product-info {
+  flex: 2;
+  padding: 50px;
+  background-color: #f4f4f4;
+}
+
+.product-title {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.product-info p {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.product-info .product-highlight {
+  color: green;
+}
+
+.product-actions {
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+}
+
+.edit-button,
+.delete-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  margin-right: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+  background-color: #3e8e41;
+}
+
+.return-btn {
+  background-color: #1ecdc9;
+  color: #fff;
+  padding: 10px 20px;
+  position: absolute;
+  top: 48px;
+  left: 95px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px #888;
+}
+
+.return-btn span {
+  font-size: 30px;
+}
+
+.return-btn:hover {
+  background-color: #2acaea;
+  transition: 0.3s;
+}

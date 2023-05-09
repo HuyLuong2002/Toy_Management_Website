@@ -44,7 +44,7 @@ $accountController = new AccountController();
                                             <span>1</span>
                                         </div>
                                         <div class="title">
-                                            <h1> Information</h1>
+                                            <h1>Information</h1>
                                         </div>
                                     </div>
                                     <div class="content" id="address">
@@ -70,10 +70,10 @@ $accountController = new AccountController();
                                                         <input type="phone" name="telephone" value="" id="telephone" placeholder="Phone(+84)" data-trigger="change" data-validation-minlength="10" data-type="number" data-required="true" data-error-message="Enter Your Telephone Number with length equal 10 " /><label for="telephone">Telephone</label>
                                                     </div>
                                                     <div>
-                                                        <input type="text" name="address" value="" id="address" placeholder="Address" data-trigger="change" data-validation-minlength="1" data-type="text" data-required="true" data-error-message="Enter Your Address" /><label for="Address">Address</label>
+                                                        <input type="text" name="address" value="" id="address-input" placeholder="Address" data-trigger="change" data-validation-minlength="1" data-type="text" data-required="true" data-error-message="Enter Your Address" /><label for="Address">Address</label>
                                                     </div>
                                                     <div>
-                                                        <input type="email" name="email" value="" id="email" placeholder="Email" data-trigger="change" data-validation-minlength="1" data-type="text" data-required="true" data-error-message="Enter Your Email" /><label for="email"></label>
+                                                        <input type="text" name="email" value="" id="email" placeholder="Email" data-trigger="change" data-validation-minlength="1" data-type="text" data-required="true" data-error-message="Enter Your Email And It Have To right with format" /><label for="email">Email</label>
                                                     </div>
                                                     <div>
                                                         <input type="text" name="zip" value="" id="zip" placeholder="Zip Code" data-trigger="change" data-validation-minlength="1" data-type="text" data-error-message="Enter Your Zip Code" /><label for="zip">Zip Code</label>
@@ -91,9 +91,9 @@ $accountController = new AccountController();
                                                             <label class="country" for="country">Country</label>
                                                         </div>
                                                     </div>
-                                                    <div>
+                                                    <div class="check_same">
                                                         <input type="checkbox" />
-                                                        <label class="same" for="same_as_shipping">Same As Shipping Address</label><span></span>
+                                                        <p style="font-size: 0.9rem; margin: 0;" for="same_as_shipping">Same As Shipping Address</p>
                                                     </div>
                                                 </form>
 
@@ -102,10 +102,7 @@ $accountController = new AccountController();
                                             }
                                         }
                                         ?>
-                                        <!--  -->
-
-
-                                        <p class="continue" onclick="handleClickNext()">Continue</p>
+                                        <p class="continue" onclick="handleClickStep1()">Continue</p>
                                     </div>
                                 </div>
 
@@ -143,7 +140,7 @@ $accountController = new AccountController();
                                                 <label for="shipping_3"> Overnight Shipping <span class="price">$12.00</span></label>
                                             </div>
                                         </form>
-                                        <p class="continue" onclick="handleClickNext()">Continue</p>
+                                        <p class="continue" onclick="handleClickStep2()">Continue</p>
                                     </div>
                                 </div>
 
@@ -224,30 +221,15 @@ $accountController = new AccountController();
                                                 <span><img src="https://i.imgur.com/ewMjaHv.png"></span>
                                                 <span><img src="https://i.imgur.com/3LmmFFV.png"></span>
                                             </div>
-                                            <div class="secured">
-                                                <img class="lock" src="https://i.imgur.com/hHuibOR.png">
-                                                <p class="security info">What, well you mean like a date? Doc? Am I to understand you're still hanging around with Doctor Emmett Brown, McFly? Tardy slip for you, Miss Parker. And one for you McFly I believe that makes four in a row.</p>
-                                            </div>
-                                            <div style="float: right; margin-right: 1rem; margin-top: 1.5rem; font-size: 1rem; color: #80c0ff; border: 1px solid #ccc; padding:.5rem;">
-                                                <i>Or Payment in cash</i>
-                                            </div>
                                         </div>
-                                        <a href="placeAnOder.php" class="continue" onclick="handleClickNext()">Continue</a>
+                                        <a href="#" disabled style="margin-top: 1rem;" class="continue" onclick="handleClickStep4()">Continue</a>
+                                        <a href="placeAnOder.php" class="continue" onclick="handleClickStep3()">Or Payment in cash</a>
+
                                     </div>
                                 </div>
 
                             </div>
                         </div>
-
-
-
-                        <!-- <div class="swiper-slide">
-                            <div class="swiper-center">
-
-                                
-
-                            </div>
-                        </div> -->
                     </div>
                     <div class="swiper-pagination"></div>
                     <div class="swiper-button-prev"></div>
@@ -256,6 +238,9 @@ $accountController = new AccountController();
 
 
 
+                <div class="check-info" id="check-fail">
+                    <span>&times;</span> add review failed
+                </div>
 
             </div>
         </div>
@@ -272,25 +257,116 @@ $accountController = new AccountController();
     var swiper = new Swiper(".swiper-container", {
         pagination: {
             el: ".swiper-pagination",
-            clickable: true,
+            clickable: false,
         },
         navigation: {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
         },
-        loop: true,
+        loop: false,
         speed: 700,
+        allowTouchMove: false
     });
 
     var nextButton = document.querySelector(".swiper-button-next");
     var prevButton = document.querySelector(".swiper-button-prev");
+    let checkFail = document.getElementById("check-fail")
+
     nextButton.style.display = "none";
     prevButton.style.display = "none";
 
-    const handleClickNext = () => {
+    let shipInfo = {
+        first_name:"",
+        last_name:"",
+        telephone:"",
+        address:"",
+        email:"",
+        discount:"",
+        country: "",
+    }       
+
+    const handleClickStep1 = () => {
+        let first_name = document.getElementById("first_name").value
+        let last_name = document.getElementById("last_name").value
+        let telephone = document.getElementById("telephone").value
+        let address = document.getElementById("address-input").value
+        let email = document.getElementById("email").value
+        let zip = document.getElementById("zip").value
+        let selectElement = document.getElementById("country");
         if (validateForm()) {
+            shipInfo = {
+                first_name,
+                last_name,
+                telephone,
+                address,
+                email,
+                discount: zip,
+                country: selectElement.options[selectElement.selectedIndex].text,
+            }
+            console.log("Ship info1: ", shipInfo);
+            swiper.slideNext();
+        } else {
+            checkFail.style.display = "block"
+            checkFail.classList.add("hide")
+
+            setTimeout(function() {
+                checkFail.style.display = 'none';
+                checkFail.classList.remove('hide');
+            }, 3000);
+            return
+        }
+    }
+
+    const handleClickStep2 = () => {
+        let shipMethod1 = document.getElementById("shipping_1")
+        let shipMethod2 = document.getElementById("shipping_2")
+        let shipMethod3 = document.getElementById("shipping_3")
+        if (!shipMethod1.checked && !shipMethod2.checked && !shipMethod3.checked) {
+            checkFail.innerHTML = "<span>&times;</span> You Must choose a method ship"
+            checkFail.style.display = "block"
+            checkFail.classList.add("hide")
+
+            setTimeout(function() {
+                checkFail.style.display = 'none';
+                checkFail.classList.remove('hide');
+            }, 3000);
+            return
+        } else {
+            if(shipMethod1.checked) {
+                shipInfo.shipMethod = "Standard Shipping ($6)"
+                shipInfo.shipFee = 6
+            }
+            if(shipMethod2.checked) {
+                shipInfo.shipMethod = "Express Shipping ($8)"
+                shipInfo.shipFee = 8
+            }
+            if(shipMethod3.checked) {
+                shipInfo.shipMethod = "Overnight Shipping ($12)"
+                shipInfo.shipFee = 12
+            }
+            console.log("Ship info2: ", shipInfo);
             swiper.slideNext();
         }
+    }
+
+    const handleClickStep3 = () => {
+        var expireDate = new Date();
+        expireDate.setDate(expireDate.getDate() + 3);
+        shipInfo.paymentMethod = "payment in cash" 
+        localStorage.setItem("shipInfo", JSON.stringify(shipInfo));
+        document.cookie = "shipInfo=" + JSON.stringify(shipInfo) + "; expires=" + expireDate.toUTCString() + "; path=/";
+        console.log("Ship info3: ", shipInfo);
+    }
+
+    const handleClickStep4 = () => {
+        checkFail.innerHTML = "<span>&times;</span> Payment With Bank Is Not Available"
+        checkFail.style.display = "block"
+        checkFail.classList.add("hide")
+
+        setTimeout(function() {
+            checkFail.style.display = 'none';
+            checkFail.classList.remove('hide');
+        }, 3000);
         return
     }
 
@@ -306,31 +382,31 @@ $accountController = new AccountController();
             let value = input.value.trim();
 
             if (is_required && value === "") {
-                alert(error_message);
+                checkFail.innerHTML = `<span>&times;</span> ${error_message}`
                 valid = false;
                 break;
             }
 
-            if (type === "name" && !/^[A-Za-z ]+$/.test(value)) {
-                alert(error_message);
+            if (type === "name" && !/^[A-Za-zÀ-ỹ ]+$/.test(value)) {
+                checkFail.innerHTML = `<span>&times;</span> ${error_message}`
                 valid = false;
                 break;
             }
 
-            if (type === "email" && !/\S+@\S+\.\S+/.test(value)) {
-                alert(error_message);
+            if (input.name === "email" && !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) {
+                checkFail.innerHTML = `<span>&times;</span> ${error_message}`
                 valid = false;
                 break;
             }
 
             if (type === "number" && !/^\d+$/.test(value)) {
-                alert(error_message);
+                checkFail.innerHTML = `<span>&times;</span> ${error_message}`
                 valid = false;
                 break;
             }
 
             if (input.name === "telephone" && !/^\d{10}$/.test(value)) {
-                alert(error_message);
+                checkFail.innerHTML = `<span>&times;</span> ${error_message}`
                 valid = false;
                 break;
             }

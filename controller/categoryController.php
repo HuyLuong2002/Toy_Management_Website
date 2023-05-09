@@ -23,6 +23,20 @@ class CategoryController
     return $result;
   }
 
+  public function update_category($data, $id)
+  {
+    $categoryService = new CategoryServices();
+    $result = $categoryService->update_category($data, $id);
+    return $result;
+  }
+
+  public function insert_category($data)
+  {
+    $categoryService = new CategoryServices();
+    $result = $categoryService->insert_category($data);
+    return $result;
+  }
+
   public function delete_category($id)
   {
     $categoryService = new CategoryServices();
@@ -30,5 +44,3 @@ class CategoryController
     return $result;
   }
 }
-
-?>

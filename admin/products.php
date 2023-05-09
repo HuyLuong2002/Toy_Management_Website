@@ -1,6 +1,8 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "/controller/productsController.php";
+include_once $filepath . "/controller/categoryController.php";
+include_once $filepath . "/controller/saleController.php";
 include_once $filepath . "/helpers/pagination.php";
 include_once $filepath . "/helpers/format.php";
 
@@ -19,9 +21,9 @@ if (isset($_GET["id"])) {
   $id = $_GET["id"];
 }
 
-if (isset($_GET["deleteid"])) {
-  $delete_id = $_GET["deleteid"];
-  $delete_product = $productsController->delete_product($delete_id);
+if (isset($_POST["delete-btn"])) {
+  $delete_id = $_POST["delete_id"];
+  $deleteProduct = $productsController->delete_product($delete_id);
 }
 
 if (isset($_GET["page"])) {
@@ -72,19 +74,20 @@ if (isset($current_position)) {
 </head>
 <div class="card" id="searchresultproduct">
   <div class="card-header">
+    <div class="bg-modal-box product"></div>
     <h3>Product List</h3>
-    <?php if (isset($delete_product)) {
-      echo $delete_product;
-    } ?>
+    <?php
+    if (isset($deleteProduct)) {
+      echo $deleteProduct;
+    }
+    ?>
     <button>
-      <a href="product_add.php">
-        Add product <span class="las la-plus"></span>
-      </a>
+      <a href="product_add.php"> Add product<span class="las la-plus"></span></a>
     </button>
   </div>
 
   <div class="card-body">
-    <div class="table-responsive">
+    <div class="table-responsive" id="card-product">
       <table width="100%">
         <thead>
           <tr>
@@ -108,7 +111,10 @@ if (isset($current_position)) {
               <?php while (
                 $result = $show_product_live_search->fetch_array()
               ) { ?>
-                <tr id="switch-<?php echo $result[0]; ?>">
+                <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] ==
+                                                                    1
+                                                                    ? "activeBg"
+                                                                    : ""; ?>">
 
                   <td>
                     <?php echo $result[0]; ?>
@@ -118,7 +124,7 @@ if (isset($current_position)) {
                   </td>
                   <td>
                     <img src="<?php echo "uploads/" .
-                      $result[2]; ?>" alt="" width="100px" />
+                                $result[2]; ?>" alt="" width="100px" />
                   </td>
                   <td>
                     <?php echo $result[3]; ?>
@@ -131,10 +137,13 @@ if (isset($current_position)) {
                   </td>
                   <td>
                     <label class="switch">
-                      <input type="checkbox" />
-                      <span class="slider round" onclick="<?php echo "handleGetId(" .
-                        $result[0] .
-                        ")"; ?>"></span>
+                      <?php if ($result[6] == 1) {
+                        $checked = "checked";
+                      } else {
+                        $checked = "";
+                      } ?>
+                      <input type="checkbox" <?php echo $checked; ?> id="check-<?php echo $result[0]; ?>" />
+                      <span class="slider round" id="slider-<?php echo $result[0]; ?>" onclick="handleGetId(<?php echo $result[0]; ?>, <?php echo $result[6]; ?>)"></span>
                     </label>
                   </td>
                   <td>
@@ -150,25 +159,33 @@ if (isset($current_position)) {
                     <?php echo $result[10]; ?>
                   </td>
                   <td>
-                    <a href="product_edit.php?id=<?php echo $result[0]; ?>">Edit</a>
-                    <a href="?id=2&page=<?php echo $page_id; ?>&deleteid=<?php echo $result[0]; ?>">Delete</a>
-                    <a href="product_detail.php?id=<?php echo $result[0]; ?>">Details</a>
+                    <div class="action-btn-group">
+                      <a class="edit" href="product_edit.php?id=<?php echo $result[0] ?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
+                      <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
+                        <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
+                          Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
                   </td>
-
                 </tr>
-            <?php }} else {echo "<span class='error'>No Data Found</span>";} ?>
+            <?php }
+            } else {
+              echo "<span class='error'>No Data Found</span>";
+            } ?>
         </tbody>
       </table>
     <?php
           } else {
-             ?>
-      <tbody id="product-data">
+    ?>
+      <tbody>
         <?php if ($result_pagination) {
-          while ($result = $result_pagination->fetch_array()) { ?>
+              while ($result = $result_pagination->fetch_array()) { ?>
             <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] ==
-1
-  ? "activeBg"
-  : ""; ?>">
+                                                                1
+                                                                ? "activeBg"
+                                                                : ""; ?>">
 
               <td>
                 <?php echo $result[0]; ?>
@@ -178,7 +195,7 @@ if (isset($current_position)) {
               </td>
               <td>
                 <img src="<?php echo "uploads/" .
-                  $result[2]; ?>" alt="" width="100px" />
+                            $result[2]; ?>" alt="" width="100px" />
               </td>
               <td>
                 <?php echo $result[3]; ?>
@@ -213,14 +230,20 @@ if (isset($current_position)) {
                 <?php echo $result[10]; ?>
               </td>
               <td>
-                <a href="product_edit.php?id=<?php echo $result[0]; ?>" class="Edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
-                <a href="?id=<?php echo $id; ?>&page=<?php echo $page_id; ?>&deleteid=<?php echo $result[0]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                <div class="action-btn-group">
+                  <a class="edit" href="product_edit.php?id=<?php echo $result[0] ?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
+                  <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
+                    <button class="modal-btn-delete" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
+                      Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                    </button>
+                  </div>
+                </div>
                 <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
               <td>
 
             </tr>
       <?php }
-        }
+            }
           } ?>
       </tbody>
       </table>
@@ -230,7 +253,7 @@ if (isset($current_position)) {
             <?php if ($pagination_id > 1) { ?>
               <li class="item prev-page">
                 <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id -
-  1; ?>">
+                                                                1; ?>">
                   <i class="fa-solid fa-chevron-left"></i>
                 </a>
               </li>
@@ -244,12 +267,8 @@ if (isset($current_position)) {
               } else {
                 $current = "";
               } ?>
-              <li class="item <?php echo $current; ?>" id="<?php echo $pagination[
-  $i
-]; ?>">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[
-  $i
-]; ?>">
+              <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
                   <?php echo $pagination[$i]; ?>
                 </a>
               </li>
@@ -259,16 +278,32 @@ if (isset($current_position)) {
             <?php if ($page_total - 1 > $pagination_id + 1) { ?>
               <li class="item next-page">
                 <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id +
-  1; ?>">
+                                                                1; ?>">
                   <i class="fa-solid fa-chevron-right"></i>
                 </a>
               </li>
             <?php } ?>
           </ul>
         </div>
-      <?php } ?>
+      <?php }
+      ?>
     </div>
   </div>
+
+  <!-- Modal delete -->
+  <form class="modal-container-delete" id="modal-container-delete" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="delete_id" class="delete_id">
+    <div class="modal-delete-title">
+      Are you sure want to delete?
+    </div>
+    <div class="modal-delete-btn-group">
+      <button type="submit" class="modal-delete-btn delete-btn" name="delete-btn">Delete</button>
+      <button type="button" class="modal-delete-btn delete-btn-cancel" id="delete-btn-cancel" onclick="cancelDeleteModal()">
+        <span>Cancel</span>
+      </button>
+    </div>
+  </form>
+  <!-- modal delete end -->
 </div>
 
 <!-- javascript to check hight product -->
@@ -295,6 +330,7 @@ if (isset($current_position)) {
         const myData = await response.id;
         const myState = await response.state;
         // Xử lý dữ liệu trong biến myData ở đây
+        
 
       }
     });
@@ -302,6 +338,7 @@ if (isset($current_position)) {
 
   const TransformBg = (id) => {
     let sw = document.getElementById(`switch-${id}`)
+    console.log(sw);
     sw.classList.toggle('activeBg')
   }
 </script>
@@ -328,6 +365,13 @@ if (isset($current_position)) {
       var page = $(this).attr("id");
       loadProduct(page);
     });
+  });
 
+  $(document).ready(function() {
+    $('.modal-btn-delete').click(function(e) {
+      e.preventDefault();
+      var delete_id = $(this).val();
+      $('.delete_id').val(delete_id);
+    });
   });
 </script>

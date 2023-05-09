@@ -7,27 +7,30 @@ $productsController = new ProductsController();
 
 $product_category = $categoryController->show_category();
 $category_total = mysqli_num_rows($product_category);
+$slider_product = $productsController->show_slider_product();
+
 ?>
 
 <div id="home">
   <div class="slide-container">
     <div class="swiper-container">
       <div class="swiper-wrapper">
+        <?php
+        if(isset($slider_product))
+        {
+          while($result = $slider_product->fetch_assoc())
+          {
+
+        ?>
         <div class="swiper-slide">
           <div class="swiper-center">
-            <img class="mySlides" src="./assets/images/home-img-1.png" />
+            <img class="mySlides" src="./admin/uploads/<?php echo $result["image"]; ?>" />
           </div>
         </div>
-        <div class="swiper-slide">
-          <div class="swiper-center">
-            <img class="mySlides" src="./assets/images/home-img-2.png" />
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="swiper-center">
-            <img class="mySlides" src="./assets/images/home-img-3.png" />
-          </div>
-        </div>
+        <?php
+          }
+        }
+        ?>
       </div>
       <div class="swiper-pagination"></div>
       <div class="swiper-button-prev"></div>

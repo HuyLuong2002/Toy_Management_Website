@@ -9,6 +9,12 @@ class Order
   public $user_id;
   public $quantity;
   public $date;
+  public $address;
+  public $phone;
+  public $email;
+  public $country;
+  
+  public $status;
   public $total_price;
   public $pay_method;
 
@@ -41,6 +47,15 @@ class Order
     $this->date = $row["date"];
     $this->total_price = $row["total_price"];
     $this->pay_method = $row["pay_method"];
+  }
+
+  public function show_user()
+  {
+    $query = "SELECT * FROM orders where user_id=?";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(1, $this->user_id);
+    $stmt->execute();
+    return $stmt;
   }
 
   //create data

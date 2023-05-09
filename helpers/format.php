@@ -11,8 +11,24 @@ class Format
 
   public function formatDateReverse($date)
   {
-    $new_date = DateTime::createFromFormat("d/m/Y", $date)->format("Y-m-d");
+    if (!empty($date)){
+      $new_date = DateTime::createFromFormat("d/m/Y", $date)->format("Y-m-d");
+    }
+    else {
+      $new_date = "2000-01-01";
+    }
     return $new_date;
+  }
+
+  public function CheckGender($gender)
+  {
+    if(!empty($gender)){
+      $gender = strtolower($gender);
+    } 
+    else {
+      $gender = "";
+    }
+    return $gender;
   }
 
   public function textShorten($text, $limit = 400)
@@ -66,4 +82,3 @@ class Format
     return $vnd;
   }
 }
-?>

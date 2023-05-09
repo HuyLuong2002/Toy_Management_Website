@@ -21,6 +21,14 @@ include_once $filepath . "\database\connectDB.php";
     return $result;
   }
 
+  public function show_slider_product()
+  {
+    $query = "SELECT * FROM product WHERE product.highlight = '1'
+    ORDER BY product.create_date DESC";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
   // product detail by product id
   public function show_product_detail($product_detail_id)
   {
@@ -92,59 +100,59 @@ include_once $filepath . "\database\connectDB.php";
   //live search for admin
   public function show_product_live_search($input)
   {
-    $query = "SELECT * FROM product, category, sale WHERE ((product.name LIKE '$input%') OR (product.price LIKE '$input%') OR (product.description LIKE '$input%') OR (product.create_date LIKE '$input%') OR (product.highlight LIKE '$input%') OR (sale.name LIKE '$input%') OR (category.name LIKE '$input%') OR (product.review LIKE '$input%') OR (product.quantity LIKE '$input%')) AND (category.id = product.category_id AND sale.id = product.sale_id AND product.is_deleted = '0')";
+    $query = "SELECT * FROM product, category, sale WHERE ((product.name LIKE '%$input%') OR (product.price LIKE '%$input%') OR (product.description LIKE '%$input%') OR (product.create_date LIKE '%$input%') OR (product.highlight LIKE '%$input%') OR (sale.name LIKE '%$input%') OR (category.name LIKE '%$input%') OR (product.review LIKE '%$input%') OR (product.quantity LIKE '%$input%')) AND (category.id = product.category_id AND sale.id = product.sale_id AND product.is_deleted = '0')";
     $result = $this->db->select($query);
     return $result;
   }
 
-  //live search for admin
+  //live search for user
   public function show_product_live_search_category($input)
   {
-    $query = "SELECT * FROM product, category WHERE (category.name LIKE '$input%') AND (category.id = product.category_id AND product.is_deleted = '0')";
+    $query = "SELECT * FROM product, category WHERE (category.name LIKE '%$input%') AND (category.id = product.category_id AND product.is_deleted = '0')";
     $result = $this->db->select($query);
     return $result;
   }
 
   public function show_product_live_search_price($input)
   {
-    $query = "SELECT * FROM product WHERE (price LIKE '$input%' AND product.is_deleted = '0')";
+    $query = "SELECT * FROM product WHERE (price LIKE '%$input%' AND product.is_deleted = '0')";
     $result = $this->db->select($query);
     return $result;
   }
 
   public function show_product_live_search_name($input)
   {
-    $query = "SELECT * FROM product WHERE (name LIKE '$input%' AND product.is_deleted = '0')";
+    $query = "SELECT * FROM product WHERE (name LIKE '%$input%' AND product.is_deleted = '0')";
     $result = $this->db->select($query);
     return $result;
   }
 
   public function show_product_live_search_rating($input)
   {
-    $query = "SELECT * FROM product WHERE (review LIKE '$input%' AND product.is_deleted = '0')";
+    $query = "SELECT * FROM product WHERE (review LIKE '%$input%' AND product.is_deleted = '0')";
     $result = $this->db->select($query);
     return $result;
   }
 
-  public function insert_product($data, $files)
+  public function insert_product($data)
   {
-    $productName = mysqli_real_escape_string($this->db->link, $data["name"]);
-    $category = mysqli_real_escape_string($this->db->link, $data["category"]);
-    $sale = mysqli_real_escape_string($this->db->link, $data["sale"]);
+    $productName = mysqli_real_escape_string($this->db->link, $data["name_add"]);
+    $category = mysqli_real_escape_string($this->db->link, $data["category_add"]);
+    $sale = mysqli_real_escape_string($this->db->link, $data["sale_add"]);
     $description = mysqli_real_escape_string(
       $this->db->link,
-      $data["description"]
+      $data["description_add"]
     );
-    $price = mysqli_real_escape_string($this->db->link, $data["price"]);
-    $quantity = mysqli_real_escape_string($this->db->link, $data["quantity"]);
+    $price = mysqli_real_escape_string($this->db->link, $data["price_add"]);
+    $quantity = mysqli_real_escape_string($this->db->link, $data["quantity_add"]);
     $create_date = (string) date("d/m/Y");
     $highlight = 0;
     $review = 0;
     //Kiểm tra hình ảnh và lấy hình ảnh cho vào folder upload
     $permited = ["jpg", "jpeg", "png", "gif"];
-    $file_name = $_FILES["uploadfile"]["name"];
-    $file_size = $_FILES["uploadfile"]["size"];
-    $file_temp = $_FILES["uploadfile"]["tmp_name"];
+    $file_name = $_FILES["uploadfile_add"]["name"];
+    $file_size = $_FILES["uploadfile_add"]["size"];
+    $file_temp = $_FILES["uploadfile_add"]["tmp_name"];
 
     $div = explode(".", $file_name);
     $file_ext = strtolower(end($div));
@@ -175,7 +183,7 @@ include_once $filepath . "\database\connectDB.php";
       }
     }
   }
-  public function update_product($data, $files, $id)
+  public function update_product($data, $id)
   {
     $productName = mysqli_real_escape_string($this->db->link, $data["name"]);
     $category = mysqli_real_escape_string($this->db->link, $data["category"]);
@@ -186,7 +194,6 @@ include_once $filepath . "\database\connectDB.php";
     );
     $price = mysqli_real_escape_string($this->db->link, $data["price"]);
     $quantity = mysqli_real_escape_string($this->db->link, $data["quantity"]);
-
     $create_date = (string) date("d/m/Y");
 
     //Kiểm tra hình ảnh và lấy hình ảnh cho vào folder upload
@@ -200,11 +207,12 @@ include_once $filepath . "\database\connectDB.php";
     $unique_image = substr(md5(time()), 0, 10) . "." . $file_ext;
     $uploaded_image = "uploads/" . $unique_image;
 
+    echo var_dump($unique_image);
+
     if (
       $productName == "" ||
       $sale == "" ||
       $category == "" ||
-      $description == "" ||
       $price == "" ||
       $quantity == "" ||
       $file_name == ""

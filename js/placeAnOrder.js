@@ -5,6 +5,7 @@ let fadeTime = 300;
 let productWrapper = document.getElementById("wrap-product-left");
 let totalWrapper = document.getElementById("wrap-totals");
 let CartAdd = JSON.parse(localStorage.getItem('cartAdd'));
+let ShipInfo = JSON.parse(localStorage.getItem('shipInfo'));
 
 const handleLoadPayCheck = () => {
     if (!CartAdd.length) {
@@ -23,7 +24,7 @@ const handleLoadPayCheck = () => {
                     <span class="product_name">${product.name}</span>
                     <span class="quantity">X${product.quantity}</span>
                     <span class="price">$${product.price}</span>
-                    <span class="total-price">$${total}</span>
+                    <span class="total-price" id="total-price">$${total}</span>
                 </div>
             </div>`;
     }).join('');
@@ -33,8 +34,8 @@ const handleLoadPayCheck = () => {
 
 const handleCalculateTotal = () => {
     let cartSubTotal = CartAdd.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
-    let tax = parseFloat((cartSubTotal * (5 / 100)).toFixed(3))
-    let shipFee = 15
+    let tax = parseFloat((cartSubTotal * (10 / 100)).toFixed(3))
+    let shipFee = ShipInfo.shipFee
     let grandTotal = (cartSubTotal + tax + shipFee).toFixed(2)
 
     let totalHTML = `
@@ -47,6 +48,9 @@ const handleCalculateTotal = () => {
             <span class="title">Total <span id="calculated_total">$${grandTotal}</span></span>
         </div>`;
 
+    let newShipInfo = ShipInfo
+    newShipInfo.vat = tax
+    localStorage.setItem("shipInfo", JSON.stringify(newShipInfo));
     totalWrapper.innerHTML = totalHTML;
 };
 

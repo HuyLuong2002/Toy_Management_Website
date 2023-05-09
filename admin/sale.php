@@ -11,6 +11,9 @@ $fm = new Format();
 if (isset($_POST["input"])) {
   $input = $_POST["input"];
   $show_sale_live_search = $saleController->show_sale_live_search($input);
+  if ($input == '0') {
+    return;
+  }
 }
 
 if (isset($_GET["id"])) {
@@ -107,7 +110,7 @@ if (isset($current_position)) {
   </div>
 
   <div class="card-body">
-    <div class="table-responsive">
+    <div class="table-responsive" id="card-sale">
       <table width="100%">
         <thead class="thead">
           <tr>
@@ -121,11 +124,11 @@ if (isset($current_position)) {
             <td>Action</td>
           </tr>
         </thead>
+        <tbody>
         <?php if (isset($show_sale_live_search)) {
           if ($show_sale_live_search) {
             while ($result = $show_sale_live_search->fetch_array()) {
         ?>
-              <tbody>
                 <tr>
                   <td>
                     <?php echo $result[0]; ?>
@@ -208,7 +211,6 @@ if (isset($current_position)) {
               <td>
                 <div class="action-btn-group">
                   <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
-                    <!-- <a href="sale_edit.php?id=<?php echo $result[0]; ?>" class="edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a> -->
                     <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
                       Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
                     </button>
@@ -296,6 +298,7 @@ if (isset($current_position)) {
       <div class="modal-edit-info-item">
         <label for="name">Name</label>
         <input type="text" id="name_edit" name="name_edit" required value="">
+        <div id="name_edit_result"></div>
       </div>
 
       <div class="modal-edit-info-item">
@@ -311,6 +314,7 @@ if (isset($current_position)) {
       <div class="modal-edit-info-item">
         <label for="percent">Percent</label>
         <input type="number" id="percent_edit" name="percent_edit" required value="">
+        <div id="percent_edit_result"></div>
       </div>
 
       <div class="modal-edit-info-item">
@@ -323,7 +327,7 @@ if (isset($current_position)) {
       </div>
     </div>
 
-    <input class="modal-edit-btn" name="edit-btn" type="submit" value="Save">
+    <input class="modal-edit-btn" id="edit-btn" name="edit-btn" type="submit" value="Save">
   </form>
   <!-- modal edit end -->
 
@@ -334,6 +338,7 @@ if (isset($current_position)) {
       <div class="modal-add-info-item">
         <label for="name">Name</label>
         <input type="text" id="name_add" name="name_add" required value="">
+        <div id="name_add_result"></div>
       </div>
 
       <div class="modal-add-info-item">
@@ -349,6 +354,7 @@ if (isset($current_position)) {
       <div class="modal-add-info-item">
         <label for="percent">Percent</label>
         <input type="number" id="percent_add" name="percent_add" required value="">
+        <div id="percent_add_result"></div>
       </div>
 
       <div class="modal-add-info-item">
@@ -361,7 +367,7 @@ if (isset($current_position)) {
       </div>
     </div>
 
-    <input onclick="" class="modal-add-btn" name="add-btn" type="submit" value="Save">
+    <input onclick="" class="modal-add-btn" id="add-btn" name="add-btn" type="submit" value="Save">
   </form>
   <!-- modal add end -->
 
@@ -450,6 +456,75 @@ if (isset($current_position)) {
     $(document).on("click", "#pagination a", function(e) {
       var page = $(this).attr("id");
       loadSale(page);
+    });
+  });
+</script>
+
+<!-- coding check input value function -->
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#name_add").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEdit(input) == false) {
+        $("#name_add_result").html("<span class='error'>Sale Name Not Valid</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
+        $("#name_add_result").css("display", "block");
+        $("#name_add_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#name_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
+      }
+    });
+
+    $("#percent_add").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEditQuantity(input) == false) {
+        $("#percent_add_result").html("<span class='error'>Sale Percent Not Valid</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
+        $("#percent_add_result").css("display", "block");
+        $("#percent_add_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#percent_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
+      }
+    });
+
+    $("#name_edit").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEdit(input) == false) {
+        $("#name_edit_result").html("<span class='error'>Sale Name Not Valid</span>");
+        $("#edit-btn").prop("disabled", true);
+        $("#edit-btn").css("background-color", "red");
+        $("#name_edit_result").css("display", "block");
+        $("#name_edit_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#name_edit_result").css("display", "none");
+        $("#edit-btn").prop("disabled", false);
+        $("#edit-btn").css("background-color", "#ffa800");
+      }
+    });
+
+    $("#percent_edit").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEdit(input) == false) {
+        $("#percent_edit_result").html("<span class='error'>Sale Percent Not Valid</span>");
+        $("#edit-btn").prop("disabled", true);
+        $("#edit-btn").css("background-color", "red");
+        $("#percent_edit_result").css("display", "block");
+        $("#percent_edit_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#percent_edit_result").css("display", "none");
+        $("#edit-btn").prop("disabled", false);
+        $("#edit-btn").css("background-color", "#ffa800");
+      }
     });
   });
 </script>

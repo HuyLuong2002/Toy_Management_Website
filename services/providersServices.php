@@ -31,7 +31,7 @@ include_once $filepath . "\helpers\\format.php";
     //live search for admin
     public function show_provider_live_search($input)
     {
-        $query = "SELECT * FROM provider WHERE (provider.name LIKE '$input%')";
+        $query = "SELECT * FROM provider WHERE (provider.name LIKE '%$input%')";
         $result = $this->db->select($query);
         return $result;
     }

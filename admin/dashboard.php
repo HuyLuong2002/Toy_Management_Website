@@ -73,7 +73,7 @@ $income = $dashboardController->show_statistic_income();
       <?php
           if(isset($income)) {
         ?>
-        <h1><?php echo $fm->convertToVND($income); ?></h1>
+        <h1><?php echo $fm->formatPriceDecimal($income); ?></h1>
         <?php
         }
         ?>

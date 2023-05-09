@@ -1,3 +1,10 @@
+<?php
+include_once "./lib/session.php";
+
+Session::init();
+$user_id = Session::get("userID");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,83 +31,66 @@
     include_once("./components/header.php");
     ?>
 
-    <section class="orders">
+    <div class="wrap-oder">
         <h1 class="heading">Placed Orders</h1>
-        <div class="box-container">
-            <div class="box">
-                <p>placed on : <span>Store 1</span></p>
-                <p>name : <span>Yasure</span></p>
-                <p>email : <span>Yasure</span></p>
-                <p>number : <span>Yasure</span></p>
-                <p>address : <span>Yasure</span></p>
-                <p>payment method : <span>Yasure</span></p>
-                <p>your orders : <span>Yasure</span></p>
-                <p>total price : <span>Yasure</span></p>
-                <p> payment status : <span style="color: red">Pending</span> </p>
-            </div>
 
-            <div class="box">
-                <p>placed on : <span>Store 1</span></p>
-                <p>name : <span>Yasure</span></p>
-                <p>email : <span>Yasure</span></p>
-                <p>number : <span>Yasure</span></p>
-                <p>address : <span>Yasure</span></p>
-                <p>payment method : <span>Yasure</span></p>
-                <p>your orders : <span>Yasure</span></p>
-                <p>total price : <span>Yasure</span></p>
-                <p> payment status : <span style="color: red">Pending</span> </p>
-            </div>
+        <section class="orders" id="orders">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name Customer</th>
+                        <th>Address</th>
+                        <th>Phone number</th>
+                        <th>Email</th>
+                        <th>Payment method</th>
+                        <th>Status</th>
+                        <th>Total Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="body_orders">
 
-            <div class="box">
-                <p>placed on : <span>Store 1</span></p>
-                <p>name : <span>Yasure</span></p>
-                <p>email : <span>Yasure</span></p>
-                <p>number : <span>Yasure</span></p>
-                <p>address : <span>Yasure</span></p>
-                <p>payment method : <span>Yasure</span></p>
-                <p>your orders : <span>Yasure</span></p>
-                <p>total price : <span>Yasure</span></p>
-                <p> payment status : <span style="color: red">Pending</span> </p>
-            </div>
+                </tbody>
+            </table>
+        </section>
 
-            <div class="box">
-                <p>placed on : <span>Store 1</span></p>
-                <p>name : <span>Yasure</span></p>
-                <p>email : <span>Yasure</span></p>
-                <p>number : <span>Yasure</span></p>
-                <p>address : <span>Yasure</span></p>
-                <p>payment method : <span>Yasure</span></p>
-                <p>your orders : <span>Yasure</span></p>
-                <p>total price : <span>Yasure</span></p>
-                <p> payment status : <span style="color: red">Pending</span> </p>
-            </div>
 
-            <div class="box">
-                <p>placed on : <span>Store 1</span></p>
-                <p>name : <span>Yasure</span></p>
-                <p>email : <span>Yasure</span></p>
-                <p>number : <span>Yasure</span></p>
-                <p>address : <span>Yasure</span></p>
-                <p>payment method : <span>Yasure</span></p>
-                <p>your orders : <span>Yasure</span></p>
-                <p>total price : <span>Yasure</span></p>
-                <p> payment status : <span style="color: red">Pending</span> </p>
-            </div>
+    </div>
 
-            <div class="box">
-                <p>placed on : <span>Store 1</span></p>
-                <p>name : <span>Yasure</span></p>
-                <p>email : <span>Yasure</span></p>
-                <p>number : <span>Yasure</span></p>
-                <p>address : <span>Yasure</span></p>
-                <p>payment method : <span>Yasure</span></p>
-                <p>your orders : <span>Yasure</span></p>
-                <p>total price : <span>Yasure</span></p>
-                <p> payment status : <span style="color: red">Pending</span> </p>
+    <div class="modal" id="modal">
+        <div class="container-oder-detail">
+            <span onclick="handleClose()">&times;</span>
+            <h1 style="text-align: center; margin-bottom: 1rem;">Order Detail</h1>
+
+            <div class="content-order">
+                <div class="order-list">
+                    <ul class="name-order-list" style="font-weight: 600;">
+                        <li>Product</li>
+                        <li>Name</li>
+                        <li>Price</li>
+                        <li>Quantity</li>
+                        <li>TotalPrice</li>
+                    </ul>
+                </div>
+
+                <div class="wrap-load-order-product" id="wrap-load-order-product">
+                    
+                </div>
+
+                <hr style="border-top: 3px solid #ccc;">
+
+                <div class="ship-info-order" id="ship-info-order">
+                    
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <?php
-    include("./components/footer.php");
-    ?>
+        <script src="./js/orders.js">
+
+        </script>
+
+        <?php
+        include("./components/footer.php");
+        ?>

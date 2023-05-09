@@ -30,7 +30,7 @@ include_once $filepath . "\helpers\\format.php";
   //list orders for home page
   public function show_orders_user()
   {
-    $query = "SELECT * FROM orders WHERE is_deleted = '0'";
+    $query = "SELECT * FROM orders WHERE is_deleted = '0' ORDER BY orders.date DESC, orders.status DESC";
     $result = $this->db->select($query);
     return $result;
   }
@@ -44,7 +44,7 @@ include_once $filepath . "\helpers\\format.php";
 
   public function show_order_by_pagination($offset, $limit_per_page)
   {
-    $query = "SELECT * FROM orders WHERE is_deleted = '0' LIMIT $offset, $limit_per_page";
+    $query = "SELECT * FROM orders WHERE is_deleted = '0' ORDER BY orders.date DESC LIMIT $offset, $limit_per_page";
     $result = $this->db->select($query);
     return $result;
   }
@@ -59,7 +59,18 @@ include_once $filepath . "\helpers\\format.php";
   //live search for admin
   public function show_orders_live_search($input)
   {
-    $query = "SELECT * FROM orders WHERE (orders.name LIKE '$input%')";
+    $query = "SELECT * FROM orders WHERE ((orders.user_id LIKE '%$input%') 
+    OR (orders.quantity LIKE '%$input%') 
+    OR (orders.date LIKE '%$input%') 
+    OR (orders.address LIKE '%$input%') 
+    OR (orders.phone LIKE '%$input%') 
+    OR (orders.email LIKE '%$input%') 
+    OR (orders.country LIKE '%$input%')
+    OR (orders.vat LIKE '%$input%')
+    OR (orders.ship_method LIKE '%$input%')
+    OR (orders.total_price LIKE '%$input%') 
+    OR (orders.pay_method LIKE '%$input%') 
+    OR (orders.status LIKE '%$input%'))  AND is_deleted = '0'";
     $result = $this->db->select($query);
     return $result;
   }
@@ -68,12 +79,18 @@ include_once $filepath . "\helpers\\format.php";
     $user_id,
     $total_quantity,
     $date,
+    $address,
+    $phone,
+    $email,
+    $country,
+    $vat,
+    $ship_method,
     $total_price,
     $pay_method,
     $status,
     $is_deleted
   ) {
-    $query = "INSERT INTO orders(user_id, quantity, date, total_price, pay_method, status, is_deleted) VALUES ($user_id, $total_quantity, '$date', $total_price, '$pay_method', '$status', $is_deleted)";
+    $query = "INSERT INTO orders(user_id, quantity, date, address, phone, email, country, vat, ship_method, total_price, pay_method, status, is_deleted) VALUES ('$user_id', '$total_quantity', '$date', '$address', '$phone', '$email', '$country', '$vat', '$ship_method', '$total_price', '$pay_method', '$status', '$is_deleted')";
     $result = $this->db->insert($query);
     if ($result) {
       return true;

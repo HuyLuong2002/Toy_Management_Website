@@ -1,125 +1,106 @@
-let products_1 = [...document.querySelectorAll(".product.id-1")];
-let products_2 = [...document.querySelectorAll(".product.id-2")];
 let ProductItem = document.getElementById("product-items")
+let apiCate = "http://localhost:8000/Toy_Management_Website/api/category/read.php"
 
-let currentItem1 = 4;
-let currentItem2 = 4;
-let flag1 = 1;
-let flag2 = 1;
-let countProduct1 = 0
-let countProduct2 = 0
+let arrContainer = []
+let currentItemsList = []
+let flags = []
+let countProduct = []
 
-let arrContainer = [[...products_1], [...products_2]]
+const fetchAPICate = async (api) => {
+    return await fetch(api)
+        .then(response => response.json())
+        .then(data => data)
+        .catch(error => console.error(error));
+}
 
-const handleLoadMore = (result) => {
-    let btnLoadMore = document.getElementById(`load-more-${result}`);
-    let btnUnload = document.getElementById(`unload-${result}`);
-    if (result == "1") {
-        countProduct1 = currentItem1*++flag1
-        if (countProduct1 >= products_1.length) {
-            btnLoadMore.style.display = "none";
-            btnUnload.style.display = "block";
-        }
-        showProductList(products_1, products_2, countProduct1, currentItem2)
+const showProductList = async () => {
+    let cateList = await fetchAPICate(apiCate)
+
+    if (!cateList) {
+        ProductItem.innerHTML = "<h1>Not found Product!</h1>";
+        return;
     }
 
-    if (result == "2") {
-        console.log("cc");
-        countProduct2 = currentItem2*++flag2
-        
-        if (countProduct2 >= products_2.length) {
-            btnLoadMore.style.display = "none";
-            btnUnload.style.display = "block";
-        }
-        showProductList(products_1, products_2, currentItem1, countProduct2)
-    }
-};
+    cateList.category.forEach(item => {
+        arrContainer.push([...document.querySelectorAll(`.product.id-${item.id}`)])
+        currentItemsList.push(4)
+        flags.push(1)
+        countProduct.push(0)
+    })
 
-const handleUnload = (result) => {
-    console.log("result: ", result);
-    let btnLoadMore = document.getElementById(`load-more-${result}`);
-    let btnUnload = document.getElementById(`unload-${result}`);
-    if (result == "1") {
-        for (var i = 4; i < products_1.length; i++) {
-            products_1[i].style.display = "none";
-        }
-        if (btnLoadMore !== null && btnUnload !== null) {
-            btnLoadMore.style.display = "block";
-            btnUnload.style.display = "none";
-        }
-    }
+    executeShowLoad(arrContainer, currentItemsList, cateList.category)
+}
 
-    if (result == "2") {
-        for (var i = 4; i < products_2.length; i++) {
-            products_2[i].style.display = "none";
-        }
-        if (btnLoadMore !== null && btnUnload !== null) {
-            btnLoadMore.style.display = "block";
-            btnUnload.style.display = "none";
-        }
-    }
-};
+const executeShowLoad = (arrContainer, currentItemsList, cateList) => {
+    for(let i = 0; i < cateList.length; i++) {
+        if(arrContainer[i].length > 4) {
+            for (let j = currentItemsList[i]; j < arrContainer[i].length; j++) 
+                arrContainer[i][j].style.display = "none";
 
-// const executeShowLoad = (arrCon = [], count) => {
-//     if(arrCon) {
-//         arrCon.forEach((product, index) => {
-//             if(product.length > 4) {
-//                 for (let i = count; i < product.length; i++) 
-//                     product[i].style.display = "none";
-    
-//                 if(count >= product.length) {
-//                     for(let i = 0; i < product.length; i++)
-//                         product[i].style.display = "block";
-//                 } else {
-//                     for(let i = 0; i < count; i++)
-//                         product[i].style.display = "block";
-//                 }
-                
-//             } else {
-//                 document.getElementById(`load-more-${index}`).style.display = "none";
-//             }
-//         })
-//     }
-// }
-
-
-const showProductList = (arr1, arr2, current1, current2) => {
-    
-    if(arr1) {
-        if(arr1.length > 4) {
-            for (let i = current1; i < arr1.length; i++) 
-                arr1[i].style.display = "none";
-
-            if(current1 >= arr1.length) {
-                for(let i = 0; i < arr1.length; i++)
-                    arr1[i].style.display = "block";
+            if(currentItemsList[i] >= arrContainer[i].length) {
+                for(let j = 0; j < arrContainer[i].length; j++)
+                    arrContainer[i][j].style.display = "block";
             } else {
-                for(let i = 0; i < current1; i++)
-                    arr1[i].style.display = "block";
-            }
-            
-        } else {
-            document.getElementById(`load-more-1`).style.display = "none";
-        }
-    }
-
-    if(arr2) {
-        if(arr2.length > 4) {
-            for (let i = current2; i < arr2.length; i++) {
-                arr2[current2].style.display = "none";
-            }
-
-            if(current2 >= arr2.length) {
-                for(let i = 0; i < arr2.length; i++)
-                    arr2[i].style.display = "block";
-            } else {
-                for(let i = 0; i < current2; i++)
-                    arr2[i].style.display = "block";
+                for(let j = 0; j < currentItemsList[i]; j++)
+                    arrContainer[i][j].style.display = "block";
             }
         } else {
-            document.getElementById(`load-more-2`).style.display = "none";
+            let loadMoreCheck = document.getElementById(`load-more-${cateList[i].id}`)
+            if(loadMoreCheck)
+                loadMoreCheck.style.display = "none";
         }
     }
 }
 
-showProductList(products_1, products_2, currentItem1, currentItem2)
+const handleLoadMore = async (result) => {
+    let cateList = await fetchAPICate(apiCate)
+
+    let btnLoadMore = document.getElementById(`load-more-${result}`);
+    let btnUnload = document.getElementById(`unload-${result}`);
+
+
+    if(!cateList) {
+        ProductItem.innerHTML = "<h1>Not found Product!</h1>";
+        return;
+    }
+
+    for(let i = 0; i < cateList.category.length; i++) {
+        if(result === cateList.category[i].id) {
+            countProduct[i] = currentItemsList[i]*++flags[i]
+            if(countProduct[i] >= arrContainer[i].length) {
+                btnLoadMore.style.display = "none";
+                btnUnload.style.display = "block";
+            }
+            console.log("Count: ", countProduct[i]);
+            console.log("CurrentItemList: ", currentItemsList[i]);
+            console.log("Flags: ", flags[i]);
+            executeShowLoad(arrContainer, countProduct, cateList.category)
+        }
+    }
+};
+
+const handleUnload = async (result) => {
+    let cateList = await fetchAPICate(apiCate)
+
+    let btnLoadMore = document.getElementById(`load-more-${result}`);
+    let btnUnload = document.getElementById(`unload-${result}`);
+
+    if(!cateList) {
+        ProductItem.innerHTML = "<h1>Not found Product!</h1>";
+        return;
+    }
+
+    for(let i = 0; i < cateList.category.length; i++) {
+        if(result === cateList.category[i].id) {
+            for (let j = 4; j < arrContainer[i].length; j++) {
+                arrContainer[i][j].style.display = "none";
+            }
+            if (btnLoadMore !== null && btnUnload !== null) {
+                btnLoadMore.style.display = "block";
+                btnUnload.style.display = "none";
+            }
+        }
+    }
+};
+
+showProductList()

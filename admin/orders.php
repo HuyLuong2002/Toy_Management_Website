@@ -22,9 +22,9 @@ if (isset($_GET["detailid"])) {
   include "orders_detail.php";
 }
 
-if (isset($_GET["deleteid"])) {
-  $delete_id = $_GET["deleteid"];
-  $delete_orders = $orderController->delete_orders($delete_id);
+if (isset($_POST["delete-btn"])) {
+  $delete_id = $_POST["delete_id"];
+  $delete_order = $orderController->delete_orders($delete_id);
 }
 
 if (isset($_GET["page"])) {
@@ -59,22 +59,19 @@ if (isset($current_position)) {
 
 <div class="card" id="searchresultorders">
   <div class="card-header">
+    <div class="bg-modal-box order" onclick="closeCurdDeleteModal"></div>
     <h3>Orders List</h3>
-    <?php
-
-    if (isset($delete_orders)) {
-      echo $delete_orders;
-    }
-    ?>
-    <button>
-      <a href="orders_add.php">
-        Add orders <span class="las la-plus"></span>
-      </a>
-    </button>
+    <div class="notification-order">
+      <?php
+      if (isset($delete_order)) {
+        echo $delete_order;
+      }
+      ?>
+    </div>
   </div>
 
   <div class="card-body">
-    <div class="table-responsive">
+    <div class="table-responsive" id="card-order">
       <table width="100%">
         <thead>
           <tr>
@@ -82,13 +79,19 @@ if (isset($current_position)) {
             <td>User ID</td>
             <td>Quantity</td>
             <td>Date</td>
+            <td>Address</td>
+            <td>Phone</td>
+            <td>Email</td>
+            <td>Country</td>
+            <td>VAT</td>
+            <td>Ship method</td>
             <td>Total price</td>
             <td>Payment method</td>
             <td>Status</td>
             <td>Action</td>
           </tr>
         </thead>
-        <tbody id="product-data">
+        <tbody id="">
           <?php if (isset($show_orders_live_search)) {
             if ($show_orders_live_search) { ?>
               <?php while (
@@ -114,11 +117,33 @@ if (isset($current_position)) {
                     <?php echo $result[5]; ?>
                   </td>
                   <td>
-                    <?php echo $result[6] == 1 ? "Đã giao" : "Đang giao hàng"; ?>
+                    <?php echo $result[6]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[7]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[8]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[9]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[10]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[11]; ?>
+                  </td>
+                  <td>
+                    <?php if ($result[12] == "0") echo "Đang giao hàng";
+                    else if ($result[12] == "1") echo "Đã giao";
+                    else if ($result[12] == "2") echo "Chờ xử lý";
+                    ?>
                   </td>
                   <td>
                     <a href="?id=3&deleteid=<?php echo $result[0]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
                     <a href="orders_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+                    <a class="edit" href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF <i class="fa-solid fa-file-export"></i></a>
                   </td>
                 </tr>
             <?php }
@@ -130,7 +155,7 @@ if (isset($current_position)) {
     <?php
           } else {
     ?>
-      <tbody id="product-data">
+      <tbody id="orders-data">
         <?php
             if ($result_pagination) {
               while ($result = $result_pagination->fetch_array()) { ?>
@@ -154,12 +179,37 @@ if (isset($current_position)) {
                 <?php echo $result[5]; ?>
               </td>
               <td>
-                <?php echo $result[6] == 1 ? "Đã giao" : "Đang giao hàng"; ?>
+                <?php echo $result[6]; ?>
               </td>
               <td>
-                <a href="?id=3&page=<?php echo $page_id?>&deleteid=<?php echo $result[0]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
-                <a href="?id=3&page=<?php echo $page_id?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
-                <a href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF</a>
+                <?php echo $result[7]; ?>
+              </td>
+              <td>
+                <?php echo $result[8]; ?>
+              </td>
+              <td>
+                <?php echo $result[9]; ?>
+              </td>
+              <td>
+                <?php echo $result[10]; ?>
+              </td>
+              <td>
+                <?php echo $result[11]; ?>
+              </td>
+              <td>
+                <?php if ($result[12] == "0") echo "Đang giao hàng";
+                else if ($result[12] == "1") echo "Đã giao";
+                else if ($result[12] == "2") echo "Chờ xử lý";
+                ?>
+              </td>
+              <td>
+                <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
+                  <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                    Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                  </button>
+                </div>
+                <a href="?id=3&page=<?php echo $page_id ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+                <a class="edit" href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF <i class="fa-solid fa-file-export"></i></a>
               </td>
             </tr>
       <?php }
@@ -212,7 +262,35 @@ if (isset($current_position)) {
     }
     ?>
   </div>
+
+  <!-- Modal delete -->
+  <form class="modal-container-delete" id="modal-container-delete" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="delete_id" class="delete_id">
+    <div class="modal-delete-title">
+      Are you sure want to delete?
+    </div>
+    <div class="modal-delete-btn-group">
+      <button class="modal-delete-btn delete-btn" name="delete-btn">Delete</button>
+      <button type="button" class="modal-delete-btn delete-btn-cancel" id="delete-btn-cancel" onclick="cancelDeleteModal()">
+        <span>Cancel</span>
+      </button>
+    </div>
+  </form>
+  <!-- modal delete end -->
 </div>
+
+<script>
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('.modal-btn-delete').click(function(e) {
+      e.preventDefault();
+      var delete_id = $(this).val();
+      $('.delete_id').val(delete_id);
+    });
+  });
+</script>
 
 <!-- <script>
   // ShowOrderDetail

@@ -60,6 +60,8 @@ if (isset($_COOKIE[$s_name])) {
         background-color: rgba(0, 0, 0, 0.1);
     }
 
+
+
     @media screen and (max-width: 650px)
     {
         .wrap-search-top
@@ -276,6 +278,7 @@ let typeKeySearch = [
     
 </script>
 
+<script src="../js/validate_input.js"></script>
 <!-- coding live search function -->
 <script type="text/javascript">
 
@@ -283,6 +286,14 @@ let typeKeySearch = [
         var searchkey = 0;
         $("#searchuser").keyup(function(){
         var input = $(this).val();
+        if(checkSearchInput(input) == false) {
+            $("#searchresultproductuser").html("<span class='error'>Input Value Not Valid</span>");
+            $("#searchresultproductuser").css("display", "block");
+            return;
+        }
+        else {
+            $("#searchresultproductuser").css("display", "none");
+        }
         if(input != "") {
           $.ajax({
             url: "../controller/headerController.php",

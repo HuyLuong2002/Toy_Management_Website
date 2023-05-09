@@ -35,6 +35,15 @@ include_once $filepath . "\lib\session.php";
     return $result;
   }
 
+  public function show_accounts_live_search($input)
+  {
+    $query = "SELECT * FROM account, permission WHERE ((account.username LIKE '%$input%') OR (account.password LIKE '%$input%') OR (account.firstname LIKE '%$input%') 
+    OR (account.lastname LIKE '%$input%') OR (account.gender LIKE '%$input%') OR (account.date_birth LIKE '%$input%') OR (account.place_of_birth LIKE '%$input%') OR (permission.name LIKE '%$input%'))
+    AND account.permission_id = permission.id AND account.is_deleted = 0";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
   public function login($username, $password)
   {
     $query = "SELECT * FROM account WHERE username='{$username}' and password='{$password}'";
@@ -53,15 +62,15 @@ include_once $filepath . "\lib\session.php";
   {
     $username = mysqli_real_escape_string($this->db->link, $data["username"]);
     $password = mysqli_real_escape_string($this->db->link, $data["password"]);
-    $firstname = mysqli_real_escape_string($this->db->link, $data["firstname"]);
-    $lastname = mysqli_real_escape_string($this->db->link, $data["lastname"]);
-    $gender = mysqli_real_escape_string($this->db->link, $data["gender"]);
-    $date_birth = mysqli_real_escape_string($this->db->link, $data["dateofbirth"]);
+    $firstname = mysqli_real_escape_string($this->db->link, $data["firstname_add"]);
+    $lastname = mysqli_real_escape_string($this->db->link, $data["lastname_add"]);
+    $gender = mysqli_real_escape_string($this->db->link, $data["gender_add"]);
+    $date_birth = mysqli_real_escape_string($this->db->link, $data["dateofbirth_add"]);
     
-    $place_of_birth = mysqli_real_escape_string($this->db->link, $data["placeofbirth"]);
+    $place_of_birth = mysqli_real_escape_string($this->db->link, $data["placeofbirth_add"]);
     $create_date = (string) date("d/m/Y");
-    $permission_id = mysqli_real_escape_string($this->db->link, $data["permission"]);
-    $status = mysqli_real_escape_string($this->db->link, $data["status"]);
+    $permission_id = mysqli_real_escape_string($this->db->link, $data["permission_add"]);
+    $status = mysqli_real_escape_string($this->db->link, $data["status_add"]);
 
     if (
       $username == "" ||
@@ -91,15 +100,15 @@ include_once $filepath . "\lib\session.php";
 
   public function update_account($data, $id)
   {
-    $firstname = mysqli_real_escape_string($this->db->link, $data["firstname"]);
-    $lastname = mysqli_real_escape_string($this->db->link, $data["lastname"]);
-    $gender = mysqli_real_escape_string($this->db->link, $data["gender"]);
-    $date_birth = mysqli_real_escape_string($this->db->link, $data["dateofbirth"]);
+    $firstname = mysqli_real_escape_string($this->db->link, $data["firstname_edit"]);
+    $lastname = mysqli_real_escape_string($this->db->link, $data["lastname_edit"]);
+    $gender = mysqli_real_escape_string($this->db->link, $data["gender_edit"]);
+    $date_birth = mysqli_real_escape_string($this->db->link, $data["dateofbirth_edit"]);
     
-    $place_of_birth = mysqli_real_escape_string($this->db->link, $data["placeofbirth"]);
+    $place_of_birth = mysqli_real_escape_string($this->db->link, $data["placeofbirth_edit"]);
     $create_date = (string) date("d/m/Y");
-    $permission_id = mysqli_real_escape_string($this->db->link, $data["permission"]);
-    $status = mysqli_real_escape_string($this->db->link, $data["status"]);
+    $permission_id = mysqli_real_escape_string($this->db->link, $data["permission_edit"]);
+    $status = mysqli_real_escape_string($this->db->link, $data["status_edit"]);
     if (
       $firstname == "" ||
       $lastname == "" ||
@@ -113,6 +122,40 @@ include_once $filepath . "\lib\session.php";
       return $alert;
     } else {
       $query = "UPDATE account SET firstname='{$firstname}', lastname='{$lastname}', gender='{$gender}', date_birth='{$date_birth}', place_of_birth='{$place_of_birth}', create_date='{$create_date}', permission_id = '{$permission_id}', account.status='{$status}' WHERE id = '{$id}'";
+      $result = $this->db->update($query);
+      if ($result) {
+        $alert = "<span class='success'>Update Account Sucessfully</span>";
+        return $alert;
+      } else {
+        $alert = "<span class='error'>Update Account Not Sucessfully</span>";
+        return $alert;
+      }
+    }
+  }
+
+  public function update_account_user($data, $id)
+  {
+    $firstname = mysqli_real_escape_string($this->db->link, $data["firstname"]);
+    $lastname = mysqli_real_escape_string($this->db->link, $data["lastname"]);
+    $gender = mysqli_real_escape_string($this->db->link, $data["gender"]);
+    $date_birth = mysqli_real_escape_string($this->db->link, $data["date_birth"]);
+    
+    $place_of_birth = mysqli_real_escape_string($this->db->link, $data["place_of_birth"]);
+    $create_date = (string) date("d/m/Y");
+    $password = mysqli_real_escape_string($this->db->link, $data["password"]);
+    $hasshed_string = md5($password);
+    if (
+      $firstname == "" ||
+      $lastname == "" ||
+      $gender == "" ||
+      $date_birth == "" ||
+      $place_of_birth == "" ||
+      $password == ""
+    ) {
+      $alert = "<span class='error'>Fields must be not empty</span>";
+      return $alert;
+    } else {
+      $query = "UPDATE account SET firstname='{$firstname}', lastname='{$lastname}', gender='{$gender}', date_birth='{$date_birth}', place_of_birth='{$place_of_birth}', create_date='{$create_date}', password = '{$hasshed_string}' WHERE id = '{$id}'";
       $result = $this->db->update($query);
       if ($result) {
         $alert = "<span class='success'>Update Account Sucessfully</span>";

@@ -86,7 +86,7 @@ if (isset($_GET["action"]) == "logout") {
 
         <div class="mario"></div>
         <label for="password">Email:</label>
-        <input type="email" id="sign-up-password" name="email">
+        <input type="email" id="" name="email">
 
         <div class="mario"></div>
         <label for="password">Password:</label>
@@ -95,9 +95,9 @@ if (isset($_GET["action"]) == "logout") {
         <div class="mario"></div>
         <label for="confirm">Confirm Password:</label>
         <input type="password" id="confirm-password" name="confirm-password">
-        <div class="wrap-btn">
-          <button type="submit" id="btn-sign-up" onclick="checkSignUp();">Sign up</button>
 
+        <div class="wrap-btn">
+          <button type="submit" id="btn-sign-up" onclick="return checkSignUp();">Sign up</button>
           <div>
             <i>Already have an account? <a onclick="handleClick(event, '2');">Log in now</a></i>
           </div>
@@ -105,6 +105,8 @@ if (isset($_GET["action"]) == "logout") {
       </form>
     </div>
   </div>
+
+  <script src="./js/login.js"></script>
 
   <script>
     let formLogin = document.getElementById("form-login")
@@ -115,6 +117,7 @@ if (isset($_GET["action"]) == "logout") {
       if (id === "1") {
         formLogin.classList.add("hide-form");
         formSignUp.classList.remove("hide-form");
+        formSignUp.classList.add("active");
       } else {
         formLogin.classList.remove("hide-form");
         formSignUp.classList.add("hide-form");
@@ -137,7 +140,6 @@ if (isset($_GET["action"]) == "logout") {
   </script>
 
 
-  <script src="./js/login.js"></script>
 </body>
 
 </html>

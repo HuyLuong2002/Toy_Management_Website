@@ -11,6 +11,11 @@ if (isset($_GET["id"])) {
   $id = $_GET["id"];
 }
 
+if (isset($_POST["input"])) {
+  $input = $_POST["input"];
+  $show_inventory_live_search = $inventoryController->show_inventory_live_search($input);
+}
+
 if (isset($_GET["inventory_id"])) {
   $show_inventory = $inventoryController->get_inventory_by_id($_GET["inventory_id"]);
   if (mysqli_num_rows($show_inventory) == 1) {
@@ -77,7 +82,7 @@ if (isset($current_position)) {
 }
 ?>
 
-<div class="card">
+<div class="card" id="searchresultinventory">
   <div class="card-header">
     <div class="bg-modal-box"></div>
     <h3>Receipt List</h3>
@@ -96,13 +101,13 @@ if (isset($current_position)) {
     </div>
     <button type="button" class="modal-btn-add" onclick="AddActive()">
       <p>
-        Add sale <span class="las la-plus"></span>
+        Add inventory <span class="las la-plus"></span>
       </p>
     </button>
   </div>
 
   <div class="card-body">
-    <div class="table-responsive">
+    <div class="table-responsive" id="card-inventory">
       <table width="100%">
         <thead>
           <tr>
@@ -117,43 +122,84 @@ if (isset($current_position)) {
             <td>Action</td>
           </tr>
         </thead>
-        <tbody id="inventory-data">
-          <?php
-          if (isset($result_pagination)) {
-            while ($result = $result_pagination->fetch_array()) {
+        <tbody>
+          <?php if (isset($show_inventory_live_search)) {
+            if ($show_inventory_live_search) {
+              while ($result = $show_inventory_live_search->fetch_array()) {
           ?>
-              <tr>
-                <td><?php echo $result[0]; ?></td>
-                <td><?php echo $result[1]; ?></td>
-                <td><?php echo $result[2]; ?></td>
-                <td><?php echo $result[3]; ?></td>
-                <td><?php echo $result[9]; ?></td>
-                <td><?php echo $result[10] . " " . $result[11]; ?></td>
-                <td><?php echo $result[6] == 1 ?  "Đã giao" : "Đang giao hàng"; ?></td>
-                <td><?php echo $result[7]; ?></td>
-                <td>
-                  <!-- <a href="inventory_edit.php?id=<?php echo $result[0]; ?>" class="Edit">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a><br>
-                  <a href="?id=4&page=<?php echo $page_id ?>&deleteid=<?php echo $result["id"]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a> -->
-                  <div class="action-btn-group">
-                    <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
-                      <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
-                        Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
-                      </button>
+                <tr>
+                  <td><?php echo $result[0]; ?></td>
+                  <td><?php echo $result[1]; ?></td>
+                  <td><?php echo $result[2]; ?></td>
+                  <td><?php echo $result[3]; ?></td>
+                  <td><?php echo $result[9]; ?></td>
+                  <td><?php echo $result[10] . " " . $result[11]; ?></td>
+                  <td><?php echo $result[6] == 1 ?  "Đã giao" : "Đang giao hàng"; ?></td>
+                  <td><?php echo $result[7]; ?></td>
+                  <td>
+                    <div class="action-btn-group">
+                      <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
+                        <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                          Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
+                        </button>
+                      </div>
+                      <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
+                        <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                          Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                        </button>
+                      </div>
+                      <a href="?id=11&page_detail=<?php echo $page_id ?>&enter_id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
                     </div>
-                    <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
-                      <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
-                        Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                      </button>
-                    </div>
-                    <a href="?id=11&page_detail=<?php echo $page_id ?>&enter_id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+                  <td>
+                </tr>
+            <?php
+              }
+            } else {
+              echo "<span class='error'>No Data Found</span>";
+            }
+            ?>
+        </tbody>
+      </table>
+    <?php } else { ?>
+      <tbody id="inventory-data">
+        <?php
+            if (isset($result_pagination)) {
+              while ($result = $result_pagination->fetch_array()) {
+        ?>
+            <tr>
+              <td><?php echo $result[0]; ?></td>
+              <td><?php echo $result[1]; ?></td>
+              <td><?php echo $result[2]; ?></td>
+              <td><?php echo $result[3]; ?></td>
+              <td><?php echo $result[9]; ?></td>
+              <td><?php echo $result[10] . " " . $result[11]; ?></td>
+              <td><?php echo $result[6] == 1 ?  "Đã giao" : "Đang giao hàng"; ?></td>
+              <td><?php echo $result[7]; ?></td>
+              <td>
+                <div class="action-btn-group">
+                  <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
+                    <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                      Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
+                    </button>
                   </div>
-                <td>
-              </tr>
-          <?php
+                  <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
+                    <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                      Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                    </button>
+                  </div>
+                  <?php
+                  ?>
+                  <a href="?id=11&page_detail=<?php echo $page_id ?>&enter_id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+                  <?php ?>
+                </div>
+              <td>
+            </tr>
+      <?php
+              }
             }
           }
-          ?>
-        </tbody>
+      ?>
+      </tbody>
       </table>
     </div>
 
@@ -222,36 +268,52 @@ if (isset($current_position)) {
     <input type="hidden" id="edit_id" name="edit_id" class="edit_id">
     <div class="modal-edit-info">
       <div class="modal-edit-info-item">
-        <label for="name">Name</label>
-        <input type="text" id="name_edit" name="name_edit" required value="">
+        <label for="enter-date_edit">Enter Date</label>
+        <input type="date" id="enter-date_edit" name="enter-date_edit" required>
       </div>
 
       <div class="modal-edit-info-item">
-        <label for="start">Start date</label>
-        <input type="date" id="start_edit" name="start_edit" required value="">
+        <label for="total-quantity_edit">Total Quantity</label>
+        <input type="text" id="total-quantity_edit" name="total-quantity_edit" required>
+        <div id="total-quantity_edit_result"></div>
       </div>
 
       <div class="modal-edit-info-item">
-        <label for="end">End date</label>
-        <input type="date" id="end_edit" name="end_edit" required value="">
+        <label for="total-price_edit">Total Price</label>
+        <input type="text" id="total-price_edit" name="total-price_edit" required>
+        <div id="total-price_edit_result"></div>
       </div>
 
       <div class="modal-edit-info-item">
-        <label for="percent">Percent</label>
-        <input type="number" id="percent_edit" name="percent_edit" required value="">
+        <label for="provider">Provider</label>
+        <select class="modal-edit-input-select" id="provider_edit" name="provider_edit" required>
+          <option value="">Select provider</option>
+          <?php
+          $providerController = new ProviderController();
+          $show_provider = $providerController->show_provider_user();
+          if ($show_provider) {
+            $i = 0;
+            while ($result = $show_provider->fetch_assoc()) {
+              $i++; ?>
+              <option value="<?php echo $result["id"]; ?>"><?php echo $result["name"]; ?></option>
+          <?php
+            }
+          }
+          ?>
+        </select>
       </div>
 
       <div class="modal-edit-info-item">
-        <label for="status">Status</label>
+        <label for="provider">Status</label>
         <select class="modal-edit-input-select" id="status_edit" name="status_edit" required>
           <option value="">Select status</option>
-          <option value="1">Còn áp dụng</option>
-          <option value="0">Hết áp dụng</option>
+          <option value="1">Đã giao</option>
+          <option value="0">Đang giao hàng</option>
         </select>
       </div>
     </div>
 
-    <input class="modal-edit-btn" name="edit-btn" type="submit" value="Save">
+    <input class="modal-edit-btn" id="edit-btn" name="edit-btn" type="submit" value="Save">
   </form>
   <!-- modal edit end -->
 
@@ -266,17 +328,14 @@ if (isset($current_position)) {
 
       <div class="modal-add-info-item">
         <label for="total-quantity_add">Total Quantity</label>
-        <input type="text" id="total-quantity_add" name="total-quantity_add" required>
+        <input type="number" id="total-quantity_add" name="total-quantity_add" required>
+        <div id="total-quantity_add_result"></div>
       </div>
 
       <div class="modal-add-info-item">
         <label for="total-price_add">Total Price</label>
-        <input type="text" id="total-price_add" name="total-price_add" required>
-      </div>
-
-      <div class="modal-add-info-item">
-        <label for="percent">Percent</label>
-        <input type="number" id="percent_add" name="percent_add" required value="">
+        <input type="number" id="total-price_add" name="total-price_add" required>
+        <div id="total-price_add_result"></div>
       </div>
 
       <div class="modal-add-info-item">
@@ -299,16 +358,16 @@ if (isset($current_position)) {
       </div>
 
       <div class="modal-add-info-item">
-        <label for="provider">Provider</label>
+        <label for="provider">Status</label>
         <select class="modal-add-input-select" id="status_add" name="status_add" required>
           <option value="">Select status</option>
-          <option value="1">Còn áp dụng</option>
-          <option value="0">Hết áp dụng</option>
+          <option value="1">Đã giao</option>
+          <option value="0">Đang giao hàng</option>
         </select>
       </div>
     </div>
 
-    <input onclick="" class="modal-add-btn" name="add-btn" type="submit" value="Save">
+    <input onclick="" class="modal-add-btn" id="add-btn" name="add-btn" type="submit" value="Save">
   </form>
   <!-- modal add end -->
 </div>
@@ -330,14 +389,94 @@ if (isset($current_position)) {
       url: 'inventory.php?inventory_id=' + edit_id,
       success: function(response) {
         var res = jQuery.parseJSON(response);
+        console.log(res);
         if (res.status == 404) {
           alert(res.message);
         } else if (res.status == 200) {
 
+          var dateParts = res.data.enter_date.split("/");
+          var newEnterDate = dateParts[2] + "-" + dateParts[1].padStart(2, "0") + "-" + dateParts[0].padStart(2, "0");
+
           $('#edit_id').val(res.data.id);
-          $('#name_edit').val(res.data.name);
+          $('#enter-date_edit').val(newEnterDate);
+          $('#total-quantity_edit').val(res.data.total_quantity);
+          $('#total-price_edit').val(res.data.total_price);
+          $('#provider_edit').val(res.data.provider_id);
+          $('#status_edit').val(res.data.status);
         }
       }
     })
+  });
+</script>
+
+<script src="./js/validate_input.js"></script>
+
+<!-- coding check input value function -->
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#total-quantity_add").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEditQuantity(input) == false) {
+        $("#total-quantity_add_result").html("<span class='error'>Total Quantity Not Valid</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
+        $("#total-quantity_add_result").css("display", "block");
+        $("#total-quantity_add_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#total-quantity_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
+      }
+    });
+
+    $("#total-price_add").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEditQuantity(input) == false) {
+        $("#total-price_add_result").html("<span class='error'>Total Price Not Valid</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
+        $("#total-price_add_result").css("display", "block");
+        $("#total-price_add_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#total-price_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
+      }
+    });
+
+    //edit
+    $("#total-quantity_edit").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEditQuantity(input) == false) {
+        $("#total-quantity_edit_result").html("<span class='error'>Total Price Not Valid</span>");
+        $("#edit-btn").prop("disabled", true);
+        $("#edit-btn").css("background-color", "red");
+        $("#total-quantity_edit_result").css("display", "block");
+        $("#total-quantity_edit_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#total-quantity_edit_result").css("display", "none");
+        $("#edit-btn").prop("disabled", false);
+        $("#edit-btn").css("background-color", "#ffa800");
+      }
+    });
+
+    $("#total-price_edit").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEditQuantity(input) == false) {
+        $("#total-price_edit_result").html("<span class='error'>Total Price Not Valid</span>");
+        $("#edit-btn").prop("disabled", true);
+        $("#edit-btn").css("background-color", "red");
+        $("#total-price_edit_result").css("display", "block");
+        $("#total-price_edit_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#total-price_edit_result").css("display", "none");
+        $("#edit-btn").prop("disabled", false);
+        $("#edit-btn").css("background-color", "#ffa800");
+      }
+    });
   });
 </script>

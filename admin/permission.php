@@ -1,6 +1,6 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
-include_once $filepath . "\controller\permissionController.php";
+include_once $filepath . "/controller/permissionController.php";
 include_once $filepath . "/helpers/pagination.php";
 
 $permissionController = new PermissionController();
@@ -8,7 +8,9 @@ $pag = new Pagination();
 
 if (isset($_POST["input"])) {
   $input = $_POST["input"];
-  $show_permission_live_search = $permissionController->show_permission_live_search($input);
+  $show_permission_live_search = $permissionController->show_permission_live_search(
+    $input
+  );
 }
 
 if (isset($_GET["id"])) {
@@ -16,21 +18,23 @@ if (isset($_GET["id"])) {
 }
 
 if (isset($_GET["permission_id"])) {
-  $show_permission = $permissionController->get_permission_by_id($_GET["permission_id"]);
+  $show_permission = $permissionController->get_permission_by_id(
+    $_GET["permission_id"]
+  );
   if (mysqli_num_rows($show_permission) == 1) {
     $sale = mysqli_fetch_array($show_permission);
 
     $res = [
-      'status' => 200,
-      'message' => 'sale fetch successful by id',
-      'data' => $sale
+      "status" => 200,
+      "message" => "Permission fetch successful by id",
+      "data" => $sale,
     ];
     echo json_encode($res);
     return;
   } else {
     $res = [
-      'status' => 404,
-      'message' => 'sale Id Not Found'
+      "status" => 404,
+      "message" => "Permission Id Not Found",
     ];
     echo json_encode($res);
     return;
@@ -48,7 +52,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add-btn"])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
   $edit_id = $_POST["edit_id"];
-  $updatePermission = $permissionController->update_permission($_POST, $edit_id);
+  $updatePermission = $permissionController->update_permission(
+    $_POST,
+    $edit_id
+  );
 }
 
 if (isset($_GET["page"])) {
@@ -87,7 +94,7 @@ if (isset($current_position)) {
     <div class="bg-modal-box"></div>
     <h3>Permission List</h3>
     <div class="notification">
-      <?php 
+      <?php
       if (isset($deletePermisson)) {
         echo $deletePermisson;
       }
@@ -102,13 +109,13 @@ if (isset($current_position)) {
 
     <button type="button" class="modal-btn-add" onclick="AddActive()">
       <p>
-        Add sale <span class="las la-plus"></span>
+        Add permission <span class="las la-plus"></span>
       </p>
     </button>
   </div>
 
   <div class="card-body">
-    <div class="table-responsive">
+    <div class="table-responsive" id="card-permission">
       <table width="100%">
         <thead>
           <tr>
@@ -117,33 +124,61 @@ if (isset($current_position)) {
             <td>Action</td>
           </tr>
         </thead>
+        <?php if (isset($show_permission_live_search)) {
+          if ($show_permission_live_search) {
+            while ($result = $show_permission_live_search->fetch_array()) { ?>
         <tbody>
-          <?php
-          if (isset($result_pagination)) {
-            while ($result = $result_pagination->fetch_array()) {
-          ?>
-              <tr>
+        <tr>
                 <td><?php echo $result[0]; ?></td>
                 <td><?php echo $result[1]; ?></td>
                 <td>
                   <div class="action-btn-group">
-                    <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
-                      <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                    <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
+                      <button class="modal-btn-edit" type="button" value="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
                         Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
                       </button>
                     </div>
-                    <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
-                      <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                    <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
+                      <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                         Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                       </button>
                     </div>
                   </div>
                 <td>
               </tr>
-          <?php
-            }
+              <?php }
+          } else {
+            echo "<span class='error'>No Data Found</span>";
+          } ?>
+        </tbody>
+        </table>
+        <?php
+        } else {
+           ?>
+        <tbody id="permission-data">
+          <?php if (isset($result_pagination)) {
+            while ($result = $result_pagination->fetch_array()) { ?>
+              <tr>
+                <td><?php echo $result[0]; ?></td>
+                <td><?php echo $result[1]; ?></td>
+                <td>
+                  <div class="action-btn-group">
+                    <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
+                      <button class="modal-btn-edit" type="button" value="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
+                        Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
+                      </button>
+                    </div>
+                    <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
+                      <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
+                        Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                      </button>
+                    </div>
+                  </div>
+                <td>
+              </tr>
+          <?php }
           }
-          ?>
+        } ?>
         </tbody>
       </table>
     </div>
@@ -154,7 +189,7 @@ if (isset($current_position)) {
         <?php if ($pagination_id > 1) { ?>
           <li class="item prev-page">
             <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id -
-                                                            1; ?>">
+  1; ?>">
               <i class="fa-solid fa-chevron-left"></i>
             </a>
           </li>
@@ -169,8 +204,12 @@ if (isset($current_position)) {
             } else {
               $current = "";
             } ?>
-            <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
-              <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
+            <li class="item <?php echo $current; ?>" id="<?php echo $pagination[
+  $i
+]; ?>">
+              <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[
+  $i
+]; ?>">
                 <?php echo $pagination[$i]; ?>
               </a>
             </li>
@@ -181,15 +220,14 @@ if (isset($current_position)) {
         <?php if ($page_total - 1 > $pagination_id + 1) { ?>
           <li class="item next-page">
             <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id +
-                                                            1; ?>">
+  1; ?>">
               <i class="fa-solid fa-chevron-right"></i>
             </a>
           </li>
         <?php } ?>
       </ul>
     </div>
-  <?php
-  }
+  <?php }
   ?>
 
   <!-- Modal delete -->
@@ -218,7 +256,7 @@ if (isset($current_position)) {
       </div>
     </div>
 
-    <input class="modal-edit-btn" name="edit-btn" type="submit" value="Save">
+    <input class="modal-edit-btn" id="edit-btn" name="edit-btn" type="submit" value="Save">
   </form>
   <!-- modal edit end -->
 
@@ -229,13 +267,42 @@ if (isset($current_position)) {
       <div class="modal-add-info-item">
         <label for="name">Name</label>
         <input type="text" id="name_add" name="name_add" required value="">
+        <div id="name_add_result"></div>
       </div>
     </div>
 
-    <input onclick="" class="modal-add-btn" name="add-btn" type="submit" value="Save">
+    <input onclick="" class="modal-add-btn" id="add-btn" name="add-btn" type="submit" value="Save">
   </form>
   <!-- modal add end -->
 </div>
+
+
+<!-- ajax to pagination for product -->
+<script type="text/javascript">
+  $(document).ready(function() {
+    function loadProduct(page) {
+      $.ajax({
+        url: "permission.php",
+        type: "POST",
+        data: {
+          page_no: page
+        },
+        success: function(data) {
+          $('#permission-data').html(data);
+        }
+
+      });
+    }
+
+    // Pagination code
+    $(document).on("click", "#pagination a", function(e) {
+
+      var page = $(this).attr("id");
+      loadProduct(page);
+    });
+
+  });
+</script>
 
 <script type="text/javascript">
   $(document).ready(function() {
@@ -263,5 +330,44 @@ if (isset($current_position)) {
         }
       }
     })
+  });
+</script>
+
+<script src="./js/validate_input.js"></script>
+
+<!-- coding check input value function -->
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#name_add").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEdit(input) == false) {
+        $("#name_add_result").html("<span class='error'>Permission Name Not Valid</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
+        $("#name_add_result").css("display", "block");
+        $("#name_add_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#name_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
+      }
+    });
+
+    $("#name_edit").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEdit(input) == false) {
+        $("#name_edit_result").html("<span class='error'>Permission Name Not Valid</span>");
+        $("#edit-btn").prop("disabled", true);
+        $("#edit-btn").css("background-color", "red");
+        $("#name_edit_result").css("display", "block");
+        $("#name_edit_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#name_edit_result").css("display", "none");
+        $("#edit-btn").prop("disabled", false);
+        $("#edit-btn").css("background-color", "#ffa800");
+      }
+    });
   });
 </script>
