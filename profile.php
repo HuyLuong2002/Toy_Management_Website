@@ -71,24 +71,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
                             <div class="form-group">
                                 <h2>Gender</h2>
-                                <select name="gender" id="gender" class="gender">
+                                <select name="gender" id="gender" class="gender" <?php echo $fm->CheckGender($result_account[5]) ?>>
                                     <?php
-                                    if ($result_account[5] == "Nam") {
+                                    if ($fm->CheckGender($result_account[5]) == "nam") {
                                         $gender_Name = "selected";
                                         $gender_Nu = "";
-                                    } else {
+                                        $gender = "";
+                                    }
+                                    if ($fm->CheckGender($result_account[5]) == "nữ") {
                                         $gender_Name = "";
                                         $gender_Nu = "selected";
+                                        $gender = "";
+                                    } if($fm->CheckGender($result_account[5]) == "") {
+                                        $gender_Name = "";
+                                        $gender_Nu = "";
+                                        $gender = "selected";
                                     }
                                     ?>
-                                    <option value="Nam" <?php echo $gender_Name ?>>Nam</option>
-                                    <option value="Nữ" <?php echo $gender_Nu ?>>Nữ</option>
+                                    <option value="" <?php echo $gender ?>>Select Gender</option>
+                                    <option value="Nam" <?php echo $gender_Name ?>>Male</option>
+                                    <option value="Nữ" <?php echo $gender_Nu ?>>Female</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <h2>Date of Birth</h2>
-                                <input type="date" class="date_birth" name="date_birth" value="<?php echo $fm->formatDateReverse($result_account[6]); ?>">
+                                <input type="date" class="date_birth" name="date_birth" value="<?php echo $fm->formatDateReverse($result_account[6]) ?>">
                             </div>
 
                             <div class="form-group">
