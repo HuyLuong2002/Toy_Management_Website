@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 09, 2023 lúc 09:28 AM
+-- Thời gian đã tạo: Th5 09, 2023 lúc 12:20 PM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.28
 
@@ -51,29 +51,6 @@ INSERT INTO `account` (`id`, `username`, `password`, `firstname`, `lastname`, `g
 (3, 'BBC', 'e10adc3949ba59abbe56e057f20f883e', 'ABC', 'BCD', 'Nữ', '22/03/2023', 'Hà Nội', '15/03/2023', 3, 1, 0),
 (6, 'BBC1', 'e10adc3949ba59abbe56e057f20f883e', 'ABC', 'BCD', 'Nam', '25/02/2003', 'Bắc Ninh', '24/04/2023', 4, 1, 0),
 (13, 'hahahihi', 'e10adc3949ba59abbe56e057f20f883e', 'DHG', 'DHG', 'Nam', '25/02/2002', 'Bắc Ninh', '24/04/2023', 4, 1, 1);
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `account_function`
---
-
-CREATE TABLE `account_function` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Đang đổ dữ liệu cho bảng `account_function`
---
-
-INSERT INTO `account_function` (`id`, `name`, `is_deleted`) VALUES
-(1, 'Quản lý khách hàng', 0),
-(2, 'Quản lý nhân viên', 0),
-(3, 'Quản lý sản phẩm', 0),
-(4, 'Quản lý hóa đơn', 0),
-(6, 'Quản lý thể loại', 1);
 
 -- --------------------------------------------------------
 
@@ -236,20 +213,23 @@ INSERT INTO `detail_orders` (`id`, `order_id`, `product_id`, `quantity`, `price`
 (32, 18, 6, 1, 2000),
 (33, 19, 48, 2, 2250),
 (34, 19, 1, 1, 2000),
-(35, 19, 6, 1, 2000);
+(35, 19, 6, 1, 2000),
+(36, 20, 1, 1, 2000),
+(37, 20, 6, 1, 2000),
+(38, 20, 8, 1, 2000);
 
 --
 -- Bẫy `detail_orders`
 --
 DELIMITER $$
-CREATE TRIGGER `update_product_quantity` AFTER INSERT ON `detail_orders` FOR EACH ROW BEGIN
-  UPDATE product SET quantity = quantity - NEW.quantity WHERE id = NEW.product_id;
+CREATE TRIGGER `update_product_quantity_after_delete` AFTER DELETE ON `detail_orders` FOR EACH ROW BEGIN
+    UPDATE product SET quantity = quantity + OLD.quantity WHERE id = OLD.product_id;
 END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `update_product_quantity_after_delete` AFTER DELETE ON `detail_orders` FOR EACH ROW BEGIN
-    UPDATE product SET quantity = quantity + OLD.quantity WHERE id = OLD.product_id;
+CREATE TRIGGER `update_product_quantity_after_insert` AFTER INSERT ON `detail_orders` FOR EACH ROW BEGIN
+  UPDATE product SET quantity = quantity - NEW.quantity WHERE id = NEW.product_id;
 END
 $$
 DELIMITER ;
@@ -259,37 +239,6 @@ CREATE TRIGGER `update_product_quantity_after_update` AFTER UPDATE ON `detail_or
 END
 $$
 DELIMITER ;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `detail_permission_function`
---
-
-CREATE TABLE `detail_permission_function` (
-  `id` int(11) NOT NULL,
-  `permission_id` int(11) NOT NULL,
-  `function_id` int(11) NOT NULL,
-  `action` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Đang đổ dữ liệu cho bảng `detail_permission_function`
---
-
-INSERT INTO `detail_permission_function` (`id`, `permission_id`, `function_id`, `action`) VALUES
-(1, 1, 1, 'Thêm'),
-(2, 1, 1, 'Sửa'),
-(3, 1, 2, 'Thêm'),
-(4, 1, 1, 'Thêm'),
-(5, 3, 2, 'Thêm'),
-(6, 3, 2, 'Sửa'),
-(7, 3, 2, 'Xóa'),
-(8, 1, 2, 'Sửa'),
-(9, 1, 2, 'Xóa'),
-(10, 1, 3, 'Thêm'),
-(11, 1, 3, 'Sửa'),
-(19, 2, 1, 'Thêm');
 
 -- --------------------------------------------------------
 
@@ -372,7 +321,11 @@ INSERT INTO `orders` (`id`, `user_id`, `quantity`, `date`, `address`, `phone`, `
 (16, 6, 3, '08/05/2023 17:20:36 pm', 'Ngô Quyền', '0764286798', 'chum19923@gmail.com', 'VietNam', 0, '', 0, 'payment in cash', 2, 0),
 (17, 6, 3, '08/05/2023 17:22:11 pm', 'Ngô Quyền', '0764286798', 'chum19923@gmail.com', 'VietNam', 0, '', 0, 'payment in cash', 2, 0),
 (18, 6, 3, '08/05/2023 17:23:12 pm', 'Ngô Quyền', '0764286798', 'chum19923@gmail.com', 'VietNam', 0, '', 0, 'payment in cash', 2, 0),
-(19, 6, 3, '08/05/2023 17:38:50 pm', 'cc', '0764286798', 'chum19923@gmail.com', 'VietNam', 0, '', 8940, 'payment in cash', 2, 0);
+(19, 6, 3, '08/05/2023 17:38:50 pm', 'cc', '0764286798', 'chum19923@gmail.com', 'VietNam', 0, '', 8940, 'payment in cash', 2, 0),
+(20, 6, 3, '09/05/2023 14:44:21 pm', 'Ngô Quyền', '0764286798', 'chum19923@gmail.com', 'VietNam', 600, 'Standard Shipping ($6)', 6606, 'payment in cash', 2, 0),
+(21, 2, 1, '09/05/2023 16:23:28 pm', 'Ngô Quyền', '0764286798', 'chum19923@gmail.com', 'VietNam', 6000, 'Standard Shipping ($6)', 66006, 'payment in cash', 2, 0),
+(22, 2, 1, '09/05/2023 16:25:23 pm', 'Ngô Quyền', '0764286798', 'chum19923@gmail.com', 'VietNam', 6200, 'Standard Shipping ($6)', 68206, 'payment in cash', 2, 0),
+(23, 2, 1, '09/05/2023 16:26:19 pm', 'Ngô Quyền', '0764286798', 'chum19923@gmail.com', 'VietNam', 4200, 'Standard Shipping ($6)', 46206, 'payment in cash', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -424,12 +377,12 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `image`, `price`, `description`, `create_date`, `highlight`, `category_id`, `sale_id`, `review`, `quantity`, `is_deleted`) VALUES
-(1, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01/04/2023', 1, 2, 1, 3, 25, 0),
+(1, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01/04/2023', 1, 2, 1, 3, 106, 0),
 (2, 'Product 2', 'ef314b1615.png', '3500', 'Sản phẩm mới', '01/04/2023', 0, 1, 2, 0, 20, 0),
 (3, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '01/04/2023', 0, 1, 2, 0, 30, 0),
-(6, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01/04/2023', 0, 2, 1, 2, 33, 0),
+(6, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01/04/2023', 0, 2, 1, 2, 32, 0),
 (7, 'Product 3', '662359cdaf.png', '3000', 'Sản phẩm mới 3', '11/04/2023', 1, 1, 2, 5, 30, 0),
-(8, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01/04/2023', 0, 2, 1, 3, 30, 0),
+(8, 'Product 1', '31491ae01b.png', '2000', 'Sản phẩm mới', '01/04/2023', 0, 2, 1, 3, 29, 0),
 (13, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 1, 1, 1, 5, 30, 0),
 (14, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
 (15, 'Product 3', 'ef314b1615.png', '3000', 'Sản phẩm mới', '02/04/2023', 0, 1, 1, 5, 30, 0),
@@ -533,12 +486,6 @@ ALTER TABLE `account`
   ADD KEY `id_permission` (`permission_id`);
 
 --
--- Chỉ mục cho bảng `account_function`
---
-ALTER TABLE `account_function`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Chỉ mục cho bảng `category`
 --
 ALTER TABLE `category`
@@ -567,14 +514,6 @@ ALTER TABLE `detail_orders`
   ADD PRIMARY KEY (`id`),
   ADD KEY `order_id` (`order_id`),
   ADD KEY `product_id` (`product_id`);
-
---
--- Chỉ mục cho bảng `detail_permission_function`
---
-ALTER TABLE `detail_permission_function`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_permission` (`permission_id`),
-  ADD KEY `id_function` (`function_id`) USING BTREE;
 
 --
 -- Chỉ mục cho bảng `detail_review`
@@ -636,12 +575,6 @@ ALTER TABLE `account`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT cho bảng `account_function`
---
-ALTER TABLE `account_function`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
 -- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
@@ -663,13 +596,7 @@ ALTER TABLE `detail_enter_product`
 -- AUTO_INCREMENT cho bảng `detail_orders`
 --
 ALTER TABLE `detail_orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
-
---
--- AUTO_INCREMENT cho bảng `detail_permission_function`
---
-ALTER TABLE `detail_permission_function`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT cho bảng `detail_review`
@@ -687,7 +614,7 @@ ALTER TABLE `enter_product`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT cho bảng `permission`
@@ -743,13 +670,6 @@ ALTER TABLE `detail_enter_product`
 ALTER TABLE `detail_orders`
   ADD CONSTRAINT `detail_orders_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
   ADD CONSTRAINT `detail_orders_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
-
---
--- Các ràng buộc cho bảng `detail_permission_function`
---
-ALTER TABLE `detail_permission_function`
-  ADD CONSTRAINT `detail_permission_function_ibfk_1` FOREIGN KEY (`function_id`) REFERENCES `account_function` (`id`),
-  ADD CONSTRAINT `detail_permission_function_ibfk_2` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`);
 
 --
 -- Các ràng buộc cho bảng `detail_review`
