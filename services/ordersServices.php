@@ -30,7 +30,7 @@ include_once $filepath . "\helpers\\format.php";
   //list orders for home page
   public function show_orders_user()
   {
-    $query = "SELECT * FROM orders WHERE is_deleted = '0'";
+    $query = "SELECT * FROM orders WHERE is_deleted = '0' ORDER BY orders.date DESC, orders.status DESC";
     $result = $this->db->select($query);
     return $result;
   }

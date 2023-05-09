@@ -10,7 +10,6 @@ if(isset($_POST['state']) && isset($_POST['id']))
     $id = $_POST['id'];
 
     $result_update_highlight = $productsController->update_product_highlight($highlight, $id);
-    
 }
 
 
