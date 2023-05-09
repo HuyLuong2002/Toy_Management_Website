@@ -1,7 +1,7 @@
-// let httpFetchCategory =
-//   "http://localhost:3000/api/product/read.php";
 let httpFetchCategory =
-  "http://localhost:8080/Toy_Management_Website/api/product/read.php";
+  "http://localhost:3000/api/product/read.php";
+// let httpFetchCategory =
+//   "http://localhost:8080/Toy_Management_Website/api/product/read.php";
 let productDetail = document.getElementById("product-details");
 const url = window.location.href;
 const match = url.match(/id=([^&]*)/);
@@ -21,7 +21,8 @@ fetch(httpFetchCategory)
 const ShowProductDetail = (data) => {
 
   productDetail.innerHTML = `
-        <div class="product-image">
+      <a class="return-btn" href="index.php?id=2&page=1"><span>&#8592;</span></a>
+      <div class="product-image">
         <img src="uploads/${data.image}" alt="Product Image">
       </div>
       <div class="product-info">
@@ -34,8 +35,5 @@ const ShowProductDetail = (data) => {
         <p class="product-sale-id"><strong>Sale ID:</strong> ${data.sale_id}</p>
         <p class="product-review"><strong>Review:</strong> ${data.review}</p>
         <p class="product-quantity"><strong>Quantity:</strong> ${data.quantity}</p>
-        <div class="product-actions">
-          <button class="edit-button">Edit</button>
-          <button class="delete-button">Delete</button>
-        </div>`;
+      </div>`;
 };

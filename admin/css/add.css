@@ -14,17 +14,14 @@
   font-family: "Poppins", sans-serif;
 }
 
-.form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
+/* .form-container {
+} */
 
 form {
   display: flex;
-  flex-direction: column;
-  width: 500px;
+  flex-direction: row;
+  width: 1100px;
+  height: 600px;
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
@@ -37,7 +34,19 @@ form {
   background-color: #fff;
 }
 
-.form-notify{
+.form-left-info {
+  display: flex;
+  flex-direction: column;
+  float: left;
+  width: 50%;
+}
+
+.form-right-info {
+  float: right;
+  margin-left: 20px;
+}
+
+.form-notify {
   display: flex;
   flex-direction: row;
   margin-bottom: 5px;
@@ -45,24 +54,25 @@ form {
   align-items: center;
 }
 
-.form-container .back{
-  padding: 8px 15px;
+.form-container .back {
+  padding: 15px 20px;
   border-radius: 5px;
   border: none;
-  background-color: #1f80ef;
+  background-color: #2acaea;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  left: 20%;
-  top: 10px;
+  left: 5rem;
+  top: 73px;
   position: absolute;
 }
 
-.form-container .back a{
+.form-container .back a {
   color: #fff;
   font-size: 18px;
 }
 
 .back:hover {
-  background-color: #40c9a2;
+  background-color: #1ecdc9;
   transition: 0.3s;
 }
 
@@ -70,6 +80,30 @@ form {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
+}
+
+.form-group.image {
+  flex-direction: row;
+}
+
+.image-product {
+  display: flex;
+  justify-content: center;
+  border: 1px solid #0000ff29;
+  border-radius: 5px;
+  flex: 2;
+}
+
+.image-product img {
+  height: 60px;
+  width: 60px;
+
+}
+
+.image-product-btn {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
 }
 
 label {
@@ -123,12 +157,13 @@ label {
   cursor: pointer;
 }
 
-.success
-{
+.success {
+  position: absolute;
+  top: 0;
+  left: 15%;
   color: var(--carribean-green);
 }
 
-.error
-{
+.error {
   color: red;
 }

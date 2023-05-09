@@ -298,6 +298,7 @@ td .status {
 
 .table-responsive .edit{
   color: blue;
+  display: flex;
 }
 
 .table-responsive .detail{

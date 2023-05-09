@@ -48,15 +48,6 @@ if (isset($_POST["delete-btn"])) {
   $deleteProduct = $productsController->delete_product($delete_id);
 }
 
-// if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add-btn"])) {
-//   $insertProduct = $productsController->insert_product($_POST);
-// }
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
-  $edit_id = $_POST["edit_id"];
-  $updateProduct = $productsController->update_product($_POST, $edit_id);
-}
-
 if (isset($_GET["page"])) {
   $page_id = $_GET["page"];
   $pagination_id = $page_id;
@@ -105,28 +96,16 @@ if (isset($current_position)) {
 </head>
 <div class="card" id="searchresultproduct">
   <div class="card-header">
-    <div class="bg-modal-box"></div>
+    <div class="bg-modal-box product"></div>
     <h3>Product List</h3>
     <?php
     if (isset($deleteProduct)) {
       echo $deleteProduct;
     }
-    // if (isset($insertProduct)) {
-    //   echo $insertProduct;
-    // }
-    if (isset($updateProduct)) {
-      echo $updateProduct;
-    }
     ?>
     <button>
       <a href="product_add.php"> Add product<span class="las la-plus"></span></a>
     </button>
-
-    <!-- <button type="button" class="modal-btn-add" onclick="AddActive()">
-      <p>
-        Add product <span class="las la-plus"></span>
-      </p>
-    </button> -->
   </div>
 
   <div class="card-body">
@@ -201,13 +180,9 @@ if (isset($current_position)) {
                   <td>
                     <?php echo $result[10]; ?>
                   </td>
-                  <td style="background-color: #fff;">
+                  <td>
                     <div class="action-btn-group">
-                      <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
-                        <button class="modal-btn-edit" type="button" value="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
-                          Edit<i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
-                        </button>
-                      </div>
+                      <a href="product_edit.php?id=<?php echo $result[0]?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
                       <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
                         <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                           Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
@@ -277,17 +252,18 @@ if (isset($current_position)) {
               <td>
                 <?php echo $result[10]; ?>
               </td>
-              <td style="background-color: #fff;">
+              <td>
                 <div class="action-btn-group">
-                  <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
+                  <!-- <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
                     <button class="modal-btn-edit" type="button" value="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
                       Edit<i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
                     </button>
-                  </div>
+                  </div> -->
+                  <a class="edit" href="product_edit.php?id=<?php echo $result[0]?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
                   <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
-                    <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
+                    <p class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                       Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                    </button>
+                    </p>
                   </div>
                 </div>
                 <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
@@ -356,156 +332,6 @@ if (isset($current_position)) {
     </div>
   </form>
   <!-- modal delete end -->
-
-  <!-- modal edit  -->
-  <form class="modal-container-edit" id="modal-container-edit" method="post" enctype="multipart/form-data">
-    <div class="modal-container-edit-close" onclick="closeCurdEditModal()"><span><i class="fa-solid fa-circle-xmark"></i></span></div>
-    <input type="hidden" id="edit_id" name="edit_id" class="edit_id">
-    <div class="modal-edit-info">
-      <div class="modal-edit-info-item">
-        <label for="name">Name</label>
-        <input type="text" id="name_edit" name="name_edit" required value="">
-      </div>
-
-      <div class="modal-edit-info-item">
-        <label for="price">Price</label>
-        <input type="text" id="price_edit" name="price_edit" required>
-      </div>
-
-      <div class="modal-edit-info-item">
-        <label for="description">Description</label>
-        <textarea rows="3" cols="4" id="description_edit" name="description_edit" class="tinymce"></textarea>
-      </div>
-
-      <div class="modal-edit-info-item">
-        <label for="status">Category</label>
-        <select class="modal-add-input-select" id="category_edit" name="category_edit" required>
-          <option value="">Select category</option>
-          <?php
-          $categoryController = new CategoryController();
-          $show_cat = $categoryController->show_category();
-          if ($show_cat) {
-            $i = 0;
-            while ($result = $show_cat->fetch_assoc()) {
-              $i++; ?>
-              <option value="<?php echo $result["id"]; ?>"><?php echo $result["name"]; ?></option>
-          <?php
-            }
-          }
-          ?>
-        </select>
-      </div>
-
-      <div class="modal-edit-info-item">
-        <label for="sale">Sale</label>
-        <select class="modal-edit-input-select" id="sale_edit" name="sale_edit" required>
-          <option value="">Select sale</option>
-          <?php
-          $saleController = new SaleController();
-          $show_sale = $saleController->show_sale();
-          if ($show_sale) {
-            $i = 0;
-            while ($result = $show_sale->fetch_assoc()) {
-              $i++; ?>
-              <option value="<?php echo $result["id"]; ?>"><?php echo $result["name"]; ?></option>
-          <?php
-            }
-          }
-          ?>
-        </select>
-      </div>
-
-      <div class="modal-edit-info-item">
-        <label for="quantity">Quantity</label>
-        <input type="number" id="quantity_edit" name="quantity_edit" required>
-      </div>
-
-      <div class="modal-edit-info-item">
-        <label for="uploadfile">Upload File</label>
-        <div style="display:flex; justify-content:center; border: 1px solid #0000ff29;border-radius: 5px;">
-          <img id="imageUrl" src="" alt="" style="width:25%;height:25%;">
-        </div>
-        <input type="file" id="uploadfile_edit" name="uploadfile_edit">
-      </div>
-    </div>
-
-    <input class="modal-edit-btn" name="edit-btn" type="submit" value="Save">
-  </form>
-  <!-- modal edit end -->
-
-  <!-- modal add  -->
-  <!-- <form class="modal-container-add product" id="modal-container-add" method="post" enctype="multipart/form-data">
-    <div class="modal-container-add-close" onclick="closeCurdAddModal()"><span><i class="fa-solid fa-circle-xmark"></i></span></div>
-    <div class="modal-add-info">
-      <div class="modal-add-info">
-        <div class="modal-add-info-item">
-          <label for="name">Name</label>
-          <input type="text" id="name_add" name="name_add" required value="">
-        </div>
-
-        <div class="modal-add-info-item">
-          <label for="price">Price</label>
-          <input type="text" id="price_add" name="price_add" required>
-        </div>
-
-        <div class="modal-add-info-item">
-          <label for="description">Description</label>
-          <textarea id="description_add" name="description_add" class="tinymce"></textarea>
-        </div>
-
-        <div class="modal-add-info-item">
-          <label for="status">Category</label>
-          <select class="modal-add-input-select" id="category_add" name="category_add" required>
-            <option value="">Select category</option>
-            <?php
-            $categoryController = new CategoryController();
-            $show_cat = $categoryController->show_category();
-            if ($show_cat) {
-              $i = 0;
-              while ($result = $show_cat->fetch_assoc()) {
-                $i++; ?>
-                <option value="<?php echo $result["id"]; ?>"><?php echo $result["name"]; ?></option>
-            <?php
-              }
-            }
-            ?>
-          </select>
-        </div>
-
-        <div class="modal-add-info-item">
-          <label for="sale">Sale</label>
-          <select class="modal-add-input-select" id="sale_add" name="sale_add" required>
-            <option value="">Select sale</option>
-            <?php
-            $saleController = new SaleController();
-            $show_sale = $saleController->show_sale();
-            if ($show_sale) {
-              $i = 0;
-              while ($result = $show_sale->fetch_assoc()) {
-                $i++; ?>
-                <option value="<?php echo $result["id"]; ?>"><?php echo $result["name"]; ?></option>
-            <?php
-              }
-            }
-            ?>
-          </select>
-        </div>
-
-        <div class="modal-add-info-item">
-          <label for="quantity">Quantity</label>
-          <input type="number" id="quantity_add" name="quantity_add" required>
-        </div>
-
-        <div class="modal-add-info-item">
-          <label for="uploadfile">Upload File</label>
-          <input type="file" id="uploadfile_add" name="uploadfile_add">
-        </div>
-      </div>
-    </div>
-
-    <input onclick="" class="modal-add-btn" name="add-btn" type="submit" value="Save">
-  </form> -->
-  <!-- modal add end -->
 </div>
 
 <!-- javascript to check hight product -->
@@ -574,30 +400,5 @@ if (isset($current_position)) {
       var delete_id = $(this).val();
       $('.delete_id').val(delete_id);
     });
-  });
-
-  $(document).on('click', '.modal-btn-edit', function(e) {
-    e.preventDefault();
-    var edit_id = $(this).val();
-
-    $.ajax({
-      type: "GET",
-      url: 'products.php?product_id=' + edit_id,
-      success: function(response) {
-        var res = jQuery.parseJSON(response);
-        if (res.status == 404) {
-          alert(res.message);
-        } else if (res.status == 200) {
-          $('#edit_id').val(res.data.id);
-          $('#name_edit').val(res.data.name);
-          $('#price_edit').val(res.data.price);
-          $('#description_edit').val(res.data.description);
-          $('#category_edit').val(res.data.category_id);
-          $('#sale_edit').val(res.data.sale_id);
-          $('#quantity_edit').val(res.data.quantity);
-          $('#imageUrl').attr('src', 'uploads/' + res.data.image);
-        }
-      }
-    })
   });
 </script>

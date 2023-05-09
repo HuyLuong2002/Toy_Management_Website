@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add-btn"])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
   $edit_id = $_POST["edit_id"];
-  $updateUpdate = $providerController->update_provider($_POST, $edit_id);
+  $updateProvider = $providerController->update_provider($_POST, $edit_id);
 }
 
 if (isset($_GET["detailid"])) {
