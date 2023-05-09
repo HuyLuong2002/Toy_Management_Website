@@ -154,7 +154,7 @@ span {
     color: #777777;
 }
 
-input[type="submit"] {
+button[type="submit"] {
     font-family: 'Roboto', sans-serif;
     padding: .5rem .9rem;
     margin-left: 27%;
@@ -165,14 +165,19 @@ input[type="submit"] {
     border: none;
     color: #fff;
     background-color: #3FB6A8;
-    transition: 0.3 hover;
     border-radius: 5px;
 }
 
-input[type="submit"]:hover {
+button[type="submit"]:hover {
     text-decoration: underline;
     font-weight: 900;
+    transition: 0.3;
     cursor: pointer;
+}
+
+.update-password {
+    font-family: 'Roboto', sans-serif;
+    padding: .5rem .9rem;
 }
 
 .privacy h2 {

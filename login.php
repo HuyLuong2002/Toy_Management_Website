@@ -84,9 +84,13 @@ if (isset($_GET["action"]) == "logout") {
         <span id="check-username"></span>
         <input type="text" class="infos" id="sign-up-nome" name="nome" onInput="checkUsername();">
 
+        <!-- <div class="mario"></div>
+        <label for="firstname">Firstname:</label>
+        <input type="text" id="" name="firstname" class="firstname">
+
         <div class="mario"></div>
-        <label for="password">Email:</label>
-        <input type="email" id="" name="email">
+        <label for="lastname">Lastname:</label>
+        <input type="text" id="" name="lastname" class="lastname"> -->
 
         <div class="mario"></div>
         <label for="password">Password:</label>
