@@ -88,6 +88,8 @@ if (isset($current_position)) {
             <td>Phone</td>
             <td>Email</td>
             <td>Country</td>
+            <td>VAT</td>
+            <td>Ship method</td>
             <td>Total price</td>
             <td>Payment method</td>
             <td>Status</td>
@@ -132,9 +134,15 @@ if (isset($current_position)) {
                     <?php echo $result[9]; ?>
                   </td>
                   <td>
-                    <?php if ($result[10] == "0") echo "Đang giao hàng";
-                    else if ($result[10] == "1") echo "Đã giao";
-                    else if ($result[10] == "2") echo "Chờ xử lý";
+                    <?php echo $result[10]; ?>
+                  </td>
+                  <td>
+                    <?php echo $result[11]; ?>
+                  </td>
+                  <td>
+                    <?php if ($result[12] == "0") echo "Đang giao hàng";
+                    else if ($result[12] == "1") echo "Đã giao";
+                    else if ($result[12] == "2") echo "Chờ xử lý";
                     ?>
                   </td>
                   <td>
@@ -188,9 +196,15 @@ if (isset($current_position)) {
                 <?php echo $result[9]; ?>
               </td>
               <td>
-                <?php if ($result[10] == "0") echo "Đang giao hàng";
-                else if ($result[10] == "1") echo "Đã giao";
-                else if ($result[10] == "2") echo "Chờ xử lý";
+                <?php echo $result[10]; ?>
+              </td>
+              <td>
+                <?php echo $result[11]; ?>
+              </td>
+              <td>
+                <?php if ($result[12] == "0") echo "Đang giao hàng";
+                else if ($result[12] == "1") echo "Đã giao";
+                else if ($result[12] == "2") echo "Chờ xử lý";
                 ?>
               </td>
               <td>

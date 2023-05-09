@@ -37,11 +37,11 @@ class DetailOrders
   }
 
   //show = get detail function by function_id
-  public function show_detail_order($order_id)
+  public function show_detail_order()
   {
     $query = "SELECT * FROM detail_orders where order_id=?";
     $stmt = $this->conn->prepare($query);
-    $stmt->bindParam(1, $this->function_id);
+    $stmt->bindParam(1, $this->order_id);
     $stmt->execute();
 
     return $stmt;
