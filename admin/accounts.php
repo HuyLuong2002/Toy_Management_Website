@@ -110,7 +110,7 @@ if (isset($current_position)) {
     </div>
     <button type="button" class="modal-btn-add" onclick="AddActive()">
       <p>
-        Add Account <span class="las la-plus"></span>
+        Add account <span class="las la-plus"></span>
       </p>
     </button>
   </div>
@@ -293,21 +293,25 @@ if (isset($current_position)) {
       <div class="modal-edit-info-item">
         <label for="username">Username</label>
         <input type="text" id="username" name="username" required>
+        <div id="username_edit_result"></div>
       </div>
 
       <div class="modal-edit-info-item">
         <label for="password">Password</label>
         <input type="password" id="password" name="password" required>
+        
       </div>
 
       <div class="modal-edit-info-item">
         <label for="firstname">First name</label>
         <input type="text" id="firstname_edit" name="firstname_edit" required>
+        <div id="firstname_edit_result"></div>
       </div>
 
       <div class="modal-edit-info-item">
         <label for="lastname">Last name</label>
         <input type="text" id="lastname_edit" name="lastname_edit" required>
+        <div id="lastname_edit_result"></div>
       </div>
 
       <div class="modal-edit-info-item">
@@ -322,11 +326,13 @@ if (isset($current_position)) {
       <div class="modal-edit-info-item">
         <label for="date-of-birth">Date of Birth</label>
         <input type="date" id="dateofbirth_edit" name="dateofbirth_edit" required>
+        
       </div>
 
       <div class="modal-edit-info-item">
         <label for="place-of-birth">Place of Birth</label>
         <input type="text" id="placeofbirth_edit" name="placeofbirth_edit" required>
+        <div id="placeofbirth_edit_result"></div>
       </div>
 
       <div class="modal-edit-info-item">
@@ -356,7 +362,7 @@ if (isset($current_position)) {
       </div>
     </div>
 
-    <input class="modal-edit-btn" name="edit-btn" type="submit" value="Save">
+    <input class="modal-edit-btn" id="edit-btn" name="edit-btn" type="submit" value="Save">
   </form>
   <!-- modal edit end -->
 
@@ -366,22 +372,25 @@ if (isset($current_position)) {
     <div class="modal-add-info">
       <div class="modal-add-info-item">
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" required>
+        <input type="text" id="username-add" name="username" required>
+        <div id="username_add_result"></div>
       </div>
 
       <div class="modal-add-info-item">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password-add" name="password" required>
       </div>
 
       <div class="modal-add-info-item">
         <label for="firstname">First name</label>
         <input type="text" id="firstname_add" name="firstname_add" required>
+        <div id="firstname_add_result"></div>
       </div>
 
       <div class="modal-add-info-item">
         <label for="lastname">Last name</label>
         <input type="text" id="lastname_add" name="lastname_add" required>
+        <div id="lastname_add_result"></div>
       </div>
 
       <div class="modal-add-info-item">
@@ -401,6 +410,7 @@ if (isset($current_position)) {
       <div class="modal-add-info-item">
         <label for="place-of-birth">Place of Birth</label>
         <input type="text" id="placeofbirth_add" name="placeofbirth_add" required>
+        <div id="placeofbirth_add_result"></div>
       </div>
 
       <div class="modal-add-info-item">
@@ -430,7 +440,7 @@ if (isset($current_position)) {
       </div>
     </div>
 
-    <input class="modal-add-btn" name="add-btn" type="submit" value="Save">
+    <input class="modal-add-btn" id="add-btn" name="add-btn" type="submit" value="Save">
   </form>
   <!-- modal add end -->
 </div>
@@ -473,5 +483,142 @@ if (isset($current_position)) {
         }
       }
     })
+  });
+</script>
+
+<script src="./js/validate_input.js"></script>
+
+<!-- coding check input value function -->
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#username-add").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEdit(input) == false) {
+        $("#username_add_result").html("<span class='error'>Account Name Not Valid</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
+        $("#username_add_result").css("display", "block");
+        $("#username_add_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#username_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
+      }
+    });
+
+    $("#firstname_add").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEdit(input) == false) {
+        $("#firstname_add_result").html("<span class='error'>Account Firstnam Not Valid</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
+        $("#firstname_add_result").css("display", "block");
+        $("#firstname_add_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#firstname_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
+      }
+    });
+
+    $("#lastname_add").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEdit(input) == false) {
+        $("#lastname_add_result").html("<span class='error'>Account Firstnam Not Valid</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
+        $("#lastname_add_result").css("display", "block");
+        $("#lastname_add_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#lastname_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
+      }
+    });
+
+    $("#placeofbirth_add").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEdit(input) == false) {
+        $("#placeofbirth_add_result").html("<span class='error'>Account Firstnam Not Valid</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
+        $("#placeofbirth_add_result").css("display", "block");
+        $("#placeofbirth_add_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#placeofbirth_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
+      }
+    });
+
+    //edit
+    $("#username").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEdit(input) == false) {
+        $("#username_edit_result").html("<span class='error'>Account Name Not Valid</span>");
+        $("#edit-btn").prop("disabled", true);
+        $("#edit-btn").css("background-color", "red");
+        $("#username_edit_result").css("display", "block");
+        $("#username_edit_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#username_edit_result").css("display", "none");
+        $("#edit-btn").prop("disabled", false);
+        $("#edit-btn").css("background-color", "#ffa800");
+      }
+    });
+
+    $("#firstname_edit").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEdit(input) == false) {
+        $("#firstname_edit_result").html("<span class='error'>Account Firstnam Not Valid</span>");
+        $("#edit-btn").prop("disabled", true);
+        $("#edit-btn").css("background-color", "red");
+        $("#firstname_edit_result").css("display", "block");
+        $("#firstname_edit_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#firstname_edit_result").css("display", "none");
+        $("#edit-btn").prop("disabled", false);
+        $("#edit-btn").css("background-color", "#ffa800");
+      }
+    });
+
+    $("#lastname_edit").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEdit(input) == false) {
+        $("#lastname_edit_result").html("<span class='error'>Account Firstnam Not Valid</span>");
+        $("#edit-btn").prop("disabled", true);
+        $("#edit-btn").css("background-color", "red");
+        $("#lastname_edit_result").css("display", "block");
+        $("#lastname_edit_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#lastname_edit_result").css("display", "none");
+        $("#edit-btn").prop("disabled", false);
+        $("#edit-btn").css("background-color", "#ffa800");
+      }
+    });
+
+    $("#placeofbirth_edit").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEdit(input) == false) {
+        $("#placeofbirth_edit_result").html("<span class='error'>Account Firstnam Not Valid</span>");
+        $("#edit-btn").prop("disabled", true);
+        $("#edit-btn").css("background-color", "red");
+        $("#placeofbirth_edit_result").css("display", "block");
+        $("#placeofbirth_edit_result").css("margin-top", "1rem");
+      }
+      else {
+        $("#placeofbirth_edit_result").css("display", "none");
+        $("#edit-btn").prop("disabled", false);
+        $("#edit-btn").css("background-color", "#ffa800");
+      }
+    });
+
   });
 </script>
