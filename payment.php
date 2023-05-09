@@ -44,7 +44,7 @@ $accountController = new AccountController();
                                             <span>1</span>
                                         </div>
                                         <div class="title">
-                                            <h1 Information</h1>
+                                            <h1> Information</h1>
                                         </div>
                                     </div>
                                     <div class="content" id="address">
