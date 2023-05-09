@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <link rel="stylesheet" href="./assets/css/profile.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 
 <body>
@@ -62,11 +63,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
                             <div class="form-group">
                                 <h2>First Name</h2>
                                 <input type="text" class="firstname" name="firstname" id="firstname" value="<?php echo $result_account[3] ?>">
+                                <div id="firstname_result"></div>
                             </div>
 
                             <div class="form-group">
                                 <h2>Lastname</h2>
                                 <input type="text" class="lastname" name="lastname" id="lastname" value="<?php echo $result_account[4] ?>">
+                                <div id="lastname_result"></div>
                             </div>
 
                             <div class="form-group">
@@ -82,7 +85,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
                                         $gender_Name = "";
                                         $gender_Nu = "selected";
                                         $gender = "";
-                                    } if($fm->CheckGender($result_account[5]) == "") {
+                                    }
+                                    if ($fm->CheckGender($result_account[5]) == "") {
                                         $gender_Name = "";
                                         $gender_Nu = "";
                                         $gender = "selected";
@@ -101,14 +105,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
                             <div class="form-group">
                                 <h2>Place of Birth </h2>
-                                <input type="text" class="place_of_birth" name="place_of_birth" value="<?php echo $result_account[7] ?>">
+                                <input type="text" class="place_of_birth" id="place_of_birth" name="place_of_birth" value="<?php echo $result_account[7] ?>">
+                                <div id="place_birth_result"></div>
                             </div>
 
                             <div class="form-group">
                                 <h2>Password </h2>
                                 <input type="password" class="password" name="password" id="password" value="<?php echo $result_account[2] ?>">
                             </div>
-                            <input type="submit" name="submit" class="btn" value="Update">
+                            <input type="submit" id="update-btn" name="submit" class="btn" value="Update">
 
                         </div>
                         <!-- <button class="btn">update</button> -->
@@ -121,3 +126,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     </div>
 
     <script src="https://kit.fontawesome.com/1b6e53cabd.js" crossorigin="anonymous"></script>
+
+    <script src="/js/validate_input.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#firstname').keyup(function() {
+                var input = $(this).val();
+                if (checkAddAndEdit(input) == false) {
+                    $("#firstname_result").html("<span class='error'>First Name Not Valid</span>");
+                    $("#firstname_result").css("display", "block");
+                    $("#firstname_result").css("margin-top", "5px");
+                    $("#update-btn").prop("disabled", true);
+                    $("#update-btn").css("background-color", "red");
+                } else {
+                    $("#firstname_result").css("display", "none");
+                    $("#update-btn").prop("disabled", false);
+                    $("#update-btn").css("background-color", "#3FB6A8");
+                }
+            });
+
+            $('#lastname').keyup(function() {
+                var input = $(this).val();
+                if (checkAddAndEdit(input) == false) {
+                    $("#lastname_result").html("<span class='error'>Last Name Not Valid</span>");
+                    $("#lastname_result").css("display", "block");
+                    $("#lastname_result").css("margin-top", "5px");
+                    $("#update-btn").prop("disabled", true);
+                    $("#update-btn").css("background-color", "red");
+                } else {
+                    $("#lastname_result").css("display", "none");
+                    $("#update-btn").prop("disabled", false);
+                    $("#update-btn").css("background-color", "#3FB6A8");
+                }
+            });
+
+            $('#place_of_birth').keyup(function() {
+                var input = $(this).val();
+                if (checkAddAndEdit(input) == false) {
+                    $("#place_birth_result").html("<span class='error'>Place of birth Not Valid</span>");
+                    $("#place_birth_result").css("display", "block");
+                    $("#place_birth_result").css("margin-top", "5px");
+                    $("#update-btn").prop("disabled", true);
+                    $("#update-btn").css("background-color", "red");
+                } else {
+                    $("#place_birth_result").css("display", "none");
+                    $("#update-btn").prop("disabled", false);
+                    $("#update-btn").css("background-color", "#3FB6A8");
+                }
+            });
+        });
+    </script>

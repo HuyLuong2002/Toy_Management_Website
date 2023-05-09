@@ -82,10 +82,10 @@ if (isset($_GET["id"])) {
         var input = $(this).val();
         if (checkSearchInput(input) == false) {
           //product
-          $("#searchresultproduct").html("<span class='error'>Input Value Not Valid</span>");
-          $("#searchresultproduct").css("display", "block");
-          $("#searchresultproduct").css("margin-top", "6rem");
-          $("#searchresultproduct").css("margin-left", "2rem");
+          $("#card-product").html("<span class='error'>Input Value Not Valid</span>");
+          $("#card-product").css("display", "block");
+          // $("#card-product").css("margin-top", "6rem");
+          // $("#card-product").css("margin-left", "2rem");
           //provider
           $("#searchresultprovider").html("<span class='error'>Input Value Not Valid</span>");
           $("#searchresultprovider").css("display", "block");
@@ -255,7 +255,7 @@ if (isset($_GET["id"])) {
             }
           });
         } else {
-          $("#card-product").css("display", "block");
+          $("#searchresultproduct").css("display", "block");
           $("#searchresultpermission").css("display", "block");
           $("#searchresultprovider").css("display", "block");
           $("#searchresultsale").css("display", "block");
