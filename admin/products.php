@@ -233,9 +233,9 @@ if (isset($current_position)) {
                 <div class="action-btn-group">
                   <a class="edit" href="product_edit.php?id=<?php echo $result[0] ?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
                   <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
-                    <p class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
+                    <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                       Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                    </p>
+                    </button>
                   </div>
                 </div>
                 <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
@@ -373,9 +373,4 @@ if (isset($current_position)) {
       $('.delete_id').val(delete_id);
     });
   });
-
-  // $("#searchresultproduct").on("click", ".modal-btn-delete", function() {
-  //   var delete_id = $(this).val();
-  //   $('.delete_id').val(delete_id);
-  // });
 </script>
