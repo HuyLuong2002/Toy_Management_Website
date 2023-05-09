@@ -52,8 +52,8 @@ const handleChangeQuantity = (id) => {
 
 const handleCalculateTotal = () => {
     let cartSubTotal = CartAdd.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
-    let tax = parseFloat((cartSubTotal * (5 / 100)).toFixed(3))
-    let shipFee = 15
+    let tax = parseFloat((cartSubTotal * (10 / 100)).toFixed(3))
+    let shipFee = 12
     let grandTotal = (cartSubTotal + tax + shipFee).toFixed(2)
 
     let totalHTML = `
@@ -63,7 +63,7 @@ const handleCalculateTotal = () => {
                 <div class="totals-value" id="cart-subtotal">$${cartSubTotal.toFixed(2)}</div>
             </div>
             <div class="totals-item">
-                <label>Tax (5%)</label>
+                <label>Tax (10%)</label>
                 <div class="totals-value" id="cart-tax">$${tax}</div>
             </div>
             <div class="totals-item">

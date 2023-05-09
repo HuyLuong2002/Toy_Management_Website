@@ -332,12 +332,18 @@ $accountController = new AccountController();
             }, 3000);
             return
         } else {
-            if(shipMethod1.checked)
-                shipInfo.shipMethod = "Standard Shipping ($4)"
-            if(shipMethod2.checked)
+            if(shipMethod1.checked) {
+                shipInfo.shipMethod = "Standard Shipping ($6)"
+                shipInfo.shipFee = 6
+            }
+            if(shipMethod2.checked) {
                 shipInfo.shipMethod = "Express Shipping ($8)"
-            if(shipMethod3.checked)
+                shipInfo.shipFee = 8
+            }
+            if(shipMethod3.checked) {
                 shipInfo.shipMethod = "Overnight Shipping ($12)"
+                shipInfo.shipFee = 12
+            }
             console.log("Ship info2: ", shipInfo);
             swiper.slideNext();
         }

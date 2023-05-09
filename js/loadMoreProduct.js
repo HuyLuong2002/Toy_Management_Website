@@ -6,7 +6,7 @@ let currentItemsList = []
 let flags = []
 let countProduct = []
 
-const fetchAPI = async (api) => {
+const fetchAPICate = async (api) => {
     return await fetch(api)
         .then(response => response.json())
         .then(data => data)
@@ -14,7 +14,7 @@ const fetchAPI = async (api) => {
 }
 
 const showProductList = async () => {
-    let cateList = await fetchAPI(apiCate)
+    let cateList = await fetchAPICate(apiCate)
 
     if (!cateList) {
         ProductItem.innerHTML = "<h1>Not found Product!</h1>";
@@ -53,7 +53,7 @@ const executeShowLoad = (arrContainer, currentItemsList, cateList) => {
 }
 
 const handleLoadMore = async (result) => {
-    let cateList = await fetchAPI(apiCate)
+    let cateList = await fetchAPICate(apiCate)
 
     let btnLoadMore = document.getElementById(`load-more-${result}`);
     let btnUnload = document.getElementById(`unload-${result}`);
@@ -80,7 +80,7 @@ const handleLoadMore = async (result) => {
 };
 
 const handleUnload = async (result) => {
-    let cateList = await fetchAPI(apiCate)
+    let cateList = await fetchAPICate(apiCate)
 
     let btnLoadMore = document.getElementById(`load-more-${result}`);
     let btnUnload = document.getElementById(`unload-${result}`);
