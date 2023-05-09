@@ -24,7 +24,7 @@ include_once $filepath . "\lib\session.php";
   }
   public function insert_account_function($data)
   {
-    $name = mysqli_real_escape_string($this->db->link, $data["name"]);
+    $name = mysqli_real_escape_string($this->db->link, $data["name_add"]);
     if ($name == "") {
       $alert = "<span class='error'>Fields must be not empty</span>";
       return $alert;
@@ -44,7 +44,7 @@ include_once $filepath . "\lib\session.php";
   }
   public function update_account_function($data, $id)
   {
-    $name = mysqli_real_escape_string($this->db->link, $data["name"]);
+    $name = mysqli_real_escape_string($this->db->link, $data["name_edit"]);
     if ($name == "") {
       $alert = "<span class='error'>Fields must be not empty</span>";
       return $alert;
