@@ -11,6 +11,8 @@ class CartController
     $address = $cartAdd["address"];
     $country = $cartAdd["country"];
     $email = $cartAdd["email"];
+    $ship_method = $cartAdd["shipMethod"];
+    $vat = $cartAdd["vat"];
     date_default_timezone_set("Asia/Ho_Chi_Minh");
     $date = date("d/m/Y H:i:s a");
     $phone = $cartAdd["telephone"];
@@ -19,7 +21,7 @@ class CartController
     $payment_method = $cartAdd["paymentMethod"];
 
     $orderService = new OrderServices();
-    $result_order = $orderService->insert_order($user_id, $total_quantity, $date, $address, $phone, $email, $country, $total_price, $payment_method, $status, 0);
+    $result_order = $orderService->insert_order($user_id, $total_quantity, $date, $address, $phone, $email, $country, $vat, $ship_method,  $total_price, $payment_method, $status, 0);
     $order_id = $orderService->get_order_id()->fetch_assoc()["id"];
 
     $detail_orderService = new DetailOrderServices();

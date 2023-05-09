@@ -14,6 +14,7 @@ class Order
   public $email;
   public $country;
   
+  public $status;
   public $total_price;
   public $pay_method;
 
