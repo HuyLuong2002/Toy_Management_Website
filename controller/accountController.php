@@ -118,7 +118,7 @@ class AccountController
   public function update_account_user($data, $id)
   {
     $data["date_birth"] = $this->fm->formatDate($data["date_birth"]);
-    if ($data["gender"] == 0) {
+    if ($data["gender"] == "Nam") {
       $data["gender"] = "Nam";
     } else {
       $data["gender"] = "Nữ";

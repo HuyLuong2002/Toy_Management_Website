@@ -6,12 +6,12 @@
   box-sizing: border-box;
 }
 
-a{
+a {
   text-decoration: underline;
   cursor: pointer;
 }
 
-a:hover{
+a:hover {
   color: #ff0;
 }
 
@@ -57,18 +57,22 @@ form {
   padding: 20px;
   width: 30rem;
   min-height: 25rem;
-  margin: 0 auto;
-  /* box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.267); */
   z-index: 16;
   margin-bottom: 5rem;
+  margin-top: 5rem;
   border: 1px solid #ff0;
 }
 
 .hide-form {
   display: none;
+  margin-top: 5rem;
 }
 
-form > h1 {
+.active {
+  margin-top: 0;
+}
+
+form>h1 {
   color: #ff0;
   text-align: center;
   margin-bottom: 2rem;
@@ -82,8 +86,11 @@ label {
   color: #ff0;
 }
 
-.infos[type="text"], input[type="email"],
-input[type="password"], input[type="confirm_password"] {
+.infos[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="confirm_password"],
+input[type="text"] {
   width: 100%;
   padding: 10px;
   font-size: 16px;
@@ -107,11 +114,11 @@ button:hover {
 }
 
 .wrap-btn {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
 }
 
 #limpar {
@@ -127,8 +134,17 @@ button:hover {
   background-color: #c78d35;
 }
 
-.error{
+.error {
   color: #f00;
+  position: absolute;
+  top: 10%;
+  font-size: 20px;
+}
+
+.success {
+  position: absolute;
+  top: 10%;
+  font-size: 20px;
 }
 
 .mario {
