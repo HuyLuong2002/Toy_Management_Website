@@ -82,51 +82,53 @@ if (isset($_GET["id"])) {
         var input = $(this).val();
         if (checkSearchInput(input) == false) {
           //product
-          $("#searchresultproduct").html("<span class='error'>Input Value Not Valid</span>");
-          $("#searchresultproduct").css("display", "block");
-          $("#searchresultproduct").css("margin-top", "6rem");
-          $("#searchresultproduct").css("margin-left", "2rem");
+          $("#card-product").html("<span class='error'>Input Value Not Valid</span>");
+          $("#card-product").css("display", "block");
           //provider
-          $("#searchresultprovider").html("<span class='error'>Input Value Not Valid</span>");
-          $("#searchresultprovider").css("display", "block");
-          $("#searchresultprovider").css("margin-top", "6rem");
-          $("#searchresultprovider").css("margin-left", "2rem");
+          $("#card-provider").html("<span class='error'>Input Value Not Valid</span>");
+          $("#card-provider").css("display", "block");
           //permission
-          $("#searchresultpermission").html("<span class='error'>Input Value Not Valid</span>");
-          $("#searchresultpermission").css("display", "block");
-          $("#searchresultpermission").css("margin-top", "6rem");
-          $("#searchresultpermission").css("margin-left", "2rem");
+          $("#card-permission").html("<span class='error'>Input Value Not Valid</span>");
+          $("#card-permission").css("display", "block");
           //sale
-          $("#searchresultsale").html("<span class='error'>Input Value Not Valid</span>");
-          $("#searchresultsale").css("display", "block");
-          $("#searchresultsale").css("margin-top", "6rem");
-          $("#searchresultsale").css("margin-left", "2rem");
+          $("#card-sale").html("<span class='error'>Input Value Not Valid</span>");
+          $("#card-sale").css("display", "block");
           //orders
-          $("#searchresultorders").html("<span class='error'>Input Value Not Valid</span>");
-          $("#searchresultorders").css("display", "block");
-          $("#searchresultorders").css("margin-top", "6rem");
-          $("#searchresultorders").css("margin-left", "2rem");
+          $("#card-order").html("<span class='error'>Input Value Not Valid</span>");
+          $("#card-order").css("display", "block");
           //account
-          $("#searchresultaccount").html("<span class='error'>Input Value Not Valid</span>");
-          $("#searchresultaccount").css("display", "block");
-          $("#searchresultaccount").css("margin-top", "6rem");
-          $("#searchresultaccount").css("margin-left", "2rem");
+          $("#card-account").html("<span class='error'>Input Value Not Valid</span>");
+          $("#card-account").css("display", "block");
           //inventory
-          $("#searchresultinventory").html("<span class='error'>Input Value Not Valid</span>");
-          $("#searchresultinventory").css("display", "block");
-          $("#searchresultinventory").css("margin-top", "6rem");
-          $("#searchresultinventory").css("margin-left", "2rem");
+          $("#card-inventory").html("<span class='error'>Input Value Not Valid</span>");
+          $("#card-inventory").css("display", "block");
           //category
-          $("#searchresultcategory").html("<span class='error'>Input Value Not Valid</span>");
-          $("#searchresultcategory").css("display", "block");
-          $("#searchresultcategory").css("margin-top", "6rem");
-          $("#searchresultcategory").css("margin-left", "2rem");
+          $("#card-category").html("<span class='error'>Input Value Not Valid</span>");
+          $("#card-category").css("display", "block");
           //inventoryDetail
-          $("#searchresultinventorydetail").html("<span class='error'>Input Value Not Valid</span>");
-          $("#searchresultinventorydetail").css("display", "block");
-          $("#searchresultinventorydetail").css("margin-top", "6rem");
-          $("#searchresultinventorydetail").css("margin-left", "2rem");
+          $("#card-inventory-detail").html("<span class='error'>Input Value Not Valid</span>");
+          $("#card-inventory-detail").css("display", "block");
           return;
+        }
+        else {
+          //product
+          $("#card-product").css("display", "none");
+          //provider
+          $("#card-provider").css("display", "none");
+          //permission
+          $("#card-permission").css("display", "none");
+          //sale
+          $("#card-sale").css("display", "none");
+          //orders
+          $("#card-order").css("display", "none");
+          //account
+          $("#card-account").css("display", "none");
+          //inventory
+          $("#card-inventory").css("display", "none");
+          //category
+          $("#card-category").css("display", "none");
+          //inventoryDetail
+          $("#card-inventory-detail").css("display", "none");
         }
         if (input != "") {
           $.ajax({
@@ -256,14 +258,14 @@ if (isset($_GET["id"])) {
           });
         } else {
           $("#card-product").css("display", "block");
-          $("#searchresultpermission").css("display", "block");
-          $("#searchresultprovider").css("display", "block");
-          $("#searchresultsale").css("display", "block");
-          $("#searchresultorders").css("display", "block");
-          $("#searchresultaccount").css("display", "block");
-          $("#searchresultinventory").css("display", "block");
-          $("#searchresultcategory").css("display", "block");
-          $("#searchresultinventorydetail").css("display", "block");
+          $("#card-permission").css("display", "block");
+          $("#card-provider").css("display", "block");
+          $("#card-sale").css("display", "block");
+          $("#card-order").css("display", "block");
+          $("#card-account").css("display", "block");
+          $("#card-inventory").css("display", "block");
+          $("#card-category").css("display", "block");
+          $("#card-inventory-detail").css("display", "block");
         }
       });
     });
