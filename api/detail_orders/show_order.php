@@ -27,6 +27,8 @@ if ($num > 0) {
       "detail_order_list" => [
         "order_id" => $order_id,
         "product_id" => $product_id,
+        "name" => $name,
+        "image" => $image,
         "quantity" => $quantity,
         "price" => $price,
       ],

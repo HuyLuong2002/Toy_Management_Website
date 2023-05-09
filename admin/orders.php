@@ -68,11 +68,6 @@ if (isset($current_position)) {
       }
       ?>
     </div>
-    <button>
-      <a href="orders_add.php">
-        Add orders <span class="las la-plus"></span>
-      </a>
-    </button>
   </div>
 
   <div class="card-body">
