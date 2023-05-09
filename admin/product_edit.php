@@ -10,28 +10,6 @@ if (isset($_GET["id"])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     $updateProduct = $product_editController->update_product($_POST, $_FILES, $id);
 }
-
-if (isset($_GET["product_id"])) {
-    $show_product = $productsController->get_product_by_id($_GET["product_id"]);
-    if (mysqli_num_rows($show_product) == 1) {
-      $sale = mysqli_fetch_array($show_product);
-  
-      $res = [
-        "status" => 200,
-        "message" => "product fetch successful by id",
-        "data" => $sale,
-      ];
-      echo json_encode($res);
-      return;
-    } else {
-      $res = [
-        "status" => 404,
-        "message" => "prodcut Id Not Found",
-      ];
-      echo json_encode($res);
-      return;
-    }
-  }
 ?>
 
 <!DOCTYPE html>

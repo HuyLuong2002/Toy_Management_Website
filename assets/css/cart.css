@@ -109,7 +109,8 @@ a {
 
 .return-btn:hover {
   background: #40c9a2;
-  transition: 0.5s;
+  color: #fff;
+  transition: 0.3s;
 }
 
 label {

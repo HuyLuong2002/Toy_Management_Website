@@ -47,12 +47,13 @@
     text-decoration: none;
 }
 
-.return-btn i {
-    color: white;
+.return-btn {
+    color: #000;
 }
 
 .return-btn:hover {
     background: #40c9a2;
+    color: #fff;
 }
 
 

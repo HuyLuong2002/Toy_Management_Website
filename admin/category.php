@@ -79,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
     </div>
 
     <div class="card-body">
-        <div class="table-responsive">
+        <div class="table-responsive" id="card-category">
             <table width="100%">
                 <thead>
                     <tr>

@@ -14,7 +14,7 @@ if (isset($_POST["input"])) {
   $input = $_POST["input"];
   $show_product_live_search = $productsController->show_product_live_search(
     $input
-  );  
+  );
 }
 
 if (isset($_GET["id"])) {
@@ -87,7 +87,7 @@ if (isset($current_position)) {
   </div>
 
   <div class="card-body">
-    <div class="table-responsive">
+    <div class="table-responsive" id="card-product">
       <table width="100%">
         <thead>
           <tr>
@@ -160,16 +160,15 @@ if (isset($current_position)) {
                   </td>
                   <td>
                     <div class="action-btn-group">
-                      <a href="product_edit.php?id=<?php echo $result[0]?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
+                      <a href="product_edit.php?id=<?php echo $result[0] ?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
                       <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
-                        <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
+                        <p class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                           Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                        </button>
+                        </p>
                       </div>
                     </div>
                     <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
                   </td>
-
                 </tr>
             <?php }
             } else {
@@ -180,7 +179,7 @@ if (isset($current_position)) {
     <?php
           } else {
     ?>
-      <tbody id="product-data">
+      <tbody>
         <?php if ($result_pagination) {
               while ($result = $result_pagination->fetch_array()) { ?>
             <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] ==
@@ -232,7 +231,7 @@ if (isset($current_position)) {
               </td>
               <td>
                 <div class="action-btn-group">
-                  <a class="edit" href="product_edit.php?id=<?php echo $result[0]?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
+                  <a class="edit" href="product_edit.php?id=<?php echo $result[0] ?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
                   <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
                     <p class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                       Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
@@ -374,4 +373,9 @@ if (isset($current_position)) {
       $('.delete_id').val(delete_id);
     });
   });
+
+  // $("#searchresultproduct").on("click", ".modal-btn-delete", function() {
+  //   var delete_id = $(this).val();
+  //   $('.delete_id').val(delete_id);
+  // });
 </script>

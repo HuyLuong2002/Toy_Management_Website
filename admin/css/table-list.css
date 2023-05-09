@@ -60,6 +60,21 @@
   }
 }
 
+.notification-account {
+  position: absolute;
+  width: 400px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  animation: fadeOut ease-in 0.4s forwards;
+  animation-delay: 3s;
+  left: 35%;
+  top: 10%;
+}
+
+.notification-account span {
+  font-size: 18px;
+}
+
 table {
   border-collapse: collapse;
 }
@@ -302,6 +317,11 @@ select.modal-add-input-select:focus {
   background-color: var(--green-color);
 }
 
+/* .username_edit_result,
+.username_add_result{
+  margin: 0;
+} */
+
 /* modal edit end*/
 
 /* modal alert */
@@ -463,6 +483,44 @@ input:checked+.slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+/* breadcrumb start */
+.breadcrumb {
+  padding: 0.2rem 1rem 0.2rem 1rem;
+  background-color: #f5f5f5;
+  margin: 0;
+}
+
+.breadcrumb .items {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  gap: 8px;
+}
+
+.items>li {
+  line-height: 30px;
+  padding: 0 5px;
+}
+
+.items>li a {
+  text-decoration: none;
+}
+
+.items>li:hover a,
+.items>li:hover i {
+  transition: 0.3s;
+  color: #1ecdc9;
+}
+
+.items>li+li:not(:first-child):before {
+  content: "\f054";
+  font-family: "FontAwesome";
+  padding-right: 10px;
+}
+
+/* breadcrumb end */
 
 /* start bottom-pagination */
 

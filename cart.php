@@ -31,9 +31,7 @@ if (isset($cartAdd)) {
 
 <body>
 
-    <div class="return-btn">
-        <a href="index.php"><i class="fa-solid fa-arrow-left"></i></a>
-    </div>
+    <a href="index.php" class="return-btn"><i class="fa-solid fa-arrow-left"></i></a>
 
     <form action="cart.php" method="post">
         <div class="shopping-cart">
@@ -70,7 +68,7 @@ if (isset($cartAdd)) {
     <script src="./js/cart.js">
 
     </script>
-    
+
     <script>
         let checkSuccess = document.getElementById("check-success")
         checkSuccess.style.display = "block"

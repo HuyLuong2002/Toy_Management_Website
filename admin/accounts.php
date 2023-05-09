@@ -85,6 +85,20 @@ if (isset($current_position)) {
 ?>
 
 <div class="card" id="searchresultaccount">
+  <div class="notification-account">
+    <?php
+    if (isset($deleteAccount)) {
+      echo $deleteAccount;
+    }
+    if (isset($insertAccount)) {
+      echo $insertAccount;
+    }
+    if (isset($updateAccount)) {
+      echo $updateAccount;
+    }
+    ?>
+  </div>
+
   <div class="card-header">
     <h3>Account List</h3>
     <div class="bg-modal-box"></div>
@@ -95,19 +109,6 @@ if (isset($current_position)) {
       </a>
     </button>
 
-    <div class="notification">
-      <?php
-      if (isset($deleteAccount)) {
-        echo $deleteAccount;
-      }
-      if (isset($insertAccount)) {
-        echo $insertAccount;
-      }
-      if (isset($updateAccount)) {
-        echo $updateAccount;
-      }
-      ?>
-    </div>
     <button type="button" class="modal-btn-add" onclick="AddActive()">
       <p>
         Add account <span class="las la-plus"></span>
@@ -116,7 +117,7 @@ if (isset($current_position)) {
   </div>
 
   <div class="card-body">
-    <div class="table-responsive">
+    <div class="table-responsive" id="card-account">
       <table width="100%">
         <thead>
           <tr>
@@ -293,13 +294,13 @@ if (isset($current_position)) {
       <div class="modal-edit-info-item">
         <label for="username">Username</label>
         <input type="text" id="username" name="username" required>
-        <div id="username_edit_result"></div>
+        <div id="username_edit_result" class="username_edit_result"></div>
       </div>
 
       <div class="modal-edit-info-item">
         <label for="password">Password</label>
         <input type="password" id="password" name="password" required>
-        
+
       </div>
 
       <div class="modal-edit-info-item">
@@ -326,7 +327,7 @@ if (isset($current_position)) {
       <div class="modal-edit-info-item">
         <label for="date-of-birth">Date of Birth</label>
         <input type="date" id="dateofbirth_edit" name="dateofbirth_edit" required>
-        
+
       </div>
 
       <div class="modal-edit-info-item">
@@ -373,7 +374,7 @@ if (isset($current_position)) {
       <div class="modal-add-info-item">
         <label for="username">Username</label>
         <input type="text" id="username-add" name="username" required>
-        <div id="username_add_result"></div>
+        <div id="username_add_result" class="username_add_result"></div>
       </div>
 
       <div class="modal-add-info-item">
@@ -498,9 +499,8 @@ if (isset($current_position)) {
         $("#add-btn").prop("disabled", true);
         $("#add-btn").css("background-color", "red");
         $("#username_add_result").css("display", "block");
-        $("#username_add_result").css("margin-top", "1rem");
-      }
-      else {
+        // $("#username_add_result").css("margin-top", "0.5rem");
+      } else {
         $("#username_add_result").css("display", "none");
         $("#add-btn").prop("disabled", false);
         $("#add-btn").css("background-color", "#0be881");
@@ -514,9 +514,8 @@ if (isset($current_position)) {
         $("#add-btn").prop("disabled", true);
         $("#add-btn").css("background-color", "red");
         $("#firstname_add_result").css("display", "block");
-        $("#firstname_add_result").css("margin-top", "1rem");
-      }
-      else {
+        // $("#firstname_add_result").css("margin-top", "1rem");
+      } else {
         $("#firstname_add_result").css("display", "none");
         $("#add-btn").prop("disabled", false);
         $("#add-btn").css("background-color", "#0be881");
@@ -530,9 +529,8 @@ if (isset($current_position)) {
         $("#add-btn").prop("disabled", true);
         $("#add-btn").css("background-color", "red");
         $("#lastname_add_result").css("display", "block");
-        $("#lastname_add_result").css("margin-top", "1rem");
-      }
-      else {
+        // $("#lastname_add_result").css("margin-top", "1rem");
+      } else {
         $("#lastname_add_result").css("display", "none");
         $("#add-btn").prop("disabled", false);
         $("#add-btn").css("background-color", "#0be881");
@@ -546,9 +544,8 @@ if (isset($current_position)) {
         $("#add-btn").prop("disabled", true);
         $("#add-btn").css("background-color", "red");
         $("#placeofbirth_add_result").css("display", "block");
-        $("#placeofbirth_add_result").css("margin-top", "1rem");
-      }
-      else {
+        // $("#placeofbirth_add_result").css("margin-top", "1rem");
+      } else {
         $("#placeofbirth_add_result").css("display", "none");
         $("#add-btn").prop("disabled", false);
         $("#add-btn").css("background-color", "#0be881");
@@ -563,9 +560,8 @@ if (isset($current_position)) {
         $("#edit-btn").prop("disabled", true);
         $("#edit-btn").css("background-color", "red");
         $("#username_edit_result").css("display", "block");
-        $("#username_edit_result").css("margin-top", "1rem");
-      }
-      else {
+        // $("#username_edit_result").css("margin-top", "1rem");
+      } else {
         $("#username_edit_result").css("display", "none");
         $("#edit-btn").prop("disabled", false);
         $("#edit-btn").css("background-color", "#ffa800");
@@ -579,9 +575,8 @@ if (isset($current_position)) {
         $("#edit-btn").prop("disabled", true);
         $("#edit-btn").css("background-color", "red");
         $("#firstname_edit_result").css("display", "block");
-        $("#firstname_edit_result").css("margin-top", "1rem");
-      }
-      else {
+        // $("#firstname_edit_result").css("margin-top", "1rem");
+      } else {
         $("#firstname_edit_result").css("display", "none");
         $("#edit-btn").prop("disabled", false);
         $("#edit-btn").css("background-color", "#ffa800");
@@ -595,9 +590,8 @@ if (isset($current_position)) {
         $("#edit-btn").prop("disabled", true);
         $("#edit-btn").css("background-color", "red");
         $("#lastname_edit_result").css("display", "block");
-        $("#lastname_edit_result").css("margin-top", "1rem");
-      }
-      else {
+        // $("#lastname_edit_result").css("margin-top", "1rem");
+      } else {
         $("#lastname_edit_result").css("display", "none");
         $("#edit-btn").prop("disabled", false);
         $("#edit-btn").css("background-color", "#ffa800");
@@ -611,9 +605,8 @@ if (isset($current_position)) {
         $("#edit-btn").prop("disabled", true);
         $("#edit-btn").css("background-color", "red");
         $("#placeofbirth_edit_result").css("display", "block");
-        $("#placeofbirth_edit_result").css("margin-top", "1rem");
-      }
-      else {
+        // $("#placeofbirth_edit_result").css("margin-top", "1rem");
+      } else {
         $("#placeofbirth_edit_result").css("display", "none");
         $("#edit-btn").prop("disabled", false);
         $("#edit-btn").css("background-color", "#ffa800");

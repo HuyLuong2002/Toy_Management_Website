@@ -93,7 +93,12 @@ if (isset($enter_id)) {
 <div class="card" id="searchresultinventorydetail">
   <div class="card-header">
     <div class="bg-modal-box"></div>
-    <h3> Detail Receipt List</h3>
+    <div class="breadcrumb">
+      <ul class="items">
+        <li class="item"><a href="index.php?id=4&page=1">Receipt List</a></li>
+        <li class="item">Detail Receipt List</li>
+      </ul>
+    </div>
     <div class="notification">
       <?php
       if (isset($deleteInventoryDetail)) {
@@ -115,7 +120,7 @@ if (isset($enter_id)) {
   </div>
 
   <div class="card-body">
-    <div class="table-responsive">
+    <div class="table-responsive" id="card-inventory-detail">
       <table width="100%">
         <thead>
           <tr>
