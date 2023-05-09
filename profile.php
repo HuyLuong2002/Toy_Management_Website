@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
                             <div class="form-group">
                                 <h2>Date of Birth</h2>
-                                <input type="date" class="date_birth" name="date_birth" value="<?php echo $fm->formatDateReverse($result_account[6]) ?>">
+                                <input type="date" class="date_birth" name="date_birth" id="date_birth" value="<?php echo $fm->formatDateReverse($result_account[6]) ?>">
                             </div>
 
                             <div class="form-group">
@@ -113,10 +113,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
                                 <h2>Password </h2>
                                 <input type="password" class="password" name="password" id="password" value="<?php echo $result_account[2] ?>">
                             </div>
-                            <input type="submit" id="update-btn" name="submit" class="btn" value="Update">
-
+                            <button type="submit" id="update-btn" name="submit" class="btn">Update</button>
                         </div>
-                        <!-- <button class="btn">update</button> -->
                     </form>
                 </div>
         <?php
@@ -124,6 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
         }
         ?>
     </div>
+
 
     <script src="https://kit.fontawesome.com/1b6e53cabd.js" crossorigin="anonymous"></script>
 
