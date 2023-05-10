@@ -185,7 +185,7 @@ if (isset($current_position)) {
             <tr>
               <td><?php echo $result[0]; ?></td>
               <td><?php echo $result["username"]; ?></td>
-              <td><?php echo $result["password"]; ?></td>
+              <td><?php echo md5($result["password"]); ?></td>
               <td><?php echo $result["firstname"]; ?></td>
               <td><?php echo $result["lastname"]; ?></td>
               <td><?php echo $result["gender"]; ?></td>

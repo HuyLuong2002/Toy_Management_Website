@@ -14,13 +14,15 @@ if (isset($_POST["sign-in-nome"]) && isset($_POST["sign-in-password"])) {
 if (
   isset($_POST["nome"]) &&
   isset($_POST["password"]) &&
-  isset($_POST["confirm-password"])
+  isset($_POST["confirm-password"]) &&
+  isset($_POST["firstname"]) && isset($_POST["lastname"])
 ) {
   $nome = $_POST["nome"];
   $password = $_POST["password"];
   $confirm_password = $_POST["confirm-password"];
-
-  $result_account = $accountController->insert_account($nome, md5($password));
+  $firstname = $_POST["firstname"];
+  $lastname = $_POST["lastname"];
+  $result_account = $accountController->insert_account($nome, md5($password), $firstname, $lastname);
 }
 
 if (isset($_GET["action"]) == "logout") {
@@ -54,7 +56,7 @@ if (isset($_GET["action"]) == "logout") {
     ?>
     <div class="DarkOverlay"></div>
     <div class="wrap-login-signup">
-      <form class="form" id="form-login" action="login.php" method="post">
+      <form class="form-sign-in" id="form-login" action="login.php" method="post">
         <h1>Log In</h1>
         <?php
         if (isset($result_login)) {
@@ -77,36 +79,41 @@ if (isset($_GET["action"]) == "logout") {
         </div>
       </form>
 
-      <form action="login.php" method="post" class="form hide-form" id="form-signup">
-
+      <form action="login.php" method="post" class="form-sign-up hide-form" id="form-signup">
         <h1>Sign Up</h1>
         <div class="form-group">
           <label for="nome">Username:</label>
           <span id="check-username"></span>
-          <input type="text" class="infos" id="sign-up-nome" name="nome" onInput="checkUsername();">
-          <div id="username_notify"></div>
+          <input placeholder="" type="text" class="infos" id="sign-up-nome" name="nome" onInput="checkUsername();">
+          <div id="username_notify" class="username_notify"></div>
         </div>
 
-        <!-- <div class="mario"></div>
-        <label for="firstname">Firstname:</label>
-        <input type="text" id="" name="firstname" class="firstname">
+        <div class="form-group">
+          <div class="mario"></div>
+          <label for="firstname">Firstname:</label>
+          <input type="text" id="firstname" name="firstname" class="firstname">
+          <div id="firstname_notify" class="username_notify"></div>
+        </div>
 
-        <div class="mario"></div>
-        <label for="lastname">Lastname:</label>
-        <input type="text" id="" name="lastname" class="lastname"> -->
+        <div class="form-group">
+          <div class="mario"></div>
+          <label for="lastname">Lastname:</label>
+          <input type="text" id="lastname" name="lastname" class="lastname">
+          <div id="lastname_notify" class="username_notify"></div>
+        </div>
 
         <div class="form-group">
           <div class="mario"></div>
           <label for="password">Password:</label>
           <input type="password" id="sign-up-password" name="password" placeholder="">
-          <div id="password_notify"></div>
+          <div id="password_notify" class="password_notify"></div>
         </div>
 
         <div class="form-group">
           <div class="mario"></div>
           <label for="confirm">Confirm Password:</label>
           <input type="password" id="confirm-password" name="confirm-password">
-          <div id="confirm_password_notify"></div>
+          <!-- <div id="confirm_password_notify"></div> -->
         </div>
 
         <div class="wrap-btn">
@@ -163,19 +170,19 @@ if (isset($_GET["action"]) == "logout") {
         if (checkPassword(input) == 0) {
           $("#password_notify").html("<span class='error'>Password not valid</span>");
           $("#password_notify").css("display", "block");
-          // $("#password_notify").css("margin-top", "1rem");
+          $("#password_notify").css("margin-bottom", "1rem");
           $("#btn-sign-up").prop("disabled", true);
           $("#btn-sign-up").css("background-color", "#de5959");
         } else if (checkPassword(input) == 1) {
           $("#password_notify").html("<span class='error'>Password  must be between 6 and 20 characters</span>");
           $("#password_notify").css("display", "block");
-          // $("#password_notify").css("margin-top", "1rem");
+          $("#password_notify").css("margin-bottom", "1rem");
           $("#btn-sign-up").prop("disabled", true);
           $("#btn-sign-up").css("background-color", "#de5959");
         } else if (checkPassword(input) == 2) {
           $("#password_notify").html("<span class='error'>Password must contain lowercase, uppercase and special characters</span>");
           $("#password_notify").css("display", "block");
-          // $("#password_notify").css("margin-top", "1rem");
+          $("#password_notify").css("margin-bottom", "1rem");
           $("#btn-sign-up").prop("disabled", true);
           $("#btn-sign-up").css("background-color", "#de5959");
         } else {
@@ -193,10 +200,39 @@ if (isset($_GET["action"]) == "logout") {
         $("#username_notify").css("display", "block");
         $("#btn-sign-up").prop("disabled", true);
         $("#btn-sign-up").css("background-color", "red");
-        // $("#username_notify").css("margin-top", "1rem");
-      }
-      else {
+        // $("#username_notify").css("margin-bottom", "1rem");
+      } else {
         $("#username_notify").css("display", "none");
+        $("#btn-sign-up").prop("disabled", false);
+        $("#btn-sign-up").css("background-color", "#0be881");
+      }
+    });
+
+    $("#firstname").keyup(function() {
+      var input = $(this).val();
+      if (checkName(input) == false) {
+        $("#firstname_notify").html("<span class='error'>First name Not Valid</span>");
+        $("#firstname_notify").css("display", "block");
+        $("#btn-sign-up").prop("disabled", true);
+        $("#btn-sign-up").css("background-color", "red");
+        // $("#firstname_notify").css("margin-bottom", "1rem");
+      } else {
+        $("#firstname_notify").css("display", "none");
+        $("#btn-sign-up").prop("disabled", false);
+        $("#btn-sign-up").css("background-color", "#0be881");
+      }
+    });
+
+    $("#lastname").keyup(function() {
+      var input = $(this).val();
+      if (checkName(input) == false) {
+        $("#lastname_notify").html("<span class='error'>Last name Not Valid</span>");
+        $("#lastname_notify").css("display", "block");
+        $("#btn-sign-up").prop("disabled", true);
+        $("#btn-sign-up").css("background-color", "red");
+        // $("#lastname_notify").css("margin-bottom", "1rem");
+      } else {
+        $("#lastname_notify").css("display", "none");
         $("#btn-sign-up").prop("disabled", false);
         $("#btn-sign-up").css("background-color", "#0be881");
       }
