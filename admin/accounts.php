@@ -479,6 +479,8 @@ if ($result_pagination) {
           $('#placeofbirth_edit').val(res.data.place_of_birth);
           $('#permission_edit').val(res.data.permission_id);
           $('#status_edit').val(res.data.status);
+
+          console.log(res.data.status);
         }
       }
     })

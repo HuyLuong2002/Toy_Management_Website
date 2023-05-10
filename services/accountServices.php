@@ -81,7 +81,7 @@ include_once $filepath . "\lib\session.php";
       $date_birth == "" ||
       $place_of_birth == "" ||
       $permission_id == "" ||
-      $status = ""
+      $status == ""
     ) {
       $alert = "<span class='error'>Fields must be not empty</span>";
       return $alert;
