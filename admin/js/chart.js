@@ -39,3 +39,7 @@ const handleUpdateCurrent = () => {
         }
     });
 }
+
+const loadChart = () => {
+    return ``
+}
