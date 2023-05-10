@@ -80,9 +80,12 @@ if (isset($_GET["action"]) == "logout") {
       <form action="login.php" method="post" class="form hide-form" id="form-signup">
 
         <h1>Sign Up</h1>
-        <label for="nome">Username:</label>
-        <span id="check-username"></span>
-        <input type="text" class="infos" id="sign-up-nome" name="nome" onInput="checkUsername();">
+        <div class="form-group">
+          <label for="nome">Username:</label>
+          <span id="check-username"></span>
+          <input type="text" class="infos" id="sign-up-nome" name="nome" onInput="checkUsername();">
+          <div id="username_notify"></div>
+        </div>
 
         <!-- <div class="mario"></div>
         <label for="firstname">Firstname:</label>
@@ -92,13 +95,19 @@ if (isset($_GET["action"]) == "logout") {
         <label for="lastname">Lastname:</label>
         <input type="text" id="" name="lastname" class="lastname"> -->
 
-        <div class="mario"></div>
-        <label for="password">Password:</label>
-        <input type="password" id="sign-up-password" name="password">
+        <div class="form-group">
+          <div class="mario"></div>
+          <label for="password">Password:</label>
+          <input type="password" id="sign-up-password" name="password" placeholder="">
+          <div id="password_notify"></div>
+        </div>
 
-        <div class="mario"></div>
-        <label for="confirm">Confirm Password:</label>
-        <input type="password" id="confirm-password" name="confirm-password">
+        <div class="form-group">
+          <div class="mario"></div>
+          <label for="confirm">Confirm Password:</label>
+          <input type="password" id="confirm-password" name="confirm-password">
+          <div id="confirm_password_notify"></div>
+        </div>
 
         <div class="wrap-btn">
           <button type="submit" id="btn-sign-up" onclick="return checkSignUp();">Sign up</button>
@@ -144,6 +153,55 @@ if (isset($_GET["action"]) == "logout") {
   </script>
 
 
+  <script src="/js/validate_input.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#sign-up-password").keyup(function() {
+        var input = $(this).val();
+        console.log(input);
+
+        if (checkPassword(input) == 0) {
+          $("#password_notify").html("<span class='error'>Password not valid</span>");
+          $("#password_notify").css("display", "block");
+          // $("#password_notify").css("margin-top", "1rem");
+          $("#btn-sign-up").prop("disabled", true);
+          $("#btn-sign-up").css("background-color", "#de5959");
+        } else if (checkPassword(input) == 1) {
+          $("#password_notify").html("<span class='error'>Password  must be between 6 and 20 characters</span>");
+          $("#password_notify").css("display", "block");
+          // $("#password_notify").css("margin-top", "1rem");
+          $("#btn-sign-up").prop("disabled", true);
+          $("#btn-sign-up").css("background-color", "#de5959");
+        } else if (checkPassword(input) == 2) {
+          $("#password_notify").html("<span class='error'>Password must contain lowercase, uppercase and special characters</span>");
+          $("#password_notify").css("display", "block");
+          // $("#password_notify").css("margin-top", "1rem");
+          $("#btn-sign-up").prop("disabled", true);
+          $("#btn-sign-up").css("background-color", "#de5959");
+        } else {
+          $("#password_notify").css("display", "none");
+          $("#btn-sign-up").prop("disabled", false);
+          $("#btn-sign-up").css("background-color", "#0be881");
+        }
+      });
+    });
+
+    $("#sign-up-nome").keyup(function() {
+      var input = $(this).val();
+      if (checkUsername(input) == false) {
+        $("#username_notify").html("<span class='error'>User name Not Valid</span>");
+        $("#username_notify").css("display", "block");
+        $("#btn-sign-up").prop("disabled", true);
+        $("#btn-sign-up").css("background-color", "red");
+        // $("#username_notify").css("margin-top", "1rem");
+      }
+      else {
+        $("#username_notify").css("display", "none");
+        $("#btn-sign-up").prop("disabled", false);
+        $("#btn-sign-up").css("background-color", "#0be881");
+      }
+    });
+  </script>
 </body>
 
 </html>

@@ -3,6 +3,7 @@
 }
 
 .wrap-char {
+    max-width: 64rem;
     margin: 1rem 0 7rem 0;
 }
 
@@ -20,4 +21,41 @@
     justify-content: center;
     margin-top: 1rem;
     padding: 0.5rem 2rem;
+}
+
+/* Chart Year */
+.chart-1, .chart-2, .chart-3{
+    position: relative;
+}
+
+.selectYear-1, .selectYear-2, .selectYear-3 {
+    width: 200px; /* độ rộng của combobox */
+    height: 30px; /* độ cao của combobox */
+    font-size: 16px; /* kích thước chữ của combobox */
+    font-family: Arial, sans-serif; /* font chữ của combobox */
+    color: #333; /* màu chữ của combobox */
+    background-color: #fff; /* màu nền của combobox */
+    border: 1px solid #ccc; /* viền của combobox */
+    border-radius: 5px; /* bo góc của combobox */
+    padding: 5px; /* khoảng cách giữa nội dung và viền của combobox */
+    outline: none; /* loại bỏ đường viền khi được chọn */
+    appearance: none; /* ẩn các nút mũi tên của combobox */
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M14.35,8.16L10,12.51L5.65,8.16a.75.75,0,0,0-1.06,1.06l5,5a.76.76,0,0,0,1.06,0l5-5A.75.75,0,0,0,14.35,8.16Z"/></svg>'); /* thêm một mũi tên nhỏ bên phải của combobox */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    cursor: pointer; /* chỉ tay khi di chuột vào combobox */
+
+    position: absolute;
+    top: 5%;
+    right: 2.4%;
+}
+
+.selectYear-1 > option, .selectYear-3 > option, .selectYear-3 > option {
+    font-size: 16px; /* kích thước chữ của tùy chọn */
+    font-family: Arial, sans-serif; /* font chữ của tùy chọn */
+    color: #333; /* màu chữ của tùy chọn */
+    background-color: #fff; /* màu nền của tùy chọn */
+    padding: 5px; /* khoảng cách giữa nội dung và viền của tùy chọn */
+    border: none; /* loại bỏ đường viền của tùy chọn */
+    cursor: pointer; /* chỉ tay khi di chuột vào tùy chọn */
 }

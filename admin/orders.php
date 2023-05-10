@@ -197,10 +197,13 @@ if (isset($current_position)) {
                 <?php echo $result[11]; ?>
               </td>
               <td>
-                <?php if ($result[12] == "0") echo "Đang giao hàng";
-                else if ($result[12] == "1") echo "Đã giao";
-                else if ($result[12] == "2") echo "Chờ xử lý";
-                ?>
+
+                <select id="status_order" value="2">
+                  <option value="0" <?php if ($result[12] == "0") echo "selected"; ?>>Đã giao</option>
+                  <option value="1" <?php if ($result[12] == "1") echo "selected"; ?>>Đang giao hàng</option>
+                  <option value="2" <?php if ($result[12] == "2") echo "selected"; ?>>Đang chờ duyệt</option>
+                </select>
+                <input type="submit" value="Change"/>
               </td>
               <td>
                 <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
