@@ -149,28 +149,6 @@ if (isset($result_statistic_revenue_month)) {
   <div class="wrap-char chart-2">
     <h2>Statistical Orders</h2>
 
-    <select name="selectYear-2" id="selectYear-2" class="selectYear-2" onchange="handleUpdateCurrent()" value="2023">
-      <script>
-        var d = new Date();
-        var year = d.getFullYear();
-        // Đặt giá trị min và max cho phạm vi năm của combobox
-        var minYear = year - 2;
-        var maxYear = 2030;
-        // Sử dụng vòng lặp for để hiển thị các năm
-        for (var i = minYear; i <= maxYear; i++) {
-          var option = document.createElement("option");
-          option.text = i;
-          option.value = i;
-          
-          var select = document.getElementById("selectYear-2");
-          if (i === 2023) {
-            option.setAttribute("selected", "selected");
-          }
-          select.appendChild(option);
-        }
-      </script>
-    </select>
-
     <div class="chart-Pie">
       <canvas id="pieChart" width="500" height="500"></canvas>
 

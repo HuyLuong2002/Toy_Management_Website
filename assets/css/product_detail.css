@@ -26,7 +26,7 @@ img {
 }
 
 .main-wrapper {
-  min-height: 80vh;
+  min-height: 60vh;
   background-color: #f1f1f1;
   display: flex;
   align-items: center;
@@ -37,6 +37,7 @@ img {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 16px;
+  margin-top: 1rem;
 }
 
 .product-div {
@@ -449,7 +450,7 @@ textarea {
   text-align: center;
   font-size: 1.5rem;
   font-weight: bold;
-  margin-top: 1.5rem;
+  margin-top: .5rem;
   margin-bottom: -.5rem;
 }
 
