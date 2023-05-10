@@ -22,7 +22,7 @@ if (isset($_GET["categoryID"])) {
 }
 
 $countComment = $commentController->show_all_comment_of_product($product_detail_id);
-if(isset($countComment->num_rows))
+if (isset($countComment->num_rows))
   $ratingCount = $countComment->num_rows;
 else {
   $ratingCount = 0;
@@ -56,14 +56,15 @@ else {
   $show_product_detail_id = $product_detailController->show_product_detail($product_detail_id);
   if ($show_product_detail_id) {
     $result_product_detail = $show_product_detail_id->fetch_array();
-  ?>
+    ?>
     <div class="main-wrapper">
       <div class="main-wrapper-container">
         <div class="product-div">
           <div class="product-div-left">
 
             <div class="img-container">
-              <img src="<?php echo "admin/uploads/" . $result_product_detail[2] ?> " alt="watch image" id="product-image-<?php echo $result_product_detail[0]; ?>" />
+              <img src="<?php echo "admin/uploads/" . $result_product_detail[2] ?> " alt="watch image"
+                id="product-image-<?php echo $result_product_detail[0]; ?>" />
             </div>
           </div>
 
@@ -92,7 +93,9 @@ else {
                 }
               }
               ?>
-              <span>(<?php echo $ratingCount; ?>)</span>
+              <span>(
+                <?php echo $ratingCount; ?>)
+              </span>
             </div>
             <div class="product-description">
               <?php
@@ -100,7 +103,8 @@ else {
               ?>
             </div>
             <div class="btn-groups">
-              <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product_detail[0]; ?>)" data-id="<?php echo $result_product_detail[0]; ?>" data-quantity=1>
+              <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product_detail[0]; ?>)"
+                data-id="<?php echo $result_product_detail[0]; ?>" data-quantity=1>
                 Add to cart
                 <i class="fa-solid fa-plus add-icon" id="icon-check-<?php echo $result_product_detail[0]; ?>"></i>
               </button>
@@ -140,9 +144,11 @@ else {
                   <i class='bx bx-star star' style="--i: 3;"></i>
                   <i class='bx bx-star star' style="--i: 4;"></i>
                 </div>
-                <textarea id="review-opinion" required name="opinion" cols="30" rows="5" placeholder="Your opinion..."></textarea>
+                <textarea id="review-opinion" required name="opinion" cols="30" rows="5"
+                  placeholder="Your opinion..."></textarea>
                 <div class="btn-group">
-                  <button type="submit" class="btn submit" id="submit-review" onclick="handleAddReview(event, <?php echo $user_id; ?>, <?php echo $product_detail_id; ?>)">Submit</button>
+                  <button type="submit" class="btn submit" id="submit-review"
+                    onclick="handleAddReview(event, <?php echo $user_id; ?>, <?php echo $product_detail_id; ?>)">Submit</button>
                   <button class="btn cancel" onclick="handleClose()">Cancel</button>
                 </div>
               </form>
@@ -172,7 +178,7 @@ else {
           </div>
 
         </div>
-      
+
         <div class="add-status add-success" id="add-success">
           <span>&#x2713;</span> review was added
         </div>
@@ -182,10 +188,10 @@ else {
         </div>
       </div>
 
-      
+
     </div>
 
-  <?php
+    <?php
   }
   ?>
   <div class="related-products">Related Products</div>
@@ -196,19 +202,25 @@ else {
       $show_related_products = $productsController->show_product_by_category_id_unique($product_detail_category, $product_detail_id);
       if ($show_related_products) {
         while ($result_product = $show_related_products->fetch_array()) {
-      ?>
+          ?>
           <!-- Single product -->
           <div class="product id-<?php echo $result_product[0] ?>">
             <div class="product-content">
-              <div class="product-img">
-                <img src="<?php echo "admin/uploads/" . $result_product[2]; ?>" alt="" id="product-image-<?php echo $result_product[0]; ?>" />
-              </div>
+              <a href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7]; ?>"
+                class="product-name" id="product-name-<?php echo $result_product[0]; ?>">
+                <div class="product-img">
+                  <img src="<?php echo "admin/uploads/" . $result_product[2]; ?>" alt=""
+                    id="product-image-<?php echo $result_product[0]; ?>" />
+                </div>
+              </a>
               <div class="product-btns">
-                <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product[0]; ?>)" data-id="<?php echo $result_product[0]; ?>" data-quantity=1>
+                <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product[0]; ?>)"
+                  data-id="<?php echo $result_product[0]; ?>" data-quantity=1>
                   Add to cart
                   <i class="fa-solid fa-plus add-icon" id="icon-check-<?php echo $result_product[0]; ?>"></i>
                 </button>
-                <a href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7]; ?>">
+                <a
+                  href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7]; ?>">
                   <button class="btn-buy">
                     More Details
                     <span><i class="fa-solid fa-circle-info"></i> </span>
@@ -234,7 +246,8 @@ else {
                   ?>
                 </div>
               </div>
-              <a href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7]; ?>" class="product-name" id="product-name-<?php echo $result_product[0]; ?>">
+              <a href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7]; ?>"
+                class="product-name" id="product-name-<?php echo $result_product[0]; ?>">
                 <?php echo $result_product[1]; ?>
               </a>
               <?php echo $result_product[16] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$" . $result_product[3] . "</p>" : "";
@@ -261,14 +274,15 @@ else {
               ?>
 
               <div class="favorite-icon" onclick="AddFavorite(event, <?php echo $result_product[0]; ?>)">
-                <i class="fa-regular fa-heart fav-icon" id="favorite-<?php echo $result_product[0]; ?>" data-id="<?php echo $result_product[0]; ?>"></i>
+                <i class="fa-regular fa-heart fav-icon" id="favorite-<?php echo $result_product[0]; ?>"
+                  data-id="<?php echo $result_product[0]; ?>"></i>
               </div>
             </div>
           </div>
           <!-- end of single product -->
 
 
-      <?php
+          <?php
         }
       }
       ?>
@@ -282,17 +296,17 @@ else {
   <script src="./js/newWishList.js"></script>
   <script src="./js/cartclick.js"></script>
   <script src="./js/loadMoreProduct.js"></script>
-  
+
   <script type="text/javascript">
-    $(document).ready(function() {
-      $(window).scroll(function() {
+    $(document).ready(function () {
+      $(window).scroll(function () {
         if ($(this).scrollTop() > 100) {
           $('#scroll').fadeIn();
         } else {
           $('#scroll').fadeOut();
         }
       });
-      $('#scroll').click(function() {
+      $('#scroll').click(function () {
         $("html, body").animate({
           scrollTop: 0
         }, 600);
@@ -306,7 +320,7 @@ else {
     const ratingValue = document.querySelector('.rating input')
 
     allStar.forEach((item, idx) => {
-      item.addEventListener('click', function() {
+      item.addEventListener('click', function () {
         let click = 0
         ratingValue.value = idx + 1
 
@@ -326,7 +340,7 @@ else {
       })
     })
   </script>
-  
+
 </body>
 
 </html>

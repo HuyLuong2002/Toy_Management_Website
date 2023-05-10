@@ -16,18 +16,16 @@ $slider_product = $productsController->show_slider_product();
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <?php
-        if(isset($slider_product))
-        {
-          while($result = $slider_product->fetch_assoc())
-          {
+        if (isset($slider_product)) {
+          while ($result = $slider_product->fetch_assoc()) {
 
-        ?>
-        <div class="swiper-slide">
-          <div class="swiper-center">
-            <img class="mySlides" src="./admin/uploads/<?php echo $result["image"]; ?>" />
-          </div>
-        </div>
-        <?php
+            ?>
+            <div class="swiper-slide">
+              <div class="swiper-center">
+                <img class="mySlides" src="./admin/uploads/<?php echo $result["image"]; ?>" />
+              </div>
+            </div>
+            <?php
           }
         }
         ?>
@@ -71,17 +69,21 @@ $slider_product = $productsController->show_slider_product();
                 <!-- Single product -->
                 <div class="product id-<?php echo $result[0] ?>">
                   <div class="product-content">
-                    <div class="product-img">
-                      <img src="<?php echo "admin/uploads/" . $result_product[2]; ?>" alt=""
-                        id="product-image-<?php echo $result_product[0]; ?>" />
-                    </div>
+                    <a
+                      href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7]; ?>">
+                      <div class="product-img">
+                        <img src="<?php echo "admin/uploads/" . $result_product[2]; ?>" alt=""
+                          id="product-image-<?php echo $result_product[0]; ?>" />
+                      </div>
+                    </a>
                     <div class="product-btns">
                       <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product[0]; ?>)"
                         data-id="<?php echo $result_product[0]; ?>" data-quantity=1>
                         Add to cart
                         <i class="fa-solid fa-plus add-icon" id="icon-check-<?php echo $result_product[0]; ?>"></i>
                       </button>
-                      <a href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7];?>">
+                      <a
+                        href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7]; ?>">
                         <button class="btn-buy">
                           More Details
                           <span><i class="fa-solid fa-circle-info"></i> </span>
@@ -107,8 +109,8 @@ $slider_product = $productsController->show_slider_product();
                         ?>
                       </div>
                     </div>
-                    <a href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7];?>" class="product-name"
-                      id="product-name-<?php echo $result_product[0]; ?>">
+                    <a href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7]; ?>"
+                      class="product-name" id="product-name-<?php echo $result_product[0]; ?>">
                       <?php echo $result_product[1]; ?>
                     </a>
                     <?php echo $result_product[16] !== "Không áp dụng" ? "<p class='product-price product-price-linet'>$" . $result_product[3] . "</p>" : "";
