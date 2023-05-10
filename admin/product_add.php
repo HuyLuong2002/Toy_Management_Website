@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
       <a href="index.php?id=2&page=1">Back</a>
     </div>
 
-    <form action="product_add.php" method="post" enctype="multipart/form-data">
+    <form action="product_add.php" method="post" enctype="multipart/form-data" class="product-add-form">
       <?php if (isset($insertProduct)) {
         echo $insertProduct;
       } ?>

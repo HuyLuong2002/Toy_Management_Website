@@ -111,6 +111,16 @@ include_once $filepath . "\helpers\\format.php";
       return $alert;
     }
   }
+
+  public function update_status_order($data)
+  {
+    $status = mysqli_real_escape_string($this->db->link, $data["status"]);
+    $id = mysqli_real_escape_string($this->db->link, $data["id_order"]);
+    // $status = $data["status"];
+    $query = "UPDATE orders SET status='{$status}' WHERE id='{$id}'";
+    $result = $this->db->update($query);
+    return $result;
+  }
 }
 
 ?>

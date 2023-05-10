@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
                 $result_product = $show_product->fetch_array();
         ?>
 
-                <form action="product_edit.php?id=<?php echo $result_product[0]; ?>" method="post" enctype="multipart/form-data">
+                <form action="product_edit.php?id=<?php echo $result_product[0]; ?>" method="post" enctype="multipart/form-data" class="product-edit-form">
                     <div class="notification-product">
                         <?php if (isset($updateProduct)) {
                             echo $updateProduct;
