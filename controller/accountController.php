@@ -123,6 +123,7 @@ class AccountController
     } else {
       $data["gender"] = "Nữ";
     }
+    $data["password"] = $this->fm->validation($data["password"]);
     $accountService = new AccountServices();
     $result = $accountService->update_account_user($data, $id);
     return $result;
