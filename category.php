@@ -278,9 +278,10 @@ if ($result_pagination != false) {
 
     // Pagination code
     $(document).on("click", "#pagination a", function (e) {
-
+      // e.preventDefault();
       var page = $(this).attr("id");
-      loadTable();
+      loadProduct(page);
+      // console.log(page);
     });
 
   });
