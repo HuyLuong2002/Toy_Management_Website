@@ -7,7 +7,7 @@ class ChartController
     public function show_revenue_quarter($year)
     {
         $chartService = new ChartServices();
-        $result = $chartService->show_revenue_quarter(2023);
+        $result = $chartService->show_revenue_quarter($year);
         return $result;
     }
 
