@@ -66,26 +66,29 @@ if (isset($_GET["page"])) {
 Tính giá trị của phân trang, 10 sale trên 1 trang
 */
 $result_pagination = $permissionController->show_permission();
-$permission_total = mysqli_num_rows($result_pagination);
+if ($result_pagination) {
+  $permission_total = mysqli_num_rows($result_pagination);
 
-// Số sản phẩm trên 1 trang
-$page_per = 10;
-$page_total = ceil($permission_total / $page_per);
+  // Số sản phẩm trên 1 trang
+  $page_per = 10;
+  $page_total = ceil($permission_total / $page_per);
 
-// trang hiện tại
-if (isset($page_id)) {
-  $current_page = $page_id;
+  // trang hiện tại
+  if (isset($page_id)) {
+    $current_page = $page_id;
+  }
+  // Vị trí hiện tại
+  if (isset($current_page)) {
+    $current_position = ($current_page - 1) * $page_per;
+  }
+  if (isset($current_position)) {
+    $result_pagination = $permissionController->show_permission_by_pagination(
+      $current_position,
+      $page_per
+    );
+  }
 }
-// Vị trí hiện tại
-if (isset($current_page)) {
-  $current_position = ($current_page - 1) * $page_per;
-}
-if (isset($current_position)) {
-  $result_pagination = $permissionController->show_permission_by_pagination(
-    $current_position,
-    $page_per
-  );
-}
+
 ?>
 
 
@@ -127,69 +130,69 @@ if (isset($current_position)) {
         <?php if (isset($show_permission_live_search)) {
           if ($show_permission_live_search) {
             while ($result = $show_permission_live_search->fetch_array()) { ?>
-        <tbody>
-        <tr>
-                <td><?php echo $result[0]; ?></td>
-                <td><?php echo $result[1]; ?></td>
-                <td>
-                  <div class="action-btn-group">
-                    <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
-                      <button class="modal-btn-edit" type="button" value="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
-                        Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
-                      </button>
+              <tbody>
+                <tr>
+                  <td><?php echo $result[0]; ?></td>
+                  <td><?php echo $result[1]; ?></td>
+                  <td>
+                    <div class="action-btn-group">
+                      <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
+                        <button class="modal-btn-edit" type="button" value="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
+                          Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
+                        </button>
+                      </div>
+                      <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
+                        <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
+                          Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                        </button>
+                      </div>
                     </div>
-                    <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
-                      <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
-                        Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                      </button>
-                    </div>
-                  </div>
-                <td>
-              </tr>
-              <?php }
+                  <td>
+                </tr>
+            <?php }
           } else {
             echo "<span class='error'>No Data Found</span>";
           } ?>
-        </tbody>
-        </table>
-        <?php
-        } else {
-           ?>
-        <tbody id="permission-data">
-          <?php if (isset($result_pagination)) {
+              </tbody>
+      </table>
+    <?php
+        } else if($result_pagination){
+    ?>
+      <tbody id="permission-data">
+        <?php if (isset($result_pagination)) {
             while ($result = $result_pagination->fetch_array()) { ?>
-              <tr>
-                <td><?php echo $result[0]; ?></td>
-                <td><?php echo $result[1]; ?></td>
-                <td>
-                  <div class="action-btn-group">
-                    <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
-                      <button class="modal-btn-edit" type="button" value="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
-                        Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
-                      </button>
-                    </div>
-                    <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
-                      <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
-                        Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                      </button>
-                    </div>
+            <tr>
+              <td><?php echo $result[0]; ?></td>
+              <td><?php echo $result[1]; ?></td>
+              <td>
+                <div class="action-btn-group">
+                  <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
+                    <button class="modal-btn-edit" type="button" value="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
+                      Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
+                    </button>
                   </div>
-                <td>
-              </tr>
-          <?php }
+                  <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
+                    <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
+                      Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                    </button>
+                  </div>
+                </div>
+              <td>
+            </tr>
+      <?php }
           }
         } ?>
-        </tbody>
+      </tbody>
       </table>
     </div>
   </div>
-  <?php if (empty($_POST["input"])) { ?>
+  <?php if (empty($_POST["input"]) && $result_pagination) { ?>
     <div class="bottom-pagination" id="pagination">
       <ul class="pagination">
         <?php if ($pagination_id > 1) { ?>
           <li class="item prev-page">
             <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id -
-  1; ?>">
+                                                            1; ?>">
               <i class="fa-solid fa-chevron-left"></i>
             </a>
           </li>
@@ -204,12 +207,8 @@ if (isset($current_position)) {
             } else {
               $current = "";
             } ?>
-            <li class="item <?php echo $current; ?>" id="<?php echo $pagination[
-  $i
-]; ?>">
-              <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[
-  $i
-]; ?>">
+            <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
+              <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
                 <?php echo $pagination[$i]; ?>
               </a>
             </li>
@@ -220,7 +219,7 @@ if (isset($current_position)) {
         <?php if ($page_total - 1 > $pagination_id + 1) { ?>
           <li class="item next-page">
             <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id +
-  1; ?>">
+                                                            1; ?>">
               <i class="fa-solid fa-chevron-right"></i>
             </a>
           </li>
@@ -346,8 +345,7 @@ if (isset($current_position)) {
         $("#add-btn").css("background-color", "red");
         $("#name_add_result").css("display", "block");
         $("#name_add_result").css("margin-top", "1rem");
-      }
-      else {
+      } else {
         $("#name_add_result").css("display", "none");
         $("#add-btn").prop("disabled", false);
         $("#add-btn").css("background-color", "#0be881");
@@ -362,8 +360,7 @@ if (isset($current_position)) {
         $("#edit-btn").css("background-color", "red");
         $("#name_edit_result").css("display", "block");
         $("#name_edit_result").css("margin-top", "1rem");
-      }
-      else {
+      } else {
         $("#name_edit_result").css("display", "none");
         $("#edit-btn").prop("disabled", false);
         $("#edit-btn").css("background-color", "#ffa800");
