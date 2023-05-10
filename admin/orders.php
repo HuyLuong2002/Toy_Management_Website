@@ -212,7 +212,14 @@ if (isset($current_position)) {
                     <option value="1" <?php if ($result[12] == "1") echo "selected"; ?>>Đang giao hàng</option>
                     <option value="2" <?php if ($result[12] == "2") echo "selected"; ?>>Đang chờ duyệt</option>
                   </select>
-                  <input type="submit" value="Change" name="submit" />
+                  <?php
+                  if ($result[12] != "0") {
+                  ?>
+                    <input type="submit" value="Change" name="submit" />
+
+                  <?php
+                  }
+                  ?>
                 </form>
               </td>
               <td>

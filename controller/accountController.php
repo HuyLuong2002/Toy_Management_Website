@@ -70,12 +70,14 @@ class AccountController
     }
   }
 
-  public function insert_account($username, $password)
+  public function insert_account($username, $password, $firstname, $lastname)
   {
     $username = $this->fm->validation($username);
     $password = $this->fm->validation($password);
+    $firstname = $this->fm->validation($firstname);
+    $lastname = $this->fm->validation($lastname);
     $accountService = new AccountServices();
-    $result = $accountService->insert_account($username, $password);
+    $result = $accountService->insert_account($username, $password, $firstname, $lastname);
     return $result;
   }
 
@@ -83,7 +85,7 @@ class AccountController
   {
     $accountService = new AccountServices();
     $check_account = $accountService->check_account($data["username"]);
-    if ($check_account) {
+    if ($check_account == false) {
       $data["username"] = $this->fm->validation($data["username"]);
       $data["password"] = $this->fm->validation($data["password"]);
       $data["password"] = md5($data["password"]);
@@ -129,11 +131,21 @@ class AccountController
     return $result;
   }
 
-  public function delete_account($id) 
+  public function delete_account($id)
   {
     $accountService = new AccountServices();
-    $result = $accountService->delete_account($id);
-    return $result;
+    $get_account = $accountService->show_account_by_id($id);
+    $result = $get_account->fetch_array();
+    if ($result[9] == "1") {
+      $alert = "<span class='error'>Can Not Delete Admin</span>";
+      return $alert;
+    } else {
+      $result_delete = $accountService->delete_account($id);
+      $alert = $result_delete;
+      return $alert;
+    }
+    // $result = $accountService->delete_account($id);
+    // return $result;
   }
 
   public function show_account_by_id($id)
