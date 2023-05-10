@@ -32,7 +32,7 @@ if (isset($cartAdd)) {
 <body>
 
     <a href="index.php" class="return-btn"><i class="fa-solid fa-arrow-left"></i></a>
-
+    <div class="title">Shopping Cart</div>
     <form action="cart.php" method="post">
         <div class="shopping-cart">
             <?php
