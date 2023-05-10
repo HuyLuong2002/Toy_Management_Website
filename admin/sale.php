@@ -64,25 +64,28 @@ if (isset($_GET["page"])) {
 Tính giá trị của phân trang, 10 sale trên 1 trang
 */
 $result_pagination = $saleController->show_sale();
-$sale_total = mysqli_num_rows($result_pagination);
+if ($result_pagination) {
+  $sale_total = mysqli_num_rows($result_pagination);
 
-// Số sản phẩm trên 1 trang
-$page_total = ceil($sale_total / 10);
+  // Số sản phẩm trên 1 trang
+  $page_total = ceil($sale_total / 10);
 
-// trang hiện tại
-if (isset($page_id)) {
-  $current_page = $page_id;
+  // trang hiện tại
+  if (isset($page_id)) {
+    $current_page = $page_id;
+  }
+  // Vị trí hiện tại
+  if (isset($current_page)) {
+    $current_position = ($current_page - 1) * 10;
+  }
+  if (isset($current_position)) {
+    $result_pagination = $saleController->show_sale_by_pagination(
+      $current_position,
+      10
+    );
+  }
 }
-// Vị trí hiện tại
-if (isset($current_page)) {
-  $current_position = ($current_page - 1) * 10;
-}
-if (isset($current_position)) {
-  $result_pagination = $saleController->show_sale_by_pagination(
-    $current_position,
-    10
-  );
-}
+
 ?>
 
 
@@ -125,10 +128,10 @@ if (isset($current_position)) {
           </tr>
         </thead>
         <tbody>
-        <?php if (isset($show_sale_live_search)) {
-          if ($show_sale_live_search) {
-            while ($result = $show_sale_live_search->fetch_array()) {
-        ?>
+          <?php if (isset($show_sale_live_search)) {
+            if ($show_sale_live_search) {
+              while ($result = $show_sale_live_search->fetch_array()) {
+          ?>
                 <tr>
                   <td>
                     <?php echo $result[0]; ?>
@@ -171,17 +174,17 @@ if (isset($current_position)) {
                   <td>
                 </tr>
             <?php }
-          } else {
-            echo "<span class='error'>No Data Found</span>";
-          } ?>
-              </tbody>
+            } else {
+              echo "<span class='error'>No Data Found</span>";
+            } ?>
+        </tbody>
       </table>
     <?php
-        } else {
+          } else if($result_pagination){
     ?>
       <tbody id="sale-data">
         <?php if ($result_pagination) {
-            while ($result = $result_pagination->fetch_array()) { ?>
+              while ($result = $result_pagination->fetch_array()) { ?>
             <tr>
               <td>
                 <?php echo $result[0]; ?>
@@ -225,11 +228,11 @@ if (isset($current_position)) {
               <td>
             </tr>
       <?php }
-          }
-        } ?>
+            }
+          } ?>
       </tbody>
       </table>
-      <?php if (empty($_POST["input"])) { ?>
+      <?php if (empty($_POST["input"]) && $result_pagination) { ?>
         <div class="bottom-pagination" id="pagination">
           <ul class="pagination">
             <?php if ($pagination_id > 1) { ?>
@@ -471,8 +474,7 @@ if (isset($current_position)) {
         $("#add-btn").css("background-color", "red");
         $("#name_add_result").css("display", "block");
         $("#name_add_result").css("margin-top", "1rem");
-      }
-      else {
+      } else {
         $("#name_add_result").css("display", "none");
         $("#add-btn").prop("disabled", false);
         $("#add-btn").css("background-color", "#0be881");
@@ -487,8 +489,7 @@ if (isset($current_position)) {
         $("#add-btn").css("background-color", "red");
         $("#percent_add_result").css("display", "block");
         $("#percent_add_result").css("margin-top", "1rem");
-      }
-      else {
+      } else {
         $("#percent_add_result").css("display", "none");
         $("#add-btn").prop("disabled", false);
         $("#add-btn").css("background-color", "#0be881");
@@ -503,8 +504,7 @@ if (isset($current_position)) {
         $("#edit-btn").css("background-color", "red");
         $("#name_edit_result").css("display", "block");
         $("#name_edit_result").css("margin-top", "1rem");
-      }
-      else {
+      } else {
         $("#name_edit_result").css("display", "none");
         $("#edit-btn").prop("disabled", false);
         $("#edit-btn").css("background-color", "#ffa800");
@@ -519,8 +519,7 @@ if (isset($current_position)) {
         $("#edit-btn").css("background-color", "red");
         $("#percent_edit_result").css("display", "block");
         $("#percent_edit_result").css("margin-top", "1rem");
-      }
-      else {
+      } else {
         $("#percent_edit_result").css("display", "none");
         $("#edit-btn").prop("disabled", false);
         $("#edit-btn").css("background-color", "#ffa800");

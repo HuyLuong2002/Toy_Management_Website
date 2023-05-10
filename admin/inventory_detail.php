@@ -168,7 +168,7 @@ if (isset($enter_id)) {
             ?>
         </tbody>
       </table>
-    <?php } else { ?>
+    <?php } else if($result_pagination){ ?>
       <tbody>
         <?php
             if (isset($result_pagination)) {
@@ -204,7 +204,7 @@ if (isset($enter_id)) {
       </tbody>
       </table>
     </div>
-    <?php if (empty($_POST["input"])) { ?>
+    <?php if (empty($_POST["input"]) && $result_pagination) { ?>
       <div class="bottom-pagination" id="pagination">
         <ul class="pagination">
           <?php if ($pagination_id > 1) { ?>

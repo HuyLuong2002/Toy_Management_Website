@@ -42,24 +42,27 @@ Tính giá trị của phân trang
 10 sản phẩm trên 1 trang
 */
 // Tổng số sản phẩm
-$product_total = mysqli_num_rows($result_pagination);
-//số sản phẩm trên 1 trang
-$num_product_on_page = 10;
-$page_total = ceil($product_total / $num_product_on_page);
-//Trang hiện tại
-if (isset($page_id)) {
-  $current_page = $page_id;
+if ($result_pagination) {
+  $product_total = mysqli_num_rows($result_pagination);
+  //số sản phẩm trên 1 trang
+  $num_product_on_page = 10;
+  $page_total = ceil($product_total / $num_product_on_page);
+  //Trang hiện tại
+  if (isset($page_id)) {
+    $current_page = $page_id;
+  }
+  // vị trí hiện tại
+  if (isset($current_page)) {
+    $current_position = ($current_page - 1) * $num_product_on_page;
+  }
+  if (isset($current_position)) {
+    $result_pagination = $productsController->show_product_by_panigation_admin(
+      $current_position,
+      $num_product_on_page
+    );
+  }
 }
-// vị trí hiện tại
-if (isset($current_page)) {
-  $current_position = ($current_page - 1) * $num_product_on_page;
-}
-if (isset($current_position)) {
-  $result_pagination = $productsController->show_product_by_panigation_admin(
-    $current_position,
-    $num_product_on_page
-  );
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -177,7 +180,7 @@ if (isset($current_position)) {
         </tbody>
       </table>
     <?php
-          } else {
+          } else if($result_pagination){
     ?>
       <tbody>
         <?php if ($result_pagination) {
@@ -247,7 +250,7 @@ if (isset($current_position)) {
           } ?>
       </tbody>
       </table>
-      <?php if (empty($_POST["input"])) { ?>
+      <?php if (empty($_POST["input"]) && $result_pagination) { ?>
         <div class="bottom-pagination" id="pagination">
           <ul class="pagination">
             <?php if ($pagination_id > 1) { ?>
