@@ -85,7 +85,7 @@ class AccountController
   {
     $accountService = new AccountServices();
     $check_account = $accountService->check_account($data["username"]);
-    if (mysqli_num_rows($check_account) != 0) {
+    if ($check_account == false) {
       $data["username"] = $this->fm->validation($data["username"]);
       $data["password"] = $this->fm->validation($data["password"]);
       $data["password"] = md5($data["password"]);
