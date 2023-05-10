@@ -262,17 +262,19 @@ if (isset($current_position)) {
             $pagination = $pag->pageNumber($page_total, 4, $pagination_id);
             $length = count($pagination);
             for ($i = 1; $i <= $length; $i++) {
-              if ($pagination[$i] == $pagination_id) {
-                $current = "current";
-              } else {
-                $current = "";
-              } ?>
-              <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
-                  <?php echo $pagination[$i]; ?>
-                </a>
-              </li>
+              if ($pagination[$i] > 0) {
+                if ($pagination[$i] == $pagination_id) {
+                  $current = "current";
+                } else {
+                  $current = "";
+                } ?>
+                <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
+                  <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
+                    <?php echo $pagination[$i]; ?>
+                  </a>
+                </li>
             <?php
+              }
             }
             ?>
             <?php if ($page_total - 1 > $pagination_id + 1) { ?>
@@ -330,7 +332,7 @@ if (isset($current_position)) {
         const myData = await response.id;
         const myState = await response.state;
         // Xử lý dữ liệu trong biến myData ở đây
-        
+
 
       }
     });
