@@ -36,7 +36,7 @@ const handleUpdateCurrent = async () => {
 
     // Lưu đánh giá vào cơ sở dữ liệu
     await $.ajax({
-        url: "",
+        url: "./chart.php",
         method: "GET",
         data: {current_year: listCurrentYear},
         success: function(data){

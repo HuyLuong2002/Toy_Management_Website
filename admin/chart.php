@@ -2,8 +2,16 @@
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "/controller/chartController.php";
 $chartController = new ChartController();
+if(isset($_GET["current_year"]))
+{
+  $listYear = $_GET["current_year"];
+}
+else {
+  $listYear = [];
+  $listYear[0] = getdate()["year"];
+}
 //Solve chart 1
-$result_statistic_revenue = $chartController->show_revenue_quarter(2023);
+$result_statistic_revenue = $chartController->show_revenue_quarter($listYear[0]);
 $data_quarter_1 = 0;
 $data_quarter_2 = 0;
 $data_quarter_3 = 0;
@@ -26,12 +34,10 @@ if (isset($result_statistic_revenue)) {
 }
 // Solve chart 2
 $result_statistic_order = $chartController->show_statistic_order();
-$result_statistic_2 = [];
+$result_statistic_2 = [0, 0, 0];
 if (isset($result_statistic_order)) {
-  $i = 0;
   while ($result = $result_statistic_order->fetch_assoc()) {
-    $result_statistic_2[$i] = $result["SoLuongHoaDon"];
-    $i++;
+    $result_statistic_2[$result["TinhTrangDonHang"]] = $result["SoLuongHoaDon"];
   }
 }
 //Solve chart 3
@@ -180,9 +186,9 @@ if (isset($result_statistic_revenue_month)) {
         var pieChart = new Chart(ctxPie, {
           type: 'pie',
           data: {
-            labels: ['Đang giao hàng', 'Đã giao'],
+            labels: ['Đang giao hàng', 'Đã giao', 'Chờ xử lý'],
             datasets: [{
-              data: [<?php echo $result_statistic_2[0]; ?>, <?php echo $result_statistic_2[1]; ?>],
+              data: [<?php echo $result_statistic_2[0]; ?>, <?php echo $result_statistic_2[1]; ?>, <?php echo $result_statistic_2[2]; ?>],
               backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
               borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
               borderWidth: 1

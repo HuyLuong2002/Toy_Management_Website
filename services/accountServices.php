@@ -187,12 +187,12 @@ include_once $filepath . "\lib\session.php";
   {
     $username = mysqli_real_escape_string($this->db->link, $username);
     $password = mysqli_real_escape_string($this->db->link, $password);
-
+    $permission_id = 2;
     if (empty($username)) {
       $alert = "<span class='error'>Username must be not empty</span>";
       return $alert;
     } else {
-      $query = "INSERT INTO account(username, password, permission_id, status) VALUES ('$username','$password','4','1')";
+      $query = "INSERT INTO account(username, password, permission_id, status) VALUES ('$username','$password','$permission_id','1')";
       $result = $this->db->insert($query);
       if ($result) {
         $alert = "<span class='success'>Insert Username Sucessfully</span>";
