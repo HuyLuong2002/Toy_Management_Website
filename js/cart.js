@@ -42,11 +42,12 @@ const handleLoadCart = (cartList = []) => {
 
 const handleChangeQuantity = async (id) => {
     let inputNumber = document.getElementById(`quantity-${id}`)
-    let apiGetProductById = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/product/show.php?id=${id}`)
+    // let apiGetProductById = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/product/show.php?id=${id}`)
+    let apiGetProductById = await fetchAPI(`http://localhost:3000/api/product/show.php?id=${id}`)
     if(checkProductInStock(id, apiGetProductById.quantity)) {
         let quantity = parseInt(document.getElementById("quantity-" + id).value)
         const newCartAdd = CartAdd.map(item => {
-            if(item.id === id) item.quantity = quantity;
+            if(item.id == id) item.quantity = quantity;
             return item
         })
         localStorage.setItem('cartAdd', JSON.stringify(newCartAdd));
@@ -59,7 +60,7 @@ const handleChangeQuantity = async (id) => {
 
         inputNumber.value = apiGetProductById.quantity
         const newCartAdd = CartAdd.map(item => {
-            if(item.id === id) item.quantity = apiGetProductById.quantity;
+            if(item.id == id) item.quantity = apiGetProductById.quantity;
             return item
         })
         localStorage.setItem('cartAdd', JSON.stringify(newCartAdd));

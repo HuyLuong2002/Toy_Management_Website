@@ -25,13 +25,14 @@ const handleUpdateCurrent = () => {
     // Lưu đánh giá vào cơ sở dữ liệu
     $.ajax({
         url: "./chart.php",
-        method: "GET",
+        method: "POST",
         data: {
             year1: listCurrentYear[0],
             year2: listCurrentYear[1],
             year3: listCurrentYear[2],
         },
         success: function(data){
+            $("#wrapper").html(data);
         },
         error: function(xhr, status, error) {
 

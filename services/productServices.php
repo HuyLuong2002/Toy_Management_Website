@@ -23,7 +23,7 @@ include_once $filepath . "\database\connectDB.php";
 
   public function show_slider_product()
   {
-    $query = "SELECT * FROM product WHERE product.highlight = '1'
+    $query = "SELECT * FROM product WHERE product.highlight = '1' AND is_deleted='0'
     ORDER BY product.create_date DESC";
     $result = $this->db->select($query);
     return $result;

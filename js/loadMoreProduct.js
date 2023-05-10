@@ -78,7 +78,7 @@ const handleLoadMore = async (result) => {
     }
 
     for(let i = 0; i < cateList.category.length; i++) {
-        if(result === cateList.category[i].id) {
+        if(result == cateList.category[i].id) {
             countProduct[i] = currentItemsList[i]*++flags[i]
             if(countProduct[i] >= arrContainer[i].length) {
                 btnLoadMore.style.display = "none";
@@ -104,7 +104,7 @@ const handleUnload = async (result) => {
     }
 
     for(let i = 0; i < cateList.category.length; i++) {
-        if(result === cateList.category[i].id) {
+        if(result == cateList.category[i].id) {
             for (let j = 4; j < arrContainer[i].length; j++) {
                 arrContainer[i][j].style.display = "none";
             }

@@ -3,10 +3,19 @@ $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "/controller/chartController.php";
 $chartController = new ChartController();
 
+if (
+  isset($_POST["year1"]) &&
+  isset($_POST["year2"]) &&
+  isset($_POST["year3"])
+) {
+  $year1 = $_POST["year1"];
+  $year2 = $_POST["year2"];
+  $year3 = $year2 - 1;
+} else {
   $year1 = getdate()["year"];
   $year2 = getdate()["year"];
   $year3 = $year2 - 1;
-
+}
 
 //Solve chart 1
 $result_statistic_revenue = $chartController->show_revenue_quarter($year1);
@@ -15,7 +24,7 @@ $data_quarter_2 = 0;
 $data_quarter_3 = 0;
 $data_quarter_4 = 0;
 if (isset($result_statistic_revenue)) {
-  if(isset($result_statistic_revenue->num_rows)) {
+  if (isset($result_statistic_revenue->num_rows)) {
     while ($result = $result_statistic_revenue->fetch_assoc()) {
       if ($result["Quy"] == 1) {
         $data_quarter_1 = $result["DoanhThu"];
@@ -31,7 +40,6 @@ if (isset($result_statistic_revenue)) {
       }
     }
   }
-
 }
 // Solve chart 2
 $result_statistic_order = $chartController->show_statistic_order();
@@ -48,41 +56,36 @@ $result_statistic_revenue_month = $chartController->show_statistic_revenue_by_mo
 );
 $result_statistic_3_year1 = [];
 $result_statistic_3_year2 = [];
-if (isset($result_statistic_revenue_month)) {
-  while ($result = $result_statistic_revenue_month->fetch_assoc()) {
-    if ($result["Nam"] == 2022) {
-      for ($j = 1; $j <= 12; $j++) {
-        if ($j == $result["Thang"]) {
-          $tmp = [$j, $result["DoanhThu"]];
-          array_push($result_statistic_3_year1, $tmp);
-        } else {
-          $tmp = [$j, 0];
-          array_push($result_statistic_3_year1, $tmp);
-        }
-      }
-    }
-    else {
-      for ($j = 1; $j <= 12; $j++) {
-        $tmp = [$j, 0];
-        array_push($result_statistic_3_year1, $tmp);
-      }
-    }
+for ($j = 1; $j <= 12; $j++) {
+  $tmp = [$j, 0]; 
+  array_push($result_statistic_3_year1, $tmp);
+}
 
-    if ($result["Nam"] == 2023) {
-      for ($j = 1; $j <= 12; $j++) {
-        if ($j == $result["Thang"]) {
-          $tmp = [$j, $result["DoanhThu"]];
-          array_push($result_statistic_3_year2, $tmp);
-        } else {
-          $tmp = [$j, 0];
-          array_push($result_statistic_3_year2, $tmp);
+for ($j = 1; $j <= 12; $j++) {
+  $tmp = [$j, 0];
+  array_push($result_statistic_3_year2, $tmp);
+}
+if (isset($result_statistic_revenue_month)) {
+  if (isset($result_statistic_revenue_month->num_rows)) {
+    while ($result = $result_statistic_revenue_month->fetch_assoc()) {
+      if ($result["Nam"] == $year2) {
+        for ($j = 1; $j <= 12; $j++) {
+          if ($j == $result["Thang"]) {
+            $result_statistic_3_year1[$j][1] = $result["DoanhThu"];
+          } else {
+            $result_statistic_3_year1[$j][1] = 0;
+          }
         }
       }
-    }
-    else {
-      for ($j = 1; $j <= 12; $j++) {
-        $tmp = [$j, 0];
-        array_push($result_statistic_3_year2, $tmp);
+
+      if ($result["Nam"] == $year3) {
+        for ($j = 1; $j <= 12; $j++) {
+          if ($j == $result["Thang"]) {
+            $result_statistic_3_year2[$j][1] = $result["DoanhThu"];
+          } else {
+            $result_statistic_3_year2[$j][1] = 0;
+          }
+        }
       }
     }
   }
@@ -93,8 +96,6 @@ if (isset($result_statistic_revenue_month)) {
   <div class="wrap-char chart-1">
     <h2>Statistical Revenue</h2>
 
-<<<<<<< HEAD
-=======
     <select name="selectYear-1" id="selectYear-1" class="selectYear-1" onchange="handleUpdateCurrent()" value="2023">
       <script>
         var d = new Date();
@@ -114,7 +115,6 @@ if (isset($result_statistic_revenue_month)) {
       </script>
     </select>
 
->>>>>>> 20189da0460604830b598fe12ebfce5577170604
     <div class="chart-bar">
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <canvas id="myChart" width="300" height="450"></canvas>
@@ -201,8 +201,6 @@ if (isset($result_statistic_revenue_month)) {
   <div class="wrap-char chart-3">
     <h2>Statistical Revenue</h2>
 
-<<<<<<< HEAD
-=======
     <select name="selectYear-3" id="selectYear-3" class="selectYear-3" onchange="handleUpdateCurrent()" value="2023">
       <script>
         var d = new Date();
@@ -222,7 +220,6 @@ if (isset($result_statistic_revenue_month)) {
       </script>
     </select>
 
->>>>>>> 20189da0460604830b598fe12ebfce5577170604
     <div class="chart-line">
       <canvas id="lineChart" width="200" height="400"></canvas>
 
@@ -233,7 +230,7 @@ if (isset($result_statistic_revenue_month)) {
           data: {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             datasets: [{
-              label: '2022', 
+              label: '<?php echo $year2; ?>', 
               data: [
                 <?php echo $result_statistic_3_year1[0][1]; ?>,
                 <?php echo $result_statistic_3_year1[1][1]; ?>,
@@ -253,7 +250,7 @@ if (isset($result_statistic_revenue_month)) {
               backgroundColor: 'rgba(75, 192, 192, 0.2)', 
               borderWidth: 1
             }, {
-              label: '2023', 
+              label: '<?php echo $year3; ?>', 
               data: [
                 <?php echo $result_statistic_3_year2[0][1]; ?>,
                 <?php echo $result_statistic_3_year2[1][1]; ?>,

@@ -105,6 +105,13 @@ class AccountController
 
   public function update_account($data, $id)
   {
+    $accountService = new AccountServices();
+    $check_account = $accountService->check_account($data["username"]);
+    if($check_account->fetch_assoc()["permission_id"] == 1)
+    {
+      $result = "<span class='error'>Can Not Update Admin</span>";
+      return $result;
+    }
     $data["dateofbirth_edit"] = $this->fm->formatDate($data["dateofbirth_edit"]);
     if ($data["gender_edit"] == 0) {
       $data["gender_edit"] = "Nam";
@@ -112,10 +119,12 @@ class AccountController
       $data["gender_edit"] = "Nữ";
     }
     $data["status_edit"] = intval($data["status_edit"]);
-    $accountService = new AccountServices();
+    
     $result = $accountService->update_account($data, $id);
     return $result;
   }
+
+
 
   public function update_account_user($data, $id)
   {
