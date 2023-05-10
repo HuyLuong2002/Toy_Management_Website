@@ -22,7 +22,7 @@ include_once $filepath . "\lib\session.php";
 
   public function show_account_by_id($id)
   {
-    $query = "SELECT * FROM account WHERE id='{$id}'";
+    $query = "SELECT * FROM account WHERE id='{$id}' LIMIT 1";
     $result = $this->db->select($query);
     return $result;
   }
@@ -53,7 +53,7 @@ include_once $filepath . "\lib\session.php";
 
   public function check_account($username)
   {
-    $query = "SELECT * FROM account WHERE username='{$username}' REGEXP BINARY '[a-z0-9]'";
+    $query = "SELECT * FROM account WHERE username='{$username}'";
     $result = $this->db->select($query);
     return $result;
   }
@@ -71,7 +71,6 @@ include_once $filepath . "\lib\session.php";
     $create_date = (string) date("d/m/Y");
     $permission_id = mysqli_real_escape_string($this->db->link, $data["permission_add"]);
     $status = mysqli_real_escape_string($this->db->link, $data["status_add"]);
-
     if (
       $username == "" ||
       $password == "" ||
@@ -81,7 +80,7 @@ include_once $filepath . "\lib\session.php";
       $date_birth == "" ||
       $place_of_birth == "" ||
       $permission_id == "" ||
-      $status = ""
+      $status == ""
     ) {
       $alert = "<span class='error'>Fields must be not empty</span>";
       return $alert;
@@ -142,7 +141,7 @@ include_once $filepath . "\lib\session.php";
     $place_of_birth = mysqli_real_escape_string($this->db->link, $data["place_of_birth"]);
     $create_date = (string) date("d/m/Y");
     $password = mysqli_real_escape_string($this->db->link, $data["password"]);
-    if (strlen($password) <= 12) {
+    if (strlen($password) <= 15) {
       $hashed_string = md5($password);
     } else {
       $hashed_string = $password;
@@ -183,16 +182,18 @@ include_once $filepath . "\lib\session.php";
     }
   }
 
-  public function insert_account($username, $password)
+  public function insert_account($username, $password, $firstname, $lastname)
   {
     $username = mysqli_real_escape_string($this->db->link, $username);
     $password = mysqli_real_escape_string($this->db->link, $password);
+    $firstname = mysqli_real_escape_string($this->db->link, $firstname);
+    $lastname = mysqli_real_escape_string($this->db->link, $lastname);
 
     if (empty($username)) {
       $alert = "<span class='error'>Username must be not empty</span>";
       return $alert;
     } else {
-      $query = "INSERT INTO account(username, password, permission_id, status) VALUES ('$username','$password','4','1')";
+      $query = "INSERT INTO account(username, password, firstname, lastname, permission_id, status) VALUES ('$username','$password','$firstname', '$lastname','2','1')";
       $result = $this->db->insert($query);
       if ($result) {
         $alert = "<span class='success'>Insert Username Sucessfully</span>";

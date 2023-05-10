@@ -42,26 +42,29 @@ if (isset($_GET["page"])) {
 Tính giá trị của phân trang, 10 sale trên 1 trang
 */
 $result_pagination = $orderController->show_orders_user();
-$order_total = mysqli_num_rows($result_pagination);
+if ($result_pagination) {
+  $order_total = mysqli_num_rows($result_pagination);
 
-// Số sản phẩm trên 1 trang
-$page_per = 10;
-$page_total = ceil($order_total / $page_per);
+  // Số sản phẩm trên 1 trang
+  $page_per = 10;
+  $page_total = ceil($order_total / $page_per);
 
-// trang hiện tại
-if (isset($page_id)) {
-  $current_page = $page_id;
+  // trang hiện tại
+  if (isset($page_id)) {
+    $current_page = $page_id;
+  }
+  // Vị trí hiện tại
+  if (isset($current_page)) {
+    $current_position = ($current_page - 1) * $page_per;
+  }
+  if (isset($current_position)) {
+    $result_pagination = $orderController->show_order_by_pagination(
+      $current_position,
+      $page_per
+    );
+  }
 }
-// Vị trí hiện tại
-if (isset($current_page)) {
-  $current_position = ($current_page - 1) * $page_per;
-}
-if (isset($current_position)) {
-  $result_pagination = $orderController->show_order_by_pagination(
-    $current_position,
-    $page_per
-  );
-}
+
 ?>
 
 <div class="card" id="searchresultorders">
@@ -160,7 +163,7 @@ if (isset($current_position)) {
         </tbody>
       </table>
     <?php
-          } else {
+          } else if($result_pagination){
     ?>
       <tbody id="orders-data">
         <?php
@@ -212,7 +215,14 @@ if (isset($current_position)) {
                     <option value="1" <?php if ($result[12] == "1") echo "selected"; ?>>Đang giao hàng</option>
                     <option value="2" <?php if ($result[12] == "2") echo "selected"; ?>>Đang chờ duyệt</option>
                   </select>
-                  <input type="submit" value="Change" name="submit" />
+                  <?php
+                  if ($result[12] != "0") {
+                  ?>
+                    <input type="submit" value="Change" name="submit" />
+
+                  <?php
+                  }
+                  ?>
                 </form>
               </td>
               <td>
@@ -231,7 +241,7 @@ if (isset($current_position)) {
       </tbody>
       </table>
     </div>
-    <?php if (empty($_POST["input"])) { ?>
+    <?php if (empty($_POST["input"]) && $result_pagination) { ?>
       <div class="bottom-pagination" id="pagination">
         <ul class="pagination">
           <?php if ($pagination_id > 1) { ?>

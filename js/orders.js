@@ -7,7 +7,9 @@ let productDetailOrder = document.getElementById("wrap-load-order-product");
 let Order = JSON.parse(localStorage.getItem('Order'));
 
 // const orderApi = `http://localhost:8000/Toy_Management_Website/api/orders/show_user.php?userID=${Order.user_id}`;
-const orderApi = `http://localhost:3000/api/orders/show_user.php?userID=${Order.user_id}`;
+// const orderApi = `http://localhost:3000/api/orders/show_user.php?userID=${Order.user_id}`;
+const orderApi = `http://localhost:8080/Toy_Management_Website/api/orders/show_user.php?userID=${Order.user_id}`;
+
 
 
 const fetchAPI = async (api) => {
@@ -21,7 +23,7 @@ let OrderListProductDetail = []
 
 const handleShowListOrder = async () => {
     let orderList = await fetchAPI(orderApi)
-    if(!orderList) {
+    if (!orderList) {
         orderSession.innerHTML = "<h1>Not found Order!</h1>"
         return;
     }
@@ -30,10 +32,10 @@ const handleShowListOrder = async () => {
         OrderListProductDetail.push([item.id, item.order_list])
 
         let statusText = "PENDING"
-        if(item.order_list.status === 1) {
+        if (item.order_list.status === 1) {
             statusText = "DELIVERING"
-        } 
-        if(item.order_list.status === 0) {
+        }
+        if (item.order_list.status === 0) {
             statusText = "SHIPPED"
         }
         return `
@@ -44,7 +46,7 @@ const handleShowListOrder = async () => {
                 <td>${item.order_list.phone}</td>
                 <td>${item.order_list.email}</td>
                 <td>${item.order_list.pay_method}</td>
-                <td class=${"status-"+item.order_list.status}>${statusText}</td>
+                <td class=${"status-" + item.order_list.status}>${statusText}</td>
                 <td>$${item.order_list.total_price}</td>
                 <td><a href="#" onclick="handleShowDetailOrder(${item.id})">Detail</a></td>
             </tr>
@@ -58,7 +60,7 @@ let handleShowDetailOrder = (idOrder) => {
 
 
     console.log("cc: ", OrderListProductDetail);
-    
+
     if (!OrderListProductDetail) {
         infoDetail.innerHTML = "<h1>Not found Order!</h1>";
         return;
@@ -92,9 +94,11 @@ let handleShowDetailOrder = (idOrder) => {
 };
 
 const loadProduct = async (idOrder) => {
-    let Product = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/detail_orders/show_order.php?orderID=${idOrder}`)
+    // let Product = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/detail_orders/show_order.php?orderID=${idOrder}`)
+    let Product = await fetchAPI(`http://localhost:8080/Toy_Management_Website/api/detail_orders/show_order.php?orderID=${idOrder}`)
 
-    if(!Product) {
+
+    if (!Product) {
         productDetailOrder.innerHTML = "<h1>Not found Order!</h1>"
         return;
     }
@@ -103,7 +107,7 @@ const loadProduct = async (idOrder) => {
         let total = item.detail_order_list.price * item.detail_order_list.quantity
         return `
             <div class="order-product" key=${item.id}>
-                <img src=${'admin/uploads/'+item.detail_order_list.image} alt="">
+                <img src=${'admin/uploads/' + item.detail_order_list.image} alt="">
                 <p class="product_name">${item.detail_order_list.name}</p>
                 <p class="product_price">$${item.detail_order_list.price}</p>
                 <P class="product_quantity">${item.detail_order_list.quantity}</P>

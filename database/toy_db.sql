@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 09, 2023 lúc 04:04 PM
--- Phiên bản máy phục vụ: 10.4.24-MariaDB
--- Phiên bản PHP: 7.4.28
+-- Thời gian đã tạo: Th5 10, 2023 lúc 11:34 AM
+-- Phiên bản máy phục vụ: 10.4.27-MariaDB
+-- Phiên bản PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,14 +40,16 @@ CREATE TABLE `account` (
   `permission_id` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `account`
 --
 
 INSERT INTO `account` (`id`, `username`, `password`, `firstname`, `lastname`, `gender`, `date_birth`, `place_of_birth`, `create_date`, `permission_id`, `status`, `is_deleted`) VALUES
-(1, 'huyluong', 'e10adc3949ba59abbe56e057f20f883e', 'Huy', 'Lương', 'Nam', '12/04/2002', 'TPHCM', '09/05/2023', 1, 1, 0);
+(1, 'huyluong', 'e10adc3949ba59abbe56e057f20f883e', 'Huy', 'Lương', 'Nam', '12/04/2002', 'TPHCM', '09/05/2023', 1, 1, 0),
+(3, 'dieukiet', 'e10adc3949ba59abbe56e057f20f883e', 'kiet', 'luong', 'Nam', '20/02/2002', 'vietnam', '10/05/2023', 1, 0, 0),
+(4, 'lucdaccau', 'e10adc3949ba59abbe56e057f20f883e', 'luc', 'nguyen', 'Nữ', '05/11/2002', 'vietnam', '10/05/2023', 2, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -59,7 +61,7 @@ CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `category`
@@ -82,7 +84,15 @@ CREATE TABLE `comment` (
   `product_id` int(11) NOT NULL,
   `rate` tinyint(5) NOT NULL,
   `time` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `comment`
+--
+
+INSERT INTO `comment` (`id`, `content`, `user_id`, `product_id`, `rate`, `time`) VALUES
+(1, 'loz', 1, 1, 5, '10/05/2023 13:49:21 pm'),
+(2, 'nhu cac', 1, 1, 3, '10/05/2023 13:50:39 pm');
 
 --
 -- Bẫy `comment`
@@ -121,7 +131,7 @@ CREATE TABLE `detail_enter_product` (
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `detail_enter_product`
@@ -164,14 +174,15 @@ CREATE TABLE `detail_orders` (
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `detail_orders`
 --
 
 INSERT INTO `detail_orders` (`id`, `order_id`, `product_id`, `quantity`, `price`) VALUES
-(1, 1, 1, 1, 3000);
+(1, 1, 1, 1, 3000),
+(2, 2, 3, 1, 2125);
 
 --
 -- Bẫy `detail_orders`
@@ -211,7 +222,7 @@ CREATE TABLE `enter_product` (
   `status` tinyint(1) NOT NULL,
   `create_date` varchar(255) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `enter_product`
@@ -241,14 +252,15 @@ CREATE TABLE `orders` (
   `pay_method` varchar(255) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `orders`
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `quantity`, `date`, `address`, `phone`, `email`, `country`, `vat`, `ship_method`, `total_price`, `pay_method`, `status`, `is_deleted`) VALUES
-(1, 1, 1, '09/05/2023 20:30:15 pm', 'Ngô Quyền', '0764286798', 'chum19923@gmail.com', 'VietNam', 300, 'Standard Shipping ($6)', 3306, 'payment in cash', 2, 0);
+(1, 1, 1, '09/05/2023 20:30:15 pm', 'Ngô Quyền', '0764286798', 'chum19923@gmail.com', 'VietNam', 300, 'Standard Shipping ($6)', 3306, 'payment in cash', 2, 0),
+(2, 1, 1, '10/05/2023 14:18:05 pm', 'àasfsafasfsafsa', '0909090909', 'dieukiet1479@gmail.com', 'VietNam', 213, 'Overnight Shipping ($12)', 2350, 'payment in cash', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -260,7 +272,7 @@ CREATE TABLE `permission` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `permission`
@@ -289,24 +301,25 @@ CREATE TABLE `product` (
   `review` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `product`
 --
 
 INSERT INTO `product` (`id`, `name`, `image`, `price`, `description`, `create_date`, `highlight`, `category_id`, `sale_id`, `review`, `quantity`, `is_deleted`) VALUES
-(1, 'Mô hình Captain dòng Mech Strike 6 inch', 'home-img-1.png', '3000', 'Sản phẩm mới', '09/05/2023', 1, 1, 1, 2, 29, 0),
-(2, 'Mô hình Iron Man dòng Mech Strike tối thượng giáp 8 inch', '967f68e964.png', '2500', '<p><strong>Sản phẩm mới</strong></p>', '09/05/2023', 0, 1, 1, 0, 30, 0),
-(3, 'Mô hình Hulk dòng Mech Strike 6 inch', '53fe90a5a8.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 1, 1, 2, 0, 10, 0),
+(1, 'Mô hình Captain dòng Mech Strike 6 inch', 'home-img-1.png', '3000', 'Sản phẩm mới', '09/05/2023', 1, 1, 1, 4, 29, 1),
+(2, 'Mô hình Iron Man dòng Mech Strike tối thượng giáp 8 inch', '967f68e964.png', '2500', '<p><strong>Sản phẩm mới</strong></p>', '09/05/2023', 1, 1, 1, 0, 30, 1),
+(3, 'Mô hình Hulk dòng Mech Strike 6 inch', '53fe90a5a8.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 1, 1, 2, 0, 9, 0),
 (4, 'Vũ khí chiến đấu siêu sức mạnh Spiderman', '2f45633d26.png', '5500', 'Giới thiệu sản phẩm: Đồ chơi Vũ khí chiến đấu siêu suc manh Spiderman 1 Găng tay Spider-man 3 Mô hình nòng phi tiêu Neft 1 Hướng dẫn sử dụng', '09/05/2023', 1, 2, 1, 0, 3500, 0),
-(5, 'Người Dơi Batman 4inch', '1cfb0656b7.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 1, 2, 0, 2500, 0),
+(5, 'Người Dơi Batman 4inch', '1cfb0656b7.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 1, 2, 0, 2500, 1),
 (6, 'MH anh hùng công lý 4 inch', '6e79b7601e.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 2, 1, 0, 50, 0),
 (7, 'Siêu anh hùng Captain America tối tân 30cm', '01fa875229.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 2, 2, 0, 20, 0),
 (8, 'Siêu anh hùng IRON MAN phiên bản Bend and Flex', '33f9818354.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 2, 1, 0, 20, 0),
-(9, 'Mô hình Thanos quyền năng', '61421926a7.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 1, 2, 0, 10, 0),
+(9, 'Mô hình Thanos quyền năng', '61421926a7.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 1, 2, 0, 10, 1),
 (10, 'Mô hình Hulk dũng mãnh', '61fe1a2c2b.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 2, 1, 0, 30, 0),
-(11, 'Mô hình siêu anh hùng Spiderman 30cm', 'e1f6dc76fe.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 1, 1, 0, 20, 0);
+(11, 'Mô hình siêu anh hùng Spiderman 30cm', 'e1f6dc76fe.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 1, 1, 0, 20, 0),
+(13, 'Mô hình Venom Flex and Bend', '1303e24c74.png', '2500', '<p>&lt;p&gt;Sản phẩm mới&lt;/p&gt;</p>', '10/05/2023', 1, 1, 1, 0, 50, 0);
 
 -- --------------------------------------------------------
 
@@ -318,7 +331,7 @@ CREATE TABLE `provider` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `provider`
@@ -343,7 +356,7 @@ CREATE TABLE `sale` (
   `percent_sale` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `sale`
@@ -443,7 +456,7 @@ ALTER TABLE `sale`
 -- AUTO_INCREMENT cho bảng `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `category`
@@ -455,7 +468,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT cho bảng `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `detail_enter_product`
@@ -467,7 +480,7 @@ ALTER TABLE `detail_enter_product`
 -- AUTO_INCREMENT cho bảng `detail_orders`
 --
 ALTER TABLE `detail_orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `enter_product`
@@ -479,7 +492,7 @@ ALTER TABLE `enter_product`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `permission`
@@ -491,7 +504,7 @@ ALTER TABLE `permission`
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT cho bảng `provider`

@@ -24,9 +24,9 @@ $result_pagination = $productsController->show_product_by_category_id(
 );
 if ($result_pagination != false) {
   /*
-Tính giá trị của phân trang
-10 sản phẩm trên 1 trang
-*/
+  Tính giá trị của phân trang
+  10 sản phẩm trên 1 trang
+  */
   // Tổng số sản phẩm
   $product_total = mysqli_num_rows($result_pagination);
   //số sản phẩm trên 1 trang
@@ -77,7 +77,7 @@ Tính giá trị của phân trang
             ]; ?>&page=1">
                 <?php echo $result["name"]; ?>
               </a></li>
-          <?php
+            <?php
           }
           ?>
         </ul>
@@ -105,7 +105,7 @@ Tính giá trị của phân trang
                     <?php echo $result["name"]; ?>
                   </a>
                 </li>
-            <?php
+                <?php
               }
             }
             ?>
@@ -119,19 +119,24 @@ Tính giá trị của phân trang
             while ($result_product = $result_pagination->fetch_array()) { ?>
               <div class="catalog-product-item">
                 <div class="product-content">
-                  <div class="product-img-box">
-                    <img src="<?php echo " admin/uploads/" .
-                      $result_product[2]; ?>" alt="" id="product-image-<?php echo $result_product[0]; ?>"/>
-                  </div>
+                  <a
+                    href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7]; ?>">
+                    <div class="product-img-box">
+                      <img src="<?php echo " admin/uploads/" .
+                        $result_product[2]; ?>" alt="" id="product-image-<?php echo $result_product[0]; ?>" />
+                    </div>
+                  </a>
                   <div class="product-btns">
                     <button class="btn-cart" onclick="AddActive(event, <?php echo $result_product[0]; ?>)">
                       Add to Cart
-                      <span><i class="fa-solid fa-plus add-icon" id="icon-check-<?php echo $result_product[0]; ?>"></i></span>
+                      <span><i class="fa-solid fa-plus add-icon"
+                          id="icon-check-<?php echo $result_product[0]; ?>"></i></span>
                     </button>
-                    <a href="product_detail.php?id=<?php echo $result_product[0]; ?>">
+                    <a
+                      href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7]; ?>">
                       <button class="btn-buy">
-                        Buy now
-                        <span><i class="fas fa-shopping-cart"> </i> </span>
+                        More Details
+                        <span><i class="fa-solid fa-circle-info"></i> </span>
                       </button>
                     </a>
                   </div>
@@ -154,7 +159,8 @@ Tính giá trị của phân trang
                       ?>
                     </div>
                   </div>
-                  <a href="product_detail.php?id=<?php echo $result_product[0]; ?>" class="product-name" id="product-name-<?php echo $result_product[0]; ?>">
+                  <a href="product_detail.php?id=<?php echo $result_product[0]; ?>" class="product-name"
+                    id="product-name-<?php echo $result_product[0]; ?>">
                     <?php echo $result_product[1]; ?>
                   </a>
                   <?php echo $result_product[16] !== "Không áp dụng"
@@ -181,11 +187,12 @@ Tính giá trị của phân trang
                   } ?>
 
                   <div class="favorite-icon" onclick="AddFavorite(event, <?php echo $result_product[0]; ?>)">
-                    <i class="fa-regular fa-heart fav-icon" id="favorite-<?php echo $result_product[0]; ?>" data-id="<?php echo $result_product[0]; ?>"></i>
+                    <i class="fa-regular fa-heart fav-icon" id="favorite-<?php echo $result_product[0]; ?>"
+                      data-id="<?php echo $result_product[0]; ?>"></i>
                   </div>
                 </div>
               </div>
-          <?php }
+            <?php }
           } else {
             echo "<h2>No Record Found. </h2>";
           } ?>
@@ -195,43 +202,43 @@ Tính giá trị của phân trang
             <?php if ($page_id > 1) { ?>
               <li class="item prev-page">
                 <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $page_id -
-  1; ?>">
+                     1; ?>">
                   <i class="fa-solid fa-chevron-left"></i>
                 </a>
               </li>
             <?php } ?>
             <?php
-            if(isset($page_total)) {
-            $pagination = $pag->pageNumber($page_total, 4, $page_id);
-            $length = count($pagination);
-            for ($i = 1; $i <= $length; $i++) {
-              if ($pagination[$i] > 0) {
-                if ($pagination[$i] == $page_id) {
-                  $current = "current";
-                } else {
-                  $current = "";
-                } ?>
-                <li class="item <?php echo $current; ?>" id="<?php echo $pagination[
-  $i
-]; ?>">
-                  <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $pagination[
-  $i
-]; ?>">
-                    <?php echo $pagination[$i]; ?>
+            if (isset($page_total)) {
+              $pagination = $pag->pageNumber($page_total, 4, $page_id);
+              $length = count($pagination);
+              for ($i = 1; $i <= $length; $i++) {
+                if ($pagination[$i] > 0) {
+                  if ($pagination[$i] == $page_id) {
+                    $current = "current";
+                  } else {
+                    $current = "";
+                  } ?>
+                  <li class="item <?php echo $current; ?>" id="<?php echo $pagination[
+                       $i
+                     ]; ?>">
+                    <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $pagination[
+                         $i
+                       ]; ?>">
+                      <?php echo $pagination[$i]; ?>
+                    </a>
+                  </li>
+                  <?php
+                }
+              }
+              ?>
+              <?php if ($page_total - 1 > $page_id + 1) { ?>
+                <li class="item next-page">
+                  <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $page_id +
+                       1; ?>">
+                    <i class="fa-solid fa-chevron-right"></i>
                   </a>
                 </li>
-            <?php
-              }
-            }
-            ?>
-            <?php if ($page_total - 1 > $page_id + 1) { ?>
-              <li class="item next-page">
-                <a href="category.php?id=<?php echo $category_id; ?>&page=<?php echo $page_id +
-  1; ?>">
-                  <i class="fa-solid fa-chevron-right"></i>
-                </a>
-              </li>
-            <?php } 
+              <?php }
             }
             ?>
           </ul>
@@ -242,19 +249,19 @@ Tính giá trị của phân trang
 
   <?php include "./components/footer.php"; ?>
 
-  
+
   <script src="./js/newWishList.js"></script>
   <script src="./js/cartclick.js"></script>
 </body>
 <script>
-  $(document).ready(function() {
+  $(document).ready(function () {
     $('.sub-list').parent('li').addClass('has-child');
 
   });
 </script>
 
 <script type="text/javascript">
-  $(document).ready(function() {
+  $(document).ready(function () {
     function loadProduct(page) {
       $.ajax({
         url: "category.php",
@@ -262,7 +269,7 @@ Tính giá trị của phân trang
         data: {
           page_no: page
         },
-        success: function(data) {
+        success: function (data) {
           $('#product-data').html(data);
         }
 
@@ -270,10 +277,11 @@ Tính giá trị của phân trang
     }
 
     // Pagination code
-    $(document).on("click", "#pagination a", function(e) {
-
+    $(document).on("click", "#pagination a", function (e) {
+      // e.preventDefault();
       var page = $(this).attr("id");
-      loadTable();
+      loadProduct(page);
+      // console.log(page);
     });
 
   });

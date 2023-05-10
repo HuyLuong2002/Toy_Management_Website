@@ -63,25 +63,28 @@ if (isset($_GET["page"])) {
 Tính giá trị của phân trang, 10 sale trên 1 trang
 */
 $result_pagination = $accountController->show_account();
-$account_total = mysqli_num_rows($result_pagination);
+if ($result_pagination) {
+  $account_total = mysqli_num_rows($result_pagination);
 
-// Số sản phẩm trên 1 trang
-$page_total = ceil($account_total / 10);
+  // Số sản phẩm trên 1 trang
+  $page_total = ceil($account_total / 10);
 
-// trang hiện tại
-if (isset($page_id)) {
-  $current_page = $page_id;
+  // trang hiện tại
+  if (isset($page_id)) {
+    $current_page = $page_id;
+  }
+  // Vị trí hiện tại
+  if (isset($current_page)) {
+    $current_position = ($current_page - 1) * 10;
+  }
+  if (isset($current_position)) {
+    $result_pagination = $accountController->show_account_by_pagination(
+      $current_position,
+      10
+    );
+  }
 }
-// Vị trí hiện tại
-if (isset($current_page)) {
-  $current_position = ($current_page - 1) * 10;
-}
-if (isset($current_position)) {
-  $result_pagination = $accountController->show_account_by_pagination(
-    $current_position,
-    10
-  );
-}
+
 ?>
 
 <div class="card" id="searchresultaccount">
@@ -175,7 +178,7 @@ if (isset($current_position)) {
               </tbody>
       </table>
     <?php
-        } else {
+        } else if ($result_pagination){
     ?>
       <tbody>
         <?php
@@ -185,7 +188,7 @@ if (isset($current_position)) {
             <tr>
               <td><?php echo $result[0]; ?></td>
               <td><?php echo $result["username"]; ?></td>
-              <td><?php echo $result["password"]; ?></td>
+              <td><?php echo md5($result["password"]); ?></td>
               <td><?php echo $result["firstname"]; ?></td>
               <td><?php echo $result["lastname"]; ?></td>
               <td><?php echo $result["gender"]; ?></td>
@@ -194,7 +197,7 @@ if (isset($current_position)) {
               <td><?php echo $result["create_date"]; ?></td>
               <td><?php echo $result["name"]; ?></td>
               <?php
-              if ($result["status"] == 1) {
+              if ($result["status"] == "1") {
                 $status = "Đang hoạt động";
               } else $status = "Ngừng hoạt động";
               ?>
@@ -222,7 +225,7 @@ if (isset($current_position)) {
       </table>
     </div>
   </div>
-  <?php if (empty($_POST["input"])) { ?>
+  <?php if (empty($_POST["input"]) && $result_pagination) { ?>
     <div class="bottom-pagination" id="pagination">
       <ul class="pagination">
         <?php if ($pagination_id > 1) { ?>
@@ -476,6 +479,8 @@ if (isset($current_position)) {
           $('#placeofbirth_edit').val(res.data.place_of_birth);
           $('#permission_edit').val(res.data.permission_id);
           $('#status_edit').val(res.data.status);
+
+          console.log(res.data.status);
         }
       }
     })

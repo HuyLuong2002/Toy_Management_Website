@@ -61,25 +61,28 @@ if (isset($_GET["page"])) {
 Tính giá trị của phân trang, 10 sale trên 1 trang
 */
 $result_pagination =  $inventoryController->show_inventory();
-$inventory_total = mysqli_num_rows($result_pagination);
+if ($result_pagination) {
+  $inventory_total = mysqli_num_rows($result_pagination);
 
-// Số sản phẩm trên 1 trang
-$page_total = ceil($inventory_total / 10);
+  // Số sản phẩm trên 1 trang
+  $page_total = ceil($inventory_total / 10);
 
-// trang hiện tại
-if (isset($page_id)) {
-  $current_page = $page_id;
+  // trang hiện tại
+  if (isset($page_id)) {
+    $current_page = $page_id;
+  }
+  // Vị trí hiện tại
+  if (isset($current_page)) {
+    $current_position = ($current_page - 1) * 10;
+  }
+  if (isset($current_position)) {
+    $result_pagination = $inventoryController->show_inventory_by_pagination(
+      $current_position,
+      10
+    );
+  }
 }
-// Vị trí hiện tại
-if (isset($current_page)) {
-  $current_position = ($current_page - 1) * 10;
-}
-if (isset($current_position)) {
-  $result_pagination = $inventoryController->show_inventory_by_pagination(
-    $current_position,
-    10
-  );
-}
+
 ?>
 
 <div class="card" id="searchresultinventory">
@@ -160,7 +163,7 @@ if (isset($current_position)) {
             ?>
         </tbody>
       </table>
-    <?php } else { ?>
+    <?php } else if ($result_pagination) { ?>
       <tbody id="inventory-data">
         <?php
             if (isset($result_pagination)) {
@@ -203,7 +206,7 @@ if (isset($current_position)) {
       </table>
     </div>
 
-    <?php if (empty($_POST["input"])) { ?>
+    <?php if (empty($_POST["input"]) && $result_pagination) { ?>
       <div class="bottom-pagination" id="pagination">
         <ul class="pagination">
           <?php if ($pagination_id > 1 && $page_total > 4) { ?>
@@ -422,8 +425,7 @@ if (isset($current_position)) {
         $("#add-btn").css("background-color", "red");
         $("#total-quantity_add_result").css("display", "block");
         $("#total-quantity_add_result").css("margin-top", "1rem");
-      }
-      else {
+      } else {
         $("#total-quantity_add_result").css("display", "none");
         $("#add-btn").prop("disabled", false);
         $("#add-btn").css("background-color", "#0be881");
@@ -438,8 +440,7 @@ if (isset($current_position)) {
         $("#add-btn").css("background-color", "red");
         $("#total-price_add_result").css("display", "block");
         $("#total-price_add_result").css("margin-top", "1rem");
-      }
-      else {
+      } else {
         $("#total-price_add_result").css("display", "none");
         $("#add-btn").prop("disabled", false);
         $("#add-btn").css("background-color", "#0be881");
@@ -455,8 +456,7 @@ if (isset($current_position)) {
         $("#edit-btn").css("background-color", "red");
         $("#total-quantity_edit_result").css("display", "block");
         $("#total-quantity_edit_result").css("margin-top", "1rem");
-      }
-      else {
+      } else {
         $("#total-quantity_edit_result").css("display", "none");
         $("#edit-btn").prop("disabled", false);
         $("#edit-btn").css("background-color", "#ffa800");
@@ -471,8 +471,7 @@ if (isset($current_position)) {
         $("#edit-btn").css("background-color", "red");
         $("#total-price_edit_result").css("display", "block");
         $("#total-price_edit_result").css("margin-top", "1rem");
-      }
-      else {
+      } else {
         $("#total-price_edit_result").css("display", "none");
         $("#edit-btn").prop("disabled", false);
         $("#edit-btn").css("background-color", "#ffa800");

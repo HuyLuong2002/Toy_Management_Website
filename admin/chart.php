@@ -2,36 +2,52 @@
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "/controller/chartController.php";
 $chartController = new ChartController();
+$year1 = 2023;
+$year2 = 2023;
+$year3 = $year2 - 1;
+if(isset($_GET["year1"]) && isset($_GET["year2"]) && isset($_GET["year3"]))
+{
+  $year1 = $_GET["year1"];
+  $year2 = $_GET["year2"];
+  $year3 = $_GET["year3"];
+}
+else {
+  $year1 = getdate()["year"];
+  $year2 = getdate()["year"];
+  $year3 = $year2 - 1;
+}
+
 //Solve chart 1
-$result_statistic_revenue = $chartController->show_revenue_quarter(2023);
+$result_statistic_revenue = $chartController->show_revenue_quarter($year1);
 $data_quarter_1 = 0;
 $data_quarter_2 = 0;
 $data_quarter_3 = 0;
 $data_quarter_4 = 0;
 if (isset($result_statistic_revenue)) {
-  while ($result = $result_statistic_revenue->fetch_assoc()) {
-    if ($result["Quy"] == 1) {
-      $data_quarter_1 = $result["DoanhThu"];
-    }
-    if ($result["Quy"] == 2) {
-      $data_quarter_2 = $result["DoanhThu"];
-    }
-    if ($result["Quy"] == 3) {
-      $data_quarter_3 = $result["DoanhThu"];
-    }
-    if ($result["Quy"] == 4) {
-      $data_quarter_4 = $result["DoanhThu"];
+  if(isset($result_statistic_revenue->num_rows)) {
+    while ($result = $result_statistic_revenue->fetch_assoc()) {
+      if ($result["Quy"] == 1) {
+        $data_quarter_1 = $result["DoanhThu"];
+      }
+      if ($result["Quy"] == 2) {
+        $data_quarter_2 = $result["DoanhThu"];
+      }
+      if ($result["Quy"] == 3) {
+        $data_quarter_3 = $result["DoanhThu"];
+      }
+      if ($result["Quy"] == 4) {
+        $data_quarter_4 = $result["DoanhThu"];
+      }
     }
   }
+
 }
 // Solve chart 2
 $result_statistic_order = $chartController->show_statistic_order();
-$result_statistic_2 = [];
+$result_statistic_2 = [0, 0, 0];
 if (isset($result_statistic_order)) {
-  $i = 0;
   while ($result = $result_statistic_order->fetch_assoc()) {
-    $result_statistic_2[$i] = $result["SoLuongHoaDon"];
-    $i++;
+    $result_statistic_2[$result["TinhTrangDonHang"]] = $result["SoLuongHoaDon"];
   }
 }
 //Solve chart 3
@@ -54,6 +70,12 @@ if (isset($result_statistic_revenue_month)) {
         }
       }
     }
+    else {
+      for ($j = 1; $j <= 12; $j++) {
+        $tmp = [$j, 0];
+        array_push($result_statistic_3_year1, $tmp);
+      }
+    }
 
     if ($result["Nam"] == 2023) {
       for ($j = 1; $j <= 12; $j++) {
@@ -64,6 +86,12 @@ if (isset($result_statistic_revenue_month)) {
           $tmp = [$j, 0];
           array_push($result_statistic_3_year2, $tmp);
         }
+      }
+    }
+    else {
+      for ($j = 1; $j <= 12; $j++) {
+        $tmp = [$j, 0];
+        array_push($result_statistic_3_year2, $tmp);
       }
     }
   }
@@ -144,7 +172,6 @@ if (isset($result_statistic_revenue_month)) {
 
   <div class="wrap-char chart-2">
     <h2>Statistical Orders</h2>
-
     <div class="chart-Pie">
       <canvas id="pieChart" width="500" height="500"></canvas>
 
@@ -153,9 +180,9 @@ if (isset($result_statistic_revenue_month)) {
         var pieChart = new Chart(ctxPie, {
           type: 'pie',
           data: {
-            labels: ['Đang giao hàng', 'Đã giao'],
+            labels: ['Đang giao hàng', 'Đã giao', 'Chờ xử lý'],
             datasets: [{
-              data: [<?php echo $result_statistic_2[0]; ?>, <?php echo $result_statistic_2[1]; ?>],
+              data: [<?php echo $result_statistic_2[0]; ?>, <?php echo $result_statistic_2[1]; ?>, <?php echo $result_statistic_2[2]; ?>],
               backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
               borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
               borderWidth: 1
