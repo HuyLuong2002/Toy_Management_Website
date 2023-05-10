@@ -74,3 +74,13 @@ function checkUsername(input) {
     }
     else return false;
 }
+
+function checkName(input) {
+    const regex = /^[a-zA-Z]*$/;
+    const normalizedStr = input.normalize("NFC"); // chuẩn hóa chuỗi
+    const isMatch = regex.test(input); // true
+    if (isMatch == true) {
+        return true;
+    }
+    else return false;
+}
