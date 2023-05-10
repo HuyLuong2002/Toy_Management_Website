@@ -91,6 +91,7 @@ if (isset($result_statistic_revenue_month)) {
   }
 }
 ?>
+
 <div class="wrapper" id="wrapper">
 
   <div class="wrap-char chart-1">
@@ -286,7 +287,7 @@ if (isset($result_statistic_revenue_month)) {
       </script>
     </div>
   </div>
-
 </div>
 
 <script src="./js/chart.js"></script>
+

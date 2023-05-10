@@ -1,8 +1,8 @@
-let selectChart1 = document.getElementById("selectYear-1")
-let selectChart2 = document.getElementById("selectYear-2")
-let selectChart3 = document.getElementById("selectYear-3")
+let selectChart1 = document.getElementById("selectYear-1");
+let selectChart2 = document.getElementById("selectYear-2");
+let selectChart3 = document.getElementById("selectYear-3");
 
-let listCurrentYear = [2023,2023,2022]
+let listCurrentYear = [2023,2023,2022];
 
 const getCurrentYear = (element) => {
     let selectedIndex = element.selectedIndex;
@@ -32,7 +32,7 @@ const handleUpdateCurrent = () => {
             year3: listCurrentYear[2],
         },
         success: function(data){
-            $("#wrapper").html(data);
+            $("#content").html(data);
         },
         error: function(xhr, status, error) {
 
