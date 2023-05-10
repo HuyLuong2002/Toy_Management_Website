@@ -2,35 +2,45 @@
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "/controller/chartController.php";
 $chartController = new ChartController();
-if(isset($_GET["current_year"]))
+$year1 = 2023;
+$year2 = 2023;
+$year3 = $year2 - 1;
+if(isset($_GET["year1"]) && isset($_GET["year2"]) && isset($_GET["year3"]))
 {
-  $listYear = $_GET["current_year"];
+  $year1 = $_GET["year1"];
+  $year2 = $_GET["year2"];
+  $year3 = $_GET["year3"];
 }
 else {
-  $listYear = [];
-  $listYear[0] = getdate()["year"];
+  $year1 = getdate()["year"];
+  $year2 = getdate()["year"];
+  $year3 = $year2 - 1;
 }
+
 //Solve chart 1
-$result_statistic_revenue = $chartController->show_revenue_quarter($listYear[0]);
+$result_statistic_revenue = $chartController->show_revenue_quarter($year1);
 $data_quarter_1 = 0;
 $data_quarter_2 = 0;
 $data_quarter_3 = 0;
 $data_quarter_4 = 0;
 if (isset($result_statistic_revenue)) {
-  while ($result = $result_statistic_revenue->fetch_assoc()) {
-    if ($result["Quy"] == 1) {
-      $data_quarter_1 = $result["DoanhThu"];
-    }
-    if ($result["Quy"] == 2) {
-      $data_quarter_2 = $result["DoanhThu"];
-    }
-    if ($result["Quy"] == 3) {
-      $data_quarter_3 = $result["DoanhThu"];
-    }
-    if ($result["Quy"] == 4) {
-      $data_quarter_4 = $result["DoanhThu"];
+  if(isset($result_statistic_revenue->num_rows)) {
+    while ($result = $result_statistic_revenue->fetch_assoc()) {
+      if ($result["Quy"] == 1) {
+        $data_quarter_1 = $result["DoanhThu"];
+      }
+      if ($result["Quy"] == 2) {
+        $data_quarter_2 = $result["DoanhThu"];
+      }
+      if ($result["Quy"] == 3) {
+        $data_quarter_3 = $result["DoanhThu"];
+      }
+      if ($result["Quy"] == 4) {
+        $data_quarter_4 = $result["DoanhThu"];
+      }
     }
   }
+
 }
 // Solve chart 2
 $result_statistic_order = $chartController->show_statistic_order();
@@ -60,6 +70,12 @@ if (isset($result_statistic_revenue_month)) {
         }
       }
     }
+    else {
+      for ($j = 1; $j <= 12; $j++) {
+        $tmp = [$j, 0];
+        array_push($result_statistic_3_year1, $tmp);
+      }
+    }
 
     if ($result["Nam"] == 2023) {
       for ($j = 1; $j <= 12; $j++) {
@@ -70,6 +86,12 @@ if (isset($result_statistic_revenue_month)) {
           $tmp = [$j, 0];
           array_push($result_statistic_3_year2, $tmp);
         }
+      }
+    }
+    else {
+      for ($j = 1; $j <= 12; $j++) {
+        $tmp = [$j, 0];
+        array_push($result_statistic_3_year2, $tmp);
       }
     }
   }
@@ -154,29 +176,6 @@ if (isset($result_statistic_revenue_month)) {
 
   <div class="wrap-char chart-2">
     <h2>Statistical Orders</h2>
-
-    <select name="selectYear-2" id="selectYear-2" class="selectYear-2" onchange="handleUpdateCurrent()" value="2023">
-      <script>
-        var d = new Date();
-        var year = d.getFullYear();
-        // Đặt giá trị min và max cho phạm vi năm của combobox
-        var minYear = year - 2;
-        var maxYear = 2030;
-        // Sử dụng vòng lặp for để hiển thị các năm
-        for (var i = minYear; i <= maxYear; i++) {
-          var option = document.createElement("option");
-          option.text = i;
-          option.value = i;
-          
-          var select = document.getElementById("selectYear-2");
-          if (i === 2023) {
-            option.setAttribute("selected", "selected");
-          }
-          select.appendChild(option);
-        }
-      </script>
-    </select>
-
     <div class="chart-Pie">
       <canvas id="pieChart" width="500" height="500"></canvas>
 

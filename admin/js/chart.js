@@ -18,17 +18,20 @@ const loadData = () => {
    listCurrentYear = [...newListCurrentYear]
 }
 
-const handleUpdateCurrent = async () => {
+const handleUpdateCurrent = () => {
     loadData()
     console.log(listCurrentYear);
 
     // Lưu đánh giá vào cơ sở dữ liệu
-    await $.ajax({
+    $.ajax({
         url: "./chart.php",
         method: "GET",
-        data: {current_year: listCurrentYear},
+        data: {
+            year1: listCurrentYear[0],
+            year2: listCurrentYear[1],
+            year3: listCurrentYear[2],
+        },
         success: function(data){
-           
         },
         error: function(xhr, status, error) {
 
