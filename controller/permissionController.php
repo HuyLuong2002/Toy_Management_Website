@@ -35,8 +35,17 @@ class PermissionController
   public function delete_permission($id)
   {
     $permissionService = new PermissionServices();
-    $result = $permissionService->delete_permission($id);
-    return $result;
+    $get_permission = $permissionService->get_permission_by_id($id);
+    $result = $get_permission->fetch_array();
+    if ($result[1] == "Admin") {
+      $alert = "<span class='error'>Can Not Delete Admin</span>";
+      return $alert;
+    } else {
+      $result_delete = $permissionService->delete_permission($id);
+      $alert = $result_delete;
+      return $alert;
+    }
+    // return $result;
   }
 
   //live search for admin
