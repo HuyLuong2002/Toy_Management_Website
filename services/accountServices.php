@@ -71,7 +71,6 @@ include_once $filepath . "\lib\session.php";
     $create_date = (string) date("d/m/Y");
     $permission_id = mysqli_real_escape_string($this->db->link, $data["permission_add"]);
     $status = mysqli_real_escape_string($this->db->link, $data["status_add"]);
-
     if (
       $username == "" ||
       $password == "" ||
