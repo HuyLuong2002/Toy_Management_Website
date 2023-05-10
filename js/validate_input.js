@@ -7,10 +7,8 @@ function checkSearchInput(input)
     {
         return false;
     }
-<<<<<<< HEAD
-    else return true;
-=======
->>>>>>> ea71b94c2658f322884491d99a9f14de1f10cbb0
+    else 
+        return true;
 }
 
 function checkAddAndEdit(input)
