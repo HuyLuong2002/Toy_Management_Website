@@ -28,20 +28,25 @@ const showProductList = async () => {
         countProduct.push(0)
     })
 
-    executeShowLoad(arrContainer, currentItemsList, cateList.category)
+    executeShowLoad(arrContainer, currentItemsList)
 }
 
-const executeShowLoad = (arrContainer, currentItemsList, cateList) => {
+const executeShowLoad = async (arrContainer, count) => {
+    let cateListAPI = await fetchAPICate(apiCate)
+    let cateList = cateListAPI.category
     for(let i = 0; i < cateList.length; i++) {
         if(arrContainer[i].length > 4) {
-            for (let j = currentItemsList[i]; j < arrContainer[i].length; j++) 
+            for (let j = count[i]; j < arrContainer[i].length; j++) 
                 arrContainer[i][j].style.display = "none";
 
-            if(currentItemsList[i] >= arrContainer[i].length) {
+            if(count[i] >= arrContainer[i].length) {
                 for(let j = 0; j < arrContainer[i].length; j++)
                     arrContainer[i][j].style.display = "block";
             } else {
-                for(let j = 0; j < currentItemsList[i]; j++)
+                if(count[i] === 0) {
+                    count[i] = 4
+                }
+                for(let j = 0; j < count[i]; j++)
                     arrContainer[i][j].style.display = "block";
             }
         } else {
@@ -74,7 +79,7 @@ const handleLoadMore = async (result) => {
             console.log("Count: ", countProduct[i]);
             console.log("CurrentItemList: ", currentItemsList[i]);
             console.log("Flags: ", flags[i]);
-            executeShowLoad(arrContainer, countProduct, cateList.category)
+            executeShowLoad(arrContainer, countProduct)
         }
     }
 };

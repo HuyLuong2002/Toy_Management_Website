@@ -63,14 +63,22 @@ include_once $filepath . "\database\connectDB.php";
 
   public function delete_permission($id)
   {
-    $query = "UPDATE permission SET is_deleted='1' WHERE id='$id' AND name!='Admin'";
+    $query = "SELECT * FROM permission WHERE id = {$id} LIMIT 1";
     $result = $this->db->delete($query);
-    if ($result) {
-      $alert = "<span class='success'>Delete Permission Sucessfully</span>";
+    $get_permission = $result->fetch_array();
+    if ($get_permission[1] == "Admin") {
+      $alert = "<span class='error'>Can Not Delete Admin</span>";
       return $alert;
     } else {
-      $alert = "<span class='error'>Delete Permission Not Sucessfully</span>";
-      return $alert;
+      $query = "UPDATE permission SET is_deleted='1' WHERE id='$id' AND name!='Admin'";
+      $result_delete = $this->db->select($query);
+      if ($result_delete) {
+        $alert = "<span class='success'>Delete Permission Sucessfully</span>";
+        return $alert;
+      } else {
+        $alert = "<span class='error'>Delete Permission Not Sucessfully</span>";
+        return $alert;
+      }
     }
   }
 

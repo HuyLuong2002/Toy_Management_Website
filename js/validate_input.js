@@ -7,8 +7,7 @@ function checkSearchInput(input)
     {
         return false;
     }
-    else 
-        return true;
+    else return true;
 }
 
 function checkAddAndEdit(input)

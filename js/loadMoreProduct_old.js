@@ -14,7 +14,7 @@ let arrContainer = [[...products_1], [...products_2]]
 const handleLoadMore = (result) => {
     let btnLoadMore = document.getElementById(`load-more-${result}`);
     let btnUnload = document.getElementById(`unload-${result}`);
-    if (result == "1") {
+    if (result === 1) {
         countProduct1 = currentItem1*++flag1
         if (countProduct1 >= products_1.length) {
             btnLoadMore.style.display = "none";
@@ -23,7 +23,7 @@ const handleLoadMore = (result) => {
         showProductList(products_1, products_2, countProduct1, currentItem2)
     }
 
-    if (result == "2") {
+    if (result === 2) {
         console.log("cc");
         countProduct2 = currentItem2*++flag2
         
@@ -39,7 +39,7 @@ const handleUnload = (result) => {
     console.log("result: ", result);
     let btnLoadMore = document.getElementById(`load-more-${result}`);
     let btnUnload = document.getElementById(`unload-${result}`);
-    if (result == "1") {
+    if (result === 1) {
         for (var i = 4; i < products_1.length; i++) {
             products_1[i].style.display = "none";
         }
@@ -49,7 +49,7 @@ const handleUnload = (result) => {
         }
     }
 
-    if (result == "2") {
+    if (result === 2) {
         for (var i = 4; i < products_2.length; i++) {
             products_2[i].style.display = "none";
         }
