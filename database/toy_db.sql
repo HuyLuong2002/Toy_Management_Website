@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 10, 2023 lúc 11:34 AM
+-- Thời gian đã tạo: Th5 10, 2023 lúc 12:01 PM
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 8.2.0
 
@@ -319,7 +319,13 @@ INSERT INTO `product` (`id`, `name`, `image`, `price`, `description`, `create_da
 (9, 'Mô hình Thanos quyền năng', '61421926a7.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 1, 2, 0, 10, 1),
 (10, 'Mô hình Hulk dũng mãnh', '61fe1a2c2b.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 2, 1, 0, 30, 0),
 (11, 'Mô hình siêu anh hùng Spiderman 30cm', 'e1f6dc76fe.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 1, 1, 0, 20, 0),
-(13, 'Mô hình Venom Flex and Bend', '1303e24c74.png', '2500', '<p>&lt;p&gt;Sản phẩm mới&lt;/p&gt;</p>', '10/05/2023', 1, 1, 1, 0, 50, 0);
+(13, 'Mô hình Venom Flex and Bend', '1303e24c74.png', '2500', '<p>&lt;p&gt;Sản phẩm mới&lt;/p&gt;</p>', '10/05/2023', 1, 1, 1, 0, 50, 0),
+(14, 'Figure superman tối thượng size 30 inch', '6243bc2a5a.png', '2000', '<p>Sản phẩm mới</p>', '10/05/2023', 0, 1, 1, 0, 12, 0),
+(15, 'Figure anh hùng đại bàng size 30 inch', '6da2a5f4f2.png', '1500', '<p>sản phẩm mới</p>', '10/05/2023', 0, 1, 2, 0, 30, 0),
+(16, 'Figure iron man siêu to khổng lồ size 30 inch', '57b5f35d05.png', '3000', '<p><strong>Sản phẩm limited</strong></p>', '10/05/2023', 0, 1, 1, 0, 2, 0),
+(17, 'Figure anh hùng xạ điêu size 30 inch', 'e64461ebbf.png', '1800', '<p>sản phẩm tồn kho</p>', '10/05/2023', 0, 2, 2, 0, 34, 0),
+(18, 'Figure phù thủy cầu đặc tối thượng size 20 inch', '7a492fd185.png', '1900', '<p>H&agrave;ng si&ecirc;u tồn kho</p>', '10/05/2023', 0, 1, 2, 0, 123, 0),
+(19, 'Figure Lý Tiểu Long bản lỗi size 10 inch', '170fbd1479.png', '2000', '<p>Sản phẩm cũng được</p>', '10/05/2023', 0, 1, 1, 0, 9, 0);
 
 -- --------------------------------------------------------
 
@@ -504,7 +510,7 @@ ALTER TABLE `permission`
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT cho bảng `provider`

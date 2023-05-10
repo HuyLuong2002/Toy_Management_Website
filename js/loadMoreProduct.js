@@ -51,10 +51,17 @@ const executeShowLoad = async (arrContainer, count) => {
                 for(let j = 0; j < count[i]; j++)
                     arrContainer[i][j].style.display = "block";
             }
-        } else {
+        } else if(arrContainer[i].length > 0) {
             let loadMoreCheck = document.getElementById(`load-more-${cateList[i].id}`)
             if(loadMoreCheck)
                 loadMoreCheck.style.display = "none";
+        } else {
+            let loadMoreCheck = document.getElementById(`load-more-${cateList[i].id}`);
+            let btnUnload = document.getElementById(`unload-${cateList[i].id}`);
+            if(loadMoreCheck)
+                loadMoreCheck.style.display = "none";
+            if(btnUnload)
+                btnUnload.style.display = "none";
         }
     }
 }

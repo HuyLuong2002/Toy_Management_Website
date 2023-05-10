@@ -97,7 +97,7 @@ if (isset($result_statistic_revenue_month)) {
   }
 }
 ?>
-<div class="wrapper">
+<div class="wrapper" id="wrapper">
 
   <div class="wrap-char chart-1">
     <h2>Statistical Revenue</h2>
@@ -106,10 +106,8 @@ if (isset($result_statistic_revenue_month)) {
       <script>
         var d = new Date();
         var year = d.getFullYear();
-        // Đặt giá trị min và max cho phạm vi năm của combobox
         var minYear = year - 2;
         var maxYear = 2030;
-        // Sử dụng vòng lặp for để hiển thị các năm
         for (var i = minYear; i <= maxYear; i++) {
           var option = document.createElement("option");
           option.text = i;
@@ -125,10 +123,8 @@ if (isset($result_statistic_revenue_month)) {
 
     <div class="chart-bar">
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-      <!-- Chart will be rendered here -->
       <canvas id="myChart" width="300" height="450"></canvas>
       <script>
-        // JavaScript code for creating and configuring the chart
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
           type: 'bar',
@@ -137,14 +133,14 @@ if (isset($result_statistic_revenue_month)) {
             datasets: [{
               label: 'Quarterly Revenue',
               data: [<?php echo $data_quarter_1; ?>, <?php echo $data_quarter_2; ?>, <?php echo $data_quarter_3; ?>, <?php echo $data_quarter_4; ?>],
-              backgroundColor: 'rgba(75, 192, 192, 0.2)', // specify chart color
-              borderColor: 'rgba(75, 192, 192, 1)', // specify border color
-              borderWidth: 1 // specify border width
+              backgroundColor: 'rgba(75, 192, 192, 0.2)', 
+              borderColor: 'rgba(75, 192, 192, 1)', 
+              borderWidth: 1 
             }]
           },
           options: {
-            responsive: true, // make the chart responsive
-            maintainAspectRatio: false, // allow chart to not maintain aspect ratio
+            responsive: true, 
+            maintainAspectRatio: false, 
             title: {
               display: true,
               text: 'My Chart Title',
@@ -154,18 +150,18 @@ if (isset($result_statistic_revenue_month)) {
             },
             legend: {
               display: true,
-              position: 'mid', // specify legend position (top, bottom, left, right)
+              position: 'mid',
               labels: {
-                fontColor: 'black', // specify font color for legend labels
-                fontSize: 14 // specify font size for legend labels
+                fontColor: 'black',
+                fontSize: 14
               }
             },
             scales: {
               x: {
-                beginAtZero: true // start x-axis from zero
+                beginAtZero: true 
               },
               y: {
-                beginAtZero: true // start y-axis from zero
+                beginAtZero: true 
               }
             }
           }
@@ -180,7 +176,6 @@ if (isset($result_statistic_revenue_month)) {
       <canvas id="pieChart" width="500" height="500"></canvas>
 
       <script>
-        // JavaScript code for creating and configuring the pie chart
         var ctxPie = document.getElementById('pieChart').getContext('2d');
         var pieChart = new Chart(ctxPie, {
           type: 'pie',
@@ -199,12 +194,10 @@ if (isset($result_statistic_revenue_month)) {
               text: 'My Pie Chart Title',
               fontSize: 16,
               fontStyle: 'bold',
-              padding: 20 // add padding around the title
+              padding: 20
             },
-            responsive: true, // Set responsive to false
+            responsive: true, 
             maintainAspectRatio: false,
-            // other options for the pie chart can be added here
-            // ...
           }
         });
       </script>
@@ -218,10 +211,8 @@ if (isset($result_statistic_revenue_month)) {
       <script>
         var d = new Date();
         var year = d.getFullYear();
-        // Đặt giá trị min và max cho phạm vi năm của combobox
         var minYear = year - 2;
         var maxYear = 2030;
-        // Sử dụng vòng lặp for để hiển thị các năm
         for (var i = minYear; i <= maxYear; i++) {
           var option = document.createElement("option");
           option.text = i;
@@ -239,14 +230,13 @@ if (isset($result_statistic_revenue_month)) {
       <canvas id="lineChart" width="200" height="400"></canvas>
 
       <script>
-        // JavaScript code for creating and configuring the line chart
         var ctxLine = document.getElementById('lineChart').getContext('2d');
         var lineChart = new Chart(ctxLine, {
-          type: 'line', // Set type to line
+          type: 'line',
           data: {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             datasets: [{
-              label: '2022', // Label for the dataset
+              label: '2022', 
               data: [
                 <?php echo $result_statistic_3_year1[0][1]; ?>,
                 <?php echo $result_statistic_3_year1[1][1]; ?>,
@@ -260,13 +250,13 @@ if (isset($result_statistic_revenue_month)) {
                 <?php echo $result_statistic_3_year1[9][1]; ?>,
                 <?php echo $result_statistic_3_year1[10][1]; ?>,
                 <?php echo $result_statistic_3_year1[11][1]; ?>
-              ], // Data points
-              fill: false, // Set fill to false to draw only lines, not filled areas
-              borderColor: 'rgba(75, 192, 192, 1)', // Border color of the line
-              backgroundColor: 'rgba(75, 192, 192, 0.2)', // Background color of the filled area
-              borderWidth: 1 // Border width of the line
+              ], 
+              fill: false, 
+              borderColor: 'rgba(75, 192, 192, 1)', 
+              backgroundColor: 'rgba(75, 192, 192, 0.2)', 
+              borderWidth: 1
             }, {
-              label: '2023', // Label for the dataset
+              label: '2023', 
               data: [
                 <?php echo $result_statistic_3_year2[0][1]; ?>,
                 <?php echo $result_statistic_3_year2[1][1]; ?>,
@@ -280,11 +270,11 @@ if (isset($result_statistic_revenue_month)) {
                 <?php echo $result_statistic_3_year2[9][1]; ?>,
                 <?php echo $result_statistic_3_year2[10][1]; ?>,
                 <?php echo $result_statistic_3_year2[11][1]; ?>
-              ], // Data points
-              fill: false, // Set fill to false to draw only lines, not filled areas
-              borderColor: 'rgba(255, 99, 132, 1)', // Border color of the line
-              backgroundColor: 'rgba(255, 99, 132, 0.2)', // Background color of the filled area
-              borderWidth: 1 // Border width of the line
+              ], 
+              fill: false, 
+              borderColor: 'rgba(255, 99, 132, 1)',
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              borderWidth: 1 
             }]
           },
           options: {
@@ -295,7 +285,7 @@ if (isset($result_statistic_revenue_month)) {
               fontStyle: 'bold',
               padding: 20
             },
-            responsive: true, // Set responsive to false
+            responsive: true, 
             maintainAspectRatio: false,
           }
         });
