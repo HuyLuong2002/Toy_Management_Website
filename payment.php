@@ -91,10 +91,10 @@ $accountController = new AccountController();
                                                             <label class="country" for="country">Country</label>
                                                         </div>
                                                     </div>
-                                                    <div class="check_same">
+                                                    <!-- <div class="check_same">
                                                         <input type="checkbox" />
                                                         <p style="font-size: 0.9rem; margin: 0;" for="same_as_shipping">Same As Shipping Address</p>
-                                                    </div>
+                                                    </div> -->
                                                 </form>
 
 

@@ -9,5 +9,12 @@ class CheckLoginController
         $result = $accountService->check_account($username);
         return $result;
     }
+
+    public function check_account_user($username)
+    {
+        $accountService = new AccountServices();
+        $result = $accountService->check_account_user($username);
+        return $result;
+    }
 }
 ?>

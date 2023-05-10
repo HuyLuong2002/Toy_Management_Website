@@ -2,20 +2,11 @@
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "/controller/chartController.php";
 $chartController = new ChartController();
-$year1 = 2023;
-$year2 = 2023;
-$year3 = $year2 - 1;
-if(isset($_GET["year1"]) && isset($_GET["year2"]) && isset($_GET["year3"]))
-{
-  $year1 = $_GET["year1"];
-  $year2 = $_GET["year2"];
-  $year3 = $_GET["year3"];
-}
-else {
+
   $year1 = getdate()["year"];
   $year2 = getdate()["year"];
   $year3 = $year2 - 1;
-}
+
 
 //Solve chart 1
 $result_statistic_revenue = $chartController->show_revenue_quarter($year1);
@@ -52,8 +43,8 @@ if (isset($result_statistic_order)) {
 }
 //Solve chart 3
 $result_statistic_revenue_month = $chartController->show_statistic_revenue_by_month(
-  2022,
-  2023
+  $year2,
+  $year3
 );
 $result_statistic_3_year1 = [];
 $result_statistic_3_year2 = [];
@@ -101,27 +92,6 @@ if (isset($result_statistic_revenue_month)) {
 
   <div class="wrap-char chart-1">
     <h2>Statistical Revenue</h2>
-
-    <select name="selectYear-1" id="selectYear-1" class="selectYear-1" onchange="handleUpdateCurrent()" value="2023">
-      <script>
-        var d = new Date();
-        var year = d.getFullYear();
-        // Đặt giá trị min và max cho phạm vi năm của combobox
-        var minYear = year - 2;
-        var maxYear = 2030;
-        // Sử dụng vòng lặp for để hiển thị các năm
-        for (var i = minYear; i <= maxYear; i++) {
-          var option = document.createElement("option");
-          option.text = i;
-          option.value = i;
-          var select = document.getElementById("selectYear-1");
-          if (i === 2023) {
-            option.setAttribute("selected", "selected");
-          }
-          select.appendChild(option);
-        }
-      </script>
-    </select>
 
     <div class="chart-bar">
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -213,27 +183,6 @@ if (isset($result_statistic_revenue_month)) {
 
   <div class="wrap-char chart-3">
     <h2>Statistical Revenue</h2>
-
-    <select name="selectYear-3" id="selectYear-3" class="selectYear-3" onchange="handleUpdateCurrent()" value="2023">
-      <script>
-        var d = new Date();
-        var year = d.getFullYear();
-        // Đặt giá trị min và max cho phạm vi năm của combobox
-        var minYear = year - 2;
-        var maxYear = 2030;
-        // Sử dụng vòng lặp for để hiển thị các năm
-        for (var i = minYear; i <= maxYear; i++) {
-          var option = document.createElement("option");
-          option.text = i;
-          option.value = i;
-          var select = document.getElementById("selectYear-3");
-          if (i === 2023) {
-            option.setAttribute("selected", "selected");
-          }
-          select.appendChild(option);
-        }
-      </script>
-    </select>
 
     <div class="chart-line">
       <canvas id="lineChart" width="200" height="400"></canvas>

@@ -146,17 +146,31 @@ if (isset($_GET["action"]) == "logout") {
   </script>
 
   <script>
-    function checkUsername() {
-      jQuery.ajax({
+    $(document).ready(function() {
+      $("#sign-up-nome").keyup(function() {
+        $.ajax({
         url: "check_login.php",
         data: 'nome=' + $("#sign-up-nome").val(),
         type: "POST",
         success: function(data) {
-          $("#check-username").html(data);
+          if(data == 1)
+          {
+            $("#username_notify").html("<span class='success'>Username is valid</span>");
+            $("#btn-sign-up").prop("disabled", false);
+            $("#btn-sign-up").css("background-color", "#0be881");
+          }
+          else
+          {
+            $("#username_notify").html("<span class='error'>Username is used</span>");
+            $("#btn-sign-up").prop("disabled", true);
+            $("#btn-sign-up").css("background-color", "#de5959");
+          }
         },
-        error: function() {}
+        error: function() {
+        }
       });
-    }
+    });
+  });
   </script>
 
 
@@ -193,20 +207,20 @@ if (isset($_GET["action"]) == "logout") {
       });
     });
 
-    $("#sign-up-nome").keyup(function() {
-      var input = $(this).val();
-      if (checkUsername(input) == false) {
-        $("#username_notify").html("<span class='error'>User name Not Valid</span>");
-        $("#username_notify").css("display", "block");
-        $("#btn-sign-up").prop("disabled", true);
-        $("#btn-sign-up").css("background-color", "red");
-        // $("#username_notify").css("margin-bottom", "1rem");
-      } else {
-        $("#username_notify").css("display", "none");
-        $("#btn-sign-up").prop("disabled", false);
-        $("#btn-sign-up").css("background-color", "#0be881");
-      }
-    });
+    // $("#sign-up-nome").keyup(function() {
+    //   var input = $(this).val();
+    //   if (checkUsername(input) == false) {
+    //     $("#username_notify").html("<span class='error'>User name Not Valid</span>");
+    //     $("#username_notify").css("display", "block");
+    //     $("#btn-sign-up").prop("disabled", true);
+    //     $("#btn-sign-up").css("background-color", "red");
+    //     // $("#username_notify").css("margin-bottom", "1rem");
+    //   } else {
+    //     $("#username_notify").css("display", "none");
+    //     $("#btn-sign-up").prop("disabled", false);
+    //     $("#btn-sign-up").css("background-color", "#0be881");
+    //   }
+    // });
 
     $("#firstname").keyup(function() {
       var input = $(this).val();

@@ -150,7 +150,7 @@ if (isset($_COOKIE[$s_name])) {
                                 <?php if (Session::get("user") == false) { ?>
                                     <a href="login.php">Login</a>
                                 <?php } else { ?>
-                                    <a href="login.php?action=logout">Log out</a>
+                                    <a href="../login.php?action=logout">Log out</a>
                                 <?php } ?>
                             </li>
                         </ul>

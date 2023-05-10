@@ -58,6 +58,13 @@ include_once $filepath . "\lib\session.php";
     return $result;
   }
 
+  public function check_account_user($username)
+  {
+    $query = "SELECT * FROM account WHERE username='{$username}'";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
   public function insert_account_admin($data)
   {
     $username = mysqli_real_escape_string($this->db->link, $data["username"]);
