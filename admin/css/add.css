@@ -17,7 +17,8 @@
 /* .form-container {
 } */
 
-form {
+.product-add-form,
+.product-edit-form {
   display: flex;
   flex-direction: row;
   width: 1100px;

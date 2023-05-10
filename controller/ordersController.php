@@ -38,5 +38,11 @@
             $result = $orderService->show_order_by_pagination($offset, $limit_per_page);
             return $result;
         }
+
+        public function update_status_order($data)
+        {
+            $orderService = new OrderServices();
+            $result = $orderService->update_status_order($data);
+            return $result;
+        }
     }
-?>
