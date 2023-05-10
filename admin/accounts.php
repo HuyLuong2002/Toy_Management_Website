@@ -194,7 +194,7 @@ if (isset($current_position)) {
               <td><?php echo $result["create_date"]; ?></td>
               <td><?php echo $result["name"]; ?></td>
               <?php
-              if ($result["status"] == 1) {
+              if ($result["status"] == "1") {
                 $status = "Đang hoạt động";
               } else $status = "Ngừng hoạt động";
               ?>
