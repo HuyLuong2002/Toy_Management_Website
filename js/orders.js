@@ -6,7 +6,8 @@ let productDetailOrder = document.getElementById("wrap-load-order-product");
 
 let Order = JSON.parse(localStorage.getItem('Order'));
 
-const orderApi = `http://localhost:8000/Toy_Management_Website/api/orders/show_user.php?userID=${Order.user_id}`;
+// const orderApi = `http://localhost:8000/Toy_Management_Website/api/orders/show_user.php?userID=${Order.user_id}`;
+const orderApi = `http://localhost:3000/api/orders/show_user.php?userID=${Order.user_id}`;
 
 
 const fetchAPI = async (api) => {
