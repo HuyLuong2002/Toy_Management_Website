@@ -182,7 +182,7 @@ if ($result_pagination) {
     <?php
           } else if($result_pagination){
     ?>
-      <tbody>
+      <tbody id="product-data">
         <?php if ($result_pagination) {
               while ($result = $result_pagination->fetch_array()) { ?>
             <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] ==
@@ -360,15 +360,15 @@ if ($result_pagination) {
         success: function(data) {
           $('#product-data').html(data);
         }
-
       });
     }
 
     // Pagination code
     $(document).on("click", "#pagination a", function(e) {
-
+      // e.preventDefault();
       var page = $(this).attr("id");
       loadProduct(page);
+      // console.log(page);
     });
   });
 
