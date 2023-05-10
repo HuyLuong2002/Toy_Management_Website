@@ -35,7 +35,7 @@ include_once $filepath . "\database\connectDB.php";
 
   public function show_statistic_customer()
   {
-    $query = "SELECT COUNT(*) FROM account WHERE is_deleted = '0' AND status = '1' AND permission_id = '4'";
+    $query = "SELECT COUNT(*) FROM account WHERE is_deleted = '0' AND status = '1' AND permission_id = '2'";
     $result = $this->db->select($query);
     return $result;
   }

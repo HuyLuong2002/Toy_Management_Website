@@ -60,7 +60,7 @@ include_once $filepath . "\lib\session.php";
 
   public function check_account_user($username)
   {
-    $query = "SELECT * FROM account WHERE username='{$username}'";
+    $query = "SELECT * FROM account WHERE username='{$username}' AND is_deleted = 0";
     $result = $this->db->select($query);
     return $result;
   }
