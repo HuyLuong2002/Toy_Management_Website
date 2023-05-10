@@ -36,3 +36,7 @@ const handleUpdateCurrent = async () => {
         }
     });
 }
+
+const loadChart = () => {
+    return ``
+}
