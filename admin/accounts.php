@@ -63,25 +63,28 @@ if (isset($_GET["page"])) {
 Tính giá trị của phân trang, 10 sale trên 1 trang
 */
 $result_pagination = $accountController->show_account();
-$account_total = mysqli_num_rows($result_pagination);
+if ($result_pagination) {
+  $account_total = mysqli_num_rows($result_pagination);
 
-// Số sản phẩm trên 1 trang
-$page_total = ceil($account_total / 10);
+  // Số sản phẩm trên 1 trang
+  $page_total = ceil($account_total / 10);
 
-// trang hiện tại
-if (isset($page_id)) {
-  $current_page = $page_id;
+  // trang hiện tại
+  if (isset($page_id)) {
+    $current_page = $page_id;
+  }
+  // Vị trí hiện tại
+  if (isset($current_page)) {
+    $current_position = ($current_page - 1) * 10;
+  }
+  if (isset($current_position)) {
+    $result_pagination = $accountController->show_account_by_pagination(
+      $current_position,
+      10
+    );
+  }
 }
-// Vị trí hiện tại
-if (isset($current_page)) {
-  $current_position = ($current_page - 1) * 10;
-}
-if (isset($current_position)) {
-  $result_pagination = $accountController->show_account_by_pagination(
-    $current_position,
-    10
-  );
-}
+
 ?>
 
 <div class="card" id="searchresultaccount">
@@ -175,7 +178,7 @@ if (isset($current_position)) {
               </tbody>
       </table>
     <?php
-        } else {
+        } else if ($result_pagination){
     ?>
       <tbody>
         <?php
@@ -222,7 +225,7 @@ if (isset($current_position)) {
       </table>
     </div>
   </div>
-  <?php if (empty($_POST["input"])) { ?>
+  <?php if (empty($_POST["input"]) && $result_pagination) { ?>
     <div class="bottom-pagination" id="pagination">
       <ul class="pagination">
         <?php if ($pagination_id > 1) { ?>

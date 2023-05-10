@@ -71,18 +71,21 @@ Tính giá trị của phân trang
 10 sản phẩm trên 1 trang
 */
 // Tổng số sản phẩm
-$provider_total = mysqli_num_rows($result_pagination);
-//số sản phẩm trên 1 trang
-$num_product_on_page = 10;
-$page_total = ceil($provider_total / $num_product_on_page);
-//Trang hiện tại
-if (isset($page_id))
-  $current_page = $page_id;
-// vị trí hiện tại
-if (isset($current_page))
-  $current_position = ($current_page - 1) * $num_product_on_page;
-if (isset($current_position))
-  $result_pagination = $providerController->show_provider_by_panigation_admin($current_position, $num_product_on_page);
+if ($result_pagination) {
+  $provider_total = mysqli_num_rows($result_pagination);
+  //số sản phẩm trên 1 trang
+  $num_product_on_page = 10;
+  $page_total = ceil($provider_total / $num_product_on_page);
+  //Trang hiện tại
+  if (isset($page_id))
+    $current_page = $page_id;
+  // vị trí hiện tại
+  if (isset($current_page))
+    $current_position = ($current_page - 1) * $num_product_on_page;
+  if (isset($current_position))
+    $result_pagination = $providerController->show_provider_by_panigation_admin($current_position, $num_product_on_page);
+}
+
 ?>
 
 
@@ -157,7 +160,7 @@ if (isset($current_position))
         </tbody>
       </table>
     <?php
-          } else {
+          } else if($result_pagination){
     ?>
       <tbody id="provider-data">
         <?php
@@ -191,7 +194,7 @@ if (isset($current_position))
       </tbody>
       </table>
       <?php
-      if (empty($_POST["input"])) {
+      if (empty($_POST["input"]) && $result_pagination) {
       ?>
         <div class="bottom-pagination" id="pagination">
           <ul class="pagination">
@@ -350,8 +353,7 @@ if (isset($current_position))
         $("#add-btn").css("background-color", "red");
         $("#name_add_result").css("display", "block");
         $("#name_add_result").css("margin-top", "1rem");
-      }
-      else {
+      } else {
         $("#name_add_result").css("display", "none");
         $("#add-btn").prop("disabled", false);
         $("#add-btn").css("background-color", "#0be881");
@@ -366,8 +368,7 @@ if (isset($current_position))
         $("#edit-btn").css("background-color", "red");
         $("#name_edit_result").css("display", "block");
         $("#name_edit_result").css("margin-top", "1rem");
-      }
-      else {
+      } else {
         $("#name_edit_result").css("display", "none");
         $("#edit-btn").prop("disabled", false);
         $("#edit-btn").css("background-color", "#ffa800");
