@@ -140,6 +140,7 @@ if (isset($_GET["id"])) {
             success: function(data) {
               var $data = $(data);
               var searchResult = $data.find('#card-product').html();
+              console.log(searchResult);
               $("#card-product").html(searchResult);
               $("#card-product").css("display", "block");
             }
