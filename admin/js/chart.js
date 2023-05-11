@@ -1,24 +1,24 @@
-let selectChart1 = document.getElementById("selectYear-1");
-let selectChart2 = document.getElementById("selectYear-2");
-let selectChart3 = document.getElementById("selectYear-3");
+selectChart1 = document.getElementById("selectYear-1");
+selectChart2 = document.getElementById("selectYear-2");
+selectChart3 = document.getElementById("selectYear-3");
 
-let listCurrentYear = [2023,2023,2022];
+listCurrentYear = [2023,2023,2022];
 
-const getCurrentYear = (element) => {
-    let selectedIndex = element.selectedIndex;
+getCurrentYear = (element) => {
+    selectedIndex = element.selectedIndex;
     return element.options[selectedIndex].textContent;
 }
 
-const loadData = () => {
-    let yearOne = getCurrentYear(selectChart1)
-    let yearThree = getCurrentYear(selectChart3)
+loadData = () => {
+    yearOne = getCurrentYear(selectChart1)
+    yearThree = getCurrentYear(selectChart3)
 
-   let newListCurrentYear = []
+    newListCurrentYear = []
    newListCurrentYear.push(parseInt(yearOne), parseInt(yearThree), parseInt(yearThree) -1)
    listCurrentYear = [...newListCurrentYear]
 }
 
-const handleUpdateCurrent = () => {
+handleUpdateCurrent = () => {
     loadData()
     console.log(listCurrentYear);
 
@@ -41,6 +41,6 @@ const handleUpdateCurrent = () => {
     });
 }
 
-const loadChart = () => {
+loadChart = () => {
     return ``
 }

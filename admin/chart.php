@@ -285,9 +285,11 @@ if (isset($result_statistic_revenue_month)) {
           }
         });
       </script>
+
+      <script src="./js/chart.js"></script>
     </div>
   </div>
 </div>
 
-<script src="./js/chart.js"></script>
+
 
