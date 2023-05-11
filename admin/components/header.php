@@ -39,6 +39,7 @@ if (isset($_GET["id"])) {
   <link rel="stylesheet" href="./css/add.css">
   <link rel="stylesheet" href="./css/orderDetail.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -140,6 +141,7 @@ if (isset($_GET["id"])) {
             success: function(data) {
               var $data = $(data);
               var searchResult = $data.find('#card-product').html();
+              console.log(searchResult);
               $("#card-product").html(searchResult);
               $("#card-product").css("display", "block");
             }

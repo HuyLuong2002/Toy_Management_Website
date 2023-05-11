@@ -1,5 +1,5 @@
 <div class="admin-main-content" id="admin-main-content">
-  <div class="content">
+  <div class="content" id="content">
     <?php if (isset($_GET["id"])) {
       $id = $_GET["id"];
       switch ($id) {

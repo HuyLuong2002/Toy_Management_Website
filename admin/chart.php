@@ -91,6 +91,7 @@ if (isset($result_statistic_revenue_month)) {
   }
 }
 ?>
+
 <div class="wrapper" id="wrapper">
   <div class="wrap-head-table">
     <h2>List of best-selling products</h2>
@@ -352,9 +353,11 @@ if (isset($result_statistic_revenue_month)) {
           }
         });
       </script>
+
+      <script src="./js/chart.js"></script>
     </div>
   </div>
-
 </div>
 
-<script src="./js/chart.js"></script>
+
+

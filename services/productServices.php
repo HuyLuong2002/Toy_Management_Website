@@ -29,6 +29,25 @@ include_once $filepath . "\database\connectDB.php";
     return $result;
   }
 
+  public function show_product_sort($sortKey)
+  {
+    if($sortKey == 1)
+    {
+      $query = "SELECT * FROM product, category, sale WHERE product.is_deleted = 0 
+      AND product.category_id = category.id 
+      AND product.sale_id = sale.id
+      ORDER BY product.name DESC";
+    }
+    else {
+      $query = "SELECT * FROM product, category, sale WHERE product.is_deleted = 0
+      AND product.category_id = category.id
+      AND product.sale_id = sale.id
+      ORDER BY product.name ASC";
+    }
+    $result = $this->db->select($query);
+    return $result;
+  }
+
   // product detail by product id
   public function show_product_detail($product_detail_id)
   {
@@ -85,7 +104,7 @@ include_once $filepath . "\database\connectDB.php";
   public function show_product_for_pagination()
   {
     $query =
-      "SELECT * FROM product, category, sale WHERE product.is_deleted = '0' AND product.category_id = category.id AND product.sale_id = sale.id ORDER BY product.id desc";
+      "SELECT * FROM product, category, sale WHERE product.is_deleted = '0' AND product.category_id = category.id AND product.sale_id = sale.id ORDER BY product.create_date desc";
     $result = $this->db->select($query);
     return $result;
   }

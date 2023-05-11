@@ -3,10 +3,10 @@ let selectCharThree = document.getElementById("selectYear-3")
 let checkFail = document.getElementById("check-fail");
 
 
-let listCurrentYear = [2023,2023,2022]
+listCurrentYear = [2023,2023,2022];
 
-const getCurrentYear = (element) => {
-    let selectedIndex = element.selectedIndex;
+getCurrentYear = (element) => {
+    selectedIndex = element.selectedIndex;
     return element.options[selectedIndex].textContent;
 }
 
@@ -14,12 +14,12 @@ const loadData = () => {
     let yearOne = getCurrentYear(selectCharOne)
     let yearThree = getCurrentYear(selectCharThree)
 
-   let newListCurrentYear = []
+    newListCurrentYear = []
    newListCurrentYear.push(parseInt(yearOne), parseInt(yearThree), parseInt(yearThree) -1)
    listCurrentYear = [...newListCurrentYear]
 }
 
-const handleUpdateCurrent = () => {
+handleUpdateCurrent = () => {
     loadData()
     console.log(listCurrentYear);
 
@@ -33,7 +33,7 @@ const handleUpdateCurrent = () => {
             year3: listCurrentYear[2],
         },
         success: function(data){
-            $("#wrapper").html(data);
+            $("#content").html(data);
         },
         error: function(xhr, status, error) {
 

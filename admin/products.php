@@ -17,6 +17,11 @@ if (isset($_POST["input"])) {
   );
 }
 
+if (isset($_POST["sort"])) {
+  $sortKey = $_POST["sort"];
+  $show_product_live_search = $productsController->show_product_sort($sortKey);
+}
+
 if (isset($_GET["id"])) {
   $id = $_GET["id"];
 }
@@ -44,6 +49,7 @@ Tính giá trị của phân trang
 // Tổng số sản phẩm
 if ($result_pagination) {
   $product_total = mysqli_num_rows($result_pagination);
+
   //số sản phẩm trên 1 trang
   $num_product_on_page = 10;
   $page_total = ceil($product_total / $num_product_on_page);
@@ -62,7 +68,6 @@ if ($result_pagination) {
     );
   }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -79,14 +84,18 @@ if ($result_pagination) {
   <div class="card-header">
     <div class="bg-modal-box product"></div>
     <h3>Product List</h3>
-    <?php
-    if (isset($deleteProduct)) {
+    <?php if (isset($deleteProduct)) {
       echo $deleteProduct;
-    }
-    ?>
+    } ?>
+    <div>
+    <button id="sort-btn">
+      Sort <span class="las la-arrow-up" style="display: inline-block;"> (A-Z) </span><span class="las la-arrow-down" style="display: none"> (Z-A)</span>
+    </button>
     <button>
       <a href="product_add.php"> Add product<span class="las la-plus"></span></a>
     </button>
+    </div>
+
   </div>
 
   <div class="card-body">
@@ -115,9 +124,9 @@ if ($result_pagination) {
                 $result = $show_product_live_search->fetch_array()
               ) { ?>
                 <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] ==
-                                                                    1
-                                                                    ? "activeBg"
-                                                                    : ""; ?>">
+1
+  ? "activeBg"
+  : ""; ?>">
 
                   <td>
                     <?php echo $result[0]; ?>
@@ -127,7 +136,7 @@ if ($result_pagination) {
                   </td>
                   <td>
                     <img src="<?php echo "uploads/" .
-                                $result[2]; ?>" alt="" width="100px" />
+                      $result[2]; ?>" alt="" width="100px" />
                   </td>
                   <td>
                     <?php echo $result[3]; ?>
@@ -163,7 +172,7 @@ if ($result_pagination) {
                   </td>
                   <td>
                     <div class="action-btn-group">
-                      <a class="edit" href="product_edit.php?id=<?php echo $result[0] ?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
+                      <a class="edit" href="product_edit.php?id=<?php echo $result[0]; ?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
                       <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
                         <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                           Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
@@ -173,22 +182,18 @@ if ($result_pagination) {
                     <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
                   </td>
                 </tr>
-            <?php }
-            } else {
-              echo "<span class='error'>No Data Found</span>";
-            } ?>
+            <?php }} else {echo "<span class='error'>No Data Found</span>";} ?>
         </tbody>
       </table>
     <?php
-          } else if($result_pagination){
-    ?>
+          } elseif ($result_pagination) { ?>
       <tbody id="product-data">
         <?php if ($result_pagination) {
-              while ($result = $result_pagination->fetch_array()) { ?>
+          while ($result = $result_pagination->fetch_array()) { ?>
             <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] ==
-                                                                1
-                                                                ? "activeBg"
-                                                                : ""; ?>">
+1
+  ? "activeBg"
+  : ""; ?>">
 
               <td>
                 <?php echo $result[0]; ?>
@@ -198,7 +203,7 @@ if ($result_pagination) {
               </td>
               <td>
                 <img src="<?php echo "uploads/" .
-                            $result[2]; ?>" alt="" width="100px" />
+                  $result[2]; ?>" alt="" width="100px" />
               </td>
               <td>
                 <?php echo $result[3]; ?>
@@ -234,7 +239,7 @@ if ($result_pagination) {
               </td>
               <td>
                 <div class="action-btn-group">
-                  <a class="edit" href="product_edit.php?id=<?php echo $result[0] ?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
+                  <a class="edit" href="product_edit.php?id=<?php echo $result[0]; ?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
                   <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
                     <button class="modal-btn-delete" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                       Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
@@ -246,17 +251,16 @@ if ($result_pagination) {
 
             </tr>
       <?php }
-            }
-          } ?>
+        }} ?>
       </tbody>
       </table>
-      <?php if (empty($_POST["input"]) && $result_pagination) { ?>
+      <?php if (empty($_POST["input"]) && empty($_POST["sort"])) { ?>
         <div class="bottom-pagination" id="pagination">
           <ul class="pagination">
             <?php if ($pagination_id > 1) { ?>
               <li class="item prev-page">
                 <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id -
-                                                                1; ?>">
+  1; ?>">
                   <i class="fa-solid fa-chevron-left"></i>
                 </a>
               </li>
@@ -271,8 +275,12 @@ if ($result_pagination) {
                 } else {
                   $current = "";
                 } ?>
-                <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
-                  <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
+                <li class="item <?php echo $current; ?>" id="<?php echo $pagination[
+  $i
+]; ?>">
+                  <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[
+  $i
+]; ?>">
                     <?php echo $pagination[$i]; ?>
                   </a>
                 </li>
@@ -283,15 +291,14 @@ if ($result_pagination) {
             <?php if ($page_total - 1 > $pagination_id + 1) { ?>
               <li class="item next-page">
                 <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id +
-                                                                1; ?>">
+  1; ?>">
                   <i class="fa-solid fa-chevron-right"></i>
                 </a>
               </li>
             <?php } ?>
           </ul>
         </div>
-      <?php }
-      ?>
+      <?php } ?>
     </div>
   </div>
 
@@ -377,6 +384,40 @@ if ($result_pagination) {
       e.preventDefault();
       var delete_id = $(this).val();
       $('.delete_id').val(delete_id);
+    });
+  });
+</script>
+
+<script>
+    $(document).ready(function() {
+    $('#sort-btn').click(function(e) {
+      var arrowUp = $(".las.la-arrow-up");
+      var arrowDown = $(".las.la-arrow-down");
+      var sortKey = 0;
+      if (arrowUp.css("display") === "inline-block") {
+        sortKey = 2;
+        arrowUp.css("display", "none");
+        arrowDown.css("display", "inline-block");
+      } else if (arrowUp.css("display") === "none") {
+        sortKey = 1;
+        arrowUp.css("display", "inline-block");
+        arrowDown.css("display", "none");
+      }
+
+      $.ajax({
+        url: "products.php",
+        type: "POST",
+        data: {
+          sort: sortKey
+        },
+        success: function(data) {
+          var $data = $(data);
+          var searchResult = $data.find('#card-product').html();
+          $('#card-product').html(searchResult);
+          $("#card-product").css("display", "block");
+        }
+      });
+
     });
   });
 </script>
