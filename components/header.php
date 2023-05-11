@@ -244,10 +244,23 @@ let typeKeySearch = [
     }
 
     let CartAdd = JSON.parse(localStorage.getItem('cartAdd'));
-    let Cart = document.getElementById("cart").innerText = `(${CartAdd?.length})`;
-
     let FavoriteAdd = JSON.parse(localStorage.getItem('favorite'));
-    let Favorite = document.getElementById("favorite").innerText = `(${FavoriteAdd?.length})`;
+    
+    if(!CartAdd) {
+        document.getElementById("cart").innerText = "(0)"
+    } else {
+        document.getElementById("cart").innerText = `(${CartAdd.length})`;
+    }
+    if(!FavoriteAdd) { 
+        document.getElementById("favorite").innerText = "(0)"
+    } else {
+        document.getElementById("favorite").innerText = `(${FavoriteAdd.length})`;
+    }
+
+    // let Cart = document.getElementById("cart").innerText = `(${CartAdd?.length})`;
+    // let Favorite = document.getElementById("favorite").innerText = `(${FavoriteAdd?.length})`;
+
+    
 
     const loadKeySearch = (arr = typeKeySearch) => {
         let keySearch = document.getElementById("key-search")

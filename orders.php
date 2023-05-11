@@ -64,18 +64,21 @@ $user_id = Session::get("userID");
             <h1 style="text-align: center; margin-bottom: 1rem;">Order Detail</h1>
 
             <div class="content-order">
-                <div class="order-list">
-                    <ul class="name-order-list" style="font-weight: 600;">
-                        <li>Product</li>
-                        <li>Name</li>
-                        <li>Price</li>
-                        <li>Quantity</li>
-                        <li>TotalPrice</li>
-                    </ul>
-                </div>
-
-                <div class="wrap-load-order-product" id="wrap-load-order-product">
-                    
+                <div class="wrap-order-detail-table">
+                    <table id="content-order-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>TotalPrice</th>
+                            </tr>
+                        </thead>
+                        <tbody id="wrap-load-order-product">
+                            
+                        </tbody>
+                    </table>
                 </div>
 
                 <hr style="border-top: 3px solid #ccc;">

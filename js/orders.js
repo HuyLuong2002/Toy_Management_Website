@@ -6,9 +6,9 @@ let productDetailOrder = document.getElementById("wrap-load-order-product");
 
 let Order = JSON.parse(localStorage.getItem('Order'));
 
-// const orderApi = `http://localhost:8000/Toy_Management_Website/api/orders/show_user.php?userID=${Order.user_id}`;
+const orderApi = `http://localhost:8000/Toy_Management_Website/api/orders/show_user.php?userID=${Order.user_id}`;
 // const orderApi = `http://localhost:3000/api/orders/show_user.php?userID=${Order.user_id}`;
-const orderApi = `http://localhost:8080/Toy_Management_Website/api/orders/show_user.php?userID=${Order.user_id}`;
+// const orderApi = `http://localhost:8080/Toy_Management_Website/api/orders/show_user.php?userID=${Order.user_id}`;
 
 
 
@@ -94,8 +94,8 @@ let handleShowDetailOrder = (idOrder) => {
 };
 
 const loadProduct = async (idOrder) => {
-    // let Product = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/detail_orders/show_order.php?orderID=${idOrder}`)
-    let Product = await fetchAPI(`http://localhost:8080/Toy_Management_Website/api/detail_orders/show_order.php?orderID=${idOrder}`)
+    let Product = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/detail_orders/show_order.php?orderID=${idOrder}`)
+    // let Product = await fetchAPI(`http://localhost:8080/Toy_Management_Website/api/detail_orders/show_order.php?orderID=${idOrder}`)
 
 
     if (!Product) {
@@ -106,13 +106,13 @@ const loadProduct = async (idOrder) => {
     let listProduct = Product.detail_orders.map((item) => {
         let total = item.detail_order_list.price * item.detail_order_list.quantity
         return `
-            <div class="order-product" key=${item.id}>
-                <img src=${'admin/uploads/' + item.detail_order_list.image} alt="">
-                <p class="product_name">${item.detail_order_list.name}</p>
-                <p class="product_price">$${item.detail_order_list.price}</p>
-                <P class="product_quantity">${item.detail_order_list.quantity}</P>
-                <P class="product_total">$${total}</P>
-            </div>
+            <tr key=${item.id}>
+                <td><img src=${'admin/uploads/' + item.detail_order_list.image} alt=""></td>
+                <td>${item.detail_order_list.name}</td>
+                <td>$${item.detail_order_list.price}</td>
+                <td>${item.detail_order_list.quantity}</td>
+                <td>$${total}</td>
+            </tr>
         `;
     }).join('')
 

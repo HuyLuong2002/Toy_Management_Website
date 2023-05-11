@@ -78,7 +78,16 @@ const AmountCartWasAdded = () => {
     let CartAdd = JSON.parse(localStorage.getItem('cartAdd'));
     let FavoriteAdd = JSON.parse(localStorage.getItem('favorite'));
     
-    document.getElementById("cart").innerText = `(${CartAdd.length})`;
-    document.getElementById("favorite").innerText = `(${FavoriteAdd.length})`;
+    if(!CartAdd) {
+        document.getElementById("cart").innerText = "(0)"
+    } else {
+        document.getElementById("cart").innerText = `(${CartAdd.length})`;
+    }
+    if(!FavoriteAdd) { 
+        document.getElementById("favorite").innerText = "(0)"
+    } else {
+        document.getElementById("favorite").innerText = `(${FavoriteAdd.length})`;
+    }
+    
 }
 LoadCheckCart()

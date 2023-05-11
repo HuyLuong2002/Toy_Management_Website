@@ -1,61 +1,213 @@
 .wrapper {
-    margin-top: 7rem;
+  margin-top: 7rem;
+  position: relative;
 }
 
 .wrap-char {
-    max-width: 72rem;
-    margin: 1rem 0 7rem 0;
+  max-width: 72rem;
+  margin: 1rem 0 7rem 0;
 }
 
 .wrap-char > h2 {
-   text-align: center;
+  text-align: center;
 }
 
 .chart-bar,
 .chart-line {
-    padding: 1rem 1.5rem;
+  padding: 1rem 1.5rem;
 }
 
 .chart-Pie {
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-    padding: 0.5rem 2rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  padding: 0.5rem 2rem;
 }
 
 /* Chart Year */
-.chart-1, .chart-2, .chart-3{
+.chart-1,
+.chart-2,
+.chart-3 {
+  position: relative;
+}
+
+.selectYear-1,
+.selectYear-2,
+.selectYear-3 {
+  width: 200px; /* độ rộng của combobox */
+  height: 30px; /* độ cao của combobox */
+  font-size: 16px; /* kích thước chữ của combobox */
+  font-family: Arial, sans-serif; /* font chữ của combobox */
+  color: #333; /* màu chữ của combobox */
+  background-color: #fff; /* màu nền của combobox */
+  border: 1px solid #ccc; /* viền của combobox */
+  border-radius: 5px; /* bo góc của combobox */
+  padding: 5px; /* khoảng cách giữa nội dung và viền của combobox */
+  outline: none; /* loại bỏ đường viền khi được chọn */
+  appearance: none; /* ẩn các nút mũi tên của combobox */
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M14.35,8.16L10,12.51L5.65,8.16a.75.75,0,0,0-1.06,1.06l5,5a.76.76,0,0,0,1.06,0l5-5A.75.75,0,0,0,14.35,8.16Z"/></svg>'); /* thêm một mũi tên nhỏ bên phải của combobox */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  cursor: pointer; /* chỉ tay khi di chuột vào combobox */
+
+  position: absolute;
+  top: 5%;
+  right: 2.4%;
+}
+
+.selectYear-1 > option,
+.selectYear-3 > option,
+.selectYear-3 > option {
+  font-size: 16px; /* kích thước chữ của tùy chọn */
+  font-family: Arial, sans-serif; /* font chữ của tùy chọn */
+  color: #333; /* màu chữ của tùy chọn */
+  background-color: #fff; /* màu nền của tùy chọn */
+  padding: 5px; /* khoảng cách giữa nội dung và viền của tùy chọn */
+  border: none; /* loại bỏ đường viền của tùy chọn */
+  cursor: pointer; /* chỉ tay khi di chuột vào tùy chọn */
+}
+
+.table-featured-product {
+  margin-top: 1rem;
+  min-height: 40vh;
+  padding: 0 1rem;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+table td,
+table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+table th {
+  color: #333;
+  background: linear-gradient(to bottom, #f2f2f2 0%, #ddd 100%);
+}
+
+.btn {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* DATE */
+
+.wrap-head-table {
     position: relative;
+  display: flex;
+  align-items: center;
 }
 
-.selectYear-1, .selectYear-2, .selectYear-3 {
-    width: 200px; /* độ rộng của combobox */
-    height: 30px; /* độ cao của combobox */
-    font-size: 16px; /* kích thước chữ của combobox */
-    font-family: Arial, sans-serif; /* font chữ của combobox */
-    color: #333; /* màu chữ của combobox */
-    background-color: #fff; /* màu nền của combobox */
-    border: 1px solid #ccc; /* viền của combobox */
-    border-radius: 5px; /* bo góc của combobox */
-    padding: 5px; /* khoảng cách giữa nội dung và viền của combobox */
-    outline: none; /* loại bỏ đường viền khi được chọn */
-    appearance: none; /* ẩn các nút mũi tên của combobox */
-    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M14.35,8.16L10,12.51L5.65,8.16a.75.75,0,0,0-1.06,1.06l5,5a.76.76,0,0,0,1.06,0l5-5A.75.75,0,0,0,14.35,8.16Z"/></svg>'); /* thêm một mũi tên nhỏ bên phải của combobox */
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    cursor: pointer; /* chỉ tay khi di chuột vào combobox */
-
-    position: absolute;
-    top: 5%;
-    right: 2.4%;
+.wrap-head-table > h2 {
+  margin-left: 20rem;
 }
 
-.selectYear-1 > option, .selectYear-3 > option, .selectYear-3 > option {
-    font-size: 16px; /* kích thước chữ của tùy chọn */
-    font-family: Arial, sans-serif; /* font chữ của tùy chọn */
-    color: #333; /* màu chữ của tùy chọn */
-    background-color: #fff; /* màu nền của tùy chọn */
-    padding: 5px; /* khoảng cách giữa nội dung và viền của tùy chọn */
-    border: none; /* loại bỏ đường viền của tùy chọn */
-    cursor: pointer; /* chỉ tay khi di chuột vào tùy chọn */
+.data-choose {
+  position: relative;
+  max-width: 22rem;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px #aaa;
+  margin-left: 1.6rem;
+}
+
+.data-choose > h4 {
+  margin-bottom: 0.7rem;
+}
+
+.wrap-date {
+  display: flex;
+  gap: 1rem;
+}
+
+h1 {
+  text-align: center;
+  color: #444;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #444;
+}
+
+input[type="date"] {
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+}
+
+button {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  padding: 0.5rem;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4caf50;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+
+
+.check-date {
+  position: absolute;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  min-width: 10rem;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  z-index: 10000;
+    top: 80%;
+  left: 30%;
+  background-color: rgb(219, 20, 20, 0.8);
+}
+
+#check-fail {
+  display: none;
+}
+
+.check-date.hide {
+  animation: fadeOut 3s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(0);
+  }
 }
