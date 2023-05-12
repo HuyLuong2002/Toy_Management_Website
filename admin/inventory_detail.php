@@ -10,6 +10,7 @@ $pag = new Pagination();
 
 if (isset($_GET["enter_id"])) {
   $enter_id = $_GET["enter_id"];
+  settype($enter_id, "int");
 }
 
 if (isset($_POST["input"])) {
@@ -55,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
 
 if (isset($_GET["page_detail"])) {
   $page_id = $_GET["page_detail"];
-  $pagination_id = $page_id;
+  settype($page_id, "int");
 }
 
 /*
@@ -168,7 +169,7 @@ if (isset($enter_id)) {
             ?>
         </tbody>
       </table>
-    <?php } else if($result_pagination){ ?>
+    <?php } else if ($result_pagination) { ?>
       <tbody>
         <?php
             if (isset($result_pagination)) {
@@ -204,39 +205,66 @@ if (isset($enter_id)) {
       </tbody>
       </table>
     </div>
-    <?php if (empty($_POST["input"]) && $result_pagination) { ?>
+    <?php if (empty($_POST["input"]) && $page_total > 1) { ?>
       <div class="bottom-pagination" id="pagination">
         <ul class="pagination">
-          <?php if ($pagination_id > 1) { ?>
+
+          <?php if ($current_page > 3) {
+            $first_page = 1;
+          ?>
+            <li class="item first-page">
+              <a href="index.php?id=<?php echo $id; ?>&page_detail=<?php echo $first_page ?>&enter_id=<?php echo $enter_id?>">
+                First
+              </a>
+            </li>
+          <?php } ?>
+
+          <?php if ($current_page > 3) { ?>
             <li class="item prev-page">
-              <a href="index.php?id=<?php echo (string) $id; ?>&page_detail=<?php echo $pagination_id - 1; ?>&enter_id=<?php echo $enter_id ?>">
+              <a href="index.php?id=<?php echo (string) $id; ?>&page_detail=<?php echo $current_page - 1; ?>&enter_id=<?php echo $enter_id ?>">
                 <i class="fa-solid fa-chevron-left"></i>
               </a>
             </li>
           <?php } ?>
+
           <?php
-          $pagination = $pag->pageNumber($page_total, 4, $pagination_id);
-          $length = count($pagination);
-          for ($i = 1; $i <= $length; $i++) {
-            if ($pagination[$i] > 0) {
-              if ($pagination[$i] == $pagination_id) {
-                $current = "current";
-              } else {
-                $current = "";
-              } ?>
-              <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
-                <a href="index.php?id=<?php echo (string) $id; ?>&page_detail=<?php echo $pagination[$i]; ?>&enter_id=<?php echo $enter_id ?>">
-                  <?php echo $pagination[$i]; ?>
+          for ($num = 1; $num <= $page_total; $num++) {
+            if ($num != $current_page) {
+              if ($num > $current_page - 3 && $num < $current_page + 3) {
+          ?>
+                <li class="item" id="<?php echo $num; ?>">
+                  <a href="index.php?id=<?php echo $id; ?>&page_detail=<?php echo $num ?>&enter_id=<?php echo $enter_id?>">
+                    <?php echo $num; ?>
+                  </a>
+                </li>
+              <?php
+              }
+            } else {
+              ?>
+              <li class="item <?php echo "current" ?>" id="<?php echo $num; ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page_detail=<?php echo $num; ?>&enter_id=<?php echo $enter_id?>">
+                  <?php echo $num; ?>
                 </a>
               </li>
           <?php
             }
           }
           ?>
-          <?php if ($page_total - 1 > $pagination_id + 1) { ?>
+
+          <?php if ($current_page <= $page_total - 3) { ?>
             <li class="item next-page">
-              <a href="index.php?id=<?php echo (string) $id; ?>&page_detail=<?php echo $pagination_id + 1; ?>&enter_id=<?php echo $enter_id ?>">
+              <a href="index.php?id=<?php echo (string) $id; ?>&page_detail=<?php echo $current_page + 1; ?>&enter_id=<?php echo $enter_id ?>">
                 <i class="fa-solid fa-chevron-right"></i>
+              </a>
+            </li>
+          <?php } ?>
+
+          <?php if ($current_page <= $page_total - 3) {
+            $lastpage = $page_total;
+          ?>
+            <li class="item last-page">
+              <a href="index.php?id=<?php echo $id; ?>&page_detail=<?php echo $lastpage ?>&enter_id=<?php echo $enter_id?>">
+                Last
               </a>
             </li>
           <?php } ?>

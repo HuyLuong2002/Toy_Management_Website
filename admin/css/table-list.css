@@ -32,7 +32,21 @@
   position: relative;
 }
 
+.card-header button a {
+  color: #000;
+}
+
 .card-header button:hover p {
+  transition: 0.3s;
+  color: #fff;
+}
+
+.card-header button:hover a {
+  transition: 0.3s;
+  color: #fff;
+}
+
+.card-header .sort-btn:hover {
   transition: 0.3s;
   color: #fff;
 }

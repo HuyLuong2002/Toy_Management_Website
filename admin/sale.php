@@ -234,7 +234,6 @@ if ($result_pagination) {
       <?php if (empty($_POST["input"]) && $page_total > 1) { ?>
         <div class="bottom-pagination" id="pagination">
           <ul class="pagination">
-
             <?php if ($current_page > 3) {
               $first_page = 1;
             ?>
@@ -267,7 +266,6 @@ if ($result_pagination) {
                 <?php
                 }
               } else {
-                // $current = "current";
                 ?>
                 <li class="item <?php echo "current" ?>" id="<?php echo $num; ?>">
                   <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $num; ?>">
@@ -289,7 +287,6 @@ if ($result_pagination) {
             <?php if ($current_page <= $page_total - 3) {
               $lastpage = $page_total;
             ?>
-
               <li class="item last-page">
                 <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $lastpage ?>">
                   Last
