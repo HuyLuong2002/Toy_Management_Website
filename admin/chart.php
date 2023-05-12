@@ -1,8 +1,9 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "/controller/chartController.php";
+include_once $filepath . "/helpers/format.php";
 $chartController = new ChartController();
-
+$fm = new Format();
 if (
   isset($_POST["year1"]) &&
   isset($_POST["year2"]) &&
@@ -15,6 +16,31 @@ if (
   $year1 = getdate()["year"];
   $year2 = getdate()["year"];
   $year3 = $year2 - 1;
+}
+
+$endDate = getdate()["mday"] . "/" . getdate()["mon"] . "/" . getdate()["year"];
+$lastMonth = (int) getdate()["mon"] - 1;
+$startDate = getdate()["mday"] . "/" . (string) $lastMonth . "/" . getdate()["year"];
+if(isset($_POST["starDate"]) && $_POST["endDate"])
+{
+  $startDate =  $fm->formatDate($_POST["starDate"]);
+  $endDate = $fm->formatDate($_POST["endDate"]);
+}
+
+//Sovle list of best-selling products
+$result_statistic_best_selling_products = $chartController->show_best_selling_products(
+  $startDate,
+  $endDate
+);
+$best_selling_products = [0, 0, 0, 0, 0];
+$best_selling_products_name = ["", "", "", "", ""];
+if ($result_statistic_best_selling_products) {
+  $i = 0;
+  while ($result = $result_statistic_best_selling_products->fetch_assoc()) {
+    $best_selling_products[$i] = $result["total_sales"];
+    $best_selling_products_name[$i] = $result["product_name"];
+    $i++;
+  }
 }
 
 //Solve chart 1
@@ -112,7 +138,7 @@ if (isset($result_statistic_revenue_month)) {
             </div>
           </div>
 
-          <button type="submit" onclick="validateDateInputs(event)">Tìm</button>
+          <button id="search-btn" type="submit" onclick="validateDateInputs(event)">Tìm</button>
         </form>
       </div>
     </div>
@@ -133,29 +159,29 @@ if (isset($result_statistic_revenue_month)) {
       </thead>
       <tbody id="body_orders">
         <tr>
-          <td>CC</td>
-          <td>ok let me talk</td>
-          <td>CC</td>
+          <td>1</td>
+          <td><?php echo $best_selling_products_name[0]; ?></td>
+          <td><?php echo $best_selling_products[0]; ?></td>
         </tr>
         <tr>
-          <td>CC</td>
-          <td>CC</td>
-          <td>CC</td>
+          <td>2</td>
+          <td><?php echo $best_selling_products_name[1]; ?></td>
+          <td><?php echo $best_selling_products[1]; ?></td>
         </tr>
         <tr>
-          <td>CC</td>
-          <td>CC</td>
-          <td>CC</td>
+          <td>3</td>
+          <td><?php echo $best_selling_products_name[2]; ?></td>
+          <td><?php echo $best_selling_products[2]; ?></td>
         </tr>
         <tr>
-          <td>CC</td>
-          <td>CC</td>
-          <td>CC</td>
+          <td>4</td>
+          <td><?php echo $best_selling_products_name[3]; ?></td>
+          <td><?php echo $best_selling_products[3]; ?></td>
         </tr>
         <tr>
-          <td>CC</td>
-          <td>CC</td>
-          <td>CC</td>
+          <td>5</td>
+          <td><?php echo $best_selling_products_name[4]; ?></td>
+          <td><?php echo $best_selling_products[4]; ?></td>
         </tr>
       </tbody>
     </table>
@@ -358,6 +384,28 @@ if (isset($result_statistic_revenue_month)) {
     </div>
   </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+    $('#search-btn').click(function(e) {
+      fromDate = $('#start_date').val();
+      toDate = $('#end_date').val();
+      $.ajax({
+        url: "chart.php",
+        method: "POST",
+        data: {
+        starDate: fromDate,
+        endDate: toDate
+      },
+        success: function(data) {
+          var $data = $(data);
+          var wrapper = $data.find('#body_orders').html();
+          $("#body_orders").html(wrapper);
+        }
+      });
+    });
+  });
+</script>
 
 
 
