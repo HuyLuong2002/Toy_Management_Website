@@ -140,12 +140,11 @@ body {
 
 .main-container {
     padding: 15px 0;
-    margin: 0 auto;
     display: grid;
     grid-template-columns: 350px 1fr;
 }
 
-.list-product .product-wrapper {
+.product-wrapper {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     column-gap: 20px;
@@ -359,6 +358,7 @@ body {
 .pagination>li {
     padding: 5px 0px;
     margin: 0 5px;
+    cursor: pointer;
 }
 
 .pagination li a {
@@ -391,7 +391,7 @@ body {
         grid-template-columns: 250px 1fr;
     }
 
-    .list-product .product-wrapper {
+    .product-wrapper {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -401,7 +401,7 @@ body {
         grid-template-columns: 200px 1fr;
     }
 
-    .list-product .product-wrapper {
+    .product-wrapper {
         grid-template-columns: repeat(1, 1fr);
     }
 

@@ -49,7 +49,7 @@ Tính giá trị của phân trang
 // Tổng số sản phẩm
 if ($result_pagination) {
   $product_total = mysqli_num_rows($result_pagination);
-  
+
   //số sản phẩm trên 1 trang
   $num_product_on_page = 10;
   $page_total = ceil($product_total / $num_product_on_page);
@@ -88,13 +88,13 @@ if ($result_pagination) {
       echo $deleteProduct;
     } ?>
     <div>
-    <button id="sort-btn">
-      <!-- <span class="las la-arrow-down"></span> -->
-      Sort<span class="las la-arrow-up"></span>
-    </button>
-    <button>
-      <a href="product_add.php"> Add product<span class="las la-plus"></span></a>
-    </button>
+      <button id="sort-btn">
+        <!-- <span class="las la-arrow-down"></span> -->
+        Sort<span class="las la-arrow-up"></span>
+      </button>
+      <button>
+        <a href="product_add.php"> Add product<span class="las la-plus"></span></a>
+      </button>
     </div>
 
   </div>
@@ -125,9 +125,9 @@ if ($result_pagination) {
                 $result = $show_product_live_search->fetch_array()
               ) { ?>
                 <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] ==
-1
-  ? "activeBg"
-  : ""; ?>">
+                                                                    1
+                                                                    ? "activeBg"
+                                                                    : ""; ?>">
 
                   <td>
                     <?php echo $result[0]; ?>
@@ -137,7 +137,7 @@ if ($result_pagination) {
                   </td>
                   <td>
                     <img src="<?php echo "uploads/" .
-                      $result[2]; ?>" alt="" width="100px" />
+                                $result[2]; ?>" alt="" width="100px" />
                   </td>
                   <td>
                     <?php echo $result[3]; ?>
@@ -183,18 +183,21 @@ if ($result_pagination) {
                     <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
                   </td>
                 </tr>
-            <?php }} else {echo "<span class='error'>No Data Found</span>";} ?>
+            <?php }
+            } else {
+              echo "<span class='error'>No Data Found</span>";
+            } ?>
         </tbody>
       </table>
     <?php
           } else if ($result_pagination) { ?>
       <tbody id="product-data">
         <?php if ($result_pagination) {
-          while ($result = $result_pagination->fetch_array()) { ?>
+              while ($result = $result_pagination->fetch_array()) { ?>
             <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] ==
-1
-  ? "activeBg"
-  : ""; ?>">
+                                                                1
+                                                                ? "activeBg"
+                                                                : ""; ?>">
 
               <td>
                 <?php echo $result[0]; ?>
@@ -204,7 +207,7 @@ if ($result_pagination) {
               </td>
               <td>
                 <img src="<?php echo "uploads/" .
-                  $result[2]; ?>" alt="" width="100px" />
+                            $result[2]; ?>" alt="" width="100px" />
               </td>
               <td>
                 <?php echo $result[3]; ?>
@@ -252,17 +255,18 @@ if ($result_pagination) {
 
             </tr>
       <?php }
-        }} ?>
+            }
+          } ?>
       </tbody>
       </table>
-      <?php 
+      <?php
       if (empty($_POST["input"]) && empty($_POST["sort"])) { ?>
         <div class="bottom-pagination" id="pagination">
           <ul class="pagination">
-            <?php if ($pagination_id > 1) { ?>
+            <?php if ($pagination_id > 4) { ?>
               <li class="item prev-page">
                 <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id -
-  1; ?>">
+                                                                1; ?>">
                   <i class="fa-solid fa-chevron-left"></i>
                 </a>
               </li>
@@ -277,12 +281,8 @@ if ($result_pagination) {
                 } else {
                   $current = "";
                 } ?>
-                <li class="item <?php echo $current; ?>" id="<?php echo $pagination[
-  $i
-]; ?>">
-                  <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[
-  $i
-]; ?>">
+                <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
+                  <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
                     <?php echo $pagination[$i]; ?>
                   </a>
                 </li>
@@ -293,7 +293,7 @@ if ($result_pagination) {
             <?php if ($page_total - 1 > $pagination_id + 1) { ?>
               <li class="item next-page">
                 <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id +
-  1; ?>">
+                                                                1; ?>">
                   <i class="fa-solid fa-chevron-right"></i>
                 </a>
               </li>
@@ -391,7 +391,7 @@ if ($result_pagination) {
 </script>
 
 <script>
-    $(document).ready(function() {
+  $(document).ready(function() {
     $('#sort-btn').click(function(e) {
       $.ajax({
         url: "products.php",
