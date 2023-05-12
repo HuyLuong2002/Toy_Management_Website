@@ -90,7 +90,7 @@ if ($result_pagination) {
     <div>
       <button id="sort-btn">
         <!-- <span class="las la-arrow-down"></span> -->
-        Sort<span class="las la-arrow-up"></span>
+        Sort<span class="las la-arrow-up">(A-Z)</span> <span class="las la-arrow-down" style="display: none">(Z-A)</span>
       </button>
       <button>
         <a href="product_add.php"> Add product<span class="las la-plus"></span></a>
