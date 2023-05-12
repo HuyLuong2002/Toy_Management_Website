@@ -11,9 +11,9 @@ $s_name = session_name();
 $timeout = Session::get("timeout");
 //Check the session exists or not
 if (isset($_COOKIE[$s_name])) {
-  setcookie($s_name, $_COOKIE[$s_name], time() + $timeout, "/");
+    setcookie($s_name, $_COOKIE[$s_name], time() + $timeout, "/");
 } else {
-  session_destroy();
+    session_destroy();
 }
 ?>
 
@@ -45,7 +45,7 @@ if (isset($_COOKIE[$s_name])) {
         padding: 0.25rem 1rem;
     }
 
-    .key-search > .key-child {
+    .key-search>.key-child {
         display: block;
         padding: 0.5rem;
         border: 1px solid #ccc;
@@ -56,16 +56,14 @@ if (isset($_COOKIE[$s_name])) {
         transition: all ease 0.2s;
     }
 
-    .key-search > .key-child:hover {
+    .key-search>.key-child:hover {
         background-color: rgba(0, 0, 0, 0.1);
     }
 
 
 
-    @media screen and (max-width: 650px)
-    {
-        .wrap-search-top
-        {
+    @media screen and (max-width: 650px) {
+        .wrap-search-top {
             flex-direction: column;
         }
 
@@ -73,7 +71,6 @@ if (isset($_COOKIE[$s_name])) {
             padding: 0.5rem;
         }
     }
-
 </style>
 <header>
     <div class="section-header">
@@ -86,19 +83,15 @@ if (isset($_COOKIE[$s_name])) {
                 <li><a href="about.php" class="list-1">About</a></li>
                 <li><a href="orders.php" class="list-1">Orders</a></li>
                 <li>
-                    <a href="category.php?id=1&page=1" class="list-1">Category</a>
+                    <a href="category.php?id=1" class="list-1">Category</a>
                     <i class="fa-solid fa-chevron-down"></i>
                     <ul class="sub-menu">
                         <?php
                         $show_category = $categoryController->show_category();
                         if ($show_category) {
-                          while ($result = $show_category->fetch_assoc()) { ?>
+                            while ($result = $show_category->fetch_assoc()) { ?>
                                 <li>
-                                    <a href="category.php?id=<?php echo $result[
-                                      "id"
-                                    ]; ?>&page=1"> <?php echo $result[
-  "name"
-]; ?></a>
+                                    <a href="category.php?id=<?php echo $result["id"]; ?>"><?php echo $result["name"]; ?></a>
                                 </li>
                         <?php }
                         }
@@ -133,17 +126,17 @@ if (isset($_COOKIE[$s_name])) {
                     <div class="profile-menu">
                         <p>
                             <?php if (Session::get("fullname") != null) {
-                              echo "Hello" . " " . Session::get("fullname");
+                                echo "Hello" . " " . Session::get("fullname");
                             } else {
-                              echo "Welcome";
+                                echo "Welcome";
                             } ?>
                         </p>
                         <ul>
                             <li>
                                 <i class="fa-solid fa-circle-user"></i>
                                 <a href="profile.php?id=<?php echo Session::get(
-                                  "userID"
-                                ); ?>" id="user-btn">My Profile</a>
+                                                            "userID"
+                                                        ); ?>" id="user-btn">My Profile</a>
                             </li>
                             <li>
                                 <i class="fa-solid fa-right-from-bracket"></i>
@@ -160,7 +153,7 @@ if (isset($_COOKIE[$s_name])) {
         </div>
     </div>
     <div class="search-bar">
-       <div class="wrap-search-top">
+        <div class="wrap-search-top">
             <div class="wrap-key-search">
                 <input type="text" placeholder="Nhập sản phẩm muốn tìm kiếm vào đây" id="searchuser">
                 <a onclick="" href="#">
@@ -168,11 +161,11 @@ if (isset($_COOKIE[$s_name])) {
                 </a>
             </div>
             <div class="key-search" id="key-search">
-                
+
             </div>
-       </div>
+        </div>
         <div class="wrap-product-search" id="searchresultproductuser">
-            
+
         </div>
     </div>
 
@@ -209,9 +202,7 @@ if (isset($_COOKIE[$s_name])) {
 </script>
 
 <script>
-
-let typeKeySearch = [
-        {
+    let typeKeySearch = [{
             id: 0,
             title: "All",
             active: true
@@ -274,13 +265,13 @@ let typeKeySearch = [
     const handleActiveKey = (id) => {
         typeKeySearch.forEach(item => {
             let keyTag = document.getElementById(item.id)
-            if(keyTag.classList.contains("active-bg-keychild")) {
+            if (keyTag.classList.contains("active-bg-keychild")) {
                 keyTag.classList.remove("active-bg-keychild")
             }
         });
 
         typeKeySearch.forEach(item => {
-            if(item.id === id) {
+            if (item.id === id) {
                 let keyTag = document.getElementById(item.id)
                 keyTag.classList.add('active-bg-keychild')
             }
@@ -288,48 +279,43 @@ let typeKeySearch = [
     }
 
     loadKeySearch(typeKeySearch)
-    
 </script>
 
 <script src="../js/validate_input.js"></script>
 <!-- coding live search function -->
 <script type="text/javascript">
-
     $(document).ready(function() {
         var searchkey = 0;
-        $("#searchuser").keyup(function(){
-        var input = $(this).val();
-        if(checkSearchInput(input) == false) {
-            $("#searchresultproductuser").html("<span class='error'>Input Value Not Valid</span>");
-            $("#searchresultproductuser").css("display", "block");
-            return;
-        }
-        else {
-            $("#searchresultproductuser").css("display", "none");
-        }
-        if(input != "") {
-          $.ajax({
-            url: "../controller/headerController.php",
-            method: "POST",
-            data:{
-                input:input,
-                searchkey:searchkey,
-            },
-            success: function(data){
-              $("#searchresultproductuser").html(data);
-              $("#searchresultproductuser").css("display","block");
+        $("#searchuser").keyup(function() {
+            var input = $(this).val();
+            if (checkSearchInput(input) == false) {
+                $("#searchresultproductuser").html("<span class='error'>Input Value Not Valid</span>");
+                $("#searchresultproductuser").css("display", "block");
+                return;
+            } else {
+                $("#searchresultproductuser").css("display", "none");
             }
-          });
-        }
-        else
-        {
-            $("#searchresultproductuser").css("display","block");
-        }
+            if (input != "") {
+                $.ajax({
+                    url: "../controller/headerController.php",
+                    method: "POST",
+                    data: {
+                        input: input,
+                        searchkey: searchkey,
+                    },
+                    success: function(data) {
+                        $("#searchresultproductuser").html(data);
+                        $("#searchresultproductuser").css("display", "block");
+                    }
+                });
+            } else {
+                $("#searchresultproductuser").css("display", "block");
+            }
         });
 
-        $("#key-search span").click(function(){
-                searchkey = $(this).attr('id');
-                console.log(searchkey);
+        $("#key-search span").click(function() {
+            searchkey = $(this).attr('id');
+            console.log(searchkey);
         });
     });
-  </script>
+</script>
