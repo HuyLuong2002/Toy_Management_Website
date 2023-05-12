@@ -81,20 +81,20 @@ if ($result_pagination) {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 <div class="card" id="searchresultproduct">
+  <div class="bg-modal-box product"></div>
   <div class="card-header">
-    <div class="bg-modal-box product"></div>
     <h3>Product List</h3>
     <?php if (isset($deleteProduct)) {
       echo $deleteProduct;
     } ?>
     <div>
-    <button id="sort-btn">
-      <!-- <span class="las la-arrow-down"></span> -->
-      Sort<span class="las la-arrow-up"></span>
-    </button>
-    <button>
-      <a href="product_add.php"> Add product<span class="las la-plus"></span></a>
-    </button>
+      <button id="sort-btn">
+        <!-- <span class="las la-arrow-down"></span> -->
+        Sort<span class="las la-arrow-up"></span>
+      </button>
+      <button>
+        <a href="product_add.php"> Add product<span class="las la-plus"></span></a>
+      </button>
     </div>
 
   </div>
@@ -259,7 +259,7 @@ if ($result_pagination) {
           } ?>
       </tbody>
       </table>
-      <?php 
+      <?php
       if (empty($_POST["input"]) && empty($_POST["sort"])) { ?>
         <div class="bottom-pagination" id="pagination">
           <ul class="pagination">

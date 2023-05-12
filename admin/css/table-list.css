@@ -92,11 +92,6 @@ td {
   color: #222;
 }
 
-.table-responsive {
-  width: 100%;
-  overflow-x: auto;
-}
-
 .table-responsive .action-btn-delete button {
   color: red;
   font-size: 15px;
@@ -308,11 +303,6 @@ select.modal-add-input-select:focus {
 .modal-add-btn {
   background-color: var(--green-color);
 }
-
-/* .username_edit_result,
-.username_add_result{
-  margin: 0;
-} */
 
 /* modal edit end*/
 
