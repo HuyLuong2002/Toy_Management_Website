@@ -58,7 +58,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
 
 if (isset($_GET["page"])) {
   $page_id = $_GET["page"];
-  $pagination_id = $page_id;
 }
 /*
 Tính giá trị của phân trang, 10 sale trên 1 trang
@@ -235,9 +234,20 @@ if ($result_pagination) {
       <?php if (empty($_POST["input"]) && $page_total > 1) { ?>
         <div class="bottom-pagination" id="pagination">
           <ul class="pagination">
+
+            <?php if ($current_page > 3) {
+              $first_page = 1;
+            ?>
+              <li class="item first-page">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $first_page ?>">
+                  First
+                </a>
+              </li>
+            <?php } ?>
+
             <?php if ($current_page > 3) { ?>
               <li class="item prev-page">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id -
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $current_page -
                                                                 1; ?>">
                   <i class="fa-solid fa-chevron-left"></i>
                 </a>
@@ -270,9 +280,19 @@ if ($result_pagination) {
             ?>
             <?php if ($current_page <= $page_total - 3) { ?>
               <li class="item next-page">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id +
-                                                                1; ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $current_page + 1; ?>">
                   <i class="fa-solid fa-chevron-right"></i>
+                </a>
+              </li>
+            <?php } ?>
+
+            <?php if ($current_page <= $page_total - 3) {
+              $lastpage = $page_total;
+            ?>
+
+              <li class="item last-page">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $lastpage ?>">
+                  Last
                 </a>
               </li>
             <?php } ?>

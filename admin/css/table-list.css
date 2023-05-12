@@ -542,6 +542,12 @@ input:checked+.slider:before {
   background-color: #f04e45;
 }
 
+.pagination li.first-page,
+.pagination li.last-page {
+  width: fit-content;
+  padding: 5px 5px;
+}
+
 .pagination li.current a {
   color: white;
 }

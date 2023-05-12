@@ -89,7 +89,7 @@ if ($result_pagination) {
     } ?>
     <div>
       <button id="sort-btn">
-        <!-- <span class="las la-arrow-down"></span> -->
+        <span class="las la-arrow-down"></span>
         Sort<span class="las la-arrow-up"></span>
       </button>
       <button>
