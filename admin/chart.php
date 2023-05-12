@@ -57,7 +57,7 @@ $result_statistic_revenue_month = $chartController->show_statistic_revenue_by_mo
 $result_statistic_3_year1 = [];
 $result_statistic_3_year2 = [];
 for ($j = 1; $j <= 12; $j++) {
-  $tmp = [$j, 0]; 
+  $tmp = [$j, 0];
   array_push($result_statistic_3_year1, $tmp);
 }
 
@@ -93,6 +93,74 @@ if (isset($result_statistic_revenue_month)) {
 ?>
 
 <div class="wrapper" id="wrapper">
+  <div class="wrap-head-table">
+    <h2>List of best-selling products</h2>
+
+    <div class="wrap-date-choose">
+      <div class="data-choose">
+        <h4>Tìm khoảng thời gian</h4>
+        <form>
+          <div class="wrap-date">
+            <div class="start-date">
+              <label for="start_date">Ngày bắt đầu:</label>
+              <input type="date" id="start_date" name="start_date" required dateFormat="yyyy-mm-dd">
+            </div>
+
+            <div class="end-date">
+              <label for="end_date">Ngày kết thúc:</label>
+              <input type="date" id="end_date" name="end_date" required dateFormat="yyyy-mm-dd">
+            </div>
+          </div>
+
+          <button type="submit" onclick="validateDateInputs(event)">Tìm</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="check-date" id="check-fail">
+      <span>&times;</span> add review failed
+    </div>
+  </div>
+
+  <div class="table-featured-product">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Sell Quantity</th>
+        </tr>
+      </thead>
+      <tbody id="body_orders">
+        <tr>
+          <td>CC</td>
+          <td>ok let me talk</td>
+          <td>CC</td>
+        </tr>
+        <tr>
+          <td>CC</td>
+          <td>CC</td>
+          <td>CC</td>
+        </tr>
+        <tr>
+          <td>CC</td>
+          <td>CC</td>
+          <td>CC</td>
+        </tr>
+        <tr>
+          <td>CC</td>
+          <td>CC</td>
+          <td>CC</td>
+        </tr>
+        <tr>
+          <td>CC</td>
+          <td>CC</td>
+          <td>CC</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 
   <div class="wrap-char chart-1">
     <h2>Statistical Revenue</h2>
@@ -128,14 +196,14 @@ if (isset($result_statistic_revenue_month)) {
             datasets: [{
               label: 'Quarterly Revenue',
               data: [<?php echo $data_quarter_1; ?>, <?php echo $data_quarter_2; ?>, <?php echo $data_quarter_3; ?>, <?php echo $data_quarter_4; ?>],
-              backgroundColor: 'rgba(75, 192, 192, 0.2)', 
-              borderColor: 'rgba(75, 192, 192, 1)', 
-              borderWidth: 1 
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1
             }]
           },
           options: {
-            responsive: true, 
-            maintainAspectRatio: false, 
+            responsive: true,
+            maintainAspectRatio: false,
             title: {
               display: true,
               text: 'My Chart Title',
@@ -153,10 +221,10 @@ if (isset($result_statistic_revenue_month)) {
             },
             scales: {
               x: {
-                beginAtZero: true 
+                beginAtZero: true
               },
               y: {
-                beginAtZero: true 
+                beginAtZero: true
               }
             }
           }
@@ -191,7 +259,7 @@ if (isset($result_statistic_revenue_month)) {
               fontStyle: 'bold',
               padding: 20
             },
-            responsive: true, 
+            responsive: true,
             maintainAspectRatio: false,
           }
         });
@@ -231,7 +299,7 @@ if (isset($result_statistic_revenue_month)) {
           data: {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             datasets: [{
-              label: '<?php echo $year2; ?>', 
+              label: '<?php echo $year2; ?>',
               data: [
                 <?php echo $result_statistic_3_year1[0][1]; ?>,
                 <?php echo $result_statistic_3_year1[1][1]; ?>,
@@ -245,13 +313,13 @@ if (isset($result_statistic_revenue_month)) {
                 <?php echo $result_statistic_3_year1[9][1]; ?>,
                 <?php echo $result_statistic_3_year1[10][1]; ?>,
                 <?php echo $result_statistic_3_year1[11][1]; ?>
-              ], 
-              fill: false, 
-              borderColor: 'rgba(75, 192, 192, 1)', 
-              backgroundColor: 'rgba(75, 192, 192, 0.2)', 
+              ],
+              fill: false,
+              borderColor: 'rgba(75, 192, 192, 1)',
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
               borderWidth: 1
             }, {
-              label: '<?php echo $year3; ?>', 
+              label: '<?php echo $year3; ?>',
               data: [
                 <?php echo $result_statistic_3_year2[0][1]; ?>,
                 <?php echo $result_statistic_3_year2[1][1]; ?>,
@@ -265,11 +333,11 @@ if (isset($result_statistic_revenue_month)) {
                 <?php echo $result_statistic_3_year2[9][1]; ?>,
                 <?php echo $result_statistic_3_year2[10][1]; ?>,
                 <?php echo $result_statistic_3_year2[11][1]; ?>
-              ], 
-              fill: false, 
+              ],
+              fill: false,
               borderColor: 'rgba(255, 99, 132, 1)',
               backgroundColor: 'rgba(255, 99, 132, 0.2)',
-              borderWidth: 1 
+              borderWidth: 1
             }]
           },
           options: {
@@ -280,14 +348,16 @@ if (isset($result_statistic_revenue_month)) {
               fontStyle: 'bold',
               padding: 20
             },
-            responsive: true, 
+            responsive: true,
             maintainAspectRatio: false,
           }
         });
       </script>
+
+      <script src="./js/chart.js"></script>
     </div>
   </div>
 </div>
 
-<script src="./js/chart.js"></script>
+
 

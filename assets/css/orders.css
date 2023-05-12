@@ -52,6 +52,19 @@ table th {
   background: linear-gradient(to bottom, #f2f2f2 0%, #ddd 100%);
 }
 
+.wrap-order-detail-table {
+  padding: 0 0.5rem;
+}
+
+#content-order-table{
+  margin-bottom: 0;
+  text-align: center;
+}
+
+#content-order-table th, #content-order-table td{
+  text-align: center;
+}
+
 .btn {
   background-color: #4CAF50;
   border: none;

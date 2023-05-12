@@ -34,6 +34,20 @@ $user_id = Session::get("userID");
                 <div class="content" id="final_products">
                     <div class="left" id="ordered">
                         <div class="wrap-product-left" id="wrap-product-left">
+                            <table id="container-product-left">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>TotalPrice</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="content-container-product-left">
+                                
+                                </tbody>
+                            </table>
                             <!-- render product -->
                         </div>
                         

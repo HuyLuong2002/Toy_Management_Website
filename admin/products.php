@@ -88,13 +88,13 @@ if ($result_pagination) {
       echo $deleteProduct;
     } ?>
     <div>
-      <button id="sort-btn">
-        <!-- <span class="las la-arrow-down"></span> -->
-        Sort<span class="las la-arrow-up"></span>
-      </button>
-      <button>
-        <a href="product_add.php"> Add product<span class="las la-plus"></span></a>
-      </button>
+    <button id="sort-btn">
+      <!-- <span class="las la-arrow-down"></span> -->
+      Sort<span class="las la-arrow-up"></span>
+    </button>
+    <button>
+      <a href="product_add.php"> Add product<span class="las la-plus"></span></a>
+    </button>
     </div>
 
   </div>
@@ -190,7 +190,7 @@ if ($result_pagination) {
         </tbody>
       </table>
     <?php
-          } else if ($result_pagination) { ?>
+          } elseif ($result_pagination) { ?>
       <tbody id="product-data">
         <?php if ($result_pagination) {
               while ($result = $result_pagination->fetch_array()) { ?>
@@ -259,7 +259,7 @@ if ($result_pagination) {
           } ?>
       </tbody>
       </table>
-      <?php
+      <?php 
       if (empty($_POST["input"]) && empty($_POST["sort"])) { ?>
         <div class="bottom-pagination" id="pagination">
           <ul class="pagination">
@@ -393,11 +393,24 @@ if ($result_pagination) {
 <script>
   $(document).ready(function() {
     $('#sort-btn').click(function(e) {
+      var arrowUp = $(".las.la-arrow-up");
+      var arrowDown = $(".las.la-arrow-down");
+      var sortKey = 0;
+      if (arrowUp.css("display") === "inline-block") {
+        sortKey = 2;
+        arrowUp.css("display", "none");
+        arrowDown.css("display", "inline-block");
+      } else if (arrowUp.css("display") === "none") {
+        sortKey = 1;
+        arrowUp.css("display", "inline-block");
+        arrowDown.css("display", "none");
+      }
+
       $.ajax({
         url: "products.php",
         type: "POST",
         data: {
-          sort: 1
+          sort: sortKey
         },
         success: function(data) {
           var $data = $(data);
@@ -406,6 +419,7 @@ if ($result_pagination) {
           $("#card-product").css("display", "block");
         }
       });
+
     });
   });
 </script>

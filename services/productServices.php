@@ -39,7 +39,9 @@ include_once $filepath . "\database\connectDB.php";
       ORDER BY product.name DESC";
     }
     else {
-      $query = "SELECT * FROM product WHERE product.is_deleted = 0
+      $query = "SELECT * FROM product, category, sale WHERE product.is_deleted = 0
+      AND product.category_id = category.id
+      AND product.sale_id = sale.id
       ORDER BY product.name ASC";
     }
     $result = $this->db->select($query);

@@ -563,7 +563,6 @@ span.method {
 #grid {
   position: relative;
   min-height: 90vh;
-  padding: 1rem 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -641,4 +640,27 @@ span.method {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+table td, table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+table th {
+  color: #333;
+  background: linear-gradient(to bottom, #f2f2f2 0%, #ddd 100%);
+}
+
+#content-container-product-left img {
+  width: 10rem;
 }
