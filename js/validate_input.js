@@ -65,7 +65,7 @@ function checkPassword(input) {
     else return 3;
 }
 
-function checkUsername(input) {
+function checkUserName(input) {
     const regex = /^[a-zA-Z0-9]{6,20}$/;
     // const normalizedStr = input.normalize("NFC"); // chuẩn hóa chuỗi
     const isMatch = regex.test(input); // true

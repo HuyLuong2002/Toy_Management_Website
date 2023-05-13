@@ -70,14 +70,22 @@ class AccountController
     }
   }
 
-  public function insert_account($username, $password, $firstname, $lastname)
+  public function insert_account_user($data)
   {
-    $username = $this->fm->validation($username);
-    $password = $this->fm->validation($password);
-    $firstname = $this->fm->validation($firstname);
-    $lastname = $this->fm->validation($lastname);
+
+    $data["nome"] = $this->fm->validation($data["nome"]);
+    $data["password"] = $this->fm->validation($data["password"]);
+    $data["date_birth"] = $this->fm->formatDate($data["date_birth"]);
+    $data["firstname"] = $this->fm->validation($data["firstname"]);
+    $data["lastname"] = $this->fm->validation($data["lastname"]);
+    if ($data["gender"] == "Nam") {
+      $data["gender"] = "Nam";
+    } else {
+      $data["gender"] = "Nữ";
+    }
+
     $accountService = new AccountServices();
-    $result = $accountService->insert_account($username, $password, $firstname, $lastname);
+    $result = $accountService->insert_account_user($data);
     return $result;
   }
 
@@ -107,8 +115,7 @@ class AccountController
   {
     $accountService = new AccountServices();
     $check_account = $accountService->check_account($data["username"]);
-    if($check_account->fetch_assoc()["permission_id"] == 1)
-    {
+    if ($check_account->fetch_assoc()["permission_id"] == 1) {
       $result = "<span class='error'>Can Not Update Admin</span>";
       return $result;
     }
@@ -119,7 +126,7 @@ class AccountController
       $data["gender_edit"] = "Nữ";
     }
     $data["status_edit"] = intval($data["status_edit"]);
-    
+
     $result = $accountService->update_account($data, $id);
     return $result;
   }
