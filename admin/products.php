@@ -3,10 +3,8 @@ $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "/controller/productsController.php";
 include_once $filepath . "/controller/categoryController.php";
 include_once $filepath . "/controller/saleController.php";
-include_once $filepath . "/helpers/pagination.php";
 include_once $filepath . "/helpers/format.php";
 
-$pag = new Pagination();
 $fm = new Format();
 $productsController = new ProductsController();
 
@@ -15,11 +13,6 @@ if (isset($_POST["input"])) {
   $show_product_live_search = $productsController->show_product_live_search(
     $input
   );
-}
-
-if (isset($_POST["sort"])) {
-  $sortKey = $_POST["sort"];
-  $show_product_live_search = $productsController->show_product_sort($sortKey);
 }
 
 if (isset($_GET["id"])) {
@@ -35,37 +28,43 @@ if (isset($_GET["page"])) {
   $page_id = $_GET["page"];
 }
 
-/*
-Tính giá trị của phân trang
-10 sản phẩm trên 1 trang
-*/
-$result_pagination = $productsController->show_product_for_pagination();
+//Trang hiện tại
+if (isset($page_id)) {
+  $current_page = $page_id;
+  $num_product_on_page = 10;
+  $current_position = ($current_page - 1) * $num_product_on_page;
+}
 
 /*
 Tính giá trị của phân trang
 10 sản phẩm trên 1 trang
 */
 // Tổng số sản phẩm
-if ($result_pagination) {
-  $product_total = mysqli_num_rows($result_pagination);
+$result_pagination = $productsController->show_product_for_pagination();
+$product_total = mysqli_num_rows($result_pagination);
+
+if (isset($product_total)) {
 
   //số sản phẩm trên 1 trang
-  $num_product_on_page = 10;
-  $page_total = ceil($product_total / $num_product_on_page);
-  //Trang hiện tại
-  if (isset($page_id)) {
-    $current_page = $page_id;
-  }
+  // $num_product_on_page = 10;
+  $page_total = ceil($product_total / 10);
+
   // vị trí hiện tại
-  if (isset($current_page)) {
-    $current_position = ($current_page - 1) * $num_product_on_page;
-  }
+  // if (isset($current_page)) {
+  //   $current_position = ($current_page - 1) * $num_product_on_page;
+  // }
+
   if (isset($current_position)) {
     $result_pagination = $productsController->show_product_by_panigation_admin(
       $current_position,
       $num_product_on_page
     );
   }
+}
+
+if (isset($_POST["sort"])) {
+  $sortKey = $_POST["sort"];
+  $show_product_sort = $productsController->show_product_sort($sortKey);
 }
 ?>
 
@@ -188,7 +187,75 @@ if ($result_pagination) {
         </tbody>
       </table>
     <?php
-          } elseif ($result_pagination) { ?>
+          } else if (isset($show_product_sort)) { ?>
+      <tbody id="product-data">
+        <?php if ($show_product_sort) {
+              while ($result = $show_product_sort->fetch_array()) { ?>
+            <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] ==
+                                                                1
+                                                                ? "activeBg"
+                                                                : ""; ?>">
+
+              <td>
+                <?php echo $result[0]; ?>
+              </td>
+              <td>
+                <?php echo $result[1]; ?>
+              </td>
+              <td>
+                <img src="<?php echo "uploads/" .
+                            $result[2]; ?>" alt="" width="100px" />
+              </td>
+              <td>
+                <?php echo $result[3]; ?>
+              </td>
+              <td>
+                <?php echo $fm->textShorten($result[4], 50); ?>
+              </td>
+              <td>
+                <?php echo $result[5]; ?>
+              </td>
+              <td>
+                <label class="switch">
+                  <?php if ($result[6] == 1) {
+                    $checked = "checked";
+                  } else {
+                    $checked = "";
+                  } ?>
+                  <input type="checkbox" <?php echo $checked; ?> id="check-<?php echo $result[0]; ?>" />
+                  <span class="slider round" id="slider-<?php echo $result[0]; ?>" onclick="handleGetId(<?php echo $result[0]; ?>, <?php echo $result[6]; ?>)"></span>
+                </label>
+              </td>
+              <td>
+                <?php echo $result[13]; ?>
+              </td>
+              <td>
+                <?php echo $result[16]; ?>
+              </td>
+              <td>
+                <?php echo $result[9]; ?>
+              </td>
+              <td>
+                <?php echo $result[10]; ?>
+              </td>
+              <td>
+                <div class="action-btn-group">
+                  <a class="edit" href="product_edit.php?id=<?php echo $result[0]; ?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
+                  <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
+                    <button class="modal-btn-delete" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
+                      Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                    </button>
+                  </div>
+                </div>
+                <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+              <td>
+
+            </tr>
+        <?php }
+            }
+
+        ?> <?php
+          } else if ($result_pagination) { ?>
       <tbody id="product-data">
         <?php if ($result_pagination) {
               while ($result = $result_pagination->fetch_array()) { ?>
@@ -254,11 +321,14 @@ if ($result_pagination) {
             </tr>
       <?php }
             }
-          } ?>
+          }
+      ?>
       </tbody>
       </table>
+
+
       <?php
-      if (empty($_POST["input"]) && empty($_POST["sort"]) && $page_total > 1) { ?>
+      if (empty($_POST["input"]) && empty($_POST["sort"]) && isset($page_total) && $page_total > 1) { ?>
         <div class="bottom-pagination" id="pagination">
           <ul class="pagination">
 
@@ -370,8 +440,6 @@ if ($result_pagination) {
         const myData = await response.id;
         const myState = await response.state;
         // Xử lý dữ liệu trong biến myData ở đây
-
-
       }
     });
   }
@@ -419,6 +487,7 @@ if ($result_pagination) {
 <script>
   $(document).ready(function() {
     $('#sort-btn').click(function(e) {
+      e.preventDefault();
       var arrowUp = $(".las.la-arrow-up");
       var arrowDown = $(".las.la-arrow-down");
       var sortKey = 0;

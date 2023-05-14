@@ -240,7 +240,7 @@ if ($result_pagination) {
       </tbody>
       </table>
     </div>
-    <?php if (empty($_POST["input"]) && $page_total > 1) { ?>
+    <?php if (empty($_POST["input"]) && isset($page_total) && $page_total > 1) { ?>
       <div class="bottom-pagination" id="pagination">
         <ul class="pagination">
 

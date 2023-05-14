@@ -92,11 +92,11 @@ class AccountController
   public function insert_account_admin($data)
   {
     $accountService = new AccountServices();
-    $check_account = $accountService->check_account($data["username"]);
+    $check_account = $accountService->check_account($data["username_add"]);
     if ($check_account == false) {
-      $data["username"] = $this->fm->validation($data["username"]);
-      $data["password"] = $this->fm->validation($data["password"]);
-      $data["password"] = md5($data["password"]);
+      $data["username_add"] = $this->fm->validation($data["username_add"]);
+      $data["password_add"] = $this->fm->validation($data["password_add"]);
+      $data["password_add"] = md5($data["password_add"]);
       $data["dateofbirth_add"] = $this->fm->formatDate($data["dateofbirth_add"]);
       if ($data["gender_add"] == "Nam") {
         $data["gender_add"] = "Nam";
@@ -114,12 +114,13 @@ class AccountController
   public function update_account($data, $id)
   {
     $accountService = new AccountServices();
-    $check_account = $accountService->check_account($data["username"]);
+    $check_account = $accountService->check_account($data["username_edit"]);
     if ($check_account->fetch_assoc()["permission_id"] == 1) {
       $result = "<span class='error'>Can Not Update Admin</span>";
       return $result;
     }
     $data["dateofbirth_edit"] = $this->fm->formatDate($data["dateofbirth_edit"]);
+    $data["password_edit"] = $this->fm->validation($data["password_edit"]);
     if ($data["gender_edit"] == 0) {
       $data["gender_edit"] = "Nam";
     } else {
@@ -130,8 +131,6 @@ class AccountController
     $result = $accountService->update_account($data, $id);
     return $result;
   }
-
-
 
   public function update_account_user($data, $id)
   {
