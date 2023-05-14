@@ -3,9 +3,7 @@ $filepath = realpath(dirname(__DIR__));
 include_once $filepath .
   "\Toy_Management_Website\controller\categoryController.php";
 include_once $filepath . "\controller\productsController.php";
-include_once $filepath . "/helpers/pagination.php";
 
-$pag = new Pagination();
 $categoryController = new CategoryController();
 $productsController = new ProductsController();
 if (isset($_GET["id"])) {

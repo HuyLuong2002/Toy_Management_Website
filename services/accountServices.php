@@ -65,15 +65,52 @@ include_once $filepath . "\lib\session.php";
     return $result;
   }
 
+  public function insert_account_user($data)
+  {
+    $username = mysqli_real_escape_string($this->db->link, $data["nome"]);
+    $password = mysqli_real_escape_string($this->db->link, $data["password"]);
+    $firstname = mysqli_real_escape_string($this->db->link, $data["firstname"]);
+    $lastname = mysqli_real_escape_string($this->db->link, $data["lastname"]);
+    $gender = mysqli_real_escape_string($this->db->link, $data["gender"]);
+    $date_birth = mysqli_real_escape_string($this->db->link, $data["date_birth"]);
+    $place_of_birth = mysqli_real_escape_string($this->db->link, $data["place_of_birth"]);
+    $create_date = (string) date("d/m/Y");
+
+    $hashPassword = md5($password);
+
+    if (
+      $username == "" ||
+      $password == "" ||
+      $firstname == "" ||
+      $lastname == "" ||
+      $gender == "" ||
+      $date_birth == "" ||
+      $place_of_birth == ""
+    ) {
+      $alert = "<span class='error'>Fields must be not empty</span>";
+      return $alert;
+    } else {
+      $query = "INSERT INTO account(username, password, firstname, lastname, gender, date_birth, place_of_birth, create_date, permission_id, status, is_deleted) VALUES ('$username', '$hashPassword', '$firstname', '$lastname', '$gender', '$date_birth', '$place_of_birth', '$create_date', '2', '1', '0')";
+      $result = $this->db->insert($query);
+      if ($result) {
+        $alert = "<span class='success'>Create Account Sucessfully</span>";
+        return $alert;
+      } else {
+        $alert = "<span class='error'>Create Account Not Sucessfully</span>";
+        return $alert;
+      }
+    }
+  }
+
   public function insert_account_admin($data)
   {
-    $username = mysqli_real_escape_string($this->db->link, $data["username"]);
-    $password = mysqli_real_escape_string($this->db->link, $data["password"]);
+    $username = mysqli_real_escape_string($this->db->link, $data["username_add"]);
+    $password = mysqli_real_escape_string($this->db->link, $data["password_add"]);
     $firstname = mysqli_real_escape_string($this->db->link, $data["firstname_add"]);
     $lastname = mysqli_real_escape_string($this->db->link, $data["lastname_add"]);
     $gender = mysqli_real_escape_string($this->db->link, $data["gender_add"]);
     $date_birth = mysqli_real_escape_string($this->db->link, $data["dateofbirth_add"]);
-    
+
     $place_of_birth = mysqli_real_escape_string($this->db->link, $data["placeofbirth_add"]);
     $create_date = (string) date("d/m/Y");
     $permission_id = mysqli_real_escape_string($this->db->link, $data["permission_add"]);
@@ -106,16 +143,24 @@ include_once $filepath . "\lib\session.php";
 
   public function update_account($data, $id)
   {
+    $username = mysqli_real_escape_string($this->db->link, $data["username_edit"]);
     $firstname = mysqli_real_escape_string($this->db->link, $data["firstname_edit"]);
     $lastname = mysqli_real_escape_string($this->db->link, $data["lastname_edit"]);
     $gender = mysqli_real_escape_string($this->db->link, $data["gender_edit"]);
     $date_birth = mysqli_real_escape_string($this->db->link, $data["dateofbirth_edit"]);
-    
     $place_of_birth = mysqli_real_escape_string($this->db->link, $data["placeofbirth_edit"]);
     $create_date = (string) date("d/m/Y");
     $permission_id = mysqli_real_escape_string($this->db->link, $data["permission_edit"]);
     $status = mysqli_real_escape_string($this->db->link, $data["status_edit"]);
+    $password = mysqli_real_escape_string($this->db->link, $data["password_edit"]);
+    if (strlen($password) <= 20) {
+      $hashed_string = md5($password);
+    } else {
+      $hashed_string = $password;
+    }
     if (
+      $username == "" ||
+      $password == "" ||
       $firstname == "" ||
       $lastname == "" ||
       $gender == "" ||
@@ -127,7 +172,7 @@ include_once $filepath . "\lib\session.php";
       $alert = "<span class='error'>Fields must be not empty</span>";
       return $alert;
     } else {
-      $query = "UPDATE account SET firstname='{$firstname}', lastname='{$lastname}', gender='{$gender}', date_birth='{$date_birth}', place_of_birth='{$place_of_birth}', create_date='{$create_date}', permission_id = '{$permission_id}', account.status='{$status}' WHERE id = '{$id}'";
+      $query = "UPDATE account SET username='{$username}' ,firstname='{$firstname}', lastname='{$lastname}', gender='{$gender}', date_birth='{$date_birth}', place_of_birth='{$place_of_birth}', create_date='{$create_date}', permission_id = '{$permission_id}',password='{$hashed_string}' ,account.status='{$status}' WHERE id = '{$id}'";
       $result = $this->db->update($query);
       if ($result) {
         $alert = "<span class='success'>Update Account Sucessfully</span>";
@@ -148,7 +193,7 @@ include_once $filepath . "\lib\session.php";
     $place_of_birth = mysqli_real_escape_string($this->db->link, $data["place_of_birth"]);
     $create_date = (string) date("d/m/Y");
     $password = mysqli_real_escape_string($this->db->link, $data["password"]);
-    if (strlen($password) <= 15) {
+    if (strlen($password) <= 20) {
       $hashed_string = md5($password);
     } else {
       $hashed_string = $password;
@@ -176,7 +221,7 @@ include_once $filepath . "\lib\session.php";
     }
   }
 
-  public function delete_account($id) 
+  public function delete_account($id)
   {
     $query = "UPDATE account SET is_deleted='1' WHERE id='$id' AND account.permission_id!='1'";
     $result = $this->db->delete($query);
@@ -186,29 +231,6 @@ include_once $filepath . "\lib\session.php";
     } else {
       $alert = "<span class='error'>Delete Account Not Sucessfully</span>";
       return $alert;
-    }
-  }
-
-  public function insert_account($username, $password, $firstname, $lastname)
-  {
-    $username = mysqli_real_escape_string($this->db->link, $username);
-    $password = mysqli_real_escape_string($this->db->link, $password);
-    $firstname = mysqli_real_escape_string($this->db->link, $firstname);
-    $lastname = mysqli_real_escape_string($this->db->link, $lastname);
-
-    if (empty($username)) {
-      $alert = "<span class='error'>Username must be not empty</span>";
-      return $alert;
-    } else {
-      $query = "INSERT INTO account(username, password, firstname, lastname, permission_id, status) VALUES ('$username','$password','$firstname', '$lastname','2','1')";
-      $result = $this->db->insert($query);
-      if ($result) {
-        $alert = "<span class='success'>Insert Username Sucessfully</span>";
-        return $alert;
-      } else {
-        $alert = "<span class='error'>Insert Username Not Sucessfully</span>";
-        return $alert;
-      }
     }
   }
 

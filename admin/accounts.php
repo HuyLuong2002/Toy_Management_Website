@@ -56,7 +56,6 @@ if (isset($_GET["id"])) {
 
 if (isset($_GET["page"])) {
   $page_id = $_GET["page"];
-  $pagination_id = $page_id;
 }
 
 /*
@@ -178,7 +177,7 @@ if ($result_pagination) {
               </tbody>
       </table>
     <?php
-        } else if ($result_pagination){
+        } else if ($result_pagination) {
     ?>
       <tbody>
         <?php
@@ -225,41 +224,67 @@ if ($result_pagination) {
       </table>
     </div>
   </div>
-  <?php if (empty($_POST["input"]) && $result_pagination) { ?>
+  <?php if (empty($_POST["input"]) && isset($page_total) && $page_total > 1) { ?>
     <div class="bottom-pagination" id="pagination">
       <ul class="pagination">
-        <?php if ($pagination_id > 1) { ?>
+        <?php if ($current_page > 3) {
+          $first_page = 1;
+        ?>
+          <li class="item first-page">
+            <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $first_page ?>">
+              First
+            </a>
+          </li>
+        <?php } ?>
+
+        <?php if ($current_page > 3) { ?>
           <li class="item prev-page">
-            <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id -
+            <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $current_page -
                                                             1; ?>">
               <i class="fa-solid fa-chevron-left"></i>
             </a>
           </li>
         <?php } ?>
+
         <?php
-        $pagination = $pag->pageNumber($page_total, 4, $pagination_id);
-        $length = count($pagination);
-        for ($i = 1; $i <= $length; $i++) {
-          if ($pagination[$i] > 0) {
-            if ($pagination[$i] == $pagination_id) {
-              $current = "current";
-            } else {
-              $current = "";
-            } ?>
-            <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
-              <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
-                <?php echo $pagination[$i]; ?>
+        for ($num = 1; $num <= $page_total; $num++) {
+          if ($num != $current_page) {
+            if ($num > $current_page - 3 && $num < $current_page + 3) {
+        ?>
+              <li class="item" id="<?php echo $num; ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $num ?>">
+                  <?php echo $num; ?>
+                </a>
+              </li>
+            <?php
+            }
+          } else {
+            ?>
+            <li class="item <?php echo "current" ?>" id="<?php echo $num; ?>">
+              <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $num; ?>">
+                <?php echo $num; ?>
               </a>
             </li>
         <?php
           }
         }
         ?>
-        <?php if ($page_total - 1 > $pagination_id + 1) { ?>
+
+        <?php if ($current_page <= $page_total - 3) { ?>
           <li class="item next-page">
-            <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id +
+            <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $current_page +
                                                             1; ?>">
               <i class="fa-solid fa-chevron-right"></i>
+            </a>
+          </li>
+        <?php } ?>
+
+        <?php if ($current_page <= $page_total - 3) {
+          $lastpage = $page_total;
+        ?>
+          <li class="item last-page">
+            <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $lastpage ?>">
+              Last
             </a>
           </li>
         <?php } ?>
@@ -291,14 +316,14 @@ if ($result_pagination) {
     <div class="modal-edit-info">
       <div class="modal-edit-info-item">
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" required>
+        <input type="text" id="username_edit" name="username_edit" required>
         <div id="username_edit_result" class="username_edit_result"></div>
       </div>
 
       <div class="modal-edit-info-item">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
-
+        <input type="password" id="password_edit" name="password_edit" required>
+        <div id="password_edit_result"></div>
       </div>
 
       <div class="modal-edit-info-item">
@@ -371,13 +396,14 @@ if ($result_pagination) {
     <div class="modal-add-info">
       <div class="modal-add-info-item">
         <label for="username">Username</label>
-        <input type="text" id="username-add" name="username" required>
+        <input type="text" id="username_add" name="username_add" required>
         <div id="username_add_result" class="username_add_result"></div>
       </div>
 
       <div class="modal-add-info-item">
         <label for="password">Password</label>
-        <input type="password" id="password-add" name="password" required>
+        <input type="password" id="password_add" name="password_add" required>
+        <div id="password_add_result"></div>
       </div>
 
       <div class="modal-add-info-item">
@@ -461,7 +487,6 @@ if ($result_pagination) {
       url: 'accounts.php?accounts_id=' + edit_id,
       success: function(response) {
         var res = jQuery.parseJSON(response);
-        console.log(res);
         if (res.status == 404) {
           alert(res.message);
         } else if (res.status == 200) {
@@ -470,8 +495,8 @@ if ($result_pagination) {
           var newDateBirth = dateParts[2] + "-" + dateParts[1].padStart(2, "0") + "-" + dateParts[0].padStart(2, "0");
 
           $('#edit_id').val(res.data.id);
-          $('#username').val(res.data.username);
-          $('#password').val(res.data.password);
+          $('#username_edit').val(res.data.username);
+          $('#password_edit').val(res.data.password);
           $('#firstname_edit').val(res.data.firstname);
           $('#lastname_edit').val(res.data.lastname);
           $('#gender_edit').val(res.data.gender);
@@ -480,7 +505,6 @@ if ($result_pagination) {
           $('#permission_edit').val(res.data.permission_id);
           $('#status_edit').val(res.data.status);
 
-          console.log(res.data.status);
         }
       }
     })
@@ -492,7 +516,7 @@ if ($result_pagination) {
 <!-- coding check input value function -->
 <script type="text/javascript">
   $(document).ready(function() {
-    $("#username-add").keyup(function() {
+    $("#username_add").keyup(function() {
       var input = $(this).val();
       if (checkAddAndEdit(input) == false) {
         $("#username_add_result").html("<span class='error'>Account Name Not Valid</span>");
@@ -504,13 +528,35 @@ if ($result_pagination) {
         $("#username_add_result").css("display", "none");
         $("#add-btn").prop("disabled", false);
         $("#add-btn").css("background-color", "#0be881");
+
+        $.ajax({
+          url: "../check_login.php",
+          data: 'nome=' + $("#username-add").val(),
+          type: "POST",
+          success: function(data) {
+            if (data == 1) {
+              $("#username_add_result").html("<span class='success'>Username is valid</span>");
+              $("#add-btn").prop("disabled", false);
+              $("#add-btn").css("background-color", "#0be881");
+              $("#username_add_result").css("display", "block");
+            } else {
+              $("#username_add_result").html("<span class='error'>Username is used</span>");
+              $("#add-btn").prop("disabled", true);
+              $("#add-btn").css("background-color", "red");
+              $("#username_add_result").css("display", "block");
+            }
+          },
+          error: function() {}
+        });
       }
+
+
     });
 
     $("#firstname_add").keyup(function() {
       var input = $(this).val();
-      if (checkAddAndEdit(input) == false) {
-        $("#firstname_add_result").html("<span class='error'>Account Firstnam Not Valid</span>");
+      if (checkName(input) == false) {
+        $("#firstname_add_result").html("<span class='error'>Account First name Not Valid</span>");
         $("#add-btn").prop("disabled", true);
         $("#add-btn").css("background-color", "red");
         $("#firstname_add_result").css("display", "block");
@@ -524,8 +570,8 @@ if ($result_pagination) {
 
     $("#lastname_add").keyup(function() {
       var input = $(this).val();
-      if (checkAddAndEdit(input) == false) {
-        $("#lastname_add_result").html("<span class='error'>Account Firstnam Not Valid</span>");
+      if (checkName(input) == false) {
+        $("#lastname_add_result").html("<span class='error'>Account Last name Not Valid</span>");
         $("#add-btn").prop("disabled", true);
         $("#add-btn").css("background-color", "red");
         $("#lastname_add_result").css("display", "block");
@@ -540,7 +586,7 @@ if ($result_pagination) {
     $("#placeofbirth_add").keyup(function() {
       var input = $(this).val();
       if (checkAddAndEdit(input) == false) {
-        $("#placeofbirth_add_result").html("<span class='error'>Account Firstnam Not Valid</span>");
+        $("#placeofbirth_add_result").html("<span class='error'>Account Place of Birth Not Valid</span>");
         $("#add-btn").prop("disabled", true);
         $("#add-btn").css("background-color", "red");
         $("#placeofbirth_add_result").css("display", "block");
@@ -552,8 +598,35 @@ if ($result_pagination) {
       }
     });
 
+    $("#password_add").keyup(function() {
+      var input = $(this).val();
+      if (checkPassword(input) == 0) {
+        $("#password_add_result").html("<span class='error'>Password not valid</span>");
+        $("#password_add_result").css("display", "block");
+        // $("#password_add_result").css("margin-bottom", "1rem");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "#de5959");
+      } else if (checkPassword(input) == 1) {
+        $("#password_add_result").html("<span class='error'>Password  must be between 6 and 20 characters</span>");
+        $("#password_add_result").css("display", "block");
+        // $("#password_add_result").css("margin-bottom", "1rem");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "#de5959");
+      } else if (checkPassword(input) == 2) {
+        $("#password_add_result").html("<span class='error'>Password must contain lowercase, uppercase and special characters</span>");
+        $("#password_add_result").css("display", "block");
+        $("#password_add_result").css("margin-bottom", "0.5rem");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "#de5959");
+      } else {
+        $("#password_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
+      }
+    });
+
     //edit
-    $("#username").keyup(function() {
+    $("#username_edit").keyup(function() {
       var input = $(this).val();
       if (checkAddAndEdit(input) == false) {
         $("#username_edit_result").html("<span class='error'>Account Name Not Valid</span>");
@@ -570,8 +643,8 @@ if ($result_pagination) {
 
     $("#firstname_edit").keyup(function() {
       var input = $(this).val();
-      if (checkAddAndEdit(input) == false) {
-        $("#firstname_edit_result").html("<span class='error'>Account Firstnam Not Valid</span>");
+      if (checkName(input) == false) {
+        $("#firstname_edit_result").html("<span class='error'>Account First name Not Valid</span>");
         $("#edit-btn").prop("disabled", true);
         $("#edit-btn").css("background-color", "red");
         $("#firstname_edit_result").css("display", "block");
@@ -585,8 +658,8 @@ if ($result_pagination) {
 
     $("#lastname_edit").keyup(function() {
       var input = $(this).val();
-      if (checkAddAndEdit(input) == false) {
-        $("#lastname_edit_result").html("<span class='error'>Account Firstnam Not Valid</span>");
+      if (checkName(input) == false) {
+        $("#lastname_edit_result").html("<span class='error'>Account Last name Not Valid</span>");
         $("#edit-btn").prop("disabled", true);
         $("#edit-btn").css("background-color", "red");
         $("#lastname_edit_result").css("display", "block");
@@ -601,7 +674,7 @@ if ($result_pagination) {
     $("#placeofbirth_edit").keyup(function() {
       var input = $(this).val();
       if (checkAddAndEdit(input) == false) {
-        $("#placeofbirth_edit_result").html("<span class='error'>Account Firstnam Not Valid</span>");
+        $("#placeofbirth_edit_result").html("<span class='error'>Account Place of birth Not Valid</span>");
         $("#edit-btn").prop("disabled", true);
         $("#edit-btn").css("background-color", "red");
         $("#placeofbirth_edit_result").css("display", "block");
@@ -610,6 +683,33 @@ if ($result_pagination) {
         $("#placeofbirth_edit_result").css("display", "none");
         $("#edit-btn").prop("disabled", false);
         $("#edit-btn").css("background-color", "#ffa800");
+      }
+    });
+
+    $("#password_edit").keyup(function() {
+      var input = $(this).val();
+      if (checkPassword(input) == 0) {
+        $("#password_edit_result").html("<span class='error'>Password not valid</span>");
+        $("#password_edit_result").css("display", "block");
+        // $("#password_edit_result").css("margin-bottom", "1rem");
+        $("#edit-btn").prop("disabled", true);
+        $("#edit-btn").css("background-color", "#de5959");
+      } else if (checkPassword(input) == 1) {
+        $("#password_edit_result").html("<span class='error'>Password  must be between 6 and 20 characters</span>");
+        $("#password_edit_result").css("display", "block");
+        // $("#password_edit_result").css("margin-bottom", "1rem");
+        $("#edit-btn").prop("disabled", true);
+        $("#edit-btn").css("background-color", "#de5959");
+      } else if (checkPassword(input) == 2) {
+        $("#password_edit_result").html("<span class='error'>Password must contain lowercase, uppercase and special characters</span>");
+        $("#password_edit_result").css("display", "block");
+        $("#password_edit_result").css("margin-bottom", "0.5rem");
+        $("#edit-btn").prop("disabled", true);
+        $("#edit-btn").css("background-color", "#de5959");
+      } else {
+        $("#password_edit_result").css("display", "none");
+        $("#edit-btn").prop("disabled", false);
+        $("#edit-btn").css("background-color", "#0be881");
       }
     });
 

@@ -75,14 +75,20 @@ input {
 
 }
 
-form>h1 {
+.form-sign-in>h1 {
   color: #ff0;
   text-align: center;
   margin-bottom: 1rem;
 }
 
+.form-sign-up>h2 {
+  color: #ff0;
+  text-align: center;
+  margin-bottom: 0;
+}
 
-label {
+.form-sign-in label,
+.form-sign-up label {
   display: block;
   margin-bottom: 10px;
   font-size: 18px;
@@ -90,17 +96,67 @@ label {
   color: #ff0;
 }
 
+.form-sign-up label {
+  margin-bottom: 0;
+  font-size: 16px;
+}
+
 .infos[type="text"],
 input[type="email"],
 input[type="password"],
-input[type="confirm_password"],
-input[type="text"] {
+input[type="text"],
+input[type="date"] {
   width: 100%;
   padding: 10px;
   font-size: 16px;
   border-radius: 5px;
   border: none;
   margin-bottom: 20px;
+}
+
+.infos[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+input[type="text"]::placeholder,
+input[type="date"]::placeholder {
+  font-size: 16px;
+}
+
+.infos[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus,
+input[type="date"]:focus {
+  font-size: 16px;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 13px;
+}
+
+select:focus {
+  font-size: 16px;
+}
+
+.form-sign-up input {
+  font-size: 10px;
+  margin-bottom: 13px;
+}
+
+.form-group-password {
+  position: relative;
+}
+
+.form-group-password span{
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  cursor: pointer;
 }
 
 button {
@@ -125,6 +181,15 @@ button:hover {
   align-items: center;
 }
 
+.wrap-btn.sign-up {
+  gap: 0.3rem;
+}
+
+.wrap-btn.sign-up button {
+  font-size: 15px;
+  padding: 10px 15px;
+}
+
 #limpar {
   background-color: #fcb13e;
   color: white;
@@ -141,7 +206,7 @@ button:hover {
 .username_notify,
 .password_notify {
   position: relative;
-  bottom: 20px;
+  bottom: 15px;
 }
 
 .username_notify span,
@@ -152,7 +217,9 @@ button:hover {
 }
 
 .password_notify span {
+  bottom: 10px;
   width: 470px;
+  line-height: 15px;
 }
 
 .error {

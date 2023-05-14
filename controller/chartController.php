@@ -4,6 +4,14 @@ include_once $filepath . "/services/chartServices.php";
 
 class ChartController 
 {
+
+    public function show_best_selling_products($startDate, $endDate)
+    {
+        $chartService = new ChartServices();
+        $result = $chartService->show_best_selling_products($startDate, $endDate);
+        return $result;
+    }
+
     public function show_revenue_quarter($year)
     {
         $chartService = new ChartServices();

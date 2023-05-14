@@ -29,25 +29,6 @@ include_once $filepath . "\database\connectDB.php";
     return $result;
   }
 
-  public function show_product_sort($sortKey)
-  {
-    if($sortKey == 1)
-    {
-      $query = "SELECT * FROM product, category, sale WHERE product.is_deleted = 0 
-      AND product.category_id = category.id 
-      AND product.sale_id = sale.id
-      ORDER BY product.name DESC";
-    }
-    else {
-      $query = "SELECT * FROM product, category, sale WHERE product.is_deleted = 0
-      AND product.category_id = category.id
-      AND product.sale_id = sale.id
-      ORDER BY product.name ASC";
-    }
-    $result = $this->db->select($query);
-    return $result;
-  }
-
   // product detail by product id
   public function show_product_detail($product_detail_id)
   {
@@ -89,6 +70,23 @@ include_once $filepath . "\database\connectDB.php";
   {
     $query = "SELECT * FROM product, category, sale WHERE product.category_id = category.id and product.sale_id = sale.id and product.is_deleted = '0'
     ORDER BY product.create_date DESC LIMIT $offset,$limit_per_page";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function show_product_sort($sortKey)
+  {
+    if ($sortKey == 1) {
+      $query = "SELECT * FROM product, category, sale WHERE product.is_deleted = 0 
+      AND product.category_id = category.id 
+      AND product.sale_id = sale.id
+      ORDER BY product.name DESC";
+    } else {
+      $query = "SELECT * FROM product, category, sale WHERE product.is_deleted = 0
+      AND product.category_id = category.id
+      AND product.sale_id = sale.id
+      ORDER BY product.name ASC";
+    }
     $result = $this->db->select($query);
     return $result;
   }

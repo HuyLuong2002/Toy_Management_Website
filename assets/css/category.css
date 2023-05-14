@@ -236,7 +236,7 @@ body {
     line-height: 1;
 }
 
-.product-info a:hover{
+.product-info a:hover {
     transition: 0.3s;
     color: #fff;
 }
@@ -368,6 +368,12 @@ body {
 
 .pagination li a:hover {
     color: #f04e45;
+}
+
+.pagination li.first-page,
+.pagination li.last-page {
+    width: fit-content;
+    padding: 5px 5px;
 }
 
 .pagination li.current {

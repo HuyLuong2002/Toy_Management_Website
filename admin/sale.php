@@ -58,7 +58,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
 
 if (isset($_GET["page"])) {
   $page_id = $_GET["page"];
-  $pagination_id = $page_id;
 }
 /*
 Tính giá trị của phân trang, 10 sale trên 1 trang
@@ -180,7 +179,7 @@ if ($result_pagination) {
         </tbody>
       </table>
     <?php
-          } else if($result_pagination){
+          } else if ($result_pagination) {
     ?>
       <tbody id="sale-data">
         <?php if ($result_pagination) {
@@ -232,41 +231,65 @@ if ($result_pagination) {
           } ?>
       </tbody>
       </table>
-      <?php if (empty($_POST["input"]) && $result_pagination) { ?>
+      <?php if (empty($_POST["input"]) && isset($page_total) && $page_total > 1) { ?>
         <div class="bottom-pagination" id="pagination">
           <ul class="pagination">
-            <?php if ($pagination_id > 1) { ?>
+            <?php if ($current_page > 3) {
+              $first_page = 1;
+            ?>
+              <li class="item first-page">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $first_page ?>">
+                  First
+                </a>
+              </li>
+            <?php } ?>
+
+            <?php if ($current_page > 3) { ?>
               <li class="item prev-page">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id -
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $current_page -
                                                                 1; ?>">
                   <i class="fa-solid fa-chevron-left"></i>
                 </a>
               </li>
             <?php } ?>
+
             <?php
-            $pagination = $pag->pageNumber($page_total, 4, $pagination_id);
-            $length = count($pagination);
-            for ($i = 1; $i <= $length; $i++) {
-              if ($pagination[$i] > 0) {
-                if ($pagination[$i] == $pagination_id) {
-                  $current = "current";
-                } else {
-                  $current = "";
-                } ?>
-                <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
-                  <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination[$i]; ?>">
-                    <?php echo $pagination[$i]; ?>
+            for ($num = 1; $num <= $page_total; $num++) {
+              if ($num != $current_page) {
+                if ($num > $current_page - 3 && $num < $current_page + 3) {
+            ?>
+                  <li class="item" id="<?php echo $num; ?>">
+                    <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $num ?>">
+                      <?php echo $num; ?>
+                    </a>
+                  </li>
+                <?php
+                }
+              } else {
+                ?>
+                <li class="item <?php echo "current" ?>" id="<?php echo $num; ?>">
+                  <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $num; ?>">
+                    <?php echo $num; ?>
                   </a>
                 </li>
             <?php
               }
             }
             ?>
-            <?php if ($page_total - 1 > $pagination_id + 1) { ?>
+            <?php if ($current_page <= $page_total - 3) { ?>
               <li class="item next-page">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $pagination_id +
-                                                                1; ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $current_page + 1; ?>">
                   <i class="fa-solid fa-chevron-right"></i>
+                </a>
+              </li>
+            <?php } ?>
+
+            <?php if ($current_page <= $page_total - 3) {
+              $lastpage = $page_total;
+            ?>
+              <li class="item last-page">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $lastpage ?>">
+                  Last
                 </a>
               </li>
             <?php } ?>

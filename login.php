@@ -11,18 +11,9 @@ if (isset($_POST["sign-in-nome"]) && isset($_POST["sign-in-password"])) {
     $_POST["sign-in-password"]
   );
 }
-if (
-  isset($_POST["nome"]) &&
-  isset($_POST["password"]) &&
-  isset($_POST["confirm-password"]) &&
-  isset($_POST["firstname"]) && isset($_POST["lastname"])
-) {
-  $nome = $_POST["nome"];
-  $password = $_POST["password"];
-  $confirm_password = $_POST["confirm-password"];
-  $firstname = $_POST["firstname"];
-  $lastname = $_POST["lastname"];
-  $result_account = $accountController->insert_account($nome, md5($password), $firstname, $lastname);
+
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit-sign-up"])){
+  $insertAccount = $accountController->insert_account_user($_POST);
 }
 
 if (isset($_GET["action"]) == "logout") {
@@ -37,6 +28,7 @@ if (isset($_GET["action"]) == "logout") {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
   <title>Sign In & Sign up Form</title>
   <link rel="stylesheet" href="./assets/css/login.css">
@@ -47,11 +39,9 @@ if (isset($_GET["action"]) == "logout") {
 
   <div class="wrapper-form">
     <?php
-    // if (isset($result_login)) {
-    //   echo $result_login;
-    // }
-    if (isset($result_account)) {
-      echo $result_account;
+
+    if (isset($insertAccount)) {
+      echo $insertAccount;
     }
     ?>
     <div class="DarkOverlay"></div>
@@ -80,44 +70,64 @@ if (isset($_GET["action"]) == "logout") {
       </form>
 
       <form action="login.php" method="post" class="form-sign-up hide-form" id="form-signup">
-        <h1>Sign Up</h1>
+        <h2>Sign Up</h2>
         <div class="form-group">
           <label for="nome">Username:</label>
           <span id="check-username"></span>
-          <input placeholder="" type="text" class="infos" id="sign-up-nome" name="nome" onInput="checkUsername();">
+          <input type="text" class="username" id="sign-up-nome" name="nome" onInput="checkUsername();">
           <div id="username_notify" class="username_notify"></div>
         </div>
 
         <div class="form-group">
-          <div class="mario"></div>
           <label for="firstname">Firstname:</label>
-          <input type="text" id="firstname" name="firstname" class="firstname">
+          <input type="text" id="firstname" name="firstname" class="firstname" placeholder="No numbers included">
           <div id="firstname_notify" class="username_notify"></div>
         </div>
 
         <div class="form-group">
-          <div class="mario"></div>
           <label for="lastname">Lastname:</label>
-          <input type="text" id="lastname" name="lastname" class="lastname">
+          <input type="text" id="lastname" name="lastname" class="lastname" placeholder="No numbers included">
           <div id="lastname_notify" class="username_notify"></div>
         </div>
 
         <div class="form-group">
-          <div class="mario"></div>
+          <label for="gender">Gender</label>
+          <select class="gender" id="gender" name="gender" required>
+            <option value="">Select gender</option>
+            <option value="Nam">Nam</option>
+            <option value="Nữ">Nữ</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="place_of_birth">Place of birth:</label>
+          <input type="text" id="place_of_birth" name="place_of_birth" placeholder="Example: HCM">
+          <div id="place_of_birth_notify" class="place_of_birth_notify"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="date_birth">Date birth:</label>
+          <input type="date" id="date_birth" name="date_birth">
+          <div id="date_birth_notify" class="date_birth_notify"></div>
+        </div>
+
+        <div class="form-group">
           <label for="password">Password:</label>
-          <input type="password" id="sign-up-password" name="password" placeholder="">
+          <div class="form-group-password">
+            <input type="password" id="sign-up-password" class="password" name="password" placeholder="Example: Abc@123">
+            <span id="showpass"><i class="fa-solid fa-eye" onclick="togglePassword()"></i></span>
+          </div>
           <div id="password_notify" class="password_notify"></div>
         </div>
 
         <div class="form-group">
-          <div class="mario"></div>
           <label for="confirm">Confirm Password:</label>
           <input type="password" id="confirm-password" name="confirm-password">
-          <!-- <div id="confirm_password_notify"></div> -->
+          <div id="confirm_password_notify"></div>
         </div>
 
-        <div class="wrap-btn">
-          <button type="submit" id="btn-sign-up" onclick="return checkSignUp();">Sign up</button>
+        <div class="wrap-btn sign-up">
+          <button name="submit-sign-up" type="submit" id="btn-sign-up" onclick="return checkSignUp();">Sign up</button>
           <div>
             <i>Already have an account? <a onclick="handleClick(event, '2');">Log in now</a></i>
           </div>
@@ -143,34 +153,59 @@ if (isset($_GET["action"]) == "logout") {
         formSignUp.classList.add("hide-form");
       }
     }
+
+
+    const passwordInput = document.getElementById("sign-up-password");
+    const showpass = document.getElementById("showpass");
+
+    function togglePassword() {
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+      } else {
+        passwordInput.type = "password";
+      }
+    }
+
+    function handleShowPassClick() {
+      if (showpass.style.top === "10px") {
+        showpass.style.top = "5px";
+      } else {
+        showpass.style.top = "10px";
+      }
+    }
+
+    function handleClickOutside(event) {
+      if(!event.target.matches('#sign-up-password', '#showpass')){
+        showpass.style.top = "5px";
+      }
+    }
+
+    passwordInput.addEventListener("click", handleShowPassClick);
+    document.addEventListener("click", handleClickOutside);
   </script>
 
   <script>
     $(document).ready(function() {
       $("#sign-up-nome").keyup(function() {
         $.ajax({
-        url: "check_login.php",
-        data: 'nome=' + $("#sign-up-nome").val(),
-        type: "POST",
-        success: function(data) {
-          if(data == 1)
-          {
-            $("#username_notify").html("<span class='success'>Username is valid</span>");
-            $("#btn-sign-up").prop("disabled", false);
-            $("#btn-sign-up").css("background-color", "#0be881");
-          }
-          else
-          {
-            $("#username_notify").html("<span class='error'>Username is used</span>");
-            $("#btn-sign-up").prop("disabled", true);
-            $("#btn-sign-up").css("background-color", "#de5959");
-          }
-        },
-        error: function() {
-        }
+          url: "check_login.php",
+          data: 'nome=' + $("#sign-up-nome").val(),
+          type: "POST",
+          success: function(data) {
+            if (data == 1) {
+              $("#username_notify").html("<span class='success'>Username is valid</span>");
+              $("#btn-sign-up").prop("disabled", false);
+              $("#btn-sign-up").css("background-color", "#0be881");
+            } else {
+              $("#username_notify").html("<span class='error'>Username is used</span>");
+              $("#btn-sign-up").prop("disabled", true);
+              $("#btn-sign-up").css("background-color", "#de5959");
+            }
+          },
+          error: function() {}
+        });
       });
     });
-  });
   </script>
 
 
@@ -179,24 +214,23 @@ if (isset($_GET["action"]) == "logout") {
     $(document).ready(function() {
       $("#sign-up-password").keyup(function() {
         var input = $(this).val();
-        console.log(input);
 
         if (checkPassword(input) == 0) {
           $("#password_notify").html("<span class='error'>Password not valid</span>");
           $("#password_notify").css("display", "block");
-          $("#password_notify").css("margin-bottom", "1rem");
+          // $("#password_notify").css("margin-bottom", "1rem");
           $("#btn-sign-up").prop("disabled", true);
           $("#btn-sign-up").css("background-color", "#de5959");
         } else if (checkPassword(input) == 1) {
           $("#password_notify").html("<span class='error'>Password  must be between 6 and 20 characters</span>");
           $("#password_notify").css("display", "block");
-          $("#password_notify").css("margin-bottom", "1rem");
+          // $("#password_notify").css("margin-bottom", "1rem");
           $("#btn-sign-up").prop("disabled", true);
           $("#btn-sign-up").css("background-color", "#de5959");
         } else if (checkPassword(input) == 2) {
           $("#password_notify").html("<span class='error'>Password must contain lowercase, uppercase and special characters</span>");
           $("#password_notify").css("display", "block");
-          $("#password_notify").css("margin-bottom", "1rem");
+          $("#password_notify").css("margin-bottom", "0.5rem");
           $("#btn-sign-up").prop("disabled", true);
           $("#btn-sign-up").css("background-color", "#de5959");
         } else {
@@ -206,21 +240,6 @@ if (isset($_GET["action"]) == "logout") {
         }
       });
     });
-
-    // $("#sign-up-nome").keyup(function() {
-    //   var input = $(this).val();
-    //   if (checkUsername(input) == false) {
-    //     $("#username_notify").html("<span class='error'>User name Not Valid</span>");
-    //     $("#username_notify").css("display", "block");
-    //     $("#btn-sign-up").prop("disabled", true);
-    //     $("#btn-sign-up").css("background-color", "red");
-    //     // $("#username_notify").css("margin-bottom", "1rem");
-    //   } else {
-    //     $("#username_notify").css("display", "none");
-    //     $("#btn-sign-up").prop("disabled", false);
-    //     $("#btn-sign-up").css("background-color", "#0be881");
-    //   }
-    // });
 
     $("#firstname").keyup(function() {
       var input = $(this).val();

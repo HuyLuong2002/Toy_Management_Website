@@ -1,12 +1,8 @@
 <?php
 $filepath = realpath(dirname(__DIR__));
 include_once $filepath . "\Toy_Management_Website\controller\productsController.php";
-include_once $filepath . "/helpers/pagination.php";
 
 $productsController = new ProductsController();
-$pag = new Pagination();
-
-$output = '';
 
 if (isset($_POST["page"])) {
     $page_id = $_POST["page"];
@@ -32,7 +28,7 @@ if ($result_pagination != false) {
     // Tổng số sản phẩm
     $product_total = mysqli_num_rows($result_pagination);
     //số sản phẩm trên 1 trang
-    $num_product_on_page = 6;
+    $num_product_on_page = 9;
     $page_total = ceil($product_total / $num_product_on_page);
     //Trang hiện tại
     $current_page = $page_id;
@@ -128,42 +124,67 @@ if ($page_total > 1) {
 ?>
     <div class="bottom-pagination">
         <ul class="pagination" id="pagination">
-            <?php if ($page_id > 4) { ?>
-                <li class="item prev-page" id="<?php echo $page_id - 1 ?>">
+
+            <?php if ($current_page > 3) {
+                $first_page = 1;
+            ?>
+                <li class="item first-page" id="<?php echo $first_page ?>">
+                    <a class="pagination_link">
+                        First
+                    </a>
+                </li>
+            <?php } ?>
+
+            <?php if ($current_page > 3) { ?>
+                <li class="item prev-page" id="<?php echo $current_page - 1 ?>">
                     <a class="pagination_link">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
                 </li>
             <?php } ?>
+
             <?php
-            if (isset($page_total)) {
-                $pagination = $pag->pageNumber($page_total, 4, $page_id);
-                $length = count($pagination);
-                for ($i = 1; $i <= $length; $i++) {
-                    if ($pagination[$i] > 0) {
-                        if ($pagination[$i] == $page_id) {
-                            $current = "current";
-                        } else {
-                            $current = "";
-                        } ?>
-                        <li class="item <?php echo $current; ?>" id="<?php echo $pagination[$i]; ?>">
-                            <a class="pagination_link">
-                                <?php echo $pagination[$i]; ?>
+            for ($num = 1; $num <= $page_total; $num++) {
+                if ($num != $current_page) {
+                    if ($num > $current_page - 3 && $num < $current_page + 3) {
+            ?>
+                        <li class="item" id="<?php echo $num; ?>">
+                            <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $num ?>">
+                                <?php echo $num; ?>
                             </a>
                         </li>
-                <?php
+                    <?php
                     }
-                }
-                ?>
-                <?php if ($page_total - 1 > $page_id + 1) { ?>
-                    <li class="item next-page" id="<?php echo $page_id + 1 ?>">
+                } else {
+                    ?>
+                    <li class="item <?php echo "current" ?>" id="<?php echo $num; ?>">
                         <a class="pagination_link">
-                            <i class="fa-solid fa-chevron-right"></i>
+                            <?php echo $num; ?>
                         </a>
                     </li>
-            <?php }
+            <?php
+                }
             }
             ?>
+
+            <?php if ($current_page <= $page_total - 3) { ?>
+                <li class="item next-page" id="<?php echo $current_page + 1 ?>">
+                    <a class="pagination_link">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                </li>
+            <?php }
+            ?>
+
+            <?php if ($current_page <= $page_total - 3) {
+                $lastpage = $page_total;
+            ?>
+                <li class="item last-page" id="<?php echo $lastpage ?>">
+                    <a class="pagination_link">
+                        Last
+                    </a>
+                </li>
+            <?php } ?>
         </ul>
     </div>
 <?php

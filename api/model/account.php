@@ -33,7 +33,7 @@ class Account
   }
 
   //show = get category by id
-  public function show($id)
+  public function show()
   {
     $query = "SELECT * FROM account where id=? LIMIT 1";
     $stmt = $this->conn->prepare($query);
