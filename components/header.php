@@ -163,6 +163,30 @@ if (isset($_COOKIE[$s_name])) {
             <div class="key-search" id="key-search">
 
             </div>
+
+            <div class="key-search-list-price hide-list" id="key-search-list-price">
+                <div class="clip-path-key-search-price">
+                </div>
+
+                <ul class="key-search-list-price-child">
+                    <li>< 500</li>
+                    <li>500 -> 1000</li>
+                    <li>1000 -> 2000</li>
+                    <li>> 2000</li>
+                </ul>
+            </div>
+
+            <div class="key-search-list-star hide-list" id="key-search-list-star">
+                <div class="clip-path-key-search-star">
+                </div>
+                <ul class="key-search-list-star-child">
+                    <li>&#9733; </li>
+                    <li>&#9733;&#9733;</li>
+                    <li>&#9733;&#9733;&#9733;</li>
+                    <li>&#9733;&#9733;&#9733;&#9733;</li>
+                    <li>&#9733;&#9733;&#9733;&#9733;&#9733;</li>
+                </ul>
+            </div>
         </div>
         <div class="wrap-product-search" id="searchresultproductuser">
 
@@ -263,6 +287,9 @@ if (isset($_COOKIE[$s_name])) {
     }
 
     const handleActiveKey = (id) => {
+        const listPrice = document.getElementById("key-search-list-price")
+        const listStar = document.getElementById("key-search-list-star")
+
         typeKeySearch.forEach(item => {
             let keyTag = document.getElementById(item.id)
             if (keyTag.classList.contains("active-bg-keychild")) {
@@ -276,6 +303,18 @@ if (isset($_COOKIE[$s_name])) {
                 keyTag.classList.add('active-bg-keychild')
             }
         })
+
+        if(id === 2) {
+            listPrice.classList.toggle("hide-list")
+        } else {
+            listPrice.classList.add("hide-list")
+        }
+
+        if(id === 4) {
+            listStar.classList.toggle("hide-list")
+        } else {
+            listStar.classList.add("hide-list")
+        }
     }
 
     loadKeySearch(typeKeySearch)
