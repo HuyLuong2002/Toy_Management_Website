@@ -168,11 +168,11 @@ if (isset($_COOKIE[$s_name])) {
                 <div class="clip-path-key-search-price">
                 </div>
 
-                <ul class="key-search-list-price-child">
-                    <li>< 500</li>
-                    <li>500 -> 1000</li>
-                    <li>1000 -> 2000</li>
-                    <li>> 2000</li>
+                <ul class="key-search-list-price-child" id="key-search-list-price-id">
+                    <li id="21">< 500</li>
+                    <li id="22">500 -> 1000</li>
+                    <li id="23">1000 -> 2000</li>
+                    <li id="24">> 2000</li>
                 </ul>
             </div>
 
@@ -240,6 +240,7 @@ if (isset($_COOKIE[$s_name])) {
             id: 2,
             title: "Price",
             active: false
+
         },
         {
             id: 3,
@@ -350,6 +351,22 @@ if (isset($_COOKIE[$s_name])) {
             } else {
                 $("#searchresultproductuser").css("display", "block");
             }
+        });
+
+        $('#key-search-list-price-id').bind('click', function(event) {
+            searchkey = $(event.target).attr('id');
+            
+            $.ajax({
+                url: "../controller/headerController.php",
+                method: "POST",
+                data: {
+                    searchkey: searchkey,
+                },
+                success: function(data) {
+                    $("#searchresultproductuser").html(data);
+                    $("#searchresultproductuser").css("display", "block");
+                }
+            });
         });
 
         $("#key-search span").click(function() {
