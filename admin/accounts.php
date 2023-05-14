@@ -529,7 +529,29 @@ if ($result_pagination) {
         $("#username_add_result").css("display", "none");
         $("#add-btn").prop("disabled", false);
         $("#add-btn").css("background-color", "#0be881");
+
+        $.ajax({
+          url: "../check_login.php",
+          data: 'nome=' + $("#username-add").val(),
+          type: "POST",
+          success: function(data) {
+            if (data == 1) {
+              $("#username_add_result").html("<span class='success'>Username is valid</span>");
+              $("#add-btn").prop("disabled", false);
+              $("#add-btn").css("background-color", "#0be881");
+              $("#username_add_result").css("display", "block");
+            } else {
+              $("#username_add_result").html("<span class='error'>Username is used</span>");
+              $("#add-btn").prop("disabled", true);
+              $("#add-btn").css("background-color", "red");
+              $("#username_add_result").css("display", "block");
+            }
+          },
+          error: function() {}
+        });
       }
+
+
     });
 
     $("#firstname_add").keyup(function() {
