@@ -39,7 +39,7 @@ class DetailOrders
   //show = get detail function by function_id
   public function show_detail_order()
   {
-    $query = "SELECT detail_orders.*, product.name, product.image FROM detail_orders, product where order_id=? AND detail_orders.product_id = product.id";
+    $query = "SELECT detail_orders.*, orders.date, product.name, product.image FROM detail_orders, product, orders where order_id=? AND detail_orders.product_id = product.id AND detail_orders.order_id = orders.id";
     $stmt = $this->conn->prepare($query);
     $stmt->bindParam(1, $this->order_id);
     $stmt->execute();
