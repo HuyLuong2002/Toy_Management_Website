@@ -103,6 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
         <div class="form-group">
           <label for="description">Description</label>
           <textarea id="description" name="description_add" class="tinymce"></textarea>
+          <div id="description_add_result"></div>
         </div>
       </div>
 
@@ -114,7 +115,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 <script>
   tinymce.init({
     selector: '.tinymce',
-
     width: "100%",
     height: "480",
   });
@@ -171,6 +171,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
       }
     });
 
+    $("#description").keyup(function() {
+      const content = tinymce.activeEditor.getContent();
+      console.log(content);
+      var input = $(this).val();
+      if (input.lenght > 10) {
+        $("#description_add_result").html("<span class='error'>Description is too long</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
+        $("#description_add_result").css("display", "block");
+        $("#description_add_result").css("margin-top", "1rem");
+      } else {
+        $("#description_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
+      }
+    });
 
   });
 </script>
