@@ -25,13 +25,6 @@ class ProductsController
     return $result;
   }
 
-  public function show_product_sort($sortKey)
-  {
-    $productService = new ProductServices();
-    $result = $productService->show_product_sort($sortKey);
-    return $result;
-  }
-
   public function show_product_live_search_category($input)
   {
     $productService = new ProductServices();
@@ -85,6 +78,13 @@ class ProductsController
   {
     $productService = new ProductServices();
     $result = $productService->show_product_for_pagination();
+    return $result;
+  }
+
+  public function show_product_sort($sortKey)
+  {
+    $productService = new ProductServices();
+    $result = $productService->show_product_sort($sortKey);
     return $result;
   }
 

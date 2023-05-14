@@ -205,7 +205,7 @@ if ($result_pagination) {
       </table>
     </div>
 
-    <?php if (empty($_POST["input"]) && $page_total > 1) { ?>
+    <?php if (empty($_POST["input"]) && $page_total > 1 && isset($page_total)) { ?>
       <div class="bottom-pagination" id="pagination">
         <ul class="pagination">
           <?php if ($current_page > 3) {

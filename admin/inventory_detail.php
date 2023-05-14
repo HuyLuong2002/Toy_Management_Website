@@ -94,12 +94,11 @@ if (isset($enter_id)) {
 <div class="card" id="searchresultinventorydetail">
   <div class="card-header">
     <div class="bg-modal-box"></div>
-    <div class="breadcrumb">
-      <ul class="items">
-        <li class="item"><a href="index.php?id=4&page=1">Receipt List</a></li>
-        <li class="item">Detail Receipt List</li>
-      </ul>
-    </div>
+    <button>
+      <a class="back-btn" href="index.php?id=4&page=1">
+        <i class="fa-solid fa-arrow-left"></i> Receipt List
+      </a>
+    </button>
     <div class="notification">
       <?php
       if (isset($deleteInventoryDetail)) {
@@ -205,7 +204,7 @@ if (isset($enter_id)) {
       </tbody>
       </table>
     </div>
-    <?php if (empty($_POST["input"]) && $page_total > 1) { ?>
+    <?php if (empty($_POST["input"]) && isset($page_total) && $page_total > 1) { ?>
       <div class="bottom-pagination" id="pagination">
         <ul class="pagination">
 
@@ -213,7 +212,7 @@ if (isset($enter_id)) {
             $first_page = 1;
           ?>
             <li class="item first-page">
-              <a href="index.php?id=<?php echo $id; ?>&page_detail=<?php echo $first_page ?>&enter_id=<?php echo $enter_id?>">
+              <a href="index.php?id=<?php echo $id; ?>&page_detail=<?php echo $first_page ?>&enter_id=<?php echo $enter_id ?>">
                 First
               </a>
             </li>
@@ -233,7 +232,7 @@ if (isset($enter_id)) {
               if ($num > $current_page - 3 && $num < $current_page + 3) {
           ?>
                 <li class="item" id="<?php echo $num; ?>">
-                  <a href="index.php?id=<?php echo $id; ?>&page_detail=<?php echo $num ?>&enter_id=<?php echo $enter_id?>">
+                  <a href="index.php?id=<?php echo $id; ?>&page_detail=<?php echo $num ?>&enter_id=<?php echo $enter_id ?>">
                     <?php echo $num; ?>
                   </a>
                 </li>
@@ -242,7 +241,7 @@ if (isset($enter_id)) {
             } else {
               ?>
               <li class="item <?php echo "current" ?>" id="<?php echo $num; ?>">
-                <a href="index.php?id=<?php echo $id; ?>&page_detail=<?php echo $num; ?>&enter_id=<?php echo $enter_id?>">
+                <a href="index.php?id=<?php echo $id; ?>&page_detail=<?php echo $num; ?>&enter_id=<?php echo $enter_id ?>">
                   <?php echo $num; ?>
                 </a>
               </li>
@@ -263,7 +262,7 @@ if (isset($enter_id)) {
             $lastpage = $page_total;
           ?>
             <li class="item last-page">
-              <a href="index.php?id=<?php echo $id; ?>&page_detail=<?php echo $lastpage ?>&enter_id=<?php echo $enter_id?>">
+              <a href="index.php?id=<?php echo $id; ?>&page_detail=<?php echo $lastpage ?>&enter_id=<?php echo $enter_id ?>">
                 Last
               </a>
             </li>
