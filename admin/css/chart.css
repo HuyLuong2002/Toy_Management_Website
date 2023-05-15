@@ -100,9 +100,14 @@ table th {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin-bottom: 10px;
   cursor: pointer;
   border-radius: 5px;
+  margin-top: 0.5rem;
+  transition: opacity .5 ease-in;
+}
+
+.btn:hover {
+  opacity: 0.7;
 }
 
 /* DATE */

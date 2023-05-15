@@ -1,4 +1,4 @@
-const AddFavorite = (event, id) => {
+const AddFavorite = (event, id, categoryID) => {
     let ProductNameCart = document.getElementById(`product-name-${id}`)
     let ProductImgCart = document.getElementById(`product-image-${id}`)
     let ProductPriceCart = document.getElementById(`product-price-${id}`)
@@ -28,7 +28,7 @@ const AddFavorite = (event, id) => {
             name: ProductNameCart.innerText,
             image: ProductImgCart.src,
             price: parseFloat(convertPrice[1]),
-            quantity: 1
+            categoryID: categoryID
         }
 
         if (checkAddToFavorite(productInfo.id)) {
