@@ -39,6 +39,35 @@ class ProductsController
     return $result;
   }
 
+  public function show_product_live_search_price_lower_500()
+  {
+    $productService = new ProductServices();
+    $result = $productService->show_product_live_search_price_lower_500();
+    return $result;
+  }
+
+  public function show_product_live_search_price_from_500_to_1000()
+  {
+    $productService = new ProductServices();
+    $result = $productService->show_product_live_search_price_from_500_to_1000();
+    return $result;
+  }
+
+  public function show_product_live_search_price_from_1000_to_2000()
+  {
+    $productService = new ProductServices();
+    $result = $productService->show_product_live_search_price_from_1000_to_2000();
+    return $result;
+  }
+
+  public function show_product_live_search_price_greater_2000()
+  {
+    $productService = new ProductServices();
+    $result = $productService->show_product_live_search_price_greater_2000();
+    return $result;
+  }
+
+
   public function show_product_live_search_name($input)
   {
     $productService = new ProductServices();

@@ -21,6 +21,9 @@ if (isset($_POST["input"]) && isset($_POST["searchkey"])) {
         $input
       );
       break;
+    case 21:
+      $show_product_live_search = $productsController->show_product_live_search_price_lower_500();
+      break;
     case 3:
       $show_product_live_search = $productsController->show_product_live_search_name(
         $input
@@ -31,6 +34,22 @@ if (isset($_POST["input"]) && isset($_POST["searchkey"])) {
       $show_product_live_search = $productsController->show_product_live_search_rating(
         $input
       );
+      break;
+  }
+} elseif (isset($_POST["searchkey"])) {
+  $searchkey = $_POST["searchkey"];
+  switch ($searchkey) {
+    case 21:
+      $show_product_live_search = $productsController->show_product_live_search_price_lower_500();
+      break;
+    case 22:
+      $show_product_live_search = $productsController->show_product_live_search_price_from_500_to_1000();
+      break;
+    case 23:
+      $show_product_live_search = $productsController->show_product_live_search_price_from_1000_to_2000();
+      break;
+    case 24:
+      $show_product_live_search = $productsController->show_product_live_search_price_greater_2000();
       break;
   }
 }
@@ -52,13 +71,10 @@ if (isset($_POST["input"]) && isset($_POST["searchkey"])) {
                     </div>
                 </div>
             </div>
-            <?php }
-            } else { ?>
+            <?php }} else { ?>
             <div class="product-search">
                 <span>No Data Found</span>
             </div>
-            <?php
-            }
-            ?>
-<?php  
+            <?php } ?>
+<?php
 } ?>

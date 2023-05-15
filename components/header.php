@@ -168,7 +168,7 @@ if (isset($_COOKIE[$s_name])) {
                 <div class="clip-path-key-search-price">
                 </div>
 
-                <ul class="key-search-list-price-child">
+                <ul class="key-search-list-price-child" id="key-search-list-price-id">
                     <li onclick="ActiveBgListPrice(1)" id="bg-list-price-1" class="bg-list">< 500</li>
                     <li onclick="ActiveBgListPrice(2)" id="bg-list-price-2">500 -> 1000</li>
                     <li onclick="ActiveBgListPrice(3)" id="bg-list-price-3">1000 -> 2000</li>
@@ -179,7 +179,7 @@ if (isset($_COOKIE[$s_name])) {
             <div class="key-search-list-star hide-list" id="key-search-list-star">
                 <div class="clip-path-key-search-star">
                 </div>
-                <ul class="key-search-list-star-child">
+                <ul class="key-search-list-star-child" id="key-search-list-star-id">
                     <li onclick="ActiveBgListStar(1)" id="bg-list-star-1" class="bg-list">&#9733; </li>
                     <li onclick="ActiveBgListStar(2)" id="bg-list-star-2">&#9733;&#9733;</li>
                     <li onclick="ActiveBgListStar(3)" id="bg-list-star-3">&#9733;&#9733;&#9733;</li>
@@ -240,6 +240,7 @@ if (isset($_COOKIE[$s_name])) {
             id: 2,
             title: "Price",
             active: false
+
         },
         {
             id: 3,
@@ -376,6 +377,22 @@ if (isset($_COOKIE[$s_name])) {
             } else {
                 $("#searchresultproductuser").css("display", "block");
             }
+        });
+
+        $('#key-search-list-price-id').bind('click', function(event) {
+            searchkey = $(event.target).attr('id');
+            
+            $.ajax({
+                url: "../controller/headerController.php",
+                method: "POST",
+                data: {
+                    searchkey: searchkey,
+                },
+                success: function(data) {
+                    $("#searchresultproductuser").html(data);
+                    $("#searchresultproductuser").css("display", "block");
+                }
+            });
         });
 
         $("#key-search span").click(function() {
