@@ -313,6 +313,8 @@ if ($result_pagination) {
   <!-- modal add end -->
 </div>
 
+<script src="./js/modal.js"></script>
+
 <!-- ajax to pagination for provider -->
 <script type="text/javascript">
   $(document).ready(function() {

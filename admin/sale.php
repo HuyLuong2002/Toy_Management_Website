@@ -409,7 +409,7 @@ if ($result_pagination) {
   </div>
 </div>
 
-<!-- <script src="./js/modal.js"></script> -->
+<script src="./js/modal.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function() {

@@ -301,6 +301,7 @@ if ($result_pagination) {
   <!-- modal add end -->
 </div>
 
+<script src="./js/modal.js"></script>
 
 <!-- ajax to pagination for product -->
 <script type="text/javascript">

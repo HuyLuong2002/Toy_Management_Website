@@ -406,6 +406,8 @@ if (isset($enter_id)) {
   <!-- modal add end -->
 </div>
 
+<script src="./js/modal.js"></script>
+
 <script>
   $(document).on('click', '#search', function() {
     var detail_search = $('.inventory_detail').val();

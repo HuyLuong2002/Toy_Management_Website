@@ -401,6 +401,8 @@ if ($result_pagination) {
   <!-- modal add end -->
 </div>
 
+<script src="./js/modal.js"></script>
+
 <script type="text/javascript">
   $(document).ready(function() {
     $('.modal-btn-delete').click(function(e) {

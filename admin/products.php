@@ -79,7 +79,7 @@ if (isset($_POST["sort"])) {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 <div class="card" id="searchresultproduct">
-  <div class="bg-modal-box product"></div>
+  <div class="bg-modal-box"></div>
   <div class="card-header">
     <h3>Product List</h3>
     <?php if (isset($deleteProduct)) {
@@ -413,6 +413,8 @@ if (isset($_POST["sort"])) {
   </form>
   <!-- modal delete end -->
 </div>
+
+<script src="./js/modal_product_order.js"></script>
 
 <!-- javascript to check hight product -->
 <script>
