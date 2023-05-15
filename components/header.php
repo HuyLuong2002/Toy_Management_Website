@@ -22,6 +22,7 @@ if (isset($_COOKIE[$s_name])) {
         display: flex;
         width: 100%;
         background-color: #fff;
+        position: relative;
     }
 
     .wrap-key-search {
