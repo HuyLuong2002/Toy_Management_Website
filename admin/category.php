@@ -207,6 +207,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
     <!-- modal add end -->
 </div>
 
+<script src="./js/modal.js"></script>
+
 <script>
     $(document).ready(function() {
         $('.modal-btn-delete').click(function(e) {

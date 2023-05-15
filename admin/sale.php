@@ -8,14 +8,6 @@ $saleController = new SaleController();
 $pag = new Pagination();
 $fm = new Format();
 
-if (isset($_POST["input"])) {
-  $input = $_POST["input"];
-  $show_sale_live_search = $saleController->show_sale_live_search($input);
-  if ($input == '0') {
-    return;
-  }
-}
-
 if (isset($_GET["id"])) {
   $id = $_GET["id"];
 }
@@ -85,6 +77,10 @@ if ($result_pagination) {
   }
 }
 
+if (isset($_POST["input"])) {
+  $input = $_POST["input"];
+  $show_sale_live_search = $saleController->show_sale_live_search($input);
+}
 ?>
 
 
@@ -409,7 +405,7 @@ if ($result_pagination) {
   </div>
 </div>
 
-<!-- <script src="./js/modal.js"></script> -->
+<script src="./js/modal.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function() {

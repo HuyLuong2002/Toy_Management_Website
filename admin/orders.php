@@ -68,7 +68,7 @@ if ($result_pagination) {
 
 <div class="card" id="searchresultorders">
   <div class="card-header">
-    <div class="bg-modal-box order" onclick="closeCurdDeleteModal"></div>
+    <div class="bg-modal-box"></div>
     <h3>Orders List</h3>
     <div class="notification-order">
       <?php
@@ -340,10 +340,13 @@ if ($result_pagination) {
     $('.modal-btn-delete').click(function(e) {
       e.preventDefault();
       var delete_id = $(this).data('id');
+      console.log(delete_id);
       $('.delete_id').val(delete_id);
     });
   });
 </script>
+
+<script src="./js/modal_product_order.js"></script>
 
 <!-- <script>
   // ShowOrderDetail

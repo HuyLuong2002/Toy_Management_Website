@@ -110,7 +110,6 @@ include_once $filepath . "\lib\session.php";
     $lastname = mysqli_real_escape_string($this->db->link, $data["lastname_add"]);
     $gender = mysqli_real_escape_string($this->db->link, $data["gender_add"]);
     $date_birth = mysqli_real_escape_string($this->db->link, $data["dateofbirth_add"]);
-
     $place_of_birth = mysqli_real_escape_string($this->db->link, $data["placeofbirth_add"]);
     $create_date = (string) date("d/m/Y");
     $permission_id = mysqli_real_escape_string($this->db->link, $data["permission_add"]);
@@ -143,36 +142,17 @@ include_once $filepath . "\lib\session.php";
 
   public function update_account($data, $id)
   {
-    $username = mysqli_real_escape_string($this->db->link, $data["username_edit"]);
-    $firstname = mysqli_real_escape_string($this->db->link, $data["firstname_edit"]);
-    $lastname = mysqli_real_escape_string($this->db->link, $data["lastname_edit"]);
-    $gender = mysqli_real_escape_string($this->db->link, $data["gender_edit"]);
-    $date_birth = mysqli_real_escape_string($this->db->link, $data["dateofbirth_edit"]);
-    $place_of_birth = mysqli_real_escape_string($this->db->link, $data["placeofbirth_edit"]);
     $create_date = (string) date("d/m/Y");
     $permission_id = mysqli_real_escape_string($this->db->link, $data["permission_edit"]);
     $status = mysqli_real_escape_string($this->db->link, $data["status_edit"]);
-    $password = mysqli_real_escape_string($this->db->link, $data["password_edit"]);
-    if (strlen($password) <= 20) {
-      $hashed_string = md5($password);
-    } else {
-      $hashed_string = $password;
-    }
     if (
-      $username == "" ||
-      $password == "" ||
-      $firstname == "" ||
-      $lastname == "" ||
-      $gender == "" ||
-      $date_birth == "" ||
-      $place_of_birth == "" ||
       $permission_id == "" ||
       $status == ""
     ) {
       $alert = "<span class='error'>Fields must be not empty</span>";
       return $alert;
     } else {
-      $query = "UPDATE account SET username='{$username}' ,firstname='{$firstname}', lastname='{$lastname}', gender='{$gender}', date_birth='{$date_birth}', place_of_birth='{$place_of_birth}', create_date='{$create_date}', permission_id = '{$permission_id}',password='{$hashed_string}' ,account.status='{$status}' WHERE id = '{$id}'";
+      $query = "UPDATE account SET permission_id = '{$permission_id}' ,account.status='{$status}' WHERE id = '{$id}'";
       $result = $this->db->update($query);
       if ($result) {
         $alert = "<span class='success'>Update Account Sucessfully</span>";

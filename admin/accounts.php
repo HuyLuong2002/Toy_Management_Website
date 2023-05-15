@@ -315,51 +315,6 @@ if ($result_pagination) {
     <input type="hidden" id="edit_id" name="edit_id" class="edit_id">
     <div class="modal-edit-info">
       <div class="modal-edit-info-item">
-        <label for="username">Username</label>
-        <input type="text" id="username_edit" name="username_edit" required>
-        <div id="username_edit_result" class="username_edit_result"></div>
-      </div>
-
-      <div class="modal-edit-info-item">
-        <label for="password">Password</label>
-        <input type="password" id="password_edit" name="password_edit" required>
-        <div id="password_edit_result"></div>
-      </div>
-
-      <div class="modal-edit-info-item">
-        <label for="firstname">First name</label>
-        <input type="text" id="firstname_edit" name="firstname_edit" required>
-        <div id="firstname_edit_result"></div>
-      </div>
-
-      <div class="modal-edit-info-item">
-        <label for="lastname">Last name</label>
-        <input type="text" id="lastname_edit" name="lastname_edit" required>
-        <div id="lastname_edit_result"></div>
-      </div>
-
-      <div class="modal-edit-info-item">
-        <label for="gender">Gender</label>
-        <select class="modal-edit-input-select" id="gender_edit" name="gender_edit" required>
-          <option value="">Select gender</option>
-          <option value="Nam">Nam</option>
-          <option value="Nữ">Nữ</option>
-        </select>
-      </div>
-
-      <div class="modal-edit-info-item">
-        <label for="date-of-birth">Date of Birth</label>
-        <input type="date" id="dateofbirth_edit" name="dateofbirth_edit" required>
-
-      </div>
-
-      <div class="modal-edit-info-item">
-        <label for="place-of-birth">Place of Birth</label>
-        <input type="text" id="placeofbirth_edit" name="placeofbirth_edit" required>
-        <div id="placeofbirth_edit_result"></div>
-      </div>
-
-      <div class="modal-edit-info-item">
         <label for="gender">Permission</label>
         <select class="modal-edit-input-select" id="permission_edit" name="permission_edit" required>
           <option value="">Select permission</option>
@@ -470,6 +425,8 @@ if ($result_pagination) {
   <!-- modal add end -->
 </div>
 
+<script src="./js/modal.js"></script>
+
 <script>
   $(document).ready(function() {
     $('.modal-btn-delete').click(function(e) {
@@ -531,7 +488,7 @@ if ($result_pagination) {
 
         $.ajax({
           url: "../check_login.php",
-          data: 'nome=' + $("#username-add").val(),
+          data: 'nome=' + input,
           type: "POST",
           success: function(data) {
             if (data == 1) {
@@ -542,15 +499,13 @@ if ($result_pagination) {
             } else {
               $("#username_add_result").html("<span class='error'>Username is used</span>");
               $("#add-btn").prop("disabled", true);
-              $("#add-btn").css("background-color", "red");
+              $("#add-btn").css("background-color", "#de5959");
               $("#username_add_result").css("display", "block");
             }
           },
           error: function() {}
         });
       }
-
-
     });
 
     $("#firstname_add").keyup(function() {
@@ -622,94 +577,6 @@ if ($result_pagination) {
         $("#password_add_result").css("display", "none");
         $("#add-btn").prop("disabled", false);
         $("#add-btn").css("background-color", "#0be881");
-      }
-    });
-
-    //edit
-    $("#username_edit").keyup(function() {
-      var input = $(this).val();
-      if (checkAddAndEdit(input) == false) {
-        $("#username_edit_result").html("<span class='error'>Account Name Not Valid</span>");
-        $("#edit-btn").prop("disabled", true);
-        $("#edit-btn").css("background-color", "red");
-        $("#username_edit_result").css("display", "block");
-        // $("#username_edit_result").css("margin-top", "1rem");
-      } else {
-        $("#username_edit_result").css("display", "none");
-        $("#edit-btn").prop("disabled", false);
-        $("#edit-btn").css("background-color", "#ffa800");
-      }
-    });
-
-    $("#firstname_edit").keyup(function() {
-      var input = $(this).val();
-      if (checkName(input) == false) {
-        $("#firstname_edit_result").html("<span class='error'>Account First name Not Valid</span>");
-        $("#edit-btn").prop("disabled", true);
-        $("#edit-btn").css("background-color", "red");
-        $("#firstname_edit_result").css("display", "block");
-        // $("#firstname_edit_result").css("margin-top", "1rem");
-      } else {
-        $("#firstname_edit_result").css("display", "none");
-        $("#edit-btn").prop("disabled", false);
-        $("#edit-btn").css("background-color", "#ffa800");
-      }
-    });
-
-    $("#lastname_edit").keyup(function() {
-      var input = $(this).val();
-      if (checkName(input) == false) {
-        $("#lastname_edit_result").html("<span class='error'>Account Last name Not Valid</span>");
-        $("#edit-btn").prop("disabled", true);
-        $("#edit-btn").css("background-color", "red");
-        $("#lastname_edit_result").css("display", "block");
-        // $("#lastname_edit_result").css("margin-top", "1rem");
-      } else {
-        $("#lastname_edit_result").css("display", "none");
-        $("#edit-btn").prop("disabled", false);
-        $("#edit-btn").css("background-color", "#ffa800");
-      }
-    });
-
-    $("#placeofbirth_edit").keyup(function() {
-      var input = $(this).val();
-      if (checkAddAndEdit(input) == false) {
-        $("#placeofbirth_edit_result").html("<span class='error'>Account Place of birth Not Valid</span>");
-        $("#edit-btn").prop("disabled", true);
-        $("#edit-btn").css("background-color", "red");
-        $("#placeofbirth_edit_result").css("display", "block");
-        // $("#placeofbirth_edit_result").css("margin-top", "1rem");
-      } else {
-        $("#placeofbirth_edit_result").css("display", "none");
-        $("#edit-btn").prop("disabled", false);
-        $("#edit-btn").css("background-color", "#ffa800");
-      }
-    });
-
-    $("#password_edit").keyup(function() {
-      var input = $(this).val();
-      if (checkPassword(input) == 0) {
-        $("#password_edit_result").html("<span class='error'>Password not valid</span>");
-        $("#password_edit_result").css("display", "block");
-        // $("#password_edit_result").css("margin-bottom", "1rem");
-        $("#edit-btn").prop("disabled", true);
-        $("#edit-btn").css("background-color", "#de5959");
-      } else if (checkPassword(input) == 1) {
-        $("#password_edit_result").html("<span class='error'>Password  must be between 6 and 20 characters</span>");
-        $("#password_edit_result").css("display", "block");
-        // $("#password_edit_result").css("margin-bottom", "1rem");
-        $("#edit-btn").prop("disabled", true);
-        $("#edit-btn").css("background-color", "#de5959");
-      } else if (checkPassword(input) == 2) {
-        $("#password_edit_result").html("<span class='error'>Password must contain lowercase, uppercase and special characters</span>");
-        $("#password_edit_result").css("display", "block");
-        $("#password_edit_result").css("margin-bottom", "0.5rem");
-        $("#edit-btn").prop("disabled", true);
-        $("#edit-btn").css("background-color", "#de5959");
-      } else {
-        $("#password_edit_result").css("display", "none");
-        $("#edit-btn").prop("disabled", false);
-        $("#edit-btn").css("background-color", "#0be881");
       }
     });
   });
