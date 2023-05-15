@@ -21,7 +21,7 @@ include_once $filepath . "\database\connectDB.php";
 
   public function show_detail_order_by_id($id)
   {
-    $query = "SELECT * FROM detail_orders WHERE order_id = {$id}";
+    $query = "SELECT * FROM detail_orders, product, orders WHERE order_id = {$id} and detail_orders.product_id = product.id";
     $result = $this->db->select($query);
     return $result;
   }
