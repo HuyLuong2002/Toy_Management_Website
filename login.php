@@ -102,13 +102,12 @@ if (isset($_GET["action"]) == "logout") {
         <div class="form-group">
           <label for="place_of_birth">Place of birth:</label>
           <input type="text" id="place_of_birth" name="place_of_birth" placeholder="Example: HCM">
-          <div id="place_of_birth_notify" class="place_of_birth_notify"></div>
+          <div id="place_of_birth_notify" class="username_notify"></div>
         </div>
 
         <div class="form-group">
           <label for="date_birth">Date birth:</label>
           <input type="date" id="date_birth" name="date_birth">
-          <div id="date_birth_notify" class="date_birth_notify"></div>
         </div>
 
         <div class="form-group">
@@ -123,7 +122,6 @@ if (isset($_GET["action"]) == "logout") {
         <div class="form-group">
           <label for="confirm">Confirm Password:</label>
           <input type="password" id="confirm-password" name="confirm-password">
-          <div id="confirm_password_notify"></div>
         </div>
 
         <div class="wrap-btn sign-up">
@@ -161,6 +159,7 @@ if (isset($_GET["action"]) == "logout") {
     function togglePassword() {
       if (passwordInput.type === "password") {
         passwordInput.type = "text";
+        passwordInput.style.fontSize = "16px";
       } else {
         passwordInput.type = "password";
       }
@@ -266,6 +265,21 @@ if (isset($_GET["action"]) == "logout") {
         // $("#lastname_notify").css("margin-bottom", "1rem");
       } else {
         $("#lastname_notify").css("display", "none");
+        $("#btn-sign-up").prop("disabled", false);
+        $("#btn-sign-up").css("background-color", "#0be881");
+      }
+    });
+
+    $("#place_of_birth").keyup(function() {
+      var input = $(this).val();
+      if (checkName(input) == false) {
+        $("#place_of_birth_notify").html("<span class='error'>Last name Not Valid</span>");
+        $("#place_of_birth_notify").css("display", "block");
+        $("#btn-sign-up").prop("disabled", true);
+        $("#btn-sign-up").css("background-color", "red");
+        // $("#place_of_birth_notify").css("margin-bottom", "1rem");
+      } else {
+        $("#place_of_birth_notify").css("display", "none");
         $("#btn-sign-up").prop("disabled", false);
         $("#btn-sign-up").css("background-color", "#0be881");
       }

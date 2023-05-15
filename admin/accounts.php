@@ -507,7 +507,6 @@ if ($result_pagination) {
         });
       }
 
-
     });
 
     $("#firstname_add").keyup(function() {

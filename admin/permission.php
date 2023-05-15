@@ -278,6 +278,7 @@ if ($result_pagination) {
       <div class="modal-edit-info-item">
         <label for="name">Name</label>
         <input type="text" id="name_edit" name="name_edit" required value="">
+        <div id="name_edit_result"></div>
       </div>
     </div>
 
