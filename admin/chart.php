@@ -144,7 +144,7 @@ if (isset($result_statistic_revenue_month)) {
     </div>
 
     <div class="check-date" id="check-fail">
-      <span>&times;</span> add review failed
+      <span>&times;</span> Failed
     </div>
   </div>
 
