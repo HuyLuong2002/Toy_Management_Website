@@ -4,7 +4,8 @@ let infoDetail = document.getElementById("ship-info-order");
 let productDetailOrder = document.getElementById("wrap-load-order-product");
 // let currentUserAPI = "http://localhost:8000/Toy_Management_Website/api/accounts/currentUser.php" 
 let currentUserAPI = "http://localhost:8080/Toy_Management_Website/api/accounts/currentUser.php" 
-
+// let currentUserAPI = "http://localhost:3000/api/accounts/currentUser.php" 
+let modal = document.getElementById("modal")
 
 const fetchAPI = async (api) => {
     return await fetch(api)
