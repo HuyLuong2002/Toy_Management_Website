@@ -22,6 +22,7 @@ if (isset($_COOKIE[$s_name])) {
         display: flex;
         width: 100%;
         background-color: #fff;
+        position: relative;
     }
 
     .wrap-key-search {
@@ -169,22 +170,22 @@ if (isset($_COOKIE[$s_name])) {
                 </div>
 
                 <ul class="key-search-list-price-child" id="key-search-list-price-id">
-                    <li id="21">< 500</li>
-                    <li id="22">500 -> 1000</li>
-                    <li id="23">1000 -> 2000</li>
-                    <li id="24">> 2000</li>
+                    <li onclick="ActiveBgListPrice(21)" id="21" class="bg-list">< 500</li>
+                    <li onclick="ActiveBgListPrice(22)" id="22">500 -> 1000</li>
+                    <li onclick="ActiveBgListPrice(23)" id="23">1000 -> 2000</li>
+                    <li onclick="ActiveBgListPrice(24)" id="24">> 2000</li>
                 </ul>
             </div>
 
             <div class="key-search-list-star hide-list" id="key-search-list-star">
                 <div class="clip-path-key-search-star">
                 </div>
-                <ul class="key-search-list-star-child">
-                    <li>&#9733; </li>
-                    <li>&#9733;&#9733;</li>
-                    <li>&#9733;&#9733;&#9733;</li>
-                    <li>&#9733;&#9733;&#9733;&#9733;</li>
-                    <li>&#9733;&#9733;&#9733;&#9733;&#9733;</li>
+                <ul class="key-search-list-star-child" id="key-search-list-star-id">
+                    <li onclick="ActiveBgListStar(31)" id="31" class="bg-list">&#9733; </li>
+                    <li onclick="ActiveBgListStar(32)" id="32">&#9733;&#9733;</li>
+                    <li onclick="ActiveBgListStar(33)" id="33">&#9733;&#9733;&#9733;</li>
+                    <li onclick="ActiveBgListStar(34)" id="34">&#9733;&#9733;&#9733;&#9733;</li>
+                    <li onclick="ActiveBgListStar(35)" id="35">&#9733;&#9733;&#9733;&#9733;&#9733;</li>
                 </ul>
             </div>
         </div>
@@ -318,6 +319,32 @@ if (isset($_COOKIE[$s_name])) {
         }
     }
 
+    const ActiveBgListPrice = (num) => {
+        let list = document.getElementById(`${num}`)
+        list.classList.add("bg-list")
+
+        for(var i = 21; i <= 24; i++) {
+            if(i !== num) {
+                let listRemove = document.getElementById(`${i}`)
+                if(listRemove.classList.contains("bg-list"))
+                    listRemove.classList.remove("bg-list")
+            }
+        }
+    }
+
+    const ActiveBgListStar = (num) => {
+        let list = document.getElementById(`${num}`)
+        list.classList.add("bg-list")
+
+        for(var i = 31; i <= 35; i++) {
+            if(i !== num) {
+                let listRemove = document.getElementById(`${i}`)
+                if(listRemove.classList.contains("bg-list"))
+                    listRemove.classList.remove("bg-list")
+            }
+        }
+    }
+
     loadKeySearch(typeKeySearch)
 </script>
 
@@ -353,7 +380,57 @@ if (isset($_COOKIE[$s_name])) {
             }
         });
 
+        $('#key-search span').click(function() {
+            searchkey = $(this).attr('id')
+            if(searchkey == 2)
+            {
+                searchPriceKey = 21;
+                $.ajax({
+                    url: "../controller/headerController.php",
+                    method: "POST",
+                    data: {
+                        searchkey: searchPriceKey,
+                    },
+                    success: function(data) {
+                        $("#searchresultproductuser").html(data);
+                        $("#searchresultproductuser").css("display", "block");
+                    }
+                });
+            }
+            else if(searchkey == 4)
+            {
+                searchRatingKey = 32;
+                $.ajax({
+                    url: "../controller/headerController.php",
+                    method: "POST",
+                    data: {
+                        searchkey: searchRatingKey,
+                    },
+                    success: function(data) {
+                        $("#searchresultproductuser").html(data);
+                        $("#searchresultproductuser").css("display", "block");
+                    }
+                });
+            }
+        });
+
         $('#key-search-list-price-id').bind('click', function(event) {
+            searchkey = $(event.target).attr('id');
+            
+            $.ajax({
+                url: "../controller/headerController.php",
+                method: "POST",
+                data: {
+                    searchkey: searchkey,
+                },
+                success: function(data) {
+                    $("#searchresultproductuser").html(data);
+                    $("#searchresultproductuser").css("display", "block");
+                }
+            });
+        });
+
+        $('#key-search-list-star-id').bind('click', function(event) {
             searchkey = $(event.target).attr('id');
             
             $.ajax({
@@ -371,7 +448,6 @@ if (isset($_COOKIE[$s_name])) {
 
         $("#key-search span").click(function() {
             searchkey = $(this).attr('id');
-            console.log(searchkey);
         });
     });
 </script>

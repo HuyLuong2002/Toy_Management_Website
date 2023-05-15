@@ -51,6 +51,21 @@ if (isset($_POST["input"]) && isset($_POST["searchkey"])) {
     case 24:
       $show_product_live_search = $productsController->show_product_live_search_price_greater_2000();
       break;
+    case 31:
+      $show_product_live_search = $productsController->show_product_live_search_rating_1();
+      break;
+    case 32:
+      $show_product_live_search = $productsController->show_product_live_search_rating_2();
+      break;
+    case 33:
+      $show_product_live_search = $productsController->show_product_live_search_rating_3();
+      break;
+    case 34:
+      $show_product_live_search = $productsController->show_product_live_search_rating_4();
+      break;
+    case 35:
+      $show_product_live_search = $productsController->show_product_live_search_rating_5();
+      break;
   }
 }
 ?>

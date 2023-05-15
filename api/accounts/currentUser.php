@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin:*");
 header("Content-Type: application/json");
 $filepath = $_SERVER['DOCUMENT_ROOT'];
 include_once "../database/db.php";
-include_once $filepath . "/lib/session.php";
+include_once "../../lib/session.php";
 include_once "../model/account.php";
 
 Session::init();
