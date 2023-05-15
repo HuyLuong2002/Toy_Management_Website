@@ -138,7 +138,7 @@ if (isset($result_statistic_revenue_month)) {
             </div>
           </div>
 
-          <button id="search-btn" type="submit" onclick="validateDateInputs(event)">Tìm</button>
+          <button id="search-btn" class="btn" type="submit" onclick="validateDateInputs(event)">Tìm</button>
         </form>
       </div>
     </div>

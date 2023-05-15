@@ -75,10 +75,10 @@ const url = window.location.href;
 const match = url.match(/id=([^&]*)/);
 const idPage = match ? match[1] : null;
 
-const handleActiveBg = () => {
-  const listBartMapped = listBar
+const handleActiveBg = (arr = listBar) => {
+  const listBartMapped = arr
     .map((item) => {
-      return `<li onclick="handleActive(event, ${item.id})">
+      return `<li onclick="handleActive(${item.id})">
                     <a href="${item.href}" class="item" id="check-${item.id}">
                         <span class="las ${item.icon}"> </span>
                         <span> ${item.title} </span>
@@ -118,8 +118,7 @@ const handleOpenItemChild = () => {
   itemChild.classList.toggle("hide");
 };
 
-const handleActive = (event, id) => {
-  // event.preventDefault();
+const handleActive = (id) => {
   listBar.forEach((item) => {
     let a = document.getElementById("check-" + item.id);
     a.classList.remove("active");
@@ -129,8 +128,8 @@ const handleActive = (event, id) => {
   b.classList.add("active");
 };
 
-const ActiveBar = () => {
-  listBar.forEach((item) => {
+const ActiveBar = (arr) => {
+  arr.forEach((item) => {
     if (item.id === Number(idPage)) {
       let b = document.getElementById("check-" + item.id);
       b.classList.add("active");
@@ -143,19 +142,29 @@ const ActiveBar = () => {
 };
 
 
-const middleWare = async (arr = listBar) => {
+const middleWare = async () => {
   let getCurrentUser = await fetchAPI(currentUserAPI)
   if(getCurrentUser) {
     if(getCurrentUser.permission_id == 1) {
-      let newListBar = listBar.filter(item => item)
+      listBar = listBar
     }
-  } 
+    if(getCurrentUser.permission_id == 3) {
+      listBar = listBar
+    }
+    if(getCurrentUser.permission_id == 4) {
+      listBar = listBar.filter(item => item.id !== 1 && item.id !== 6 && item.id !== 5 && item.id !== 9)
+    }
+  }
+
+  handleActiveBg(listBar);
+  let firstActive = document.getElementById(`check-${idPage}`);
+  firstActive.classList.add("active");
+  ActiveBar(listBar);
 }
 
-handleActiveBg();
-let firstActive = document.getElementById("check-1");
-firstActive.classList.add("active");
-ActiveBar();
+middleWare()
+
+
 
 // 1 là admin
 // 2 là khách hàng

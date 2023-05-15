@@ -41,6 +41,48 @@ class AccountController
           ini_set("session.cookie_lifetime", $timeout);
 
           header("Location: ./admin/index.php?id=1");
+        } else if($result["permission_id"] == 3) {
+          Session::init();
+          Session::set("userAdmin", true);
+          Session::set("user", true);
+          Session::set("userID", $result["id"]);
+          Session::set("username", $result["username"]);
+          Session::set(
+            "fullname",
+            $result["firstname"] . " " . $result["lastname"]
+          );
+
+          //Set the session timeout for 2 seconds
+          $timeout = 900;
+          Session::set("timeout", $timeout);
+
+          //Set the maxlifetime of the session
+          ini_set("session.gc_maxlifetime", $timeout);
+          //Set the cookie lifetime of the session
+          ini_set("session.cookie_lifetime", $timeout);
+
+          header("Location: ./admin/index.php?id=5");
+        } else if($result["permission_id"] == 4) {
+          Session::init();
+          Session::set("userAdmin", true);
+          Session::set("user", true);
+          Session::set("userID", $result["id"]);
+          Session::set("username", $result["username"]);
+          Session::set(
+            "fullname",
+            $result["firstname"] . " " . $result["lastname"]
+          );
+
+          //Set the session timeout for 2 seconds
+          $timeout = 900;
+          Session::set("timeout", $timeout);
+
+          //Set the maxlifetime of the session
+          ini_set("session.gc_maxlifetime", $timeout);
+          //Set the cookie lifetime of the session
+          ini_set("session.cookie_lifetime", $timeout);
+
+          header("Location: ./admin/index.php?id=2");
         } else {
           Session::init();
           Session::set("user", true);
