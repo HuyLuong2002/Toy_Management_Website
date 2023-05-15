@@ -380,7 +380,57 @@ if (isset($_COOKIE[$s_name])) {
             }
         });
 
+        $('#key-search span').click(function() {
+            searchkey = $(this).attr('id')
+            if(searchkey == 2)
+            {
+                searchPriceKey = 21;
+                $.ajax({
+                    url: "../controller/headerController.php",
+                    method: "POST",
+                    data: {
+                        searchkey: searchPriceKey,
+                    },
+                    success: function(data) {
+                        $("#searchresultproductuser").html(data);
+                        $("#searchresultproductuser").css("display", "block");
+                    }
+                });
+            }
+            else if(searchkey == 4)
+            {
+                searchRatingKey = 32;
+                $.ajax({
+                    url: "../controller/headerController.php",
+                    method: "POST",
+                    data: {
+                        searchkey: searchRatingKey,
+                    },
+                    success: function(data) {
+                        $("#searchresultproductuser").html(data);
+                        $("#searchresultproductuser").css("display", "block");
+                    }
+                });
+            }
+        });
+
         $('#key-search-list-price-id').bind('click', function(event) {
+            searchkey = $(event.target).attr('id');
+            
+            $.ajax({
+                url: "../controller/headerController.php",
+                method: "POST",
+                data: {
+                    searchkey: searchkey,
+                },
+                success: function(data) {
+                    $("#searchresultproductuser").html(data);
+                    $("#searchresultproductuser").css("display", "block");
+                }
+            });
+        });
+
+        $('#key-search-list-star-id').bind('click', function(event) {
             searchkey = $(event.target).attr('id');
             
             $.ajax({
@@ -398,7 +448,6 @@ if (isset($_COOKIE[$s_name])) {
 
         $("#key-search span").click(function() {
             searchkey = $(this).attr('id');
-            console.log(searchkey);
         });
     });
 </script>

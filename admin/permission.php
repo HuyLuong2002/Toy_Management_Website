@@ -136,14 +136,14 @@ if ($result_pagination) {
                   <td>
                     <div class="action-btn-group">
                       <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
-                        <button class="modal-btn-edit" type="button" value="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
+                        <a class="modal-btn-edit" data-id="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
                           Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
-                        </button>
+                        </a>
                       </div>
                       <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
-                        <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
+                        <a class="modal-btn-delete" data-id="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                           Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                        </button>
+                        </a>
                       </div>
                     </div>
                   <td>
@@ -166,14 +166,14 @@ if ($result_pagination) {
               <td>
                 <div class="action-btn-group">
                   <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
-                    <button class="modal-btn-edit" type="button" value="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
+                    <a class="modal-btn-edit" data-id="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
                       Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
-                    </button>
+                    </a>
                   </div>
                   <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
-                    <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
+                    <a class="modal-btn-delete" data-id="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                       Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                    </button>
+                    </a>
                   </div>
                 </div>
               <td>
@@ -333,13 +333,13 @@ if ($result_pagination) {
   $(document).ready(function() {
     $('.modal-btn-delete').click(function(e) {
       e.preventDefault();
-      var delete_id = $(this).val();
+      var delete_id = $(this).data('id');
       $('.delete_id').val(delete_id);
     });
   });
 
   $(document).on('click', '.modal-btn-edit', function() {
-    var edit_id = $(this).val();
+    var edit_id = $(this).data('id');
 
     $.ajax({
       type: "GET",

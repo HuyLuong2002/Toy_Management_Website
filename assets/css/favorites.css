@@ -1,35 +1,50 @@
 /* Global settings */
 /* Global "table" column settings */
-.shopping-cart {
-    margin-top: 50px;
-}
 
 .product-image {
     float: left;
-    width: 25%;
+    width: 16.6%;
+    text-align: center;
 }
 
 .product-details {
+
     float: left;
-    width: 25%;
+    width: 16.6%;
+    text-align: center;
 }
 
 .product-price {
     float: left;
-    width: 25%;
+    width: 16.6%;
+    text-align: center;
+}
+
+.product-more-detail {
+
+    float: left;
+    width: 16.6%;
+    text-align: center;
+}
+
+.product-add-to-cart {
+
+    float: left;
+    width: 16.6%;
     text-align: center;
 }
 
 .product-removal {
     float: left;
-    width: 25%;
+    width: 16.6%;
     text-align: center;
 }
 
 .title {
     display: inline-flex;
-    position: relative;
-    left: 40%;
+    position: absolute;
+    left: 45%;
+    top: 0;
 }
 
 .return-btn {
@@ -124,10 +139,40 @@ label {
     color: #aaa;
 }
 
+.cart {
+    display: inline-block;
+    position: absolute;
+    right: 5rem;
+    font-size: 1.5rem;
+    top: .5rem;
+}
+
+.remove-product {
+    margin-top: .67rem;
+
+}
+
+.btn-cart {
+    background: black;
+    color: white;
+    padding: 0.5rem;
+    margin-top: .6rem;
+    border-radius: 3px;
+}
+
+.btn-buy{
+    background: white;
+    border: 1px solid black;
+    padding: 0.5rem;
+    margin-top: .5rem;
+    border-radius: 3px;
+
+
+}
+
 /* Column headers */
 .column-labels label {
-    padding-bottom: 15px;
-    margin-bottom: 40px;
+    padding-bottom: 2rem;
     border-bottom: 1px solid #eee;
 }
 
@@ -143,6 +188,8 @@ label {
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
 }
 
 .product-image {
@@ -156,7 +203,6 @@ label {
 .product .product-details .product-title {
     font-size: 24px;
     font-weight: 500;
-    margin-right: 20px;
     font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
 }
 
@@ -172,12 +218,13 @@ label {
 
 .product .remove-product {
     border: 0;
-    padding: 4px 8px;
+    padding: 0.5rem;
     background-color: #c66;
     color: #fff;
     font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
     font-size: 12px;
     border-radius: 3px;
+    cursor: pointer;
 }
 
 .product .remove-product:hover {

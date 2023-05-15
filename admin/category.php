@@ -104,14 +104,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
                                     <td>
                                         <div class="action-btn-group">
                                             <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
-                                                <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                                                <a class="modal-btn-edit" data-id="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
                                                     Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
-                                                </button>
+                                                </a>
                                             </div>
                                             <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
-                                                <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                                                <a class="modal-btn-delete" data-id="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
                                                     Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                                                </button>
+                                                </a>
                                             </div>
                                         </div>
                                     </td>
@@ -140,14 +140,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
                             <td>
                                 <div class="action-btn-group">
                                     <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
-                                        <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                                        <a class="modal-btn-edit" data-id="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
                                             Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
-                                        </button>
+                                        </a>
                                     </div>
                                     <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
-                                        <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                                        <a class="modal-btn-delete" data-id="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
                                             Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </td>
@@ -211,14 +211,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
     $(document).ready(function() {
         $('.modal-btn-delete').click(function(e) {
             e.preventDefault();
-            var delete_id = $(this).val();
+            var delete_id = $(this).data('id');
             $('.delete_id').val(delete_id);
         });
     });
 
     $(document).on('click', '.modal-btn-edit', function() {
-        var edit_id = $(this).val();
-
+        var edit_id = $(this).data('id');
         $.ajax({
             type: "GET",
             url: 'category.php?category_id=' + edit_id,
@@ -240,39 +239,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
 
 <!-- coding check input value function -->
 <script type="text/javascript">
-  $(document).ready(function() {
-    $("#name_add").keyup(function() {
-      var input = $(this).val();
-      if (checkAddAndEdit(input) == false) {
-        $("#name_add_result").html("<span class='error'>Category Name Not Valid</span>");
-        $("#add-btn").prop("disabled", true);
-        $("#add-btn").css("background-color", "red");
-        $("#name_add_result").css("display", "block");
-        $("#name_add_result").css("margin-top", "1rem");
-      }
-      else {
-        $("#name_add_result").css("display", "none");
-        $("#add-btn").prop("disabled", false);
-        $("#add-btn").css("background-color", "#0be881");
-      }
-    });
+    $(document).ready(function() {
+        $("#name_add").keyup(function() {
+            var input = $(this).val();
+            if (checkAddAndEdit(input) == false) {
+                $("#name_add_result").html("<span class='error'>Category Name Not Valid</span>");
+                $("#add-btn").prop("disabled", true);
+                $("#add-btn").css("background-color", "red");
+                $("#name_add_result").css("display", "block");
+                $("#name_add_result").css("margin-top", "1rem");
+            } else {
+                $("#name_add_result").css("display", "none");
+                $("#add-btn").prop("disabled", false);
+                $("#add-btn").css("background-color", "#0be881");
+            }
+        });
 
-    $("#name_edit").keyup(function() {
-      var input = $(this).val();
-      if (checkAddAndEdit(input) == false) {
-        $("#name_edit_result").html("<span class='error'>Category Name Not Valid</span>");
-        $("#edit-btn").prop("disabled", true);
-        $("#edit-btn").css("background-color", "red");
-        $("#name_edit_result").css("display", "block");
-        $("#name_edit_result").css("margin-top", "1rem");
-      }
-      else {
-        $("#name_edit_result").css("display", "none");
-        $("#edit-btn").prop("disabled", false);
-        $("#edit-btn").css("background-color", "#ffa800");
-      }
+        $("#name_edit").keyup(function() {
+            var input = $(this).val();
+            if (checkAddAndEdit(input) == false) {
+                $("#name_edit_result").html("<span class='error'>Category Name Not Valid</span>");
+                $("#edit-btn").prop("disabled", true);
+                $("#edit-btn").css("background-color", "red");
+                $("#name_edit_result").css("display", "block");
+                $("#name_edit_result").css("margin-top", "1rem");
+            } else {
+                $("#name_edit_result").css("display", "none");
+                $("#edit-btn").prop("disabled", false);
+                $("#edit-btn").css("background-color", "#ffa800");
+            }
+        });
     });
-  });
 </script>
 
 <!-- <script>
