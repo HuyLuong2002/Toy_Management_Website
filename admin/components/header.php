@@ -141,7 +141,6 @@ if (isset($_GET["id"])) {
             success: function(data) {
               var $data = $(data);
               var searchResult = $data.find('#card-product').html();
-              console.log(searchResult);
               $("#card-product").html(searchResult);
               $("#card-product").css("display", "block");
             }
@@ -184,6 +183,7 @@ if (isset($_GET["id"])) {
             success: function(data) {
               var $data = $(data);
               var searchResult = $data.find('#card-sale').html();
+              console.log(searchResult);
               $("#card-sale").html(searchResult);
               $("#card-sale").css("display", "block");
             }
