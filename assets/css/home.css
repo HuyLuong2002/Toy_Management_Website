@@ -528,3 +528,86 @@ header {
   opacity: 0.5;
   margin: 0.4rem 0;
 }
+
+/* Sub menu list price */
+.key-search-list-price {
+  position: absolute;
+  right: 9.5%;
+  top: 120%;
+  box-shadow: 8px 8px 30px rgba(0,0,0,.05);;
+  background-color: #fff;
+  border-radius: 0.5rem;
+}
+
+.clip-path-key-search-price {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  background-color: #fff;
+  top: -8%;
+  right: 40%;
+  clip-path: polygon(50% 0%, 0 45%, 100% 45%);
+}
+
+.key-search-list-price-child {
+  list-style: none;
+  text-align: center;
+}
+
+.key-search-list-price-child > li {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.key-search-list-price-child > li:hover {
+  background-color: #ccc;
+}
+
+.hide-list {
+  display: none;
+}
+
+.bg-list {
+  background-color: var(--carribean-green);
+}
+
+/* List star */
+.key-search-list-star {
+  position: absolute;
+  right: 1.5%;
+  top: 110%;
+  box-shadow: 8px 8px 30px rgba(0,0,0,.05);;
+  background-color: #fff;
+  z-index: 100;
+}
+
+.clip-path-key-search-star {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  background-color: #fff;
+  top: -6%;
+  right: 9%;
+  clip-path: polygon(50% 0%, 0 45%, 100% 45%);
+}
+
+.key-search-list-star-child {
+  list-style: none;
+  text-align: center;
+  border-radius: 1rem;
+
+  color: #FFD700;
+}
+
+.key-search-list-star-child > li {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.key-search-list-star-child > li:hover {
+  background-color: #ccc;
+}

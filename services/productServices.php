@@ -137,6 +137,69 @@ include_once $filepath . "\database\connectDB.php";
     return $result;
   }
 
+  public function show_product_live_search_price_lower_500()
+  {
+    $query = "SELECT * FROM product WHERE (price < 500 AND product.is_deleted = '0')";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function show_product_live_search_price_from_500_to_1000()
+  {
+    $query = "SELECT * FROM product WHERE (price >= 500 AND price <= 1000 AND product.is_deleted = '0')";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function show_product_live_search_price_from_1000_to_2000()
+  {
+    $query = "SELECT * FROM product WHERE (price >= 1000 AND price <= 2000 AND product.is_deleted = '0')";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function show_product_live_search_price_greater_2000()
+  {
+    $query = "SELECT * FROM product WHERE (price > 2000 AND product.is_deleted = '0')";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function show_product_live_search_rating_1()
+  {
+    $query = "SELECT * FROM product WHERE (review = 1 AND product.is_deleted = '0')";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function show_product_live_search_rating_2()
+  {
+    $query = "SELECT * FROM product WHERE (review = 2 AND product.is_deleted = '0')";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function show_product_live_search_rating_3()
+  {
+    $query = "SELECT * FROM product WHERE (review = 3 AND product.is_deleted = '0')";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function show_product_live_search_rating_4()
+  {
+    $query = "SELECT * FROM product WHERE (review = 4 AND product.is_deleted = '0')";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function show_product_live_search_rating_5()
+  {
+    $query = "SELECT * FROM product WHERE (review = 5 AND product.is_deleted = '0')";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
   public function show_product_live_search_name($input)
   {
     $query = "SELECT * FROM product WHERE (name LIKE '%$input%' AND product.is_deleted = '0')";
