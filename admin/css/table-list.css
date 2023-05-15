@@ -168,6 +168,10 @@ td {
   height: auto;
 }
 
+.modal-container-add.account {
+  width: 800px;
+}
+
 .modal-container-delete {
   width: 400px;
   height: 100px;
@@ -305,8 +309,29 @@ select.modal-add-input-select:focus {
   background-color: var(--green-color);
 }
 
+.modal-add-info.account {
+  flex-direction: row;
+}
+
+.modal-add-btn.account {
+  margin-top: 10px;
+}
+
+.modal-add-info-item.account input{
+  padding: 10px 20px;
+}
+
 .hidden {
   display: none;
+}
+
+.form-left-info{
+  width: 50%;
+  float: left;
+}
+
+.form-right-info{
+  width: 50%;
 }
 
 /* modal edit end*/
