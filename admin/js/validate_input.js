@@ -57,12 +57,22 @@ function checkName(input) {
     else return false;
 }
 
+function checkProductName(input) {
+    const regex = /^[a-zA-Z0-9]{1,24}$/;
+    const normalizedStr = input.normalize("NFC"); // chuẩn hóa chuỗi
+    const isMatch = regex.test(input); // true
+    if(isMatch == true) {
+        return true;
+    }
+    else return false;
+}
+
 function checkPassword(input) {
-    const regex_lenght = /^[A-Za-z\d!@#$%^&*()_+=[\]{}|\\;:'",.<>/?]{6,20}$/;
+    const regex_length = /^[A-Za-z\d!@#$%^&*()_+=[\]{}|\\;:'",.<>/?]{6,20}$/;
     const regex_upper_lower = /(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~])/;
     const normalizedStr_length = input.normalize("NFC"); // chuẩn hóa chuỗi
     const normalizedStr_upper_lower = input.normalize("NFC"); // chuẩn hóa chuỗi
-    const isMatch_length = regex_lenght.test(normalizedStr_length); // true
+    const isMatch_length = regex_length.test(normalizedStr_length); // true
     const isMatch_upper_lower = regex_upper_lower.test(normalizedStr_upper_lower); // true
     if (isMatch_length == false && isMatch_upper_lower == false) {
         return 0;

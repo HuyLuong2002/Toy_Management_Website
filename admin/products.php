@@ -172,9 +172,9 @@ if (isset($_POST["sort"])) {
                     <div class="action-btn-group">
                       <a class="edit" href="product_edit.php?id=<?php echo $result[0]; ?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
                       <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
-                        <button class="modal-btn-delete" type="button" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
+                        <a class="modal-btn-delete" data-id="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                           Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                        </button>
+                        </a>
                       </div>
                     </div>
                     <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
@@ -242,9 +242,9 @@ if (isset($_POST["sort"])) {
                 <div class="action-btn-group">
                   <a class="edit" href="product_edit.php?id=<?php echo $result[0]; ?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
                   <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
-                    <button class="modal-btn-delete" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
+                    <a class="modal-btn-delete" data-id="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                       Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                    </button>
+                    </a>
                   </div>
                 </div>
                 <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
@@ -310,9 +310,9 @@ if (isset($_POST["sort"])) {
                 <div class="action-btn-group">
                   <a class="edit" href="product_edit.php?id=<?php echo $result[0]; ?>">Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i></a>
                   <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
-                    <button class="modal-btn-delete" value="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
+                    <a class="modal-btn-delete" data-id="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                       Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                    </button>
+                    </a>
                   </div>
                 </div>
                 <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
@@ -325,8 +325,6 @@ if (isset($_POST["sort"])) {
       ?>
       </tbody>
       </table>
-
-
       <?php
       if (empty($_POST["input"]) && empty($_POST["sort"]) && isset($page_total) && $page_total > 1) { ?>
         <div class="bottom-pagination" id="pagination">
@@ -478,7 +476,8 @@ if (isset($_POST["sort"])) {
   $(document).ready(function() {
     $('.modal-btn-delete').click(function(e) {
       e.preventDefault();
-      var delete_id = $(this).val();
+      var delete_id = $(this).data('id');
+      console.log(delete_id);
       $('.delete_id').val(delete_id);
     });
   });

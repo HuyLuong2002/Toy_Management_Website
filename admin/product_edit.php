@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/add.css" />
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <title>Edit product</title>
 </head>
 
@@ -127,6 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
                         <div class="form-group">
                             <label for="description">Description</label>
                             <textarea id="description" name="description" class="tinymce"><?php echo $result_product[4]; ?></textarea>
+                            <div id="description_result"></div>
                         </div>
                     </div>
 
@@ -142,9 +143,71 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 <script>
     tinymce.init({
         selector: '.tinymce',
-
         width: "100%",
         height: "480",
+        setup: function(editor) {
+            editor.on('keyup', function() {
+                const contentLength = editor.getContent({
+                    format: 'text'
+                }).length;
+                if (contentLength > 250) {
+                    $("#description_result").html("<span class='error'>Description is too long</span>");
+                    $("#add-btn").prop("disabled", true);
+                    $("#add-btn").css("background-color", "red");
+                    $("#description_result").css("display", "block");
+                    $("#description_result").css("margin-top", "1rem");
+                } else {
+                    $("#description_result").css("display", "none");
+                    $("#add-btn").prop("disabled", false);
+                    $("#add-btn").css("background-color", "#0be881");
+                }
+            });
+        }
+    });
+</script>
+<script src="./js/validate_input.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#name").keyup(function() {
+            var input = $(this).val();
+            console.log(input.length);
+            if (checkAddAndEdit(input) == false) {
+                $("#name_add_result").html("<span class='error'>Product Name Not Valid</span>");
+                $("#add-btn").prop("disabled", true);
+                $("#add-btn").css("background-color", "red");
+                $("#name_add_result").css("display", "block");
+                $("#name_add_result").css("margin-top", "1rem");
+            } else if (checkProductName(input) == false) {
+                $("#name_add_result").html("<span class='error'>Product Name must < 25 characters </span>");
+                $("#add-btn").prop("disabled", true);
+                $("#add-btn").css("background-color", "red");
+                $("#name_add_result").css("display", "block");
+                $("#name_add_result").css("margin-top", "1rem");
+            } else {
+                $("#name_add_result").css("display", "none");
+                $("#add-btn").prop("disabled", false);
+                $("#add-btn").css("background-color", "#0be881");
+            }
+
+
+        });
+
+        $("#price").keyup(function() {
+            var input = $(this).val();
+            if (checkAddAndEditPrice(input) == false) {
+                $("#price_add_result").html("<span class='error'>Product Price Not Valid</span>");
+                $("#add-btn").prop("disabled", true);
+                $("#add-btn").css("background-color", "red");
+                $("#price_add_result").css("display", "block");
+                $("#price_add_result").css("margin-top", "1rem");
+            } else {
+                $("#price_add_result").css("display", "none");
+                $("#add-btn").prop("disabled", false);
+                $("#add-btn").css("background-color", "#0be881");
+            }
+        });
+
     });
 </script>
 

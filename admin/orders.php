@@ -150,8 +150,12 @@ if ($result_pagination) {
                     ?>
                   </td>
                   <td>
-                    <a href="?id=3&deleteid=<?php echo $result[0]; ?>" class="Delete">Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
-                    <a href="orders_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+                    <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
+                      <a class="modal-btn-delete" data-id="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                        Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                      </a>
+                    </div>
+                    <a href="?id=3&page=<?php echo $page_id ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
                     <a class="edit" href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF <i class="fa-solid fa-file-export"></i></a>
                   </td>
                 </tr>
@@ -226,9 +230,9 @@ if ($result_pagination) {
               </td>
               <td>
                 <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
-                  <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                  <a class="modal-btn-delete" data-id="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
                     Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                  </button>
+                  </a>
                 </div>
                 <a href="?id=3&page=<?php echo $page_id ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
                 <a class="edit" href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF <i class="fa-solid fa-file-export"></i></a>
@@ -335,7 +339,7 @@ if ($result_pagination) {
   $(document).ready(function() {
     $('.modal-btn-delete').click(function(e) {
       e.preventDefault();
-      var delete_id = $(this).val();
+      var delete_id = $(this).data('id');
       $('.delete_id').val(delete_id);
     });
   });

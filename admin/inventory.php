@@ -141,15 +141,17 @@ if ($result_pagination) {
                   <td>
                     <div class="action-btn-group">
                       <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
-                        <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                        <a class="modal-btn-edit" data-id="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
                           Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
-                        </button>
+                        </a>
                       </div>
                       <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
-                        <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                        <a class="modal-btn-delete" data-id="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
                           Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                        </button>
+                        </a>
                       </div>
+                      <?php
+                      ?>
                       <a href="?id=11&page_detail=<?php echo $page_id ?>&enter_id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
                     </div>
                   <td>
@@ -180,19 +182,18 @@ if ($result_pagination) {
               <td>
                 <div class="action-btn-group">
                   <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
-                    <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                    <a class="modal-btn-edit" data-id="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
                       Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
-                    </button>
+                    </a>
                   </div>
                   <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
-                    <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                    <a class="modal-btn-delete" data-id="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
                       Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                    </button>
+                    </a>
                   </div>
                   <?php
                   ?>
                   <a href="?id=11&page_detail=<?php echo $page_id ?>&enter_id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
-                  <?php ?>
                 </div>
               <td>
             </tr>
@@ -205,7 +206,7 @@ if ($result_pagination) {
       </table>
     </div>
 
-    <?php if (empty($_POST["input"]) && $page_total > 1 && isset($page_total)) { ?>
+    <?php if (empty($_POST["input"]) && isset($page_total) && $page_total > 1) { ?>
       <div class="bottom-pagination" id="pagination">
         <ul class="pagination">
           <?php if ($current_page > 3) {
@@ -404,13 +405,13 @@ if ($result_pagination) {
   $(document).ready(function() {
     $('.modal-btn-delete').click(function(e) {
       e.preventDefault();
-      var delete_id = $(this).val();
+      var delete_id = $(this).data('id');
       $('.delete_id').val(delete_id);
     });
   });
 
   $(document).on('click', '.modal-btn-edit', function() {
-    var edit_id = $(this).val();
+    var edit_id = $(this).data('id');
 
     $.ajax({
       type: "GET",

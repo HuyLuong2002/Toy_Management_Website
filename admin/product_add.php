@@ -117,6 +117,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     selector: '.tinymce',
     width: "100%",
     height: "480",
+    setup: function(editor) {
+      editor.on('keyup', function() {
+        const contentLength = editor.getContent({
+          format: 'text'
+        }).length;
+        if (contentLength > 250) {
+          $("#description_add_result").html("<span class='error'>Description is too long</span>");
+          $("#add-btn").prop("disabled", true);
+          $("#add-btn").css("background-color", "red");
+          $("#description_add_result").css("display", "block");
+          $("#description_add_result").css("margin-top", "1rem");
+        } else {
+          $("#description_add_result").css("display", "none");
+          $("#add-btn").prop("disabled", false);
+          $("#add-btn").css("background-color", "#0be881");
+        }
+      });
+    }
   });
 </script>
 
@@ -127,8 +145,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
   $(document).ready(function() {
     $("#name").keyup(function() {
       var input = $(this).val();
+      console.log(input.length);
       if (checkAddAndEdit(input) == false) {
         $("#name_add_result").html("<span class='error'>Product Name Not Valid</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
+        $("#name_add_result").css("display", "block");
+        $("#name_add_result").css("margin-top", "1rem");
+      } else if (checkProductName(input) == false) {
+        $("#name_add_result").html("<span class='error'>Product Name must < 25 characters </span>");
         $("#add-btn").prop("disabled", true);
         $("#add-btn").css("background-color", "red");
         $("#name_add_result").css("display", "block");
@@ -152,38 +177,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
         $("#price_add_result").css("margin-top", "1rem");
       } else {
         $("#price_add_result").css("display", "none");
-        $("#add-btn").prop("disabled", false);
-        $("#add-btn").css("background-color", "#0be881");
-      }
-    });
-
-    $("#quantity").keyup(function() {
-      var input = $(this).val();
-      if (checkAddAndEditQuantity(input) == false) {
-        $("#quantity_add_result").html("<span class='error'>Product Quantity Not Valid</span>");
-        $("#add-btn").prop("disabled", true);
-        $("#add-btn").css("background-color", "red");
-        $("#quantity_add_result").css("display", "block");
-        $("#quantity_add_result").css("margin-top", "1rem");
-      } else {
-        $("#quantity_add_result").css("display", "none");
-        $("#add-btn").prop("disabled", false);
-        $("#add-btn").css("background-color", "#0be881");
-      }
-    });
-
-    $("#description").keyup(function() {
-      const content = tinymce.activeEditor.getContent();
-      console.log(content);
-      var input = $(this).val();
-      if (input.lenght > 10) {
-        $("#description_add_result").html("<span class='error'>Description is too long</span>");
-        $("#add-btn").prop("disabled", true);
-        $("#add-btn").css("background-color", "red");
-        $("#description_add_result").css("display", "block");
-        $("#description_add_result").css("margin-top", "1rem");
-      } else {
-        $("#description_add_result").css("display", "none");
         $("#add-btn").prop("disabled", false);
         $("#add-btn").css("background-color", "#0be881");
       }
