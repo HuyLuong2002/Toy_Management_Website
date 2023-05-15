@@ -399,7 +399,7 @@ if (isset($_COOKIE[$s_name])) {
             }
             else if(searchkey == 4)
             {
-                searchRatingKey = 32;
+                searchRatingKey = 31;
                 $.ajax({
                     url: "../controller/headerController.php",
                     method: "POST",

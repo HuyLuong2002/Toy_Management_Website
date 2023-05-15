@@ -1,6 +1,6 @@
-let selectCharOne = document.getElementById("selectYear-1")
-let selectCharThree = document.getElementById("selectYear-3")
-let checkFail = document.getElementById("check-fail");
+selectCharOne = document.getElementById("selectYear-1")
+selectCharThree = document.getElementById("selectYear-3")
+checkFail = document.getElementById("check-fail");
 
 
 listCurrentYear = [2023,2023,2022];
@@ -10,9 +10,9 @@ getCurrentYear = (element) => {
     return element.options[selectedIndex].textContent;
 }
 
-const loadData = () => {
-    let yearOne = getCurrentYear(selectCharOne)
-    let yearThree = getCurrentYear(selectCharThree)
+loadData = () => {
+    yearOne = getCurrentYear(selectCharOne)
+    yearThree = getCurrentYear(selectCharThree)
 
     newListCurrentYear = []
    newListCurrentYear.push(parseInt(yearOne), parseInt(yearThree), parseInt(yearThree) -1)
@@ -42,38 +42,38 @@ handleUpdateCurrent = () => {
     });
 }
 
-const defaultDateValue = () => {
-    const startDateDefault = new Date();
+defaultDateValue = () => {
+    startDateDefault = new Date();
     startDateDefault.setMonth(startDateDefault.getMonth() - 1);
-    const startDateDefaultFormatted = startDateDefault.toISOString().slice(0, 10);
+    startDateDefaultFormatted = startDateDefault.toISOString().slice(0, 10);
 
-    const startDateInput = document.getElementById('start_date');
+    startDateInput = document.getElementById('start_date');
     startDateInput.value = startDateDefaultFormatted;
 
-    const endDateDefault = new Date();
-    const endDateDefaultFormatted = endDateDefault.toISOString().slice(0, 10);
+    endDateDefault = new Date();
+    endDateDefaultFormatted = endDateDefault.toISOString().slice(0, 10);
 
-    const endDateInput = document.getElementById('end_date');
+    endDateInput = document.getElementById('end_date');
     endDateInput.value = endDateDefaultFormatted;
 }
 
 
 function validateDateInputs(event) {
     event.preventDefault();
-    const startDateInput = document.getElementById('start_date');
-    const endDateInput = document.getElementById('end_date');
+    startDateInput = document.getElementById('start_date');
+    endDateInput = document.getElementById('end_date');
 
 
     // convert date: dd-mm-yyyy
     console.log("start_date", startDateInput.value.split("-").reverse().join("-"));
     console.log("end_date", endDateInput.value.split("-").reverse().join("-"));
   
-    const startDateValue = startDateInput.value;
-    const endDateValue = endDateInput.value;
+    startDateValue = startDateInput.value;
+    endDateValue = endDateInput.value;
   
-    const startDate = new Date(startDateValue);
-    const endDate = new Date(endDateValue);
-    const today = new Date();
+    startDate = new Date(startDateValue);
+    endDate = new Date(endDateValue);
+    today = new Date();
     today.setHours(0, 0, 0, 0);
   
     if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
