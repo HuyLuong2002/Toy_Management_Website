@@ -12,7 +12,7 @@ if (isset($_POST["sign-in-nome"]) && isset($_POST["sign-in-password"])) {
   );
 }
 
-if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit-sign-up"])){
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit-sign-up"])) {
   $insertAccount = $accountController->insert_account_user($_POST);
 }
 
@@ -38,21 +38,20 @@ if (isset($_GET["action"]) == "logout") {
 <body>
 
   <div class="wrapper-form">
-    <?php
-
-    if (isset($insertAccount)) {
-      echo $insertAccount;
-    }
-    ?>
     <div class="DarkOverlay"></div>
     <div class="wrap-login-signup">
       <form class="form-sign-in" id="form-login" action="login.php" method="post">
         <h1>Log In</h1>
-        <?php
-        if (isset($result_login)) {
-          echo $result_login;
-        }
-        ?>
+        <div class="notification">
+          <?php
+          if (isset($result_login)) {
+            echo $result_login;
+          }
+          if (isset($insertAccount)) {
+            echo $insertAccount;
+          }
+          ?>
+        </div>
         <label for="nome">Username:</label>
         <input type="text" class="infos" id="nome" name="sign-in-nome">
         <div class="mario"></div>
@@ -174,7 +173,7 @@ if (isset($_GET["action"]) == "logout") {
     }
 
     function handleClickOutside(event) {
-      if(!event.target.matches('#sign-up-password', '#showpass')){
+      if (!event.target.matches('#sign-up-password', '#showpass')) {
         showpass.style.top = "5px";
       }
     }

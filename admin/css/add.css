@@ -163,6 +163,28 @@ label {
   top: 0;
   left: 15%;
   color: var(--carribean-green);
+  animation: fadeOut ease-in 0.3s forwards;
+  animation-delay: 3s;
+}
+
+.notification-product .error {
+  position: absolute;
+  top: 0;
+  left: 15%;
+  animation: fadeOut ease-in 0.3s forwards;
+  animation-delay: 3s;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+
+  }
 }
 
 .error {

@@ -29,9 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     </div>
 
     <form action="product_add.php" method="post" enctype="multipart/form-data" class="product-add-form">
-      <?php if (isset($insertProduct)) {
-        echo $insertProduct;
-      } ?>
+      <div class="notification-product">
+        <?php if (isset($insertProduct)) {
+          echo $insertProduct;
+        } ?>
+      </div>
 
       <div class="form-left-info">
         <div class="form-group">
