@@ -66,7 +66,40 @@ class ProductsController
     $result = $productService->show_product_live_search_price_greater_2000();
     return $result;
   }
+  public function show_product_live_search_rating_1()
+  {
+    $productService = new ProductServices();
+    $result = $productService->show_product_live_search_rating_1();
+    return $result;
+  }
 
+  public function show_product_live_search_rating_2()
+  {
+    $productService = new ProductServices();
+    $result = $productService->show_product_live_search_rating_2();
+    return $result;
+  }
+
+  public function show_product_live_search_rating_3()
+  {
+    $productService = new ProductServices();
+    $result = $productService->show_product_live_search_rating_3();
+    return $result;
+  }
+
+  public function show_product_live_search_rating_4()
+  {
+    $productService = new ProductServices();
+    $result = $productService->show_product_live_search_rating_4();
+    return $result;
+  }
+
+  public function show_product_live_search_rating_5()
+  {
+    $productService = new ProductServices();
+    $result = $productService->show_product_live_search_rating_5();
+    return $result;
+  }
 
   public function show_product_live_search_name($input)
   {
