@@ -143,8 +143,13 @@ const ActiveBar = () => {
 };
 
 
-const middleWare = (arr = listBar) => {
-
+const middleWare = async (arr = listBar) => {
+  let getCurrentUser = await fetchAPI(currentUserAPI)
+  if(getCurrentUser) {
+    if(getCurrentUser.permission_id == 1) {
+      let newListBar = listBar.filter(item => item)
+    }
+  } 
 }
 
 handleActiveBg();
