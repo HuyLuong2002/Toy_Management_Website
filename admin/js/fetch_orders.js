@@ -1,7 +1,10 @@
 // let httpFetchCategory =
 //     "http://localhost:3000/api/orders/read.php";
 let httpFetchCategory =
-    "http://localhost:8000/Toy_Management_Website/api/detail_orders/read.php";
+    "http://localhost:3000/api/detail_orders/read.php";
+// let httpFetchCategory =
+//     "http://localhost:8000/Toy_Management_Website/api/detail_orders/read.php";
+    
 let ordersDetail = document.getElementById("orders-details");
 const url = window.location.href;
 const match = url.match(/id=3&detailid=([^&]*)/);
