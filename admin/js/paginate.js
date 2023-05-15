@@ -1,4 +1,13 @@
 let AdminSidebar = document.getElementById("wrap-admin-side");
+let currentUserAPI = "http://localhost:8000/Toy_Management_Website/api/accounts/currentUser.php" 
+
+const fetchAPI = async (api) => {
+    return await fetch(api)
+        .then((response) => response.json())
+        .then((data) => data)
+        .catch((error) => console.error(error));
+};
+
 let listBar = [
   {
     id: 1,
@@ -133,7 +142,17 @@ const ActiveBar = () => {
   });
 };
 
+
+const middleWare = (arr = listBar) => {
+
+}
+
 handleActiveBg();
 let firstActive = document.getElementById("check-1");
 firstActive.classList.add("active");
 ActiveBar();
+
+// 1 là admin
+// 2 là khách hàng
+// 3 là quản lý : Quản lý thì dc xem hết 
+// 4 là nhân viên: account bỏ, Permission bỏ, Thống kê bên chart bỏ, Dashboard bỏ

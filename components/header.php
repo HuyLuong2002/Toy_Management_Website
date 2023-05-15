@@ -169,10 +169,10 @@ if (isset($_COOKIE[$s_name])) {
                 </div>
 
                 <ul class="key-search-list-price-child" id="key-search-list-price-id">
-                    <li onclick="ActiveBgListPrice(1)" id="bg-list-price-1" class="bg-list">< 500</li>
-                    <li onclick="ActiveBgListPrice(2)" id="bg-list-price-2">500 -> 1000</li>
-                    <li onclick="ActiveBgListPrice(3)" id="bg-list-price-3">1000 -> 2000</li>
-                    <li onclick="ActiveBgListPrice(4)" id="bg-list-price-4">> 2000</li>
+                    <li onclick="ActiveBgListPrice(21)" id="21" class="bg-list">< 500</li>
+                    <li onclick="ActiveBgListPrice(22)" id="22">500 -> 1000</li>
+                    <li onclick="ActiveBgListPrice(23)" id="23">1000 -> 2000</li>
+                    <li onclick="ActiveBgListPrice(24)" id="24">> 2000</li>
                 </ul>
             </div>
 
@@ -180,11 +180,11 @@ if (isset($_COOKIE[$s_name])) {
                 <div class="clip-path-key-search-star">
                 </div>
                 <ul class="key-search-list-star-child" id="key-search-list-star-id">
-                    <li onclick="ActiveBgListStar(1)" id="bg-list-star-1" class="bg-list">&#9733; </li>
-                    <li onclick="ActiveBgListStar(2)" id="bg-list-star-2">&#9733;&#9733;</li>
-                    <li onclick="ActiveBgListStar(3)" id="bg-list-star-3">&#9733;&#9733;&#9733;</li>
-                    <li onclick="ActiveBgListStar(4)" id="bg-list-star-4">&#9733;&#9733;&#9733;&#9733;</li>
-                    <li onclick="ActiveBgListStar(5)" id="bg-list-star-5">&#9733;&#9733;&#9733;&#9733;&#9733;</li>
+                    <li onclick="ActiveBgListStar(31)" id="31" class="bg-list">&#9733; </li>
+                    <li onclick="ActiveBgListStar(32)" id="32">&#9733;&#9733;</li>
+                    <li onclick="ActiveBgListStar(33)" id="33">&#9733;&#9733;&#9733;</li>
+                    <li onclick="ActiveBgListStar(34)" id="34">&#9733;&#9733;&#9733;&#9733;</li>
+                    <li onclick="ActiveBgListStar(35)" id="35">&#9733;&#9733;&#9733;&#9733;&#9733;</li>
                 </ul>
             </div>
         </div>
@@ -319,12 +319,12 @@ if (isset($_COOKIE[$s_name])) {
     }
 
     const ActiveBgListPrice = (num) => {
-        let list = document.getElementById(`bg-list-price-${num}`)
+        let list = document.getElementById(`${num}`)
         list.classList.add("bg-list")
 
-        for(var i = 1; i <= 4; i++) {
+        for(var i = 21; i <= 24; i++) {
             if(i !== num) {
-                let listRemove = document.getElementById(`bg-list-price-${i}`)
+                let listRemove = document.getElementById(`${i}`)
                 if(listRemove.classList.contains("bg-list"))
                     listRemove.classList.remove("bg-list")
             }
@@ -332,12 +332,12 @@ if (isset($_COOKIE[$s_name])) {
     }
 
     const ActiveBgListStar = (num) => {
-        let list = document.getElementById(`bg-list-star-${num}`)
+        let list = document.getElementById(`${num}`)
         list.classList.add("bg-list")
 
-        for(var i = 1; i <= 5; i++) {
+        for(var i = 31; i <= 35; i++) {
             if(i !== num) {
-                let listRemove = document.getElementById(`bg-list-star-${i}`)
+                let listRemove = document.getElementById(`${i}`)
                 if(listRemove.classList.contains("bg-list"))
                     listRemove.classList.remove("bg-list")
             }
