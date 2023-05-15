@@ -569,6 +569,10 @@ header {
   display: none;
 }
 
+.bg-list {
+  background-color: var(--carribean-green);
+}
+
 /* List star */
 .key-search-list-star {
   position: absolute;
@@ -576,7 +580,7 @@ header {
   top: 110%;
   box-shadow: 8px 8px 30px rgba(0,0,0,.05);;
   background-color: #fff;
-  border-radius: 0.5rem;
+  z-index: 100;
 }
 
 .clip-path-key-search-star {
@@ -584,7 +588,7 @@ header {
   width: 2rem;
   height: 2rem;
   background-color: #fff;
-  top: -5%;
+  top: -6%;
   right: 9%;
   clip-path: polygon(50% 0%, 0 45%, 100% 45%);
 }
@@ -592,6 +596,8 @@ header {
 .key-search-list-star-child {
   list-style: none;
   text-align: center;
+  border-radius: 1rem;
+
   color: #FFD700;
 }
 

@@ -169,10 +169,10 @@ if (isset($_COOKIE[$s_name])) {
                 </div>
 
                 <ul class="key-search-list-price-child">
-                    <li>< 500</li>
-                    <li>500 -> 1000</li>
-                    <li>1000 -> 2000</li>
-                    <li>> 2000</li>
+                    <li onclick="ActiveBgListPrice(1)" id="bg-list-price-1" class="bg-list">< 500</li>
+                    <li onclick="ActiveBgListPrice(2)" id="bg-list-price-2">500 -> 1000</li>
+                    <li onclick="ActiveBgListPrice(3)" id="bg-list-price-3">1000 -> 2000</li>
+                    <li onclick="ActiveBgListPrice(4)" id="bg-list-price-4">> 2000</li>
                 </ul>
             </div>
 
@@ -180,11 +180,11 @@ if (isset($_COOKIE[$s_name])) {
                 <div class="clip-path-key-search-star">
                 </div>
                 <ul class="key-search-list-star-child">
-                    <li>&#9733; </li>
-                    <li>&#9733;&#9733;</li>
-                    <li>&#9733;&#9733;&#9733;</li>
-                    <li>&#9733;&#9733;&#9733;&#9733;</li>
-                    <li>&#9733;&#9733;&#9733;&#9733;&#9733;</li>
+                    <li onclick="ActiveBgListStar(1)" id="bg-list-star-1" class="bg-list">&#9733; </li>
+                    <li onclick="ActiveBgListStar(2)" id="bg-list-star-2">&#9733;&#9733;</li>
+                    <li onclick="ActiveBgListStar(3)" id="bg-list-star-3">&#9733;&#9733;&#9733;</li>
+                    <li onclick="ActiveBgListStar(4)" id="bg-list-star-4">&#9733;&#9733;&#9733;&#9733;</li>
+                    <li onclick="ActiveBgListStar(5)" id="bg-list-star-5">&#9733;&#9733;&#9733;&#9733;&#9733;</li>
                 </ul>
             </div>
         </div>
@@ -314,6 +314,32 @@ if (isset($_COOKIE[$s_name])) {
             listStar.classList.toggle("hide-list")
         } else {
             listStar.classList.add("hide-list")
+        }
+    }
+
+    const ActiveBgListPrice = (num) => {
+        let list = document.getElementById(`bg-list-price-${num}`)
+        list.classList.add("bg-list")
+
+        for(var i = 1; i <= 4; i++) {
+            if(i !== num) {
+                let listRemove = document.getElementById(`bg-list-price-${i}`)
+                if(listRemove.classList.contains("bg-list"))
+                    listRemove.classList.remove("bg-list")
+            }
+        }
+    }
+
+    const ActiveBgListStar = (num) => {
+        let list = document.getElementById(`bg-list-star-${num}`)
+        list.classList.add("bg-list")
+
+        for(var i = 1; i <= 5; i++) {
+            if(i !== num) {
+                let listRemove = document.getElementById(`bg-list-star-${i}`)
+                if(listRemove.classList.contains("bg-list"))
+                    listRemove.classList.remove("bg-list")
+            }
         }
     }
 

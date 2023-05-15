@@ -2,13 +2,8 @@ let orderSession = document.getElementById("orders")
 let bodyOrder = document.getElementById("body_orders")
 let infoDetail = document.getElementById("ship-info-order");
 let productDetailOrder = document.getElementById("wrap-load-order-product");
+let currentUserAPI = "http://localhost:8000/Toy_Management_Website/api/accounts/currentUser.php" 
 
-
-let Order = JSON.parse(localStorage.getItem('Order'));
-
-const orderApi = `http://localhost:8000/Toy_Management_Website/api/orders/show_user.php?userID=${Order.user_id}`;
-// const orderApi = `http://localhost:3000/api/orders/show_user.php?userID=${Order.user_id}`;
-// const orderApi = `http://localhost:8080/Toy_Management_Website/api/orders/show_user.php?userID=${Order.user_id}`;
 
 
 
@@ -22,6 +17,13 @@ const fetchAPI = async (api) => {
 let OrderListProductDetail = []
 
 const handleShowListOrder = async () => {
+    let getCurrentUser = await fetchAPI(currentUserAPI)
+
+    const orderApi = `http://localhost:8000/Toy_Management_Website/api/orders/show_user.php?userID=${getCurrentUser.id}`;
+    // const orderApi = `http://localhost:3000/api/orders/show_user.php?userID=${Order.user_id}`;
+    // const orderApi = `http://localhost:8080/Toy_Management_Website/api/orders/show_user.php?userID=${Order.user_id}`;
+
+
     let orderList = await fetchAPI(orderApi)
     if (!orderList) {
         orderSession.innerHTML = "<h1>Not found Order!</h1>"
@@ -41,7 +43,7 @@ const handleShowListOrder = async () => {
         return `
             <tr key=${index}>
                 <td>${item.id}</td>
-                <td>${Order.last_name} ${Order.first_name}</td>
+                <td>${getCurrentUser.firstname} ${getCurrentUser.lastname}</td>
                 <td>${item.order_list.address}</td>
                 <td>${item.order_list.phone}</td>
                 <td>${item.order_list.email}</td>
@@ -56,11 +58,8 @@ const handleShowListOrder = async () => {
     bodyOrder.innerHTML = listOrderOfUser
 }
 
-let handleShowDetailOrder = (idOrder) => {
-
-
-    console.log("cc: ", OrderListProductDetail);
-
+let handleShowDetailOrder = async (idOrder) => {
+    let getCurrentUser = await fetchAPI(currentUserAPI)
     if (!OrderListProductDetail) {
         infoDetail.innerHTML = "<h1>Not found Order!</h1>";
         return;
@@ -72,7 +71,7 @@ let handleShowDetailOrder = (idOrder) => {
                 <p style="font-size: 1.5rem;">Billing: </p>
                 <div class="wrap-order-container">
                     <div class="wrap-order-info">
-                        <p>Name: <span>${Order.last_name} ${Order.first_name}</span></p>
+                        <p>Name: <span>${getCurrentUser.firstname} ${getCurrentUser.lastname}</span></p>
                         <p>Email: <span>${newOrder[1].email}</span></p>
                         <p>Phone: <span>${newOrder[1].phone}</span></p>
                         <p>Address: <span>${newOrder[1].address}</span></p>
@@ -82,7 +81,8 @@ let handleShowDetailOrder = (idOrder) => {
                         <p>VAT(10%): <span>$${newOrder[1].vat}</span></p>
                         <p>Ship Method: <span>${newOrder[1].ship_method}</span></p>
                         <p>Payment Method: <span>${newOrder[1].pay_method}</span></p>
-                        <p style="font-size: 2rem;">Total Price: <span>$${newOrder[1].total_price}</span></p>
+                        <p>Total Price: <span>$${newOrder[1].total_price}</span></p>
+                        <p>Date placed order: <span>${newOrder[1].date}</span></p>
                     </div>
                 </div>
                
