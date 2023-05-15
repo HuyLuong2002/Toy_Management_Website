@@ -89,9 +89,9 @@ const countStarReview = () => {
 
 const handleAddReview = async (event, userId, productId) => {
     event.preventDefault();
-    let apiGetCurrentUser = await fetchAPI(`http://localhost:8080/Toy_Management_Website/api/accounts/show.php?id=${userId}`) 
+    // let apiGetCurrentUser = await fetchAPI(`http://localhost:8080/Toy_Management_Website/api/accounts/show.php?id=${userId}`) 
     // let apiGetCurrentUser = await fetchAPI(`http://localhost:3000/api/accounts/show.php?id=${userId}`) 
-    // let apiGetCurrentProduct = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/product/show.php?id=${productId}`)
+    let apiGetCurrentProduct = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/product/show.php?id=${productId}`)
 
     let addSuccess = document.querySelector('.add-success')
     let addFail = document.querySelector('.add-fail')
