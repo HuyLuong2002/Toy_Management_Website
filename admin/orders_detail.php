@@ -9,16 +9,31 @@
         <?php echo $result[1] ?>
       </h2>
       <div class="order-detail">
-          <p class="product-id">
-            Product ID:
-          </p>
-          <p class="product-quantity">
-            Quantity:
-          </p>
-          <p class="product-price">
-            Price:
-          </p>
-        </div>
+        <p class="product-id">
+          Product ID:
+        </p>
+        <p class="product-id">
+          Product name:
+        </p>
+        <p class="product-quantity">
+          Quantity:
+        </p>
+        <p class="product-id">
+          Address:
+        </p>
+        <p class="product-id">
+          VAT:
+        </p>
+        <p class="product-id">
+          Ship method:
+        </p>
+        <p class="product-id">
+          Payment method
+        </p>
+        <p class="product-price">
+          Price:
+        </p>
+      </div>
     <?php } ?>
     <?php
     $show_detail_order = $detailOrderController->show_detail_order_by_id($_GET["detailid"]);
@@ -29,8 +44,23 @@
           <p class="product-id">
             <?php echo $result[2] ?>
           </p>
+          <p class="product-id">
+            <?php echo $result[6] ?>
+          </p>
           <p class="product-quantity">
             <?php echo $result[3] ?>
+          </p>
+          <p class="product-id">
+            <?php echo $result[21] ?>
+          </p>
+          <p class="product-id">
+            <?php echo $result[25] ?>
+          </p>
+          <p class="product-id">
+            <?php echo $result[26] ?>
+          </p>
+          <p class="product-id">
+            <?php echo $result[28] ?>
           </p>
           <p class="product-price">
             <?php echo $result[4] ?>

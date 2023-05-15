@@ -112,6 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
                             <div class="form-group">
                                 <h2>Password </h2>
                                 <input type="password" class="password" name="password" id="password" value="<?php echo $result_account[2] ?>">
+                                <div id="password_result"></div>
                             </div>
                             <button type="submit" id="update-btn" name="submit" class="btn">Update</button>
                         </div>
@@ -131,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
         $(document).ready(function() {
             $('#firstname').keyup(function() {
                 var input = $(this).val();
-                if (checkAddAndEdit(input) == false) {
+                if (checkName(input) == false) {
                     $("#firstname_result").html("<span class='error'>First Name Not Valid</span>");
                     $("#firstname_result").css("display", "block");
                     $("#firstname_result").css("margin-top", "5px");
@@ -146,7 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
             $('#lastname').keyup(function() {
                 var input = $(this).val();
-                if (checkAddAndEdit(input) == false) {
+                if (checkName(input) == false) {
                     $("#lastname_result").html("<span class='error'>Last Name Not Valid</span>");
                     $("#lastname_result").css("display", "block");
                     $("#lastname_result").css("margin-top", "5px");
@@ -169,6 +170,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
                     $("#update-btn").css("background-color", "red");
                 } else {
                     $("#place_birth_result").css("display", "none");
+                    $("#update-btn").prop("disabled", false);
+                    $("#update-btn").css("background-color", "#3FB6A8");
+                }
+            });
+
+            $("#password").keyup(function() {
+                var input = $(this).val();
+                if (checkPassword(input) == 0) {
+                    $("#password_result").html("<span class='error'>Password not valid</span>");
+                    $("#password_result").css("display", "block");
+                    // $("#password_result").css("margin-bottom", "1rem");
+                    $("#update-btn").prop("disabled", true);
+                    $("#update-btn").css("background-color", "red");
+                } else if (checkPassword(input) == 1) {
+                    $("#password_result").html("<span class='error'>Password  must be between 6 and 20 characters</span>");
+                    $("#password_result").css("display", "block");
+                    // $("#password_result").css("margin-bottom", "1rem");
+                    $("#update-btn").prop("disabled", true);
+                    $("#update-btn").css("background-color", "red");
+                } else if (checkPassword(input) == 2) {
+                    $("#password_result").html("<span class='error'>Password must contain lowercase, uppercase and special characters</span>");
+                    $("#password_result").css("display", "block");
+                    $("#password_result").css("margin-bottom", "0.5rem");
+                    $("#update-btn").prop("disabled", true);
+                    $("#update-btn").css("background-color", "red");
+                } else {
+                    $("#password_result").css("display", "none");
                     $("#update-btn").prop("disabled", false);
                     $("#update-btn").css("background-color", "#3FB6A8");
                 }

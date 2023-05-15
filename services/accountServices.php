@@ -110,7 +110,6 @@ include_once $filepath . "\lib\session.php";
     $lastname = mysqli_real_escape_string($this->db->link, $data["lastname_add"]);
     $gender = mysqli_real_escape_string($this->db->link, $data["gender_add"]);
     $date_birth = mysqli_real_escape_string($this->db->link, $data["dateofbirth_add"]);
-
     $place_of_birth = mysqli_real_escape_string($this->db->link, $data["placeofbirth_add"]);
     $create_date = (string) date("d/m/Y");
     $permission_id = mysqli_real_escape_string($this->db->link, $data["permission_add"]);

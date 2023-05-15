@@ -1,7 +1,5 @@
 var btn_delete_cancel = document.getElementById(`delete-btn-cancel`);
 var bg_modal_box = document.querySelector(".bg-modal-box");
-var bg_modal_box_product = document.querySelector(".bg-modal-box.product");
-var bg_modal_box_order = document.querySelector(".bg-modal-box.order");
 var modal_delete = document.querySelector(`.modal-container-delete`);
 var modal_edit = document.querySelector(`.modal-container-edit`);
 var modal_add = document.querySelector(`.modal-container-add`);
@@ -95,16 +93,6 @@ bg_modal_box.addEventListener("click", function (event) {
         // Nếu có, đóng cửa sổ popup
         // modal.style.display = "none";
         closeCURDAddModal();
-        closeCURDDeleteModal();
-        closeCURDEditModal();
-    }
-});
-
-bg_modal_box_product.addEventListener("click", function (event) {
-    // Kiểm tra xem sự kiện click có xảy ra bên ngoài cửa sổ popup hay không
-    if (event.target === bg_modal_box_product) {
-        // Nếu có, đóng cửa sổ popup
-        // modal.style.display = "none";
         closeCURDDeleteModal();
         closeCURDEditModal();
     }
