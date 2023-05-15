@@ -136,7 +136,8 @@ $slider_product = $productsController->show_slider_product();
                     }
                     ?>
 
-                    <div class="favorite-icon" onclick="AddFavorite(event, <?php echo $result_product[0]; ?>)">
+                    <div class="favorite-icon"
+                      onclick="AddFavorite(event, <?php echo $result_product[0]; ?>,<?php echo $result_product[7]; ?> )">
                       <i class="fa-regular fa-heart fav-icon" id="favorite-<?php echo $result_product[0]; ?>"
                         data-id="<?php echo $result_product[0]; ?>"></i>
                     </div>
