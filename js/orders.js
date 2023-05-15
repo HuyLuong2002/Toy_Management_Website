@@ -2,7 +2,8 @@ let orderSession = document.getElementById("orders")
 let bodyOrder = document.getElementById("body_orders")
 let infoDetail = document.getElementById("ship-info-order");
 let productDetailOrder = document.getElementById("wrap-load-order-product");
-let currentUserAPI = "http://localhost:8000/Toy_Management_Website/api/accounts/currentUser.php" 
+// let currentUserAPI = "http://localhost:8000/Toy_Management_Website/api/accounts/currentUser.php" 
+let currentUserAPI = "http://localhost:3000/api/accounts/currentUser.php" 
 let modal = document.getElementById("modal")
 
 const fetchAPI = async (api) => {
@@ -17,8 +18,8 @@ let OrderListProductDetail = []
 const handleShowListOrder = async () => {
     let getCurrentUser = await fetchAPI(currentUserAPI)
 
-    const orderApi = `http://localhost:8000/Toy_Management_Website/api/orders/show_user.php?userID=${getCurrentUser.id}`;
-    // const orderApi = `http://localhost:3000/api/orders/show_user.php?userID=${Order.user_id}`;
+    // const orderApi = `http://localhost:8000/Toy_Management_Website/api/orders/show_user.php?userID=${getCurrentUser.id}`;
+    const orderApi = `http://localhost:3000/api/orders/show_user.php?userID=${getCurrentUser.id}`;
     // const orderApi = `http://localhost:8080/Toy_Management_Website/api/orders/show_user.php?userID=${Order.user_id}`;
 
 
@@ -92,9 +93,9 @@ let handleShowDetailOrder = async (idOrder) => {
 };
 
 const loadProduct = async (idOrder) => {
-    let Product = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/detail_orders/show_order.php?orderID=${idOrder}`)
+    // let Product = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/detail_orders/show_order.php?orderID=${idOrder}`)
     // let Product = await fetchAPI(`http://localhost:8080/Toy_Management_Website/api/detail_orders/show_order.php?orderID=${idOrder}`)
-
+    let Product = await fetchAPI(`http://localhost:8080/Toy_Management_Website/api/detail_orders/show_order.php?orderID=${idOrder}`)
 
     if (!Product) {
         productDetailOrder.innerHTML = "<h1>Not found Order!</h1>"

@@ -533,7 +533,7 @@ if ($result_pagination) {
 
         $.ajax({
           url: "../check_login.php",
-          data: 'nome=' + $("#username-add").val(),
+          data: 'nome=' + input,
           type: "POST",
           success: function(data) {
             if (data == 1) {
@@ -544,15 +544,13 @@ if ($result_pagination) {
             } else {
               $("#username_add_result").html("<span class='error'>Username is used</span>");
               $("#add-btn").prop("disabled", true);
-              $("#add-btn").css("background-color", "red");
+              $("#add-btn").css("background-color", "#de5959");
               $("#username_add_result").css("display", "block");
             }
           },
           error: function() {}
         });
       }
-
-
     });
 
     $("#firstname_add").keyup(function() {
