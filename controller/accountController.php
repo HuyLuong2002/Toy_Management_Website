@@ -41,7 +41,7 @@ class AccountController
           ini_set("session.cookie_lifetime", $timeout);
 
           header("Location: ./admin/index.php?id=1");
-        } else if($result["permission_id"] == 3) {
+        } else if ($result["permission_id"] == 3) {
           Session::init();
           Session::set("userAdmin", true);
           Session::set("user", true);
@@ -62,7 +62,7 @@ class AccountController
           ini_set("session.cookie_lifetime", $timeout);
 
           header("Location: ./admin/index.php?id=5");
-        } else if($result["permission_id"] == 4) {
+        } else if ($result["permission_id"] == 4) {
           Session::init();
           Session::set("userAdmin", true);
           Session::set("user", true);
@@ -156,18 +156,7 @@ class AccountController
   public function update_account($data, $id)
   {
     $accountService = new AccountServices();
-    $check_account = $accountService->check_account($data["username_edit"]);
-    if ($check_account->fetch_assoc()["permission_id"] == 1) {
-      $result = "<span class='error'>Can Not Update Admin</span>";
-      return $result;
-    }
-    $data["dateofbirth_edit"] = $this->fm->formatDate($data["dateofbirth_edit"]);
-    $data["password_edit"] = $this->fm->validation($data["password_edit"]);
-    if ($data["gender_edit"] == 0) {
-      $data["gender_edit"] = "Nam";
-    } else {
-      $data["gender_edit"] = "Nữ";
-    }
+
     $data["status_edit"] = intval($data["status_edit"]);
 
     $result = $accountService->update_account($data, $id);
