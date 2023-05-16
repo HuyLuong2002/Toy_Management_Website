@@ -348,7 +348,7 @@ if (isset($_POST["input"])) {
       </div>
     </div>
 
-    <input class="modal-edit-btn" id="edit-btn" name="edit-btn" type="submit" value="Save">
+    <input onclick="ClickConfirmModal()" class="modal-edit-btn" id="edit-btn" name="edit-btn" type="submit" value="Save">
   </form>
   <!-- modal edit end -->
 
@@ -391,18 +391,6 @@ if (isset($_POST["input"])) {
     <input onclick="" class="modal-add-btn" id="add-btn" name="add-btn" type="submit" value="Save">
   </form>
   <!-- modal add end -->
-
-  <!-- modal alert -->
-  <div class="modal-alert hide">
-    <div class="modal-alert-close"><i class="fa-solid fa-circle-xmark"></i></div>
-    <div class="modal-alert-content">
-      <div class="modal-alert-left"></div>
-      <div class="modal-alert-right">
-        <div class="modal-alert-right-title"></div>
-      </div>
-    </div>
-    <div class="modal-alert-process"></div>
-  </div>
 </div>
 
 <script src="./js/modal.js"></script>
@@ -474,8 +462,8 @@ if (isset($_POST["input"])) {
   $(document).ready(function() {
     $("#name_add").keyup(function() {
       var input = $(this).val();
-      if (checkAddAndEdit(input) == false) {
-        $("#name_add_result").html("<span class='error'>Sale Name Not Valid</span>");
+      if (checkProductName(input) == false) {
+        $("#name_add_result").html("<span class='error'>Sale Name must < 25 characters and don't contain special characters</span>");
         $("#add-btn").prop("disabled", true);
         $("#add-btn").css("background-color", "red");
         $("#name_add_result").css("display", "block");
@@ -489,7 +477,7 @@ if (isset($_POST["input"])) {
 
     $("#percent_add").keyup(function() {
       var input = $(this).val();
-      if (checkAddAndEditQuantity(input) == false) {
+      if (checkSalePercent(input) == false) {
         $("#percent_add_result").html("<span class='error'>Sale Percent Not Valid</span>");
         $("#add-btn").prop("disabled", true);
         $("#add-btn").css("background-color", "red");
@@ -504,8 +492,8 @@ if (isset($_POST["input"])) {
 
     $("#name_edit").keyup(function() {
       var input = $(this).val();
-      if (checkAddAndEdit(input) == false) {
-        $("#name_edit_result").html("<span class='error'>Sale Name Not Valid</span>");
+      if (checkProductName(input) == false) {
+        $("#name_edit_result").html("<span class='error'>Sale Name must < 25 characters and don't contain special characters</span>");
         $("#edit-btn").prop("disabled", true);
         $("#edit-btn").css("background-color", "red");
         $("#name_edit_result").css("display", "block");
@@ -519,7 +507,7 @@ if (isset($_POST["input"])) {
 
     $("#percent_edit").keyup(function() {
       var input = $(this).val();
-      if (checkAddAndEdit(input) == false) {
+      if (checkSalePercent(input) == false) {
         $("#percent_edit_result").html("<span class='error'>Sale Percent Not Valid</span>");
         $("#edit-btn").prop("disabled", true);
         $("#edit-btn").css("background-color", "red");

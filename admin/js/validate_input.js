@@ -57,8 +57,18 @@ function checkName(input) {
     else return true;
 }
 
+function checkSalePercent(input) {
+    const regex = /^(?!0$)(90|[1-9]\d?)$/;
+    // const normalizedStr = input.normalize("NFC"); // chuẩn hóa chuỗi
+    const isMatch = regex.test(input); // true
+    if (isMatch == true) {
+        return true;
+    }
+    else return false;
+}
+
 function checkProductName(input) {
-    const regex_length = /^[\p{L}\p{M}\s]{1,25}$/u;
+    const regex_length = /^[\p{L}\p{M}\s\d]{1,25}$/u;
     const normalizedStr = input.normalize("NFC"); // chuẩn hóa chuỗi
     const isMatch_length = regex_length.test(normalizedStr); // true
     return isMatch_length;
