@@ -1,15 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
-<<<<<<< HEAD:database/toy_db (1).sql
--- Thời gian đã tạo: Th5 16, 2023 lúc 11:25 AM
-=======
--- Thời gian đã tạo: Th5 16, 2023 lúc 11:16 AM
->>>>>>> d12c8c1cefe7616b11f50f1c062bfc37e4c3560a:database/toy_db.sql
--- Phiên bản máy phục vụ: 10.4.27-MariaDB
--- Phiên bản PHP: 8.2.0
+-- Thời gian đã tạo: Th5 16, 2023 lúc 11:37 AM
+-- Phiên bản máy phục vụ: 10.4.24-MariaDB
+-- Phiên bản PHP: 7.4.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -38,22 +34,22 @@ CREATE TABLE `account` (
   `firstname` varchar(255) NOT NULL,
   `lastname` varchar(255) NOT NULL,
   `gender` varchar(10) NOT NULL,
-  `date_birth` varchar(255) NOT NULL,
+  `date_birth` date NOT NULL,
   `place_of_birth` varchar(255) NOT NULL,
-  `create_date` varchar(255) NOT NULL,
+  `create_date` date NOT NULL,
   `permission_id` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `account`
 --
 
 INSERT INTO `account` (`id`, `username`, `password`, `firstname`, `lastname`, `gender`, `date_birth`, `place_of_birth`, `create_date`, `permission_id`, `status`, `is_deleted`) VALUES
-(1, 'huyluong', 'e10adc3949ba59abbe56e057f20f883e', 'Huy', 'Lương', 'Nam', '12/04/2002', 'TPHCM', '09/05/2023', 1, 1, 0),
-(3, 'dieukiet', 'e10adc3949ba59abbe56e057f20f883e', 'kiet', 'luong', 'Nam', '20/02/2002', 'vietnam', '10/05/2023', 1, 0, 0),
-(4, 'lucdaccau', 'e10adc3949ba59abbe56e057f20f883e', 'luc', 'nguyen', 'Nữ', '05/11/2002', 'vietnam', '10/05/2023', 2, 0, 0);
+(1, 'huyluong', 'e10adc3949ba59abbe56e057f20f883e', 'Huy', 'Lương', 'Nam', '0000-00-00', 'TPHCM', '0000-00-00', 1, 1, 0),
+(3, 'dieukiet', 'e10adc3949ba59abbe56e057f20f883e', 'kiet', 'luong', 'Nam', '0000-00-00', 'vietnam', '0000-00-00', 1, 0, 0),
+(4, 'lucdaccau', 'e10adc3949ba59abbe56e057f20f883e', 'luc', 'nguyen', 'Nữ', '0000-00-00', 'vietnam', '0000-00-00', 2, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -65,7 +61,7 @@ CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `category`
@@ -88,7 +84,7 @@ CREATE TABLE `comment` (
   `product_id` int(11) NOT NULL,
   `rate` tinyint(5) NOT NULL,
   `time` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `comment`
@@ -135,7 +131,7 @@ CREATE TABLE `detail_enter_product` (
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `detail_enter_product`
@@ -178,7 +174,7 @@ CREATE TABLE `detail_orders` (
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `detail_orders`
@@ -220,22 +216,22 @@ DELIMITER ;
 
 CREATE TABLE `enter_product` (
   `id` int(11) NOT NULL,
-  `enter_date` datetime NOT NULL,
+  `enter_date` date NOT NULL,
   `total_quantity` int(11) NOT NULL,
   `total_price` int(11) NOT NULL,
   `provider_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `create_date` datetime NOT NULL,
+  `create_date` date NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `enter_product`
 --
 
 INSERT INTO `enter_product` (`id`, `enter_date`, `total_quantity`, `total_price`, `provider_id`, `user_id`, `status`, `create_date`, `is_deleted`) VALUES
-(1, '0000-00-00 00:00:00', 15, 3000, 2, 1, 1, '0000-00-00 00:00:00', 0);
+(1, '0000-00-00', 15, 3000, 2, 1, 1, '0000-00-00', 0);
 
 -- --------------------------------------------------------
 
@@ -258,7 +254,7 @@ CREATE TABLE `orders` (
   `pay_method` varchar(255) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `orders`
@@ -279,7 +275,7 @@ CREATE TABLE `permission` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `permission`
@@ -303,38 +299,38 @@ CREATE TABLE `product` (
   `image` varchar(255) NOT NULL,
   `price` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `create_date` datetime NOT NULL,
+  `create_date` date NOT NULL,
   `highlight` tinyint(1) NOT NULL,
   `category_id` int(11) NOT NULL,
   `sale_id` int(11) NOT NULL,
   `review` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `product`
 --
 
 INSERT INTO `product` (`id`, `name`, `image`, `price`, `description`, `create_date`, `highlight`, `category_id`, `sale_id`, `review`, `quantity`, `is_deleted`) VALUES
-(1, 'Mô hình Captain dòng Mech Strike 6 inch', 'home-img-1.png', '3000', 'Sản phẩm mới', '0000-00-00 00:00:00', 1, 1, 1, 4, 29, 1),
-(2, 'Mô hình Iron Man dòng Mech Strike tối thượng giáp 8 inch', '967f68e964.png', '2500', '<p><strong>Sản phẩm mới</strong></p>', '0000-00-00 00:00:00', 1, 1, 1, 0, 30, 1),
-(3, 'Mô hình Hulk dòng Mech Strike 6 inch', '53fe90a5a8.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00 00:00:00', 1, 1, 2, 0, 9, 0),
-(4, 'Vũ khí chiến đấu siêu sức mạnh Spiderman', '2f45633d26.png', '5500', 'Giới thiệu sản phẩm: Đồ chơi Vũ khí chiến đấu siêu suc manh Spiderman 1 Găng tay Spider-man 3 Mô hình nòng phi tiêu Neft 1 Hướng dẫn sử dụng', '0000-00-00 00:00:00', 1, 2, 1, 0, 3500, 0),
-(5, 'Người Dơi Batman 4inch', '1cfb0656b7.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00 00:00:00', 0, 1, 2, 0, 2500, 1),
-(6, 'MH anh hùng công lý 4 inch', '6e79b7601e.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00 00:00:00', 0, 2, 1, 0, 49, 0),
-(7, 'Siêu anh hùng Captain America tối tân 30cm', '01fa875229.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00 00:00:00', 0, 2, 2, 0, 20, 0),
-(8, 'Siêu anh hùng IRON MAN phiên bản Bend and Flex', '33f9818354.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00 00:00:00', 0, 2, 1, 0, 19, 0),
-(9, 'Mô hình Thanos quyền năng', '61421926a7.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00 00:00:00', 0, 1, 2, 0, 10, 1),
-(10, 'Mô hình Hulk dũng mãnh', '61fe1a2c2b.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00 00:00:00', 0, 2, 1, 0, 30, 0),
-(11, 'Mô hình siêu anh hùng Spiderman 30cm', 'e1f6dc76fe.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00 00:00:00', 0, 1, 1, 0, 20, 0),
-(13, 'Mô hình Venom Flex and Bend', '1303e24c74.png', '2500', '<p>&lt;p&gt;Sản phẩm mới&lt;/p&gt;</p>', '0000-00-00 00:00:00', 1, 1, 1, 0, 50, 0),
-(14, 'Figure superman tối thượng size 30 inch', '6243bc2a5a.png', '2000', '<p>Sản phẩm mới</p>', '0000-00-00 00:00:00', 0, 1, 1, 0, 12, 0),
-(15, 'Figure anh hùng đại bàng size 30 inch', '6da2a5f4f2.png', '1500', '<p>sản phẩm mới</p>', '0000-00-00 00:00:00', 0, 1, 2, 0, 30, 0),
-(16, 'Figure iron man siêu to khổng lồ size 30 inch', '57b5f35d05.png', '3000', '<p><strong>Sản phẩm limited</strong></p>', '0000-00-00 00:00:00', 0, 1, 1, 0, 2, 0),
-(17, 'Figure anh hùng xạ điêu size 30 inch', 'e64461ebbf.png', '1800', '<p>sản phẩm tồn kho</p>', '0000-00-00 00:00:00', 0, 2, 2, 0, 34, 0),
-(18, 'Figure phù thủy cầu đặc tối thượng size 20 inch', '7a492fd185.png', '1900', '<p>H&agrave;ng si&ecirc;u tồn kho</p>', '0000-00-00 00:00:00', 0, 1, 2, 0, 123, 0),
-(19, 'Figure Lý Tiểu Long bản lỗi size 10 inch', '170fbd1479.png', '2000', '<p>Sản phẩm cũng được</p>', '0000-00-00 00:00:00', 0, 1, 1, 0, 9, 0);
+(1, 'Mô hình Captain dòng Mech Strike 6 inch', 'home-img-1.png', '3000', 'Sản phẩm mới', '0000-00-00', 1, 1, 1, 4, 29, 1),
+(2, 'Mô hình Iron Man dòng Mech Strike tối thượng giáp 8 inch', '967f68e964.png', '2500', '<p><strong>Sản phẩm mới</strong></p>', '0000-00-00', 1, 1, 1, 0, 30, 1),
+(3, 'Mô hình Hulk dòng Mech Strike 6 inch', '53fe90a5a8.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00', 1, 1, 2, 0, 9, 0),
+(4, 'Vũ khí chiến đấu siêu sức mạnh Spiderman', '2f45633d26.png', '5500', 'Giới thiệu sản phẩm: Đồ chơi Vũ khí chiến đấu siêu suc manh Spiderman 1 Găng tay Spider-man 3 Mô hình nòng phi tiêu Neft 1 Hướng dẫn sử dụng', '0000-00-00', 1, 2, 1, 0, 3500, 0),
+(5, 'Người Dơi Batman 4inch', '1cfb0656b7.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00', 0, 1, 2, 0, 2500, 1),
+(6, 'MH anh hùng công lý 4 inch', '6e79b7601e.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00', 0, 2, 1, 0, 49, 0),
+(7, 'Siêu anh hùng Captain America tối tân 30cm', '01fa875229.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00', 0, 2, 2, 0, 20, 0),
+(8, 'Siêu anh hùng IRON MAN phiên bản Bend and Flex', '33f9818354.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00', 0, 2, 1, 0, 19, 0),
+(9, 'Mô hình Thanos quyền năng', '61421926a7.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00', 0, 1, 2, 0, 10, 1),
+(10, 'Mô hình Hulk dũng mãnh', '61fe1a2c2b.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00', 0, 2, 1, 0, 30, 0),
+(11, 'Mô hình siêu anh hùng Spiderman 30cm', 'e1f6dc76fe.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00', 0, 1, 1, 0, 20, 0),
+(13, 'Mô hình Venom Flex and Bend', '1303e24c74.png', '2500', '<p>&lt;p&gt;Sản phẩm mới&lt;/p&gt;</p>', '0000-00-00', 1, 1, 1, 0, 50, 0),
+(14, 'Figure superman tối thượng size 30 inch', '6243bc2a5a.png', '2000', '<p>Sản phẩm mới</p>', '0000-00-00', 0, 1, 1, 0, 12, 0),
+(15, 'Figure anh hùng đại bàng size 30 inch', '6da2a5f4f2.png', '1500', '<p>sản phẩm mới</p>', '0000-00-00', 0, 1, 2, 0, 30, 0),
+(16, 'Figure iron man siêu to khổng lồ size 30 inch', '57b5f35d05.png', '3000', '<p><strong>Sản phẩm limited</strong></p>', '0000-00-00', 0, 1, 1, 0, 2, 0),
+(17, 'Figure anh hùng xạ điêu size 30 inch', 'e64461ebbf.png', '1800', '<p>sản phẩm tồn kho</p>', '0000-00-00', 0, 2, 2, 0, 34, 0),
+(18, 'Figure phù thủy cầu đặc tối thượng size 20 inch', '7a492fd185.png', '1900', '<p>H&agrave;ng si&ecirc;u tồn kho</p>', '0000-00-00', 0, 1, 2, 0, 123, 0),
+(19, 'Figure Lý Tiểu Long bản lỗi size 10 inch', '170fbd1479.png', '2000', '<p>Sản phẩm cũng được</p>', '0000-00-00', 0, 1, 1, 0, 9, 0);
 
 -- --------------------------------------------------------
 
@@ -346,7 +342,7 @@ CREATE TABLE `provider` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `provider`
@@ -365,21 +361,21 @@ INSERT INTO `provider` (`id`, `name`, `is_deleted`) VALUES
 CREATE TABLE `sale` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `create_date` datetime NOT NULL,
-  `start_date` datetime NOT NULL,
-  `end_date` datetime NOT NULL,
+  `create_date` date NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
   `percent_sale` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `sale`
 --
 
 INSERT INTO `sale` (`id`, `name`, `create_date`, `start_date`, `end_date`, `percent_sale`, `status`, `is_deleted`) VALUES
-(1, 'Không áp dụng', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 1, 0),
-(2, 'Khuyến mãi 1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 15, 1, 0);
+(1, 'Không áp dụng', '0000-00-00', '0000-00-00', '0000-00-00', 0, 1, 0),
+(2, 'Khuyến mãi 1', '0000-00-00', '0000-00-00', '0000-00-00', 15, 1, 0);
 
 --
 -- Chỉ mục cho các bảng đã đổ
