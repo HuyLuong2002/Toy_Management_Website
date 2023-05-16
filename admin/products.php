@@ -248,8 +248,7 @@ if (isset($_POST["sort"])) {
                   </div>
                 </div>
                 <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
-              <td>
-
+              </td>
             </tr>
         <?php }
             }
@@ -318,8 +317,7 @@ if (isset($_POST["sort"])) {
                   </div>
                 </div>
                 <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
-              <td>
-
+              </td>
             </tr>
       <?php }
             }

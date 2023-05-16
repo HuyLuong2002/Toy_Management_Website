@@ -158,7 +158,7 @@ if (isset($enter_id)) {
                         </button>
                       </div>
                     </div>
-                  <td>
+                  </td>
                 </tr>
             <?php
               }
@@ -194,7 +194,7 @@ if (isset($enter_id)) {
                     </a>
                   </div>
                 </div>
-              <td>
+              </td>
             </tr>
       <?php
               }
