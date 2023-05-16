@@ -86,8 +86,8 @@ if ($result_pagination) {
     <div class="bg-modal-box"></div>
     <h3>Orders List</h3>
     <div class="but">
-    <button><a href="">Show All</a></button>
-    <button id="loc">Lọc</button>
+      <button><a href="">Show All</a></button>
+      <button id="loc">Lọc</button>
     </div>
     <div class="notification-order">
       <?php if (isset($delete_order)) {
@@ -201,10 +201,10 @@ if ($result_pagination) {
                 <?php echo $result["email"]; ?>
               </td>
               <td>
-                <?php echo $result["country"]; ?>
+                <?php echo $result["pay_method"] ?>
               </td>
               <td>
-                <?php echo $result["pay_method"]?>
+                <?php echo $result["total_price"] ?>
               </td>
               <td>
                 <form method="post" enctype="multipart/form-data" class="status-order">
