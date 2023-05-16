@@ -515,7 +515,7 @@ if (isset($enter_id)) {
           $('#enter-id_edit').val(res.data.enter_id);
           $('#quantity_edit').val(res.data.quantity);
           $('#price_edit').val(res.data.price);
-          $('#product_edit').val(res.data.id);
+          $('#product_edit').val(res.data.product_id);
         }
       }
     })
