@@ -206,19 +206,19 @@ if ($result_pagination) {
               <td>
                 <form method="post" enctype="multipart/form-data" class="status-order">
                   <input type="hidden" value="<?php echo $result[0]; ?>" name="id_order">
-
+                  <!-- 1 là đang giao hàng, 2 là đã giao hàng, 3 là đang chờ duyệt -->
                   <select id="status_order" value="2" name="status" class="status_order">
                     <option value="0" <?php if ($result[12] == "0") {
                       echo "selected";
-                    } ?>>Đã giao</option>
+                    } ?>>Đang giao hàng</option>
                     <option value="1" <?php if ($result[12] == "1") {
                       echo "selected";
-                    } ?>>Đang giao hàng</option>
+                    } ?>>Đã giao</option>
                     <option value="2" <?php if ($result[12] == "2") {
                       echo "selected";
                     } ?>>Đang chờ duyệt</option>
                   </select>
-                  <?php if ($result[12] != "0") { ?>
+                  <?php if ($result[12] != "1") { ?>
                     <input type="submit" value="Change" name="submit" />
 
                   <?php } ?>
@@ -274,17 +274,17 @@ if ($result_pagination) {
                   <input type="hidden" value="<?php echo $result[0]; ?>" name="id_order">
 
                   <select id="status_order" value="2" name="status" class="status_order">
-                    <option value="0" <?php if ($result[12] == "0") {
-                      echo "selected";
-                    } ?>>Đã giao</option>
-                    <option value="1" <?php if ($result[12] == "1") {
+                  <option value="0" <?php if ($result[12] == "0") {
                       echo "selected";
                     } ?>>Đang giao hàng</option>
+                    <option value="1" <?php if ($result[12] == "1") {
+                      echo "selected";
+                    } ?>>Đã giao</option>
                     <option value="2" <?php if ($result[12] == "2") {
                       echo "selected";
                     } ?>>Đang chờ duyệt</option>
                   </select>
-                  <?php if ($result[12] != "0") { ?>
+                  <?php if ($result[12] != "1") { ?>
                     <input type="submit" value="Change" name="submit" />
 
                   <?php } ?>

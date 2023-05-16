@@ -43,7 +43,7 @@ include_once $filepath . "\helpers\\format.php";
   //list orders for home page
   public function show_orders_user()
   {
-    $query = "SELECT * FROM orders, account WHERE orders.is_deleted = '0' and orders.user_id = account.id ORDER BY orders.date DESC, orders.status DESC";
+    $query = "SELECT * FROM orders, account WHERE orders.is_deleted = '0' and orders.user_id = account.id ORDER BY orders.status DESC, orders.date DESC";
     $result = $this->db->select($query);
     return $result;
   }
@@ -57,7 +57,7 @@ include_once $filepath . "\helpers\\format.php";
 
   public function show_order_by_pagination($offset, $limit_per_page)
   {
-    $query = "SELECT * FROM orders, account WHERE orders.is_deleted = '0' and orders.user_id = account.id ORDER BY orders.date DESC LIMIT $offset, $limit_per_page";
+    $query = "SELECT * FROM orders, account WHERE orders.is_deleted = '0' and orders.user_id = account.id ORDER BY orders.status DESC, orders.date DESC LIMIT $offset, $limit_per_page";
     $result = $this->db->select($query);
     return $result;
   }
