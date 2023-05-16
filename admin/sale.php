@@ -166,7 +166,7 @@ if (isset($_POST["input"])) {
                         </a>
                       </div>
                     </div>
-                  <td>
+                  </td>
                 </tr>
             <?php }
             } else {
@@ -219,7 +219,7 @@ if (isset($_POST["input"])) {
                     </a>
                   </div>
                 </div>
-              <td>
+              </td>
             </tr>
       <?php }
             }

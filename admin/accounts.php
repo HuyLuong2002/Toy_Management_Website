@@ -315,7 +315,7 @@ if ($result_pagination) {
     <input type="hidden" id="edit_id" name="edit_id" class="edit_id">
     <div class="modal-edit-info">
       <div class="modal-edit-info-item">
-        <label for="gender">Permission</label>
+        <label for="permission">Permission</label>
         <select class="modal-edit-input-select" id="permission_edit" name="permission_edit" required>
           <option value="">Select permission</option>
           <?php
@@ -442,6 +442,7 @@ if ($result_pagination) {
 
   $(document).on('click', '.modal-btn-edit', function() {
     var edit_id = $(this).data('id');
+    console.log(edit_id);
 
     $.ajax({
       type: "GET",
@@ -451,21 +452,9 @@ if ($result_pagination) {
         if (res.status == 404) {
           alert(res.message);
         } else if (res.status == 200) {
-
-          var dateParts = res.data.date_birth.split("/");
-          var newDateBirth = dateParts[2] + "-" + dateParts[1].padStart(2, "0") + "-" + dateParts[0].padStart(2, "0");
-
           $('#edit_id').val(res.data.id);
-          $('#username_edit').val(res.data.username);
-          $('#password_edit').val(res.data.password);
-          $('#firstname_edit').val(res.data.firstname);
-          $('#lastname_edit').val(res.data.lastname);
-          $('#gender_edit').val(res.data.gender);
-          $('#dateofbirth_edit').val(newDateBirth);
-          $('#placeofbirth_edit').val(res.data.place_of_birth);
           $('#permission_edit').val(res.data.permission_id);
           $('#status_edit').val(res.data.status);
-
         }
       }
     })
