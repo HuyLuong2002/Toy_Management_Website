@@ -46,9 +46,12 @@ include_once $filepath . "\database\connectDB.php";
     return $result;
   }
 
-  public function show_product_by_category_id_unique($category_id, $id)
+  public function show_product_by_category_id_unique($id)
   {
-    $query = "SELECT * FROM product, category, sale WHERE product.category_id = category.id and product.sale_id = sale.id and product.category_id = '$category_id' and product.id != '$id' and product.is_deleted = '0'
+    $query = "SELECT * FROM product, category, sale WHERE product.id != '$id' 
+    AND product.is_deleted = '0'
+    AND product.category_id = category.id
+    AND product.sale_id = sale.id
     ORDER BY product.create_date DESC LIMIT 4";
     $result = $this->db->select($query);
     return $result;
@@ -95,6 +98,14 @@ include_once $filepath . "\database\connectDB.php";
   {
     $query =
       "SELECT * FROM product WHERE product.is_deleted = '0' ORDER BY id desc LIMIT 5";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
+  public function show_product_receipt()
+  {
+    $query =
+      "SELECT * FROM product WHERE product.is_deleted = '0' ORDER BY id desc";
     $result = $this->db->select($query);
     return $result;
   }

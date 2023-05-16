@@ -81,7 +81,7 @@ if (isset($_POST["input"]) && isset($_POST["searchkey"])) {
                     <div class="sub-product">
                         
                         <h4><a href="../product_detail.php?id=<?php echo $result[0]; ?>"><?php echo $result[1]; ?></a></h4>
-                        <p><?php echo $result["description"]; ?></p>
+                        <?php echo $result["description"]; ?>
                     </div>
                 </div>
             </div>
