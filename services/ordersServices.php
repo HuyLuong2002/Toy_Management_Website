@@ -103,6 +103,7 @@ include_once $filepath . "\helpers\\format.php";
     $status,
     $is_deleted
   ) {
+    $date = (string) date("Y-m-d");
     $query = "INSERT INTO orders(user_id, quantity, date, address, phone, email, country, vat, ship_method, total_price, pay_method, status, is_deleted) VALUES ('$user_id', '$total_quantity', '$date', '$address', '$phone', '$email', '$country', '$vat', '$ship_method', '$total_price', '$pay_method', '$status', '$is_deleted')";
     $result = $this->db->insert($query);
     if ($result) {
