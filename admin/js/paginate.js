@@ -147,12 +147,19 @@ const middleWare = async () => {
     const { permission_id } = getCurrentUser;
     let listBarCopy = [...listBar];
 
-    if (permission_id === 1 || permission_id === 3) {
+    if (permission_id === 1) {
       listBarCopy = [...listBar];
     }
 
+    if (permission_id === 3) {
+      const excludedIds = [1, 2, 3, 4, 7, 8, 9];
+      listBarCopy = listBarCopy.filter(
+        (item) => !excludedIds.includes(item.id)
+      );
+    }
+
     if (permission_id === 4) {
-      const excludedIds = [1, 6, 5, 9];
+      const excludedIds = [1, 5, 6, 9];
       listBarCopy = listBarCopy.filter(
         (item) => !excludedIds.includes(item.id)
       );

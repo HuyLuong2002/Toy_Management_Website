@@ -1,5 +1,5 @@
-selectCharOne = document.getElementById("selectYear-1")
-selectCharThree = document.getElementById("selectYear-3")
+selectChartOne = document.getElementById("selectYear-1")
+selectChartThree = document.getElementById("selectYear-3")
 checkFail = document.getElementById("check-fail");
 
 
@@ -11,20 +11,25 @@ getCurrentYear = (element) => {
 }
 
 loadData = () => {
-    yearOne = getCurrentYear(selectCharOne)
-    yearThree = getCurrentYear(selectCharThree)
+    yearOne = getCurrentYear(selectChartOne)
+    yearThree = getCurrentYear(selectChartThree)
 
     newListCurrentYear = []
-   newListCurrentYear.push(parseInt(yearOne), parseInt(yearThree), parseInt(yearThree) -1)
-   listCurrentYear = [...newListCurrentYear]
+    newListCurrentYear.push(parseInt(yearOne), parseInt(yearThree), parseInt(yearThree) -1)
+    listCurrentYear = [...newListCurrentYear]
 }
 
-handleUpdateCurrent = () => {
+updateCurrentDate = (listCurrentYear) => {
+    selectChartOne.value = listCurrentYear[0];
+    selectChartThree.value = listCurrentYear[1]
+}
+
+handleUpdateCurrent = async () => {
     loadData()
-    console.log(listCurrentYear);
+    localStorage.setItem('currentYear', JSON.stringify(listCurrentYear));
 
     // Lưu đánh giá vào cơ sở dữ liệu
-    $.ajax({
+    await $.ajax({
         url: "./chart.php",
         method: "POST",
         data: {
@@ -33,15 +38,18 @@ handleUpdateCurrent = () => {
             year3: listCurrentYear[2],
         },
         success: function(data){
-            var $data = $(data);
-            var wrapper = $data.find('#wrapper');
-            $("#wrapper").html(wrapper);
+            $("#content").html(data);
+            // updateCurrentDate(listCurrentYear)
         },
         error: function(xhr, status, error) {
 
             console.log("Error:", error);
         }
     });
+
+    let currentYear = JSON.parse(localStorage.getItem('currentYear'));
+
+    updateCurrentDate(currentYear)
 }
 
 defaultDateValue = () => {
@@ -125,3 +133,4 @@ function validateDateInputs(event) {
 }
 
 defaultDateValue()
+updateCurrentDate(listCurrentYear)
