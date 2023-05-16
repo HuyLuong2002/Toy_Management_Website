@@ -33,7 +33,7 @@ $user_id = Session::get("userID");
 
     <div class="wrap-oder">
         
-        <h2 class="heading">Placed Orders</h2>
+        <h2 class="heading" style="text-align: center;">Placed Orders</h2>
 
         <section class="orders" id="orders">
             <table>
