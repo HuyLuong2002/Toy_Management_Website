@@ -27,19 +27,19 @@ class ChartServices
   {
     $query = "
     SELECT 
-      YEAR(STR_TO_DATE(orders.date, '%d/%m/%Y')) AS Nam,
-      QUARTER(STR_TO_DATE(orders.date, '%d/%m/%Y')) AS Quy,
+      YEAR(STR_TO_DATE(orders.date, '%Y-%m-%d')) AS Nam,
+      QUARTER(STR_TO_DATE(orders.date, '%Y-%m-%d')) AS Quy,
       SUM(orders.total_price) AS DoanhThu
     FROM 
         orders
     WHERE 
-        YEAR(STR_TO_DATE(orders.date, '%d/%m/%Y')) = {$year}
+        YEAR(STR_TO_DATE(orders.date, '%Y-%m-%d')) = {$year}
     GROUP BY 
-        YEAR(STR_TO_DATE(orders.date, '%d/%m/%Y')),
-        QUARTER(STR_TO_DATE(orders.date, '%d/%m/%Y'))
+        YEAR(STR_TO_DATE(orders.date, '%Y-%m-%d')),
+        QUARTER(STR_TO_DATE(orders.date, '%Y-%m-%d'))
     ORDER BY 
-        YEAR(STR_TO_DATE(orders.date, '%d/%m/%Y')),
-        QUARTER(STR_TO_DATE(orders.date, '%d/%m/%Y'));
+        YEAR(STR_TO_DATE(orders.date, '%Y-%m-%d')),
+        QUARTER(STR_TO_DATE(orders.date, '%Y-%m-%d'));
     ";
     $result = $this->db->select($query);
     return $result;
@@ -57,14 +57,14 @@ class ChartServices
   {
     
     $query =
-      "SELECT YEAR(STR_TO_DATE(orders.date, '%d/%m/%Y')) 
-      AS Nam, MONTH(STR_TO_DATE(orders.date, '%d/%m/%Y')) 
+      "SELECT YEAR(STR_TO_DATE(orders.date, '%Y-%m-%d')) 
+      AS Nam, MONTH(STR_TO_DATE(orders.date, '%Y-%m-%d')) 
       AS Thang, SUM(orders.total_price) AS DoanhThu 
       FROM orders 
-      WHERE YEAR(STR_TO_DATE(orders.date, '%d/%m/%Y')) <= {$year2} 
-      AND YEAR(STR_TO_DATE(orders.date, '%d/%m/%Y')) >= {$year1} 
-      GROUP BY YEAR(STR_TO_DATE(orders.date, '%d/%m/%Y')), MONTH(STR_TO_DATE(orders.date, '%d/%m/%Y')) 
-      ORDER BY YEAR(STR_TO_DATE(orders.date, '%d/%m/%Y')), MONTH(STR_TO_DATE(orders.date, '%d/%m/%Y'))";
+      WHERE YEAR(STR_TO_DATE(orders.date, '%Y-%m-%d')) <= {$year2} 
+      AND YEAR(STR_TO_DATE(orders.date, '%Y-%m-%d')) >= {$year1} 
+      GROUP BY YEAR(STR_TO_DATE(orders.date, '%Y-%m-%d')), MONTH(STR_TO_DATE(orders.date, '%Y-%m-%d')) 
+      ORDER BY YEAR(STR_TO_DATE(orders.date, '%Y-%m-%d')), MONTH(STR_TO_DATE(orders.date, '%Y-%m-%d'))";
 
     $result = $this->db->select($query);
     return $result;

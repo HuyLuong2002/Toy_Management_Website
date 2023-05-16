@@ -412,20 +412,15 @@ if (isset($_POST["input"])) {
       url: 'sale.php?sale_id=' + edit_id,
       success: function(response) {
         var res = jQuery.parseJSON(response);
+        console.log(res);
         if (res.status == 404) {
           alert(res.message);
         } else if (res.status == 200) {
 
-          var dateParts = res.data.start_date.split("/");
-          var newStartDate = dateParts[2] + "-" + dateParts[1].padStart(2, "0") + "-" + dateParts[0].padStart(2, "0");
-
-          var dateParts = res.data.end_date.split("/");
-          var newEndDate = dateParts[2] + "-" + dateParts[1].padStart(2, "0") + "-" + dateParts[0].padStart(2, "0");
-
           $('#edit_id').val(res.data.id);
           $('#name_edit').val(res.data.name);
-          $('#start_edit').val(newStartDate);
-          $('#end_edit').val(newEndDate);
+          $('#start_edit').val(res.data.start_date);
+          $('#end_edit').val(res.data.end_date);
           $('#percent_edit').val(res.data.percent_sale);
           $('#status_edit').val(res.data.status);
         }
