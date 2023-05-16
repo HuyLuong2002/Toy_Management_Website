@@ -168,3 +168,7 @@ input[type="date"] {
       transform: translateY(0);
     }
     }
+
+#loc:hover{
+    color: white;
+}
