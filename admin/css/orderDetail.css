@@ -21,7 +21,7 @@
   }
 
 .orders-info {
-    width: 100%;
+    width: 80%;
     padding: 50px;
     background-color: #f4f4f4;
 }
@@ -36,9 +36,20 @@
     justify-content: space-evenly;
     text-align: center;
     margin-top: 1rem;
+    align-items: center;
+}
+
+.order-detail-info{
+    margin-top: 1rem;
+}
+
+.product-d{
+    font-weight: bold;
+    display: inline;
 }
 
 .product-id,
+.product-name,
 .product-quantity,
 .product-price{
     width: 33.33%;
@@ -77,7 +88,7 @@
     justify-content: center;
     align-items: center;
     top: 12%;
-    right: 7%;
+    right: 24%;
 }
 
 .close-icon:hover{
