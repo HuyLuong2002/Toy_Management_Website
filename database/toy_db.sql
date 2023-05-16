@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 16, 2023 lúc 11:37 AM
--- Phiên bản máy phục vụ: 10.4.24-MariaDB
--- Phiên bản PHP: 7.4.28
+-- Thời gian đã tạo: Th5 16, 2023 lúc 11:51 AM
+-- Phiên bản máy phục vụ: 10.4.27-MariaDB
+-- Phiên bản PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,7 +40,7 @@ CREATE TABLE `account` (
   `permission_id` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `account`
@@ -61,7 +61,7 @@ CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `category`
@@ -84,7 +84,7 @@ CREATE TABLE `comment` (
   `product_id` int(11) NOT NULL,
   `rate` tinyint(5) NOT NULL,
   `time` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `comment`
@@ -131,7 +131,7 @@ CREATE TABLE `detail_enter_product` (
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `detail_enter_product`
@@ -174,7 +174,7 @@ CREATE TABLE `detail_orders` (
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `detail_orders`
@@ -224,14 +224,15 @@ CREATE TABLE `enter_product` (
   `status` tinyint(1) NOT NULL,
   `create_date` date NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `enter_product`
 --
 
 INSERT INTO `enter_product` (`id`, `enter_date`, `total_quantity`, `total_price`, `provider_id`, `user_id`, `status`, `create_date`, `is_deleted`) VALUES
-(1, '0000-00-00', 15, 3000, 2, 1, 1, '0000-00-00', 0);
+(1, '2023-05-17', 15, 3000, 2, 1, 1, '2023-05-16', 0),
+(2, '2023-06-20', 12, 2000, 1, 1, 0, '2023-05-16', 0);
 
 -- --------------------------------------------------------
 
@@ -254,7 +255,7 @@ CREATE TABLE `orders` (
   `pay_method` varchar(255) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `orders`
@@ -275,7 +276,7 @@ CREATE TABLE `permission` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `permission`
@@ -306,7 +307,7 @@ CREATE TABLE `product` (
   `review` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `product`
@@ -342,7 +343,7 @@ CREATE TABLE `provider` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `provider`
@@ -367,15 +368,16 @@ CREATE TABLE `sale` (
   `percent_sale` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `sale`
 --
 
 INSERT INTO `sale` (`id`, `name`, `create_date`, `start_date`, `end_date`, `percent_sale`, `status`, `is_deleted`) VALUES
-(1, 'Không áp dụng', '0000-00-00', '0000-00-00', '0000-00-00', 0, 1, 0),
-(2, 'Khuyến mãi 1', '0000-00-00', '0000-00-00', '0000-00-00', 15, 1, 0);
+(1, 'Không áp dụng', '2023-05-16', '2023-05-16', '2023-05-19', 0, 1, 0),
+(2, 'Khuyến mãi 1', '2023-05-16', '2023-05-13', '2023-06-13', 15, 1, 0),
+(5, 'Khuyến mãi đặc biệt', '2023-05-16', '2023-08-20', '2023-08-30', 50, 1, 0);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -497,7 +499,7 @@ ALTER TABLE `detail_orders`
 -- AUTO_INCREMENT cho bảng `enter_product`
 --
 ALTER TABLE `enter_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
@@ -527,7 +529,7 @@ ALTER TABLE `provider`
 -- AUTO_INCREMENT cho bảng `sale`
 --
 ALTER TABLE `sale`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

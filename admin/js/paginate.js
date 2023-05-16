@@ -1,5 +1,6 @@
 let AdminSidebar = document.getElementById("wrap-admin-side");
-// let currentUserAPI = "http://localhost:8000/Toy_Management_Website/api/accounts/currentUser.php";
+// let currentUserAPI =
+  // "http://localhost:8000/Toy_Management_Website/api/accounts/currentUser.php";
 // let currentUserAPI = "http://localhost:8080/Toy_Management_Website/api/accounts/currentUser.php"
 let currentUserAPI = "http://localhost:3000/api/accounts/currentUser.php"
 const fetchAPI = async (api) => {
