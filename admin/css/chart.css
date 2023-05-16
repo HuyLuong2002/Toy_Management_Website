@@ -123,16 +123,19 @@ table th {
   margin-left: 20rem;
 }
 
-.data-choose {
-  position: relative;
-  max-width: 22rem;
-  padding: 1rem;
-  background-color: #fff;
-  box-shadow: 0px 0px 10px #aaa;
-  margin-left: 1.6rem;
+.data-choose-chart {
+  /* position: absolute; */
+    top: 0;
+    right: 1rem;
+    max-width: 25rem;
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px #aaa;
+    margin-left: 1.6rem;
+    margin-top: 1rem;
 }
 
-.data-choose > h4 {
+.data-choose-chart > h4 {
   margin-bottom: 0.7rem;
 }
 

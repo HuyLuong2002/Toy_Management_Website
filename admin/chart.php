@@ -123,7 +123,7 @@ if (isset($result_statistic_revenue_month)) {
     <h2>List of best-selling products</h2>
 
     <div class="wrap-date-choose">
-      <div class="data-choose">
+      <div class="data-choose-chart">
         <h4>Tìm khoảng thời gian</h4>
         <form>
           <div class="wrap-date">
