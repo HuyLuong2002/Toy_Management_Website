@@ -21,7 +21,6 @@ class ChartServices
     LIMIT 5";
     $result = $this->db->select($query);
     return $result;
-
   }
 
   public function show_revenue_quarter($year)

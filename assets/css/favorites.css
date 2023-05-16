@@ -160,14 +160,22 @@ label {
     border-radius: 3px;
 }
 
+.btn-cart:hover{
+    cursor: pointer;
+    color: #777;
+}
+
 .btn-buy{
     background: white;
     border: 1px solid black;
     padding: 0.5rem;
     margin-top: .5rem;
     border-radius: 3px;
+}
 
-
+.btn-buy:hover{
+    cursor: pointer;
+    background-color: #999;
 }
 
 /* Column headers */
