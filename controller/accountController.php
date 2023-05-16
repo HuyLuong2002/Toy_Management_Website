@@ -156,9 +156,6 @@ class AccountController
   public function update_account($data, $id)
   {
     $accountService = new AccountServices();
-
-    $data["status_edit"] = intval($data["status_edit"]);
-
     $result = $accountService->update_account($data, $id);
     return $result;
   }

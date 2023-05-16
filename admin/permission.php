@@ -170,13 +170,17 @@ if ($result_pagination) {
                       Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
                     </a>
                   </div>
-                  <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
-                    <a class="modal-btn-delete" data-id="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
-                      Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                    </a>
-                  </div>
+                  <?php
+                  if ($result[1] != 'Admin' || $result[1] != 'Quản lý') {
+                  ?>
+                    <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
+                      <a class="modal-btn-delete" data-id="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
+                        Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                      </a>
+                    </div>
+                  <?php } ?>
                 </div>
-              <td>
+              </td>
             </tr>
       <?php }
           }

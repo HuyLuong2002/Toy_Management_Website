@@ -26,7 +26,8 @@ include_once $filepath . "\helpers\\format.php";
     WHERE orders.date BETWEEN '{$startDate}' AND '{$endDate} 23:59:59' 
     AND detail_orders.order_id = orders.id 
     AND product.id = detail_orders.product_id
-    AND account.id = orders.user_id";
+    AND account.id = orders.user_id
+    GROUP BY orders.id";
     $result = $this->db->select($query);
     return $result;
   }
