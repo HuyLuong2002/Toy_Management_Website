@@ -255,7 +255,7 @@ if ($result_pagination) {
                 <?php echo $result[15]; ?>
               </td>
               <td>
-                <?php echo $result[2]; ?>
+                <?php echo number_format($result[2], 0, '.', ',') ?>
               </td>
               <td>
                 <?php echo $result[3]; ?>
@@ -268,7 +268,7 @@ if ($result_pagination) {
               </td>
 
               <td>
-                <?php echo $result[10]; ?>
+                <?php echo number_format($result[10], 0, '.', ',') ?>
               </td>
               <td>
                 <?php echo $result[11]; ?>

@@ -164,22 +164,24 @@ if ($result_pagination) {
               <td><?php echo $result[0]; ?></td>
               <td><?php echo $result[1]; ?></td>
               <td>
-                <div class="action-btn-group">
-                  <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
-                    <a class="modal-btn-edit" data-id="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
-                      Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
-                    </a>
-                  </div>
-                  <?php
-                  if ($result[0] != 1 && $result[0] != 3) {
-                  ?>
+                <?php
+                if ($result[0] != 1 && $result[0] != 3) {
+                ?>
+                  <div class="action-btn-group">
+                    <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
+                      <a class="modal-btn-edit" data-id="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
+                        Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
+                      </a>
+                    </div>
+
                     <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
                       <a class="modal-btn-delete" data-id="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                         Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                       </a>
                     </div>
-                  <?php } ?>
-                </div>
+
+                  </div>
+                <?php } ?>
               </td>
             </tr>
       <?php }

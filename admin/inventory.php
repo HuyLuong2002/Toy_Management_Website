@@ -132,8 +132,8 @@ if ($result_pagination) {
                 <tr>
                   <td><?php echo $result[0]; ?></td>
                   <td><?php echo $result[1]; ?></td>
-                  <td><?php echo $result[2]; ?></td>
-                  <td><?php echo $result[3]; ?></td>
+                  <td><?php echo number_format($result[2], 0, '.', ',') ?></td>
+                  <td><?php echo number_format($result[3], 0, '.', ',')?></td>
                   <td><?php echo $result[9]; ?></td>
                   <td><?php echo $result[10] . " " . $result[11]; ?></td>
                   <td><?php echo $result[6] == 1 ?  "Đã giao" : "Đang giao hàng"; ?></td>
@@ -173,8 +173,8 @@ if ($result_pagination) {
             <tr>
               <td><?php echo $result[0]; ?></td>
               <td><?php echo $result[1]; ?></td>
-              <td><?php echo $result[2]; ?></td>
-              <td><?php echo $result[3]; ?></td>
+              <td><?php echo number_format($result[2], 0, '.', ',') ?></td>
+              <td><?php echo number_format($result[3], 0, '.', ',') ?></td>
               <td><?php echo $result[9]; ?></td>
               <td><?php echo $result[10] . " " . $result[11]; ?></td>
               <td><?php echo $result[6] == 1 ?  "Đã giao" : "Đang giao hàng"; ?></td>
