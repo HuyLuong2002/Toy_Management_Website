@@ -1,5 +1,3 @@
-// let httpFetchCategory =
-//     "http://localhost:3000/api/orders/read.php";
 let httpFetchCategory =
     "http://localhost:3000/api/detail_orders/read.php";
 // let httpFetchCategory =

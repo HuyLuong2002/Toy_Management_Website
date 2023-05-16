@@ -152,7 +152,7 @@ const middleWare = async () => {
     }
 
     if (permission_id === 3) {
-      const excludedIds = [1, 2, 3, 4, 7, 8, 9];
+      const excludedIds = [1, 2, 3, 4, 7, 8, 9, 10];
       listBarCopy = listBarCopy.filter(
         (item) => !excludedIds.includes(item.id)
       );
