@@ -32,34 +32,8 @@ $user_id = Session::get("userID");
     ?>
 
     <div class="wrap-oder">
-        <div class="wrap-head-table">
-            <h2 class="heading">Placed Orders</h2>
-            <div class="wrap-date-choose">
-                <div class="data-choose">
-                    <h4>Tìm khoảng thời gian</h4>
-                    <form>
-                    <div class="wrap-date">
-                        <div class="start-date">
-                        <label for="start_date">Ngày bắt đầu:</label>
-                        <input type="date" id="start_date" name="start_date" required dateFormat="yyyy-mm-dd">
-                        </div>
-
-                        <div class="end-date">
-                        <label for="end_date">Ngày kết thúc:</label>
-                        <input type="date" id="end_date" name="end_date" required dateFormat="yyyy-mm-dd">
-                        </div>
-                    </div>
-
-                    <button id="search-btn" class="btn-form" type="submit" onclick="validateDateInputs(event)">Tìm</button>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="check-date" id="check-fail">
-            <span>&times;</span> Failed
-        </div>
+        
+        <h2 class="heading">Placed Orders</h2>
 
         <section class="orders" id="orders">
             <table>

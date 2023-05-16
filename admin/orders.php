@@ -70,6 +70,7 @@ if ($result_pagination) {
   <div class="card-header">
     <div class="bg-modal-box"></div>
     <h3>Orders List</h3>
+    <button id="loc">Lọc</button>
     <div class="notification-order">
       <?php
       if (isset($delete_order)) {
@@ -91,7 +92,7 @@ if ($result_pagination) {
             <td>Date</td>
             <td>Phone</td>
             <td>Email</td>
-            <td>Country</td>
+            <td>Payment Method</td>
             <td>Total price</td>
             <td>Status</td>
             <td>Action</td>
@@ -146,8 +147,87 @@ if ($result_pagination) {
                         Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                       </a>
                     </div>
-                    <a href="?id=3&page=<?php echo $page_id ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
-                    <a class="edit" href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF <i class="fa-solid fa-file-export"></i></a>
+                    <a href="?id=3&page=<?php echo $page_id ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i
+                        class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+                    <a class="edit" href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF <i
+                        class="fa-solid fa-file-export"></i></a>
+                  </td>
+                </tr>
+              <?php }
+            } else {
+              echo "<span class='error'>No Data Found</span>";
+            } ?>
+          </tbody>
+        </table>
+        <?php
+          } else if ($result_pagination) {
+            ?>
+          <tbody id="orders-data">
+            <?php
+            if ($result_pagination) {
+              while ($result = $result_pagination->fetch_array()) { ?>
+                <tr>
+                  <td>
+                  <?php echo $result[0]; ?>
+                  </td>
+                  <td>
+                  <?php echo $result[1]; ?>
+                  </td>
+                  <td>
+                  <?php echo $result[15]; ?>
+                  </td>
+                  <td>
+                  <?php echo $result[2]; ?>
+                  </td>
+                  <td>
+                  <?php echo $result[3]; ?>
+                  </td>
+                  <td>
+                  <?php echo $result[6]; ?>
+                  </td>
+                  <td>
+                  <?php echo $result[5]; ?>
+                  </td>
+
+                  <td>
+                  <?php echo $result[10]; ?>
+                  </td>
+                  <td>
+                  <?php echo $result[11]; ?>
+                  </td>
+                  <td>
+                    <form method="post" enctype="multipart/form-data" class="status-order">
+                      <input type="hidden" value="<?php echo $result[0] ?>" name="id_order">
+
+                      <select id="status_order" value="2" name="status" class="status_order">
+                        <option value="0" <?php if ($result[12] == "0")
+                          echo "selected"; ?>>Đã giao</option>
+                        <option value="1" <?php if ($result[12] == "1")
+                          echo "selected"; ?>>Đang giao hàng</option>
+                        <option value="2" <?php if ($result[12] == "2")
+                          echo "selected"; ?>>Đang chờ duyệt</option>
+                      </select>
+                      <?php
+                      if ($result[12] != "0") {
+                        ?>
+                        <input type="submit" value="Change" name="submit" />
+
+                      <?php
+                      }
+                      ?>
+                    </form>
+                  </td>
+                  <td>
+                    <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
+                      <a class="modal-btn-delete" data-id="<?php echo $result[0] ?>"
+                        onclick="DeleteActive(<?php echo $result[0] ?>)">
+                        Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                      </a>
+                    </div>
+                    <a href="?id=3&page=<?php echo $page_id ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i
+                        class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+                    <a class="edit" href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF <i
+                        class="fa-solid fa-file-export"></i></a>
                   </td>
                 </tr>
             <?php }
@@ -300,6 +380,34 @@ if ($result_pagination) {
     }
     ?>
   </div>
+  <div class="wrap-date-choose">
+    <div class="data-choose hide" id="data-choose">
+      <h4>Tìm khoảng thời gian</h4>
+      <form>
+        <div class="wrap-date">
+          <div class="start-date">
+            <label for="start_date">Ngày bắt đầu:</label>
+            <input type="date" id="start_date" name="start_date" required dateFormat="yyyy-mm-dd">
+          </div>
+
+          <div class="end-date">
+            <label for="end_date">Ngày kết thúc:</label>
+            <input type="date" id="end_date" name="end_date" required dateFormat="yyyy-mm-dd">
+          </div>
+        </div>
+
+        <button id="search-btn" class="btn-form" type="submit" onclick="validateDateInputs(event)">Tìm</button>
+      </form>
+
+      <div id="close-icon">
+        X
+      </div>
+    </div>
+  </div>
+    
+  <div class="check-date" id="check-fail">
+      <span>&times;</span> Failed
+  </div>
 
   <!-- Modal delete -->
   <form class="modal-container-delete" id="modal-container-delete" method="post" enctype="multipart/form-data">
@@ -344,6 +452,29 @@ if ($result_pagination) {
       bg_modal_detail_box.classList.add('hidden');
     }
   });
+</script>
+
+<script>
+  var loc = document.querySelector("#loc");
+  var khung = document.querySelector("#data-choose");
+  loc.addEventListener("click", function(event) {
+    if (event.target === loc) {
+      khung.classList.remove('hide');
+      loc.classList.add('hide');
+    }
+  });
+  // Closekhung
+  var close = document.querySelector('#close-icon');
+  close.addEventListener("click", function(event) {
+    if (event.target === close) {
+      loc.classList.remove('hide');
+      khung.classList.add('hide');
+    }
+  });
+</script>
+
+<script src="./js/check_date_order.js">
+
 </script>
 
 <!-- <script>
