@@ -244,8 +244,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
     $(document).ready(function() {
         $("#name_add").keyup(function() {
             var input = $(this).val();
-            if (checkAddAndEdit(input) == false) {
-                $("#name_add_result").html("<span class='error'>Category Name Not Valid</span>");
+            if (checkProductName(input) == false) {
+                $("#name_add_result").html("<span class='error'>Category name must < 25 characters and don't contain special characters</span>");
                 $("#add-btn").prop("disabled", true);
                 $("#add-btn").css("background-color", "red");
                 $("#name_add_result").css("display", "block");
@@ -259,8 +259,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit-btn"])) {
 
         $("#name_edit").keyup(function() {
             var input = $(this).val();
-            if (checkAddAndEdit(input) == false) {
-                $("#name_edit_result").html("<span class='error'>Category Name Not Valid</span>");
+            if (checkProductName(input) == false) {
+                $("#name_edit_result").html("<span class='error'>Category name must < 25 characters and don't contain special characters</span>");
                 $("#edit-btn").prop("disabled", true);
                 $("#edit-btn").css("background-color", "red");
                 $("#name_edit_result").css("display", "block");
