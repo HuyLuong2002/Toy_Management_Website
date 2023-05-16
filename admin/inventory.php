@@ -154,7 +154,7 @@ if ($result_pagination) {
                       ?>
                       <a href="?id=11&page_detail=<?php echo $page_id ?>&enter_id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
                     </div>
-                  <td>
+                </td>
                 </tr>
             <?php
               }
@@ -195,7 +195,7 @@ if ($result_pagination) {
                   ?>
                   <a href="?id=11&page_detail=<?php echo $page_id ?>&enter_id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
                 </div>
-              <td>
+              </td>
             </tr>
       <?php
               }

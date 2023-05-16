@@ -143,10 +143,10 @@ if ($result_pagination) {
                     <?php echo $result[6]; ?>
                   </td>
                   <td>
-                    <?php echo $result[10]; ?>
+                    <?php echo $result[11]; ?>
                   </td>
                   <td>
-                    <?php echo $result[11]; ?>
+                    <?php echo $result[10]; ?>
                   </td>
                   <td>
                     <?php if ($result[12] == "0") {
@@ -163,21 +163,18 @@ if ($result_pagination) {
                         Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                       </a>
                     </div>
-                    <a href="?id=3&page=<?php echo $page_id ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+                    <a href="?id=3&page=<?php echo $page_id; ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
                     <a class="edit" href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF <i class="fa-solid fa-file-export"></i></a>
                   </td>
                 </tr>
-            <?php }
-            } else {
-              echo "<span class='error'>No Data Found</span>";
-            } ?>
+            <?php }} else {echo "<span class='error'>No Data Found</span>";} ?>
         </tbody>
       </table>
     <?php
-          } else if (isset($show_orders_selling_product)) { ?>
+          } elseif (isset($show_orders_selling_product)) { ?>
       <tbody id="orders-data">
         <?php if ($show_orders_selling_product) {
-              while ($result = $show_orders_selling_product->fetch_array()) { ?>
+          while ($result = $show_orders_selling_product->fetch_array()) { ?>
             <tr>
               <td>
                 <?php echo $result["id"]; ?>
@@ -201,10 +198,10 @@ if ($result_pagination) {
                 <?php echo $result["email"]; ?>
               </td>
               <td>
-                <?php echo $result["country"]; ?>
+                <?php echo $result["pay_method"]; ?>
               </td>
               <td>
-                <?php echo $result["pay_method"]?>
+                <?php echo $result["total_price"]; ?>
               </td>
               <td>
                 <form method="post" enctype="multipart/form-data" class="status-order">
@@ -212,14 +209,14 @@ if ($result_pagination) {
 
                   <select id="status_order" value="2" name="status" class="status_order">
                     <option value="0" <?php if ($result[12] == "0") {
-                                        echo "selected";
-                                      } ?>>Đã giao</option>
+                      echo "selected";
+                    } ?>>Đã giao</option>
                     <option value="1" <?php if ($result[12] == "1") {
-                                        echo "selected";
-                                      } ?>>Đang giao hàng</option>
+                      echo "selected";
+                    } ?>>Đang giao hàng</option>
                     <option value="2" <?php if ($result[12] == "2") {
-                                        echo "selected";
-                                      } ?>>Đang chờ duyệt</option>
+                      echo "selected";
+                    } ?>>Đang chờ duyệt</option>
                   </select>
                   <?php if ($result[12] != "0") { ?>
                     <input type="submit" value="Change" name="submit" />
@@ -238,12 +235,12 @@ if ($result_pagination) {
               </td>
             </tr>
         <?php }
-            } ?>
+        } ?>
       </tbody>
-    <?php } else if (isset($result_pagination)) { ?>
+    <?php } elseif (isset($result_pagination)) { ?>
       <tbody id="orders-data">
         <?php if ($result_pagination) {
-              while ($result = $result_pagination->fetch_array()) { ?>
+          while ($result = $result_pagination->fetch_array()) { ?>
             <tr>
               <td>
                 <?php echo $result[0]; ?>
@@ -266,50 +263,47 @@ if ($result_pagination) {
               <td>
                 <?php echo $result[6]; ?>
               </td>
-
-              <td>
-                <?php echo $result[10]; ?>
-              </td>
               <td>
                 <?php echo $result[11]; ?>
               </td>
               <td>
+                <?php echo $result[10]; ?>
+              </td>
+              <td>
                 <form method="post" enctype="multipart/form-data" class="status-order">
-                  <input type="hidden" value="<?php echo $result[0] ?>" name="id_order">
+                  <input type="hidden" value="<?php echo $result[0]; ?>" name="id_order">
 
                   <select id="status_order" value="2" name="status" class="status_order">
-                    <option value="0" <?php if ($result[12] == "0")
-                                        echo "selected"; ?>>Đã giao</option>
-                    <option value="1" <?php if ($result[12] == "1")
-                                        echo "selected"; ?>>Đang giao hàng</option>
-                    <option value="2" <?php if ($result[12] == "2")
-                                        echo "selected"; ?>>Đang chờ duyệt</option>
+                    <option value="0" <?php if ($result[12] == "0") {
+                      echo "selected";
+                    } ?>>Đã giao</option>
+                    <option value="1" <?php if ($result[12] == "1") {
+                      echo "selected";
+                    } ?>>Đang giao hàng</option>
+                    <option value="2" <?php if ($result[12] == "2") {
+                      echo "selected";
+                    } ?>>Đang chờ duyệt</option>
                   </select>
-                  <?php
-                  if ($result[12] != "0") {
-                  ?>
+                  <?php if ($result[12] != "0") { ?>
                     <input type="submit" value="Change" name="submit" />
 
-                  <?php
-                  }
-                  ?>
+                  <?php } ?>
                 </form>
               </td>
               <td>
-                <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
-                  <a class="modal-btn-delete" data-id="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
+                  <a class="modal-btn-delete" data-id="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                     Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                   </a>
                 </div>
-                <a href="?id=3&page=<?php echo $page_id ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+                <a href="?id=3&page=<?php echo $page_id; ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
                 <a class="edit" href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF <i class="fa-solid fa-file-export"></i></a>
               </td>
             </tr>
       <?php }
-            } else {
-              echo "<span class='error'>No Data Found</span>";
-            }
-          } ?>
+        } else {
+          echo "<span class='error'>No Data Found</span>";
+        }} ?>
       </tbody>
       </table>
 
@@ -335,7 +329,7 @@ if ($result_pagination) {
           <?php if ($current_page > 3) { ?>
             <li class="item prev-page">
               <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $current_page -
-                                                              1; ?>">
+  1; ?>">
                 <i class="fa-solid fa-chevron-left"></i>
               </a>
             </li>
@@ -351,7 +345,7 @@ if ($result_pagination) {
                 </li>
               <?php }
             } else {
-              ?>
+               ?>
               <li class="item <?php echo "current"; ?>" id="<?php echo $num; ?>">
                 <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $num; ?>">
                   <?php echo $num; ?>
@@ -364,7 +358,7 @@ if ($result_pagination) {
           <?php if ($current_page <= $page_total - 3) { ?>
             <li class="item next-page">
               <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $current_page +
-                                                              1; ?>">
+  1; ?>">
                 <i class="fa-solid fa-chevron-right"></i>
               </a>
             </li>

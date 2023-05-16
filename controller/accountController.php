@@ -41,7 +41,7 @@ class AccountController
           ini_set("session.cookie_lifetime", $timeout);
 
           header("Location: ./admin/index.php?id=1");
-        } else if ($result["permission_id"] == 3) {
+        } elseif ($result["permission_id"] == 3) {
           Session::init();
           Session::set("userAdmin", true);
           Session::set("user", true);
@@ -62,7 +62,7 @@ class AccountController
           ini_set("session.cookie_lifetime", $timeout);
 
           header("Location: ./admin/index.php?id=5");
-        } else if ($result["permission_id"] == 4) {
+        } elseif ($result["permission_id"] == 4) {
           Session::init();
           Session::set("userAdmin", true);
           Session::set("user", true);
@@ -114,7 +114,6 @@ class AccountController
 
   public function insert_account_user($data)
   {
-
     $data["nome"] = $this->fm->validation($data["nome"]);
     $data["password"] = $this->fm->validation($data["password"]);
     $data["date_birth"] = $this->fm->formatDate($data["date_birth"]);
@@ -139,7 +138,9 @@ class AccountController
       $data["username_add"] = $this->fm->validation($data["username_add"]);
       $data["password_add"] = $this->fm->validation($data["password_add"]);
       $data["password_add"] = md5($data["password_add"]);
-      $data["dateofbirth_add"] = $this->fm->formatDate($data["dateofbirth_add"]);
+      $data["dateofbirth_add"] = $this->fm->formatDate(
+        $data["dateofbirth_add"]
+      );
       if ($data["gender_add"] == "Nam") {
         $data["gender_add"] = "Nam";
       } else {
@@ -158,7 +159,16 @@ class AccountController
     $accountService = new AccountServices();
 
     $data["status_edit"] = intval($data["status_edit"]);
-
+    $get_account = $accountService->show_account_by_id($id);
+    $result = $get_account->fetch_array();
+    if ($result[9] == "1") {
+      $alert = "<span class='error'>Can Not Delete Admin</span>";
+      return $alert;
+    }
+    if ($result[9] == "3") {
+      $alert = "<span class='error'>Can Not Delete Manager</span>";
+      return $alert;
+    }
     $result = $accountService->update_account($data, $id);
     return $result;
   }
@@ -185,11 +195,14 @@ class AccountController
     if ($result[9] == "1") {
       $alert = "<span class='error'>Can Not Delete Admin</span>";
       return $alert;
-    } else {
-      $result_delete = $accountService->delete_account($id);
-      $alert = $result_delete;
+    }
+    if ($result[9] == "3") {
+      $alert = "<span class='error'>Can Not Delete Manager</span>";
       return $alert;
     }
+    $result_delete = $accountService->delete_account($id);
+    $alert = $result_delete;
+    return $alert;
     // $result = $accountService->delete_account($id);
     // return $result;
   }
@@ -218,7 +231,10 @@ class AccountController
   public function show_account_by_pagination($offset, $limit_per_page)
   {
     $accountService = new AccountServices();
-    $result = $accountService->show_account_by_pagination($offset, $limit_per_page);
+    $result = $accountService->show_account_by_pagination(
+      $offset,
+      $limit_per_page
+    );
     return $result;
   }
 
