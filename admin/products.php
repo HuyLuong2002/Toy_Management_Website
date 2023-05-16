@@ -44,7 +44,6 @@ $result_pagination = $productsController->show_product_for_pagination();
 $product_total = mysqli_num_rows($result_pagination);
 
 if (isset($product_total)) {
-
   //số sản phẩm trên 1 trang
   // $num_product_on_page = 10;
   $page_total = ceil($product_total / 10);
@@ -122,9 +121,10 @@ if (isset($_POST["sort"])) {
                 $result = $show_product_live_search->fetch_array()
               ) { ?>
                 <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] ==
-                                                                    1
-                                                                    ? "activeBg"
-                                                                    : ""; ?>">
+1
+  ? "activeBg"
+  : ""; ?>">
+
                   <td>
                     <?php echo $result[0]; ?>
                   </td>
@@ -133,7 +133,7 @@ if (isset($_POST["sort"])) {
                   </td>
                   <td>
                     <img src="<?php echo "uploads/" .
-                                $result[2]; ?>" alt="" width="100px" />
+                      $result[2]; ?>" alt="" width="100px" />
                   </td>
                   <td>
                     <?php echo number_format($result[3], 0, '.', ',') ?>
@@ -179,21 +179,18 @@ if (isset($_POST["sort"])) {
                     <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
                   </td>
                 </tr>
-            <?php }
-            } else {
-              echo "<span class='error'>No Data Found</span>";
-            } ?>
+            <?php }} else {echo "<span class='error'>No Data Found</span>";} ?>
         </tbody>
       </table>
     <?php
-          } else if (isset($show_product_sort)) { ?>
+          } elseif (isset($show_product_sort)) { ?>
       <tbody id="product-data">
         <?php if ($show_product_sort) {
-              while ($result = $show_product_sort->fetch_array()) { ?>
+          while ($result = $show_product_sort->fetch_array()) { ?>
             <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] ==
-                                                                1
-                                                                ? "activeBg"
-                                                                : ""; ?>">
+1
+  ? "activeBg"
+  : ""; ?>">
 
               <td>
                 <?php echo $result[0]; ?>
@@ -203,7 +200,7 @@ if (isset($_POST["sort"])) {
               </td>
               <td>
                 <img src="<?php echo "uploads/" .
-                            $result[2]; ?>" alt="" width="100px" />
+                  $result[2]; ?>" alt="" width="100px" />
               </td>
               <td>
                 <?php echo number_format($result[3], 0, '.', ',') ?>
@@ -250,19 +247,17 @@ if (isset($_POST["sort"])) {
               </td>
             </tr>
         <?php }
-            }
-        ?>
+        } ?>
       </tbody>
       </table>
-    <?php
-          } else if ($result_pagination) { ?>
+    <?php } elseif ($result_pagination) { ?>
       <tbody id="product-data">
         <?php if ($result_pagination) {
-              while ($result = $result_pagination->fetch_array()) { ?>
+          while ($result = $result_pagination->fetch_array()) { ?>
             <tr id="switch-<?php echo $result[0]; ?>" class="<?php echo $result[6] ==
-                                                                1
-                                                                ? "activeBg"
-                                                                : ""; ?>">
+1
+  ? "activeBg"
+  : ""; ?>">
 
               <td>
                 <?php echo $result[0]; ?>
@@ -272,7 +267,7 @@ if (isset($_POST["sort"])) {
               </td>
               <td>
                 <img src="<?php echo "uploads/" .
-                            $result[2]; ?>" alt="" width="100px" />
+                  $result[2]; ?>" alt="" width="100px" />
               </td>
               <td>
                 <?php echo number_format($result[3], 0, '.', ',') ?>
@@ -319,77 +314,75 @@ if (isset($_POST["sort"])) {
               </td>
             </tr>
       <?php }
-            }
-          }
-      ?>
+        }} ?>
       </tbody>
       </table>
-      <?php
-      if (empty($_POST["input"]) && empty($_POST["sort"]) && isset($page_total) && $page_total > 1) { ?>
+      <?php if (
+        empty($_POST["input"]) &&
+        empty($_POST["sort"]) &&
+        isset($page_total) &&
+        $page_total > 1
+      ) { ?>
         <div class="bottom-pagination" id="pagination">
           <ul class="pagination">
 
             <?php if ($current_page > 3) {
-              $first_page = 1;
-            ?>
+              $first_page = 1; ?>
               <li class="item first-page">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $first_page ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $first_page; ?>">
                   First
                 </a>
               </li>
-            <?php } ?>
+            <?php
+            } ?>
 
             <?php if ($current_page > 3) { ?>
               <li class="item prev-page">
                 <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $current_page -
-                                                                1; ?>">
+  1; ?>">
                   <i class="fa-solid fa-chevron-left"></i>
                 </a>
               </li>
             <?php } ?>
 
-            <?php
-            for ($num = 1; $num <= $page_total; $num++) {
+            <?php for ($num = 1; $num <= $page_total; $num++) {
               if ($num != $current_page) {
-                if ($num > $current_page - 3 && $num < $current_page + 3) {
-            ?>
+                if ($num > $current_page - 3 && $num < $current_page + 3) { ?>
                   <li class="item" id="<?php echo $num; ?>">
-                    <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $num ?>">
+                    <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $num; ?>">
                       <?php echo $num; ?>
                     </a>
                   </li>
-                <?php
-                }
+                <?php }
               } else {
-                ?>
-                <li class="item <?php echo "current" ?>" id="<?php echo $num; ?>">
+                 ?>
+                <li class="item <?php echo "current"; ?>" id="<?php echo $num; ?>">
                   <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $num; ?>">
                     <?php echo $num; ?>
                   </a>
                 </li>
             <?php
               }
-            }
-            ?>
+            } ?>
 
             <?php if ($current_page <= $page_total - 3) { ?>
               <li class="item next-page">
                 <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $current_page +
-                                                                1; ?>">
+  1; ?>">
                   <i class="fa-solid fa-chevron-right"></i>
                 </a>
               </li>
             <?php } ?>
 
             <?php if ($current_page <= $page_total - 3) {
-              $lastpage = $page_total;
-            ?>
+              $lastpage = $page_total; ?>
               <li class="item last-page">
-                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $lastpage ?>">
+                <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $lastpage; ?>">
                   Last
                 </a>
               </li>
-            <?php } ?>
+            <?php
+            } ?>
 
           </ul>
         </div>

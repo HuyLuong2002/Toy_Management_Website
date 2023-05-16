@@ -183,10 +183,9 @@ if ($result_pagination) {
                         Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                       </a>
                     </div>
-
-                  </div>
-                <?php } ?>
-              </td>
+                  <?php } ?>
+                </div>
+            </td>
             </tr>
       <?php }
           }

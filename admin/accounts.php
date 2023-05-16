@@ -460,6 +460,10 @@ if ($result_pagination) {
         if (res.status == 404) {
           alert(res.message);
         } else if (res.status == 200) {
+
+          var dateParts = res.data.date_birth.split("-");
+          var newDateBirth = dateParts[2] + "-" + dateParts[1].padStart(2, "0") + "-" + dateParts[0].padStart(2, "0");
+
           $('#edit_id').val(res.data.id);
           $('#permission_edit').val(res.data.permission_id);
           $('#status_edit').val(res.data.status);

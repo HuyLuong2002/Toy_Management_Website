@@ -319,7 +319,7 @@ if (isset($enter_id)) {
           <option value="">Select product</option>
           <?php
           $productsController = new ProductsController();
-          $show_product = $productsController->show_product();
+          $show_product = $productsController->show_product_receipt();
           if ($show_product) {
             $i = 0;
             while ($result = $show_product->fetch_assoc()) {
@@ -335,15 +335,17 @@ if (isset($enter_id)) {
       <div class="modal-edit-info-item">
         <label for="quantity">Quantity</label>
         <input type="text" id="quantity_edit" name="quantity_edit" required>
+        <div id="quantity_edit_result"></div>
       </div>
 
       <div class="modal-edit-info-item">
         <label for="price">Price</label>
         <input type="text" id="price_edit" name="price_edit" required>
+        <div id="price_edit_result"></div>
       </div>
     </div>
 
-    <input class="modal-edit-btn" name="edit-btn" type="submit" value="Save">
+    <input class="modal-edit-btn" id="edit-btn" name="edit-btn" type="submit" value="Save">
   </form>
   <!-- modal edit end -->
 
@@ -376,7 +378,7 @@ if (isset($enter_id)) {
           <option value="">Select product</option>
           <?php
           $productsController = new ProductsController();
-          $show_product = $productsController->show_product();
+          $show_product = $productsController->show_product_receipt();
           if ($show_product) {
             $i = 0;
             while ($result = $show_product->fetch_assoc()) {
@@ -391,22 +393,95 @@ if (isset($enter_id)) {
 
       <div class="modal-add-info-item">
         <label for="quantity">Quantity</label>
-        <input type="text" id="quantity_add" name="quantity_add" required>
+        <input type="number" id="quantity_add" name="quantity_add" required>
+        <div id="quantity_add_result"></div>
       </div>
 
       <div class="modal-add-info-item">
         <label for="price">Price</label>
-        <input type="text" id="price_add" name="price_add" required>
+        <input type="number" id="price_add" name="price_add" required>
+        <div id="price_add_result"></div>
       </div>
 
     </div>
 
-    <input onclick="" class="modal-add-btn" name="add-btn" type="submit" value="Save">
+    <input onclick="" class="modal-add-btn" id="add-btn" name="add-btn" type="submit" value="Save">
   </form>
   <!-- modal add end -->
 </div>
 
 <script src="./js/modal.js"></script>
+
+<script src="./js/validate_input.js"></script>
+
+<!-- coding check input value function -->
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $("#quantity_add").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEditQuantity(input) == false) {
+        $("#quantity_add_result").html("<span class='error'>Quantity Not Valid</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
+        $("#quantity_add_result").css("display", "block");
+        $("#quantity_add_result").css("margin-top", "1rem");
+      } else {
+        $("#quantity_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
+      }
+    });
+
+    $("#price_add").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEditQuantity(input) == false) {
+        $("#price_add_result").html("<span class='error'>Price Not Valid</span>");
+        $("#add-btn").prop("disabled", true);
+        $("#add-btn").css("background-color", "red");
+        $("#price_add_result").css("display", "block");
+        $("#price_add_result").css("margin-top", "1rem");
+      } else {
+        $("#price_add_result").css("display", "none");
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
+      }
+    });
+
+
+
+    //edit
+    $("#quantity_edit").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEditQuantity(input) == false) {
+        $("#total-quantity_edit_result").html("<span class='error'>Price Not Valid</span>");
+        $("#edit-btn").prop("disabled", true);
+        $("#edit-btn").css("background-color", "red");
+        $("#total-quantity_edit_result").css("display", "block");
+        $("#total-quantity_edit_result").css("margin-top", "1rem");
+      } else {
+        $("#total-quantity_edit_result").css("display", "none");
+        $("#edit-btn").prop("disabled", false);
+        $("#edit-btn").css("background-color", "#ffa800");
+      }
+    });
+
+    $("#price_edit").keyup(function() {
+      var input = $(this).val();
+      if (checkAddAndEditQuantity(input) == false) {
+        $("#quantity_edit_result").html("<span class='error'>Price Not Valid</span>");
+        $("#edit-btn").prop("disabled", true);
+        $("#edit-btn").css("background-color", "red");
+        $("#quantity_edit_result").css("display", "block");
+        $("#quantity_edit_result").css("margin-top", "1rem");
+      } else {
+        $("#price_edit_result").css("display", "none");
+        $("#edit-btn").prop("disabled", false);
+        $("#edit-btn").css("background-color", "#ffa800");
+      }
+    });
+  });
+</script>
 
 <script>
   $(document).on('click', '#search', function() {

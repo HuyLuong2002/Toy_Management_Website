@@ -17,10 +17,6 @@ if (isset($_GET["id"])) {
   $product_detail_id = $_GET["id"];
 }
 
-if (isset($_GET["categoryID"])) {
-  $product_detail_category = $_GET["categoryID"];
-}
-
 $countComment = $commentController->show_all_comment_of_product($product_detail_id);
 if (isset($countComment->num_rows))
   $ratingCount = $countComment->num_rows;
@@ -199,14 +195,14 @@ else {
 
     <div class="product-items" id="product-items">
       <?php
-      $show_related_products = $productsController->show_product_by_category_id_unique($product_detail_category, $product_detail_id);
+      $show_related_products = $productsController->show_product_by_category_id_unique($product_detail_id);
       if ($show_related_products) {
         while ($result_product = $show_related_products->fetch_array()) {
           ?>
           <!-- Single product -->
           <div class="product id-<?php echo $result_product[0] ?>">
             <div class="product-content">
-              <a href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7]; ?>"
+              <a href="product_detail.php?id=<?php echo $result_product[0]; ?>"
                 class="product-name" id="product-name-<?php echo $result_product[0]; ?>">
                 <div class="product-img">
                   <img src="<?php echo "admin/uploads/" . $result_product[2]; ?>" alt=""
@@ -220,7 +216,7 @@ else {
                   <i class="fa-solid fa-plus add-icon" id="icon-check-<?php echo $result_product[0]; ?>"></i>
                 </button>
                 <a
-                  href="product_detail.php?id=<?php echo $result_product[0]; ?>&categoryID=<?php echo $result_product[7]; ?>">
+                  href="product_detail.php?id=<?php echo $result_product[0]; ?>">
                   <button class="btn-buy">
                     More Details
                     <span><i class="fa-solid fa-circle-info"></i> </span>

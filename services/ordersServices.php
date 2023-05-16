@@ -15,7 +15,7 @@ include_once $filepath . "\helpers\\format.php";
 
   public function show_order()
   {
-    $query = "SELECT * FROM orders ORDER BY id desc";
+    $query = "SELECT * FROM orders ORDER BY orders.date desc";
     $result = $this->db->select($query);
     return $result;
   }
@@ -27,14 +27,15 @@ include_once $filepath . "\helpers\\format.php";
     AND detail_orders.order_id = orders.id 
     AND product.id = detail_orders.product_id
     AND account.id = orders.user_id
-    GROUP BY orders.id";
+    GROUP BY orders.id
+    ORDER BY orders.date DESC, orders.status DESC";
     $result = $this->db->select($query);
     return $result;
   }
 
   public function get_order_id()
   {
-    $query = "SELECT * FROM orders ORDER BY id desc LIMIT 1";
+    $query = "SELECT * FROM orders ORDER BY orders.date desc LIMIT 1";
     $result = $this->db->select($query);
     return $result;
   }
@@ -42,7 +43,7 @@ include_once $filepath . "\helpers\\format.php";
   //list orders for home page
   public function show_orders_user()
   {
-    $query = "SELECT * FROM orders, account WHERE orders.is_deleted = '0' and orders.user_id = account.id ORDER BY orders.date DESC, orders.status DESC";
+    $query = "SELECT * FROM orders, account WHERE orders.is_deleted = '0' and orders.user_id = account.id ORDER BY orders.status DESC, orders.date DESC";
     $result = $this->db->select($query);
     return $result;
   }
@@ -56,7 +57,7 @@ include_once $filepath . "\helpers\\format.php";
 
   public function show_order_by_pagination($offset, $limit_per_page)
   {
-    $query = "SELECT * FROM orders, account WHERE orders.is_deleted = '0' and orders.user_id = account.id ORDER BY orders.date DESC LIMIT $offset, $limit_per_page";
+    $query = "SELECT * FROM orders, account WHERE orders.is_deleted = '0' and orders.user_id = account.id ORDER BY orders.status DESC, orders.date DESC LIMIT $offset, $limit_per_page";
     $result = $this->db->select($query);
     return $result;
   }
