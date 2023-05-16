@@ -33,7 +33,9 @@ handleUpdateCurrent = () => {
             year3: listCurrentYear[2],
         },
         success: function(data){
-            $("#content").html(data);
+            var $data = $(data);
+            var wrapper = $data.find('#wrapper');
+            $("#wrapper").html(wrapper);
         },
         error: function(xhr, status, error) {
 
