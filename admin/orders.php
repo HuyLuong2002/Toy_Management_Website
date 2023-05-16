@@ -47,15 +47,13 @@ if (isset($_POST["delete-btn"])) {
 
 if (isset($_GET["page"])) {
   $page_id = $_GET["page"];
-}
-else {
+} else {
   $page_id = 1;
 }
 /*
 Tính giá trị của phân trang, 10 sale trên 1 trang
 */
-if(empty($result_pagination))
-{
+if (empty($result_pagination)) {
   $result_pagination = $orderController->show_orders_user();
 }
 
@@ -87,7 +85,10 @@ if ($result_pagination) {
   <div class="card-header">
     <div class="bg-modal-box"></div>
     <h3>Orders List</h3>
+    <div class="but">
+    <button id="show"><a href="">Show All</a></button>
     <button id="loc">Lọc</button>
+    </div>
     <div class="notification-order">
       <?php if (isset($delete_order)) {
         echo $delete_order;
@@ -162,18 +163,21 @@ if ($result_pagination) {
                         Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                       </a>
                     </div>
-                    <a href="?id=3&page=<?php echo $page_id; ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+                    <a href="?id=3&page=<?php echo $page_id ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
                     <a class="edit" href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF <i class="fa-solid fa-file-export"></i></a>
                   </td>
                 </tr>
-            <?php }} else {echo "<span class='error'>No Data Found</span>";} ?>
+            <?php }
+            } else {
+              echo "<span class='error'>No Data Found</span>";
+            } ?>
         </tbody>
       </table>
-      <?php
-          } elseif (isset($show_orders_selling_product)) { ?>
-<tbody id="orders-data">
+    <?php
+          } else if (isset($show_orders_selling_product)) { ?>
+      <tbody id="orders-data">
         <?php if ($show_orders_selling_product) {
-          while ($result = $show_orders_selling_product->fetch_array()) { ?>
+              while ($result = $show_orders_selling_product->fetch_array()) { ?>
             <tr>
               <td>
                 <?php echo $result["id"]; ?>
@@ -205,14 +209,14 @@ if ($result_pagination) {
 
                   <select id="status_order" value="2" name="status" class="status_order">
                     <option value="0" <?php if ($result[12] == "0") {
-                      echo "selected";
-                    } ?>>Đã giao</option>
+                                        echo "selected";
+                                      } ?>>Đã giao</option>
                     <option value="1" <?php if ($result[12] == "1") {
-                      echo "selected";
-                    } ?>>Đang giao hàng</option>
+                                        echo "selected";
+                                      } ?>>Đang giao hàng</option>
                     <option value="2" <?php if ($result[12] == "2") {
-                      echo "selected";
-                    } ?>>Đang chờ duyệt</option>
+                                        echo "selected";
+                                      } ?>>Đang chờ duyệt</option>
                   </select>
                   <?php if ($result[12] != "0") { ?>
                     <input type="submit" value="Change" name="submit" />
@@ -230,13 +234,13 @@ if ($result_pagination) {
                 <a class="edit" href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF <i class="fa-solid fa-file-export"></i></a>
               </td>
             </tr>
-      <?php }
-        } ?>
+        <?php }
+            } ?>
       </tbody>
-    <?php } elseif ($result_pagination) { ?>
+    <?php } else if (isset($result_pagination)) { ?>
       <tbody id="orders-data">
         <?php if ($result_pagination) {
-          while ($result = $result_pagination->fetch_array()) { ?>
+              while ($result = $result_pagination->fetch_array()) { ?>
             <tr>
               <td>
                 <?php echo $result[0]; ?>
@@ -254,11 +258,12 @@ if ($result_pagination) {
                 <?php echo $result[3]; ?>
               </td>
               <td>
-                <?php echo $result[5]; ?>
-              </td>
-              <td>
                 <?php echo $result[6]; ?>
               </td>
+              <td>
+                <?php echo $result[5]; ?>
+              </td>
+
               <td>
                 <?php echo $result[10]; ?>
               </td>
@@ -267,39 +272,44 @@ if ($result_pagination) {
               </td>
               <td>
                 <form method="post" enctype="multipart/form-data" class="status-order">
-                  <input type="hidden" value="<?php echo $result[0]; ?>" name="id_order">
+                  <input type="hidden" value="<?php echo $result[0] ?>" name="id_order">
 
                   <select id="status_order" value="2" name="status" class="status_order">
-                    <option value="0" <?php if ($result[12] == "0") {
-                      echo "selected";
-                    } ?>>Đã giao</option>
-                    <option value="1" <?php if ($result[12] == "1") {
-                      echo "selected";
-                    } ?>>Đang giao hàng</option>
-                    <option value="2" <?php if ($result[12] == "2") {
-                      echo "selected";
-                    } ?>>Đang chờ duyệt</option>
+                    <option value="0" <?php if ($result[12] == "0")
+                                        echo "selected"; ?>>Đã giao</option>
+                    <option value="1" <?php if ($result[12] == "1")
+                                        echo "selected"; ?>>Đang giao hàng</option>
+                    <option value="2" <?php if ($result[12] == "2")
+                                        echo "selected"; ?>>Đang chờ duyệt</option>
                   </select>
-                  <?php if ($result[12] != "0") { ?>
+                  <?php
+                  if ($result[12] != "0") {
+                  ?>
                     <input type="submit" value="Change" name="submit" />
 
-                  <?php } ?>
+                  <?php
+                  }
+                  ?>
                 </form>
               </td>
               <td>
-                <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
-                  <a class="modal-btn-delete" data-id="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
+                <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
+                  <a class="modal-btn-delete" data-id="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
                     Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                   </a>
                 </div>
-                <a href="?id=3&page=<?php echo $page_id; ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+                <a href="?id=3&page=<?php echo $page_id ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
                 <a class="edit" href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF <i class="fa-solid fa-file-export"></i></a>
               </td>
             </tr>
       <?php }
-        }} ?>
+            } else {
+              echo "<span class='error'>No Data Found</span>";
+            }
+          } ?>
       </tbody>
       </table>
+
     </div>
     <?php if (
       empty($_POST["input"]) &&
@@ -322,7 +332,7 @@ if ($result_pagination) {
           <?php if ($current_page > 3) { ?>
             <li class="item prev-page">
               <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $current_page -
-  1; ?>">
+                                                              1; ?>">
                 <i class="fa-solid fa-chevron-left"></i>
               </a>
             </li>
@@ -338,7 +348,7 @@ if ($result_pagination) {
                 </li>
               <?php }
             } else {
-               ?>
+              ?>
               <li class="item <?php echo "current"; ?>" id="<?php echo $num; ?>">
                 <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $num; ?>">
                   <?php echo $num; ?>
@@ -351,7 +361,7 @@ if ($result_pagination) {
           <?php if ($current_page <= $page_total - 3) { ?>
             <li class="item next-page">
               <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $current_page +
-  1; ?>">
+                                                              1; ?>">
                 <i class="fa-solid fa-chevron-right"></i>
               </a>
             </li>
@@ -394,9 +404,9 @@ if ($result_pagination) {
       </div>
     </div>
   </div>
-    
+
   <div class="check-date" id="check-fail">
-      <span>&times;</span> Failed
+    <span>&times;</span> Failed
   </div>
 
   <!-- Modal delete -->
@@ -434,14 +444,17 @@ if ($result_pagination) {
 <script>
   var bg_modal_detail_box = document.querySelector(".orders-details");
   var modal_detail = document.querySelector(".orders-info");
-  bg_modal_detail_box.addEventListener("click", function(event) {
-    // Kiểm tra xem sự kiện click có xảy ra bên ngoài cửa sổ popup hay không
-    if (event.target === bg_modal_detail_box) {
-      // Nếu có, đóng cửa sổ popup
-      modal_detail.classList.add('hidden');
-      bg_modal_detail_box.classList.add('hidden');
-    }
-  });
+
+  if (bg_modal_detail_box !== null) {
+    bg_modal_detail_box.addEventListener("click", function(event) {
+      // Kiểm tra xem sự kiện click có xảy ra bên ngoài cửa sổ popup hay không
+      if (event.target === bg_modal_detail_box) {
+        // Nếu có, đóng cửa sổ popup
+        modal_detail.classList.add('hidden');
+        bg_modal_detail_box.classList.add('hidden');
+      }
+    });
+  }
 </script>
 
 <script>
@@ -468,7 +481,7 @@ if ($result_pagination) {
 </script>
 
 <script>
-    $(document).ready(function() {
+  $(document).ready(function() {
     $('#search-btn').click(function(e) {
       fromDate = $('#start_date').val();
       toDate = $('#end_date').val();
@@ -476,9 +489,9 @@ if ($result_pagination) {
         url: "orders.php",
         method: "POST",
         data: {
-        starDate: fromDate,
-        endDate: toDate
-      },
+          starDate: fromDate,
+          endDate: toDate
+        },
         success: function(data) {
           var $data = $(data);
           var wrapper = $data.find('#card-order').html();
