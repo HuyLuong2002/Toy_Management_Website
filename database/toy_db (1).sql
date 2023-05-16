@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
+<<<<<<< HEAD:database/toy_db (1).sql
+-- Thời gian đã tạo: Th5 16, 2023 lúc 11:25 AM
+=======
 -- Thời gian đã tạo: Th5 16, 2023 lúc 11:16 AM
+>>>>>>> d12c8c1cefe7616b11f50f1c062bfc37e4c3560a:database/toy_db.sql
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 8.2.0
 
@@ -83,7 +87,7 @@ CREATE TABLE `comment` (
   `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `rate` tinyint(5) NOT NULL,
-  `time` varchar(255) NOT NULL
+  `time` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -91,8 +95,8 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`id`, `content`, `user_id`, `product_id`, `rate`, `time`) VALUES
-(1, 'loz', 1, 1, 5, '10/05/2023 13:49:21 pm'),
-(2, 'nhu cac', 1, 1, 3, '10/05/2023 13:50:39 pm');
+(1, 'loz', 1, 1, 5, '0000-00-00 00:00:00'),
+(2, 'nhu cac', 1, 1, 3, '0000-00-00 00:00:00');
 
 --
 -- Bẫy `comment`
@@ -182,7 +186,9 @@ CREATE TABLE `detail_orders` (
 
 INSERT INTO `detail_orders` (`id`, `order_id`, `product_id`, `quantity`, `price`) VALUES
 (1, 1, 1, 1, 3000),
-(2, 2, 3, 1, 2125);
+(2, 2, 3, 1, 2125),
+(3, 3, 6, 1, 2500),
+(4, 3, 8, 1, 2500);
 
 --
 -- Bẫy `detail_orders`
@@ -214,13 +220,13 @@ DELIMITER ;
 
 CREATE TABLE `enter_product` (
   `id` int(11) NOT NULL,
-  `enter_date` varchar(255) NOT NULL,
+  `enter_date` datetime NOT NULL,
   `total_quantity` int(11) NOT NULL,
   `total_price` int(11) NOT NULL,
   `provider_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `create_date` varchar(255) NOT NULL,
+  `create_date` datetime NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -229,7 +235,7 @@ CREATE TABLE `enter_product` (
 --
 
 INSERT INTO `enter_product` (`id`, `enter_date`, `total_quantity`, `total_price`, `provider_id`, `user_id`, `status`, `create_date`, `is_deleted`) VALUES
-(1, '09/05/2023', 15, 3000, 2, 1, 1, '09/05/2023', 0);
+(1, '0000-00-00 00:00:00', 15, 3000, 2, 1, 1, '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -241,7 +247,7 @@ CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `date` varchar(255) NOT NULL,
+  `date` datetime NOT NULL,
   `address` text NOT NULL,
   `phone` varchar(50) NOT NULL,
   `email` text NOT NULL,
@@ -259,8 +265,9 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `quantity`, `date`, `address`, `phone`, `email`, `country`, `vat`, `ship_method`, `total_price`, `pay_method`, `status`, `is_deleted`) VALUES
-(1, 1, 1, '09/05/2023 20:30:15 pm', 'Ngô Quyền', '0764286798', 'chum19923@gmail.com', 'VietNam', 300, 'Standard Shipping ($6)', 3306, 'payment in cash', 2, 0),
-(2, 1, 1, '10/05/2023 14:18:05 pm', 'àasfsafasfsafsa', '0909090909', 'dieukiet1479@gmail.com', 'VietNam', 213, 'Overnight Shipping ($12)', 2350, 'payment in cash', 2, 0);
+(1, 1, 1, '0000-00-00 00:00:00', 'Ngô Quyền', '0764286798', 'chum19923@gmail.com', 'VietNam', 300, 'Standard Shipping ($6)', 3306, 'payment in cash', 2, 0),
+(2, 1, 1, '0000-00-00 00:00:00', 'àasfsafasfsafsa', '0909090909', 'dieukiet1479@gmail.com', 'VietNam', 213, 'Overnight Shipping ($12)', 2350, 'payment in cash', 2, 0),
+(3, 1, 2, '0000-00-00 00:00:00', 'ngo quyen 2', '0901323123', 'asfhfd@gmail.com', 'VietNam', 500, 'Express Shipping ($8)', 5508, 'payment in cash', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -296,7 +303,7 @@ CREATE TABLE `product` (
   `image` varchar(255) NOT NULL,
   `price` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `create_date` varchar(255) NOT NULL,
+  `create_date` datetime NOT NULL,
   `highlight` tinyint(1) NOT NULL,
   `category_id` int(11) NOT NULL,
   `sale_id` int(11) NOT NULL,
@@ -310,24 +317,24 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `image`, `price`, `description`, `create_date`, `highlight`, `category_id`, `sale_id`, `review`, `quantity`, `is_deleted`) VALUES
-(1, 'Mô hình Captain dòng Mech Strike 6 inch', 'home-img-1.png', '3000', 'Sản phẩm mới', '09/05/2023', 1, 1, 1, 4, 29, 1),
-(2, 'Mô hình Iron Man dòng Mech Strike tối thượng giáp 8 inch', '967f68e964.png', '2500', '<p><strong>Sản phẩm mới</strong></p>', '09/05/2023', 1, 1, 1, 0, 30, 1),
-(3, 'Mô hình Hulk dòng Mech Strike 6 inch', '53fe90a5a8.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 1, 1, 2, 0, 9, 0),
-(4, 'Vũ khí chiến đấu siêu sức mạnh Spiderman', '2f45633d26.png', '5500', 'Giới thiệu sản phẩm: Đồ chơi Vũ khí chiến đấu siêu suc manh Spiderman 1 Găng tay Spider-man 3 Mô hình nòng phi tiêu Neft 1 Hướng dẫn sử dụng', '09/05/2023', 1, 2, 1, 0, 3500, 0),
-(5, 'Người Dơi Batman 4inch', '1cfb0656b7.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 1, 2, 0, 2500, 1),
-(6, 'MH anh hùng công lý 4 inch', '6e79b7601e.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 2, 1, 0, 50, 0),
-(7, 'Siêu anh hùng Captain America tối tân 30cm', '01fa875229.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 2, 2, 0, 20, 0),
-(8, 'Siêu anh hùng IRON MAN phiên bản Bend and Flex', '33f9818354.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 2, 1, 0, 20, 0),
-(9, 'Mô hình Thanos quyền năng', '61421926a7.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 1, 2, 0, 10, 1),
-(10, 'Mô hình Hulk dũng mãnh', '61fe1a2c2b.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 2, 1, 0, 30, 0),
-(11, 'Mô hình siêu anh hùng Spiderman 30cm', 'e1f6dc76fe.png', '2500', '<p>Sản phẩm mới</p>', '09/05/2023', 0, 1, 1, 0, 20, 0),
-(13, 'Mô hình Venom Flex and Bend', '1303e24c74.png', '2500', '<p>&lt;p&gt;Sản phẩm mới&lt;/p&gt;</p>', '10/05/2023', 1, 1, 1, 0, 50, 0),
-(14, 'Figure superman tối thượng size 30 inch', '6243bc2a5a.png', '2000', '<p>Sản phẩm mới</p>', '10/05/2023', 0, 1, 1, 0, 12, 0),
-(15, 'Figure anh hùng đại bàng size 30 inch', '6da2a5f4f2.png', '1500', '<p>sản phẩm mới</p>', '10/05/2023', 0, 1, 2, 0, 30, 0),
-(16, 'Figure iron man siêu to khổng lồ size 30 inch', '57b5f35d05.png', '3000', '<p><strong>Sản phẩm limited</strong></p>', '10/05/2023', 0, 1, 1, 0, 2, 0),
-(17, 'Figure anh hùng xạ điêu size 30 inch', 'e64461ebbf.png', '1800', '<p>sản phẩm tồn kho</p>', '10/05/2023', 0, 2, 2, 0, 34, 0),
-(18, 'Figure phù thủy cầu đặc tối thượng size 20 inch', '7a492fd185.png', '1900', '<p>H&agrave;ng si&ecirc;u tồn kho</p>', '10/05/2023', 0, 1, 2, 0, 123, 0),
-(19, 'Figure Lý Tiểu Long bản lỗi size 10 inch', '170fbd1479.png', '2000', '<p>Sản phẩm cũng được</p>', '10/05/2023', 0, 1, 1, 0, 9, 0);
+(1, 'Mô hình Captain dòng Mech Strike 6 inch', 'home-img-1.png', '3000', 'Sản phẩm mới', '0000-00-00 00:00:00', 1, 1, 1, 4, 29, 1),
+(2, 'Mô hình Iron Man dòng Mech Strike tối thượng giáp 8 inch', '967f68e964.png', '2500', '<p><strong>Sản phẩm mới</strong></p>', '0000-00-00 00:00:00', 1, 1, 1, 0, 30, 1),
+(3, 'Mô hình Hulk dòng Mech Strike 6 inch', '53fe90a5a8.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00 00:00:00', 1, 1, 2, 0, 9, 0),
+(4, 'Vũ khí chiến đấu siêu sức mạnh Spiderman', '2f45633d26.png', '5500', 'Giới thiệu sản phẩm: Đồ chơi Vũ khí chiến đấu siêu suc manh Spiderman 1 Găng tay Spider-man 3 Mô hình nòng phi tiêu Neft 1 Hướng dẫn sử dụng', '0000-00-00 00:00:00', 1, 2, 1, 0, 3500, 0),
+(5, 'Người Dơi Batman 4inch', '1cfb0656b7.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00 00:00:00', 0, 1, 2, 0, 2500, 1),
+(6, 'MH anh hùng công lý 4 inch', '6e79b7601e.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00 00:00:00', 0, 2, 1, 0, 49, 0),
+(7, 'Siêu anh hùng Captain America tối tân 30cm', '01fa875229.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00 00:00:00', 0, 2, 2, 0, 20, 0),
+(8, 'Siêu anh hùng IRON MAN phiên bản Bend and Flex', '33f9818354.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00 00:00:00', 0, 2, 1, 0, 19, 0),
+(9, 'Mô hình Thanos quyền năng', '61421926a7.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00 00:00:00', 0, 1, 2, 0, 10, 1),
+(10, 'Mô hình Hulk dũng mãnh', '61fe1a2c2b.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00 00:00:00', 0, 2, 1, 0, 30, 0),
+(11, 'Mô hình siêu anh hùng Spiderman 30cm', 'e1f6dc76fe.png', '2500', '<p>Sản phẩm mới</p>', '0000-00-00 00:00:00', 0, 1, 1, 0, 20, 0),
+(13, 'Mô hình Venom Flex and Bend', '1303e24c74.png', '2500', '<p>&lt;p&gt;Sản phẩm mới&lt;/p&gt;</p>', '0000-00-00 00:00:00', 1, 1, 1, 0, 50, 0),
+(14, 'Figure superman tối thượng size 30 inch', '6243bc2a5a.png', '2000', '<p>Sản phẩm mới</p>', '0000-00-00 00:00:00', 0, 1, 1, 0, 12, 0),
+(15, 'Figure anh hùng đại bàng size 30 inch', '6da2a5f4f2.png', '1500', '<p>sản phẩm mới</p>', '0000-00-00 00:00:00', 0, 1, 2, 0, 30, 0),
+(16, 'Figure iron man siêu to khổng lồ size 30 inch', '57b5f35d05.png', '3000', '<p><strong>Sản phẩm limited</strong></p>', '0000-00-00 00:00:00', 0, 1, 1, 0, 2, 0),
+(17, 'Figure anh hùng xạ điêu size 30 inch', 'e64461ebbf.png', '1800', '<p>sản phẩm tồn kho</p>', '0000-00-00 00:00:00', 0, 2, 2, 0, 34, 0),
+(18, 'Figure phù thủy cầu đặc tối thượng size 20 inch', '7a492fd185.png', '1900', '<p>H&agrave;ng si&ecirc;u tồn kho</p>', '0000-00-00 00:00:00', 0, 1, 2, 0, 123, 0),
+(19, 'Figure Lý Tiểu Long bản lỗi size 10 inch', '170fbd1479.png', '2000', '<p>Sản phẩm cũng được</p>', '0000-00-00 00:00:00', 0, 1, 1, 0, 9, 0);
 
 -- --------------------------------------------------------
 
@@ -358,9 +365,9 @@ INSERT INTO `provider` (`id`, `name`, `is_deleted`) VALUES
 CREATE TABLE `sale` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `create_date` varchar(255) NOT NULL,
-  `start_date` varchar(255) NOT NULL,
-  `end_date` varchar(255) NOT NULL,
+  `create_date` datetime NOT NULL,
+  `start_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL,
   `percent_sale` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL
@@ -371,8 +378,8 @@ CREATE TABLE `sale` (
 --
 
 INSERT INTO `sale` (`id`, `name`, `create_date`, `start_date`, `end_date`, `percent_sale`, `status`, `is_deleted`) VALUES
-(1, 'Không áp dụng', '09/05/2023', '09/05/2023', '10/05/2023', 0, 1, 0),
-(2, 'Khuyến mãi 1', '09/05/2023', '09/05/2023', '10/06/2023', 15, 1, 0);
+(1, 'Không áp dụng', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 1, 0),
+(2, 'Khuyến mãi 1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 15, 1, 0);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -488,7 +495,7 @@ ALTER TABLE `detail_enter_product`
 -- AUTO_INCREMENT cho bảng `detail_orders`
 --
 ALTER TABLE `detail_orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `enter_product`
@@ -500,7 +507,7 @@ ALTER TABLE `enter_product`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `permission`
