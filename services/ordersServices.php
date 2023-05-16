@@ -22,11 +22,11 @@ include_once $filepath . "\helpers\\format.php";
 
   public function show_selling_product($startDate, $endDate)
   {
-    $query = "SELECT * FROM detail_orders, orders, product, account
+    $query = "SELECT orders.*, account.username FROM detail_orders, orders, product, account
     WHERE orders.date BETWEEN '{$startDate}' AND '{$endDate} 23:59:59' 
     AND detail_orders.order_id = orders.id 
     AND product.id = detail_orders.product_id
-    AND account.id = orders.id";
+    AND account.id = orders.user_id";
     $result = $this->db->select($query);
     return $result;
   }

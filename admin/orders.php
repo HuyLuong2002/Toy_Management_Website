@@ -24,6 +24,7 @@ if (isset($_POST["starDate"]) && $_POST["endDate"]) {
     $startDate,
     $endDate
   );
+  $result_pagination = $show_orders_selling_product;
 }
 
 if (isset($_GET["id"])) {
@@ -47,10 +48,17 @@ if (isset($_POST["delete-btn"])) {
 if (isset($_GET["page"])) {
   $page_id = $_GET["page"];
 }
+else {
+  $page_id = 1;
+}
 /*
 Tính giá trị của phân trang, 10 sale trên 1 trang
 */
-$result_pagination = $orderController->show_orders_user();
+if(empty($result_pagination))
+{
+  $result_pagination = $orderController->show_orders_user();
+}
+
 if ($result_pagination) {
   $order_total = mysqli_num_rows($result_pagination);
 
@@ -99,7 +107,7 @@ if ($result_pagination) {
             <td>Date</td>
             <td>Phone</td>
             <td>Email</td>
-            <td>Country</td>
+            <td>Payment Method</td>
             <td>Total price</td>
             <td>Status</td>
             <td>Action</td>
@@ -181,9 +189,6 @@ if ($result_pagination) {
               </td>
               <td>
                 <?php echo $result["date"]; ?>
-              </td>
-              <td>
-                <?php echo $result["address"]; ?>
               </td>
               <td>
                 <?php echo $result["phone"]; ?>
