@@ -134,3 +134,37 @@ input[type="date"] {
     background-color: #777;
     cursor: pointer;
 }
+
+.check-date {
+    position: absolute;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    min-width: 10rem;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+    z-index: 10000;
+    bottom: 5%;
+    left: 35%;
+    background-color: rgb(219, 20, 20, 0.8);
+    }
+    
+    #check-fail {
+    display: none;
+    }
+    
+    .check-date.hide {
+    animation: fadeOut 3s ease-in-out forwards;
+    }
+    
+    @keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: translateY(-100%);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(0);
+    }
+    }
