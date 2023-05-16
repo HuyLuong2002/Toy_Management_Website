@@ -85,7 +85,10 @@ if ($result_pagination) {
   <div class="card-header">
     <div class="bg-modal-box"></div>
     <h3>Orders List</h3>
+    <div class="but">
+    <button id="show"><a href="">Show All</a></button>
     <button id="loc">Lọc</button>
+    </div>
     <div class="notification-order">
       <?php if (isset($delete_order)) {
         echo $delete_order;
