@@ -75,7 +75,6 @@ if (isset($_POST["input"]) && isset($_POST["searchkey"])) {
                 $result = $show_product_live_search->fetch_array()
               ) { ?>
             <div class="product-search">
-                <span>&times</span>
                 <div class="show-product-search">
                     <img src="<?php echo "/admin/uploads/" .
                       $result["image"]; ?>" alt="">

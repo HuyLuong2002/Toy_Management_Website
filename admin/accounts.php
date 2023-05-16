@@ -452,17 +452,10 @@ if ($result_pagination) {
           alert(res.message);
         } else if (res.status == 200) {
 
-          var dateParts = res.data.date_birth.split("/");
+          var dateParts = res.data.date_birth.split("-");
           var newDateBirth = dateParts[2] + "-" + dateParts[1].padStart(2, "0") + "-" + dateParts[0].padStart(2, "0");
 
           $('#edit_id').val(res.data.id);
-          $('#username_edit').val(res.data.username);
-          $('#password_edit').val(res.data.password);
-          $('#firstname_edit').val(res.data.firstname);
-          $('#lastname_edit').val(res.data.lastname);
-          $('#gender_edit').val(res.data.gender);
-          $('#dateofbirth_edit').val(newDateBirth);
-          $('#placeofbirth_edit').val(res.data.place_of_birth);
           $('#permission_edit').val(res.data.permission_id);
           $('#status_edit').val(res.data.status);
 

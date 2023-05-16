@@ -162,11 +162,11 @@ class AccountController
     $get_account = $accountService->show_account_by_id($id);
     $result = $get_account->fetch_array();
     if ($result[9] == "1") {
-      $alert = "<span class='error'>Can Not Delete Admin</span>";
+      $alert = "<span class='error'>Can Not Update Admin</span>";
       return $alert;
     }
     if ($result[9] == "3") {
-      $alert = "<span class='error'>Can Not Delete Manager</span>";
+      $alert = "<span class='error'>Can Not Update Manager</span>";
       return $alert;
     }
     $result = $accountService->update_account($data, $id);
