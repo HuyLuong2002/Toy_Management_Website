@@ -4,8 +4,9 @@ include_once $filepath . "/database/connectDB.php";
 include_once $filepath . "/controller/ordersController.php";
 include_once $filepath . "/controller/detail_orderController.php";
 include_once $filepath . "/helpers/pagination.php";
+include_once $filepath . "/helpers/format.php";
 
-
+$fm = new Format();
 $orderController = new OrderController();
 $detailOrderController = new DetailOrderController();
 $pag = new Pagination();
@@ -13,6 +14,16 @@ $pag = new Pagination();
 if (isset($_POST["input"])) {
   $input = $_POST["input"];
   $show_orders_live_search = $orderController->show_orders_live_search($input);
+}
+
+if (isset($_POST["starDate"]) && $_POST["endDate"]) {
+  $startDate = $fm->formatDate($_POST["starDate"]);
+  $endDate = $fm->formatDate($_POST["endDate"]);
+  //Sovle list of best-selling products
+  $show_orders_selling_product = $orderController->show_selling_product(
+    $startDate,
+    $endDate
+  );
 }
 
 if (isset($_GET["id"])) {
@@ -23,7 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
   $update_status_order = $orderController->update_status_order($_POST);
   $post = $_POST["submit"];
 }
-
 
 if (isset($_GET["detailid"])) {
   include "orders_detail.php";
@@ -63,7 +73,6 @@ if ($result_pagination) {
     );
   }
 }
-
 ?>
 
 <div class="card" id="searchresultorders">
@@ -72,11 +81,9 @@ if ($result_pagination) {
     <h3>Orders List</h3>
     <button id="loc">Lọc</button>
     <div class="notification-order">
-      <?php
-      if (isset($delete_order)) {
+      <?php if (isset($delete_order)) {
         echo $delete_order;
-      }
-      ?>
+      } ?>
     </div>
   </div>
 
@@ -133,37 +140,98 @@ if ($result_pagination) {
                     <?php echo $result[11]; ?>
                   </td>
                   <td>
-                    <?php if ($result[12] == "0")
+                    <?php if ($result[12] == "0") {
                       echo "Đang giao hàng";
-                    else if ($result[12] == "1")
+                    } elseif ($result[12] == "1") {
                       echo "Đã giao";
-                    else if ($result[12] == "2")
+                    } elseif ($result[12] == "2") {
                       echo "Chờ xử lý";
-                    ?>
+                    } ?>
                   </td>
                   <td>
-                    <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
-                      <a class="modal-btn-delete" data-id="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                    <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
+                      <a class="modal-btn-delete" data-id="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                         Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                       </a>
                     </div>
-                    <a href="?id=3&page=<?php echo $page_id ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+                    <a href="?id=3&page=<?php echo $page_id; ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
                     <a class="edit" href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF <i class="fa-solid fa-file-export"></i></a>
                   </td>
                 </tr>
-            <?php }
-            } else {
-              echo "<span class='error'>No Data Found</span>";
-            } ?>
+            <?php }} else {echo "<span class='error'>No Data Found</span>";} ?>
         </tbody>
       </table>
-    <?php
-          } else if ($result_pagination) {
-    ?>
+      <?php
+          } elseif (isset($show_orders_selling_product)) { ?>
+<tbody id="orders-data">
+        <?php if ($show_orders_selling_product) {
+          while ($result = $show_orders_selling_product->fetch_array()) { ?>
+            <tr>
+              <td>
+                <?php echo $result["id"]; ?>
+              </td>
+              <td>
+                <?php echo $result["user_id"]; ?>
+              </td>
+              <td>
+                <?php echo $result["username"]; ?>
+              </td>
+              <td>
+                <?php echo $result["quantity"]; ?>
+              </td>
+              <td>
+                <?php echo $result["date"]; ?>
+              </td>
+              <td>
+                <?php echo $result["address"]; ?>
+              </td>
+              <td>
+                <?php echo $result["phone"]; ?>
+              </td>
+              <td>
+                <?php echo $result["email"]; ?>
+              </td>
+              <td>
+                <?php echo $result["country"]; ?>
+              </td>
+              <td>
+                <form method="post" enctype="multipart/form-data" class="status-order">
+                  <input type="hidden" value="<?php echo $result[0]; ?>" name="id_order">
+
+                  <select id="status_order" value="2" name="status" class="status_order">
+                    <option value="0" <?php if ($result[12] == "0") {
+                      echo "selected";
+                    } ?>>Đã giao</option>
+                    <option value="1" <?php if ($result[12] == "1") {
+                      echo "selected";
+                    } ?>>Đang giao hàng</option>
+                    <option value="2" <?php if ($result[12] == "2") {
+                      echo "selected";
+                    } ?>>Đang chờ duyệt</option>
+                  </select>
+                  <?php if ($result[12] != "0") { ?>
+                    <input type="submit" value="Change" name="submit" />
+
+                  <?php } ?>
+                </form>
+              </td>
+              <td>
+                <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
+                  <a class="modal-btn-delete" data-id="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
+                    Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                  </a>
+                </div>
+                <a href="?id=3&page=<?php echo $page_id; ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+                <a class="edit" href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF <i class="fa-solid fa-file-export"></i></a>
+              </td>
+            </tr>
+      <?php }
+        } ?>
+      </tbody>
+    <?php } elseif ($result_pagination) { ?>
       <tbody id="orders-data">
-        <?php
-            if ($result_pagination) {
-              while ($result = $result_pagination->fetch_array()) { ?>
+        <?php if ($result_pagination) {
+          while ($result = $result_pagination->fetch_array()) { ?>
             <tr>
               <td>
                 <?php echo $result[0]; ?>
@@ -194,112 +262,108 @@ if ($result_pagination) {
               </td>
               <td>
                 <form method="post" enctype="multipart/form-data" class="status-order">
-                  <input type="hidden" value="<?php echo $result[0] ?>" name="id_order">
+                  <input type="hidden" value="<?php echo $result[0]; ?>" name="id_order">
 
                   <select id="status_order" value="2" name="status" class="status_order">
-                    <option value="0" <?php if ($result[12] == "0")
-                                        echo "selected"; ?>>Đã giao</option>
-                    <option value="1" <?php if ($result[12] == "1")
-                                        echo "selected"; ?>>Đang giao hàng</option>
-                    <option value="2" <?php if ($result[12] == "2")
-                                        echo "selected"; ?>>Đang chờ duyệt</option>
+                    <option value="0" <?php if ($result[12] == "0") {
+                      echo "selected";
+                    } ?>>Đã giao</option>
+                    <option value="1" <?php if ($result[12] == "1") {
+                      echo "selected";
+                    } ?>>Đang giao hàng</option>
+                    <option value="2" <?php if ($result[12] == "2") {
+                      echo "selected";
+                    } ?>>Đang chờ duyệt</option>
                   </select>
-                  <?php
-                  if ($result[12] != "0") {
-                  ?>
+                  <?php if ($result[12] != "0") { ?>
                     <input type="submit" value="Change" name="submit" />
 
-                  <?php
-                  }
-                  ?>
+                  <?php } ?>
                 </form>
               </td>
               <td>
-                <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
-                  <a class="modal-btn-delete" data-id="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
+                  <a class="modal-btn-delete" data-id="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                     Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                   </a>
                 </div>
-                <a href="?id=3&page=<?php echo $page_id ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
+                <a href="?id=3&page=<?php echo $page_id; ?>&detailid=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
                 <a class="edit" href="export_pdf_order.php?id=<?php echo $result[0]; ?>">Export PDF <i class="fa-solid fa-file-export"></i></a>
               </td>
             </tr>
       <?php }
-            }
-          } ?>
+        }} ?>
       </tbody>
       </table>
     </div>
-    <?php if (empty($_POST["input"]) && isset($page_total) && $page_total > 1) { ?>
+    <?php if (
+      empty($_POST["input"]) &&
+      isset($page_total) &&
+      $page_total > 1
+    ) { ?>
       <div class="bottom-pagination" id="pagination">
         <ul class="pagination">
 
           <?php if ($current_page > 3) {
-            $first_page = 1;
-          ?>
+            $first_page = 1; ?>
             <li class="item first-page">
-              <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $first_page ?>">
+              <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $first_page; ?>">
                 First
               </a>
             </li>
-          <?php } ?>
+          <?php
+          } ?>
 
           <?php if ($current_page > 3) { ?>
             <li class="item prev-page">
               <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $current_page -
-                                                              1; ?>">
+  1; ?>">
                 <i class="fa-solid fa-chevron-left"></i>
               </a>
             </li>
           <?php } ?>
 
-          <?php
-          for ($num = 1; $num <= $page_total; $num++) {
+          <?php for ($num = 1; $num <= $page_total; $num++) {
             if ($num != $current_page) {
-              if ($num > $current_page - 3 && $num < $current_page + 3) {
-          ?>
+              if ($num > $current_page - 3 && $num < $current_page + 3) { ?>
                 <li class="item" id="<?php echo $num; ?>">
-                  <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $num ?>">
+                  <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $num; ?>">
                     <?php echo $num; ?>
                   </a>
                 </li>
-              <?php
-              }
+              <?php }
             } else {
-              ?>
-              <li class="item <?php echo "current" ?>" id="<?php echo $num; ?>">
+               ?>
+              <li class="item <?php echo "current"; ?>" id="<?php echo $num; ?>">
                 <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $num; ?>">
                   <?php echo $num; ?>
                 </a>
               </li>
           <?php
             }
-          }
-          ?>
+          } ?>
 
           <?php if ($current_page <= $page_total - 3) { ?>
             <li class="item next-page">
               <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $current_page +
-                                                              1; ?>">
+  1; ?>">
                 <i class="fa-solid fa-chevron-right"></i>
               </a>
             </li>
           <?php } ?>
 
           <?php if ($current_page <= $page_total - 3) {
-            $lastpage = $page_total;
-          ?>
+            $lastpage = $page_total; ?>
             <li class="item last-page">
-              <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $lastpage ?>">
+              <a href="index.php?id=<?php echo $id; ?>&page=<?php echo $lastpage; ?>">
                 Last
               </a>
             </li>
-          <?php } ?>
+          <?php
+          } ?>
         </ul>
       </div>
-    <?php
-    }
-    ?>
+    <?php } ?>
   </div>
   <div class="wrap-date-choose">
     <div class="data-choose hide" id="data-choose">
@@ -396,6 +460,28 @@ if ($result_pagination) {
 
 <script src="./js/check_date_order.js">
 
+</script>
+
+<script>
+    $(document).ready(function() {
+    $('#search-btn').click(function(e) {
+      fromDate = $('#start_date').val();
+      toDate = $('#end_date').val();
+      $.ajax({
+        url: "orders.php",
+        method: "POST",
+        data: {
+        starDate: fromDate,
+        endDate: toDate
+      },
+        success: function(data) {
+          var $data = $(data);
+          var wrapper = $data.find('#card-order').html();
+          $("#card-order").html(wrapper);
+        }
+      });
+    });
+  });
 </script>
 
 <!-- <script>

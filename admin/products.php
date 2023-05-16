@@ -255,7 +255,7 @@ if (isset($_POST["sort"])) {
             }
 
         ?> <?php
-          } else if ($result_pagination) { ?>
+          } else if (isset($result_pagination)) { ?>
       <tbody id="product-data">
         <?php if ($result_pagination) {
               while ($result = $result_pagination->fetch_array()) { ?>

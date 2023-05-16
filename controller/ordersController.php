@@ -11,6 +11,13 @@
             return $result;
         }
 
+        public function show_selling_product($startDate, $endDate)
+        {
+            $orderService = new OrderServices();
+            $result = $orderService->show_selling_product($startDate, $endDate);
+            return $result;
+        }
+
         public function show_orders_to_export($id)
         {
             $orderService = new OrderServices();
