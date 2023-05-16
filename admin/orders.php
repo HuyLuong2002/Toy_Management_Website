@@ -204,6 +204,9 @@ if ($result_pagination) {
                 <?php echo $result["country"]; ?>
               </td>
               <td>
+                <?php echo $result["pay_method"]?>
+              </td>
+              <td>
                 <form method="post" enctype="multipart/form-data" class="status-order">
                   <input type="hidden" value="<?php echo $result[0]; ?>" name="id_order">
 
@@ -258,10 +261,10 @@ if ($result_pagination) {
                 <?php echo $result[3]; ?>
               </td>
               <td>
-                <?php echo $result[6]; ?>
+                <?php echo $result[5]; ?>
               </td>
               <td>
-                <?php echo $result[5]; ?>
+                <?php echo $result[6]; ?>
               </td>
 
               <td>
