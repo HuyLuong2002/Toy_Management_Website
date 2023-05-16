@@ -171,15 +171,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     $(document).ready(function() {
         $("#name").keyup(function() {
             var input = $(this).val();
-            console.log(input.length);
-            if (checkAddAndEdit(input) == false) {
-                $("#name_add_result").html("<span class='error'>Product Name Not Valid</span>");
-                $("#add-btn").prop("disabled", true);
-                $("#add-btn").css("background-color", "red");
-                $("#name_add_result").css("display", "block");
-                $("#name_add_result").css("margin-top", "1rem");
-            } else if (checkProductName(input) == false) {
-                $("#name_add_result").html("<span class='error'>Product Name must < 25 characters </span>");
+            if (checkProductName(input) == false) {
+                $("#name_add_result").html("<span class='error'>Product Name must < 25 characters and don't contain special characters</span>");
                 $("#add-btn").prop("disabled", true);
                 $("#add-btn").css("background-color", "red");
                 $("#name_add_result").css("display", "block");
@@ -189,8 +182,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
                 $("#add-btn").prop("disabled", false);
                 $("#add-btn").css("background-color", "#0be881");
             }
-
-
         });
 
         $("#price").keyup(function() {

@@ -123,8 +123,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
         }
         ?>
     </div>
-
-
     <script src="https://kit.fontawesome.com/1b6e53cabd.js" crossorigin="anonymous"></script>
 
     <script src="/js/validate_input.js"></script>

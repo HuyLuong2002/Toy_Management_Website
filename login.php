@@ -12,7 +12,7 @@ if (isset($_POST["sign-in-nome"]) && isset($_POST["sign-in-password"])) {
   );
 }
 
-if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit-sign-up"])){
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit-sign-up"])) {
   $insertAccount = $accountController->insert_account_user($_POST);
 }
 
@@ -38,21 +38,20 @@ if (isset($_GET["action"]) == "logout") {
 <body>
 
   <div class="wrapper-form">
-    <?php
-
-    if (isset($insertAccount)) {
-      echo $insertAccount;
-    }
-    ?>
     <div class="DarkOverlay"></div>
     <div class="wrap-login-signup">
       <form class="form-sign-in" id="form-login" action="login.php" method="post">
         <h1>Log In</h1>
-        <?php
-        if (isset($result_login)) {
-          echo $result_login;
-        }
-        ?>
+        <div class="notification">
+          <?php
+          if (isset($result_login)) {
+            echo $result_login;
+          }
+          if (isset($insertAccount)) {
+            echo $insertAccount;
+          }
+          ?>
+        </div>
         <label for="nome">Username:</label>
         <input type="text" class="infos" id="nome" name="sign-in-nome">
         <div class="mario"></div>
@@ -102,13 +101,12 @@ if (isset($_GET["action"]) == "logout") {
         <div class="form-group">
           <label for="place_of_birth">Place of birth:</label>
           <input type="text" id="place_of_birth" name="place_of_birth" placeholder="Example: HCM">
-          <div id="place_of_birth_notify" class="place_of_birth_notify"></div>
+          <div id="place_of_birth_notify" class="username_notify"></div>
         </div>
 
         <div class="form-group">
           <label for="date_birth">Date birth:</label>
           <input type="date" id="date_birth" name="date_birth">
-          <div id="date_birth_notify" class="date_birth_notify"></div>
         </div>
 
         <div class="form-group">
@@ -123,7 +121,6 @@ if (isset($_GET["action"]) == "logout") {
         <div class="form-group">
           <label for="confirm">Confirm Password:</label>
           <input type="password" id="confirm-password" name="confirm-password">
-          <div id="confirm_password_notify"></div>
         </div>
 
         <div class="wrap-btn sign-up">
@@ -161,6 +158,7 @@ if (isset($_GET["action"]) == "logout") {
     function togglePassword() {
       if (passwordInput.type === "password") {
         passwordInput.type = "text";
+        passwordInput.style.fontSize = "16px";
       } else {
         passwordInput.type = "password";
       }
@@ -175,7 +173,7 @@ if (isset($_GET["action"]) == "logout") {
     }
 
     function handleClickOutside(event) {
-      if(!event.target.matches('#sign-up-password', '#showpass')){
+      if (!event.target.matches('#sign-up-password', '#showpass')) {
         showpass.style.top = "5px";
       }
     }
@@ -266,6 +264,21 @@ if (isset($_GET["action"]) == "logout") {
         // $("#lastname_notify").css("margin-bottom", "1rem");
       } else {
         $("#lastname_notify").css("display", "none");
+        $("#btn-sign-up").prop("disabled", false);
+        $("#btn-sign-up").css("background-color", "#0be881");
+      }
+    });
+
+    $("#place_of_birth").keyup(function() {
+      var input = $(this).val();
+      if (checkName(input) == false) {
+        $("#place_of_birth_notify").html("<span class='error'>Last name Not Valid</span>");
+        $("#place_of_birth_notify").css("display", "block");
+        $("#btn-sign-up").prop("disabled", true);
+        $("#btn-sign-up").css("background-color", "red");
+        // $("#place_of_birth_notify").css("margin-bottom", "1rem");
+      } else {
+        $("#place_of_birth_notify").css("display", "none");
         $("#btn-sign-up").prop("disabled", false);
         $("#btn-sign-up").css("background-color", "#0be881");
       }

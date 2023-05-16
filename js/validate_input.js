@@ -65,22 +65,12 @@ function checkPassword(input) {
     else return 3;
 }
 
-function checkUserName(input) {
-    const regex = /^[a-zA-Z0-9]{6,20}$/;
-    // const normalizedStr = input.normalize("NFC"); // chuẩn hóa chuỗi
-    const isMatch = regex.test(input); // true
-    if (isMatch == true) {
-        return true;
-    }
-    else return false;
-}
-
 function checkName(input) {
-    const regex = /^[a-zA-Z]*$/;
+    const regex = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/i;
     const normalizedStr = input.normalize("NFC"); // chuẩn hóa chuỗi
-    const isMatch = regex.test(input); // true
+    const isMatch = regex.test(normalizedStr); // true
     if (isMatch == true) {
-        return true;
+        return false;
     }
-    else return false;
+    else return true;
 }

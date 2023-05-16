@@ -152,7 +152,7 @@ select:focus {
   position: relative;
 }
 
-.form-group-password span{
+.form-group-password span {
   position: absolute;
   right: 10px;
   top: 5px;
@@ -235,6 +235,28 @@ button:hover {
   font-size: 20px;
   z-index: 1000;
   color: yellow;
+}
+
+.notification {
+  padding: 5px 10px;
+  border-radius: 5px;
+  animation: fadeOut ease-in 0.4s forwards;
+  animation-delay: 3s;
+  position: relative;
+  top: -80px;
+  left: 100px;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-200%);
+
+  }
 }
 
 .mario {

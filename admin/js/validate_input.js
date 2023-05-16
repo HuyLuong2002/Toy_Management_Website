@@ -49,21 +49,19 @@ function checkAddAndEditQuantity(input) {
 
 function checkName(input) {
     const regex = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/i;
-    const normalizedStr = input.normalize("NFC"); // chuẩn hóa chuỗi
-    const isMatch = regex.test(normalizedStr); // true
+    // const normalizedStr = input.normalize("NFC"); // chuẩn hóa chuỗi
+    const isMatch = regex.test(input); // true
     if (isMatch == true) {
         return false;
     }
+    else return true;
 }
 
 function checkProductName(input) {
-    const regex = /^[a-zA-Z0-9]{1,24}$/;
+    const regex_length = /^[\p{L}\p{M}\s]{1,25}$/u;
     const normalizedStr = input.normalize("NFC"); // chuẩn hóa chuỗi
-    const isMatch = regex.test(input); // true
-    if(isMatch == true) {
-        return true;
-    }
-    else return false;
+    const isMatch_length = regex_length.test(normalizedStr); // true
+    return isMatch_length;
 }
 
 function checkPassword(input) {

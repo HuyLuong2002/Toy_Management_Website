@@ -444,18 +444,6 @@ if (isset($_POST["input"])) {
       }
     })
   });
-
-  $(document).on('click', '.modal-btn-add', function(e) {
-    e.preventDefault();
-    // $.ajax({
-    //   type: "GET",
-    //   url: 'sale.php?edit-btn',
-    //   success: function(response) {
-    //     var res = jQuery.parseJSON(response);
-    //       // console.log(response);
-    //   }
-    // });
-  });
 </script>
 
 <script type="text/javascript">

@@ -346,81 +346,85 @@ if ($result_pagination) {
   <!-- modal edit end -->
 
   <!-- modal add  -->
-  <form class="modal-container-add" id="modal-container-add" method="post" enctype="multipart/form-data">
+  <form class="modal-container-add account" id="modal-container-add" method="post" enctype="multipart/form-data">
     <div class="modal-container-add-close" onclick="closeCurdAddModal()"><span><i class="fa-solid fa-circle-xmark"></i></span></div>
-    <div class="modal-add-info">
-      <div class="modal-add-info-item">
-        <label for="username">Username</label>
-        <input type="text" id="username_add" name="username_add" required>
-        <div id="username_add_result" class="username_add_result"></div>
+    <div class="modal-add-info account">
+      <div class="form-left-info">
+        <div class="modal-add-info-item account">
+          <label for="username">Username</label>
+          <input type="text" id="username_add" name="username_add" required>
+          <div id="username_add_result" class="username_add_result"></div>
+        </div>
+
+        <div class="modal-add-info-item account">
+          <label for="password">Password</label>
+          <input type="password" id="password_add" name="password_add" required>
+          <div id="password_add_result"></div>
+        </div>
+
+        <div class="modal-add-info-item account">
+          <label for="firstname">First name</label>
+          <input type="text" id="firstname_add" name="firstname_add" required>
+          <div id="firstname_add_result"></div>
+        </div>
+
+        <div class="modal-add-info-item account">
+          <label for="lastname">Last name</label>
+          <input type="text" id="lastname_add" name="lastname_add" required>
+          <div id="lastname_add_result"></div>
+        </div>
+
+        <input class="modal-add-btn account" id="add-btn" name="add-btn" type="submit" value="Save">
       </div>
 
-      <div class="modal-add-info-item">
-        <label for="password">Password</label>
-        <input type="password" id="password_add" name="password_add" required>
-        <div id="password_add_result"></div>
-      </div>
+      <div class="form-right-info">
+        <div class="modal-add-info-item account">
+          <label for="gender">Gender</label>
+          <select class="modal-add-input-select" id="gender_add" name="gender_add" required>
+            <option value="">Select gender</option>
+            <option value="Nam">Nam</option>
+            <option value="Nữ">Nữ</option>
+          </select>
+        </div>
 
-      <div class="modal-add-info-item">
-        <label for="firstname">First name</label>
-        <input type="text" id="firstname_add" name="firstname_add" required>
-        <div id="firstname_add_result"></div>
-      </div>
+        <div class="modal-add-info-item account">
+          <label for="date-of-birth">Date of Birth</label>
+          <input type="date" id="dateofbirth_add" name="dateofbirth_add" required>
+        </div>
 
-      <div class="modal-add-info-item">
-        <label for="lastname">Last name</label>
-        <input type="text" id="lastname_add" name="lastname_add" required>
-        <div id="lastname_add_result"></div>
-      </div>
+        <div class="modal-add-info-item account">
+          <label for="place-of-birth">Place of Birth</label>
+          <input type="text" id="placeofbirth_add" name="placeofbirth_add" required>
+          <div id="placeofbirth_add_result"></div>
+        </div>
 
-      <div class="modal-add-info-item">
-        <label for="gender">Gender</label>
-        <select class="modal-add-input-select" id="gender_add" name="gender_add" required>
-          <option value="">Select gender</option>
-          <option value="Nam">Nam</option>
-          <option value="Nữ">Nữ</option>
-        </select>
-      </div>
-
-      <div class="modal-add-info-item">
-        <label for="date-of-birth">Date of Birth</label>
-        <input type="date" id="dateofbirth_add" name="dateofbirth_add" required>
-      </div>
-
-      <div class="modal-add-info-item">
-        <label for="place-of-birth">Place of Birth</label>
-        <input type="text" id="placeofbirth_add" name="placeofbirth_add" required>
-        <div id="placeofbirth_add_result"></div>
-      </div>
-
-      <div class="modal-add-info-item">
-        <label for="gender">Permission</label>
-        <select class="modal-add-input-select" id="permission_add" name="permission_add" required>
-          <option value="">Select permission</option>
-          <?php
-          $show_permission = $permissionController->show_permission();
-          if ($show_permission) {
-            while ($result = $show_permission->fetch_assoc()) {
-          ?>
-              <option value="<?php echo $result["id"]; ?>"><?php echo $result["name"] ?></option>
-          <?php
+        <div class="modal-add-info-item">
+          <label for="gender">Permission</label>
+          <select class="modal-add-input-select" id="permission_add" name="permission_add" required>
+            <option value="">Select permission</option>
+            <?php
+            $show_permission = $permissionController->show_permission();
+            if ($show_permission) {
+              while ($result = $show_permission->fetch_assoc()) {
+            ?>
+                <option value="<?php echo $result["id"]; ?>"><?php echo $result["name"] ?></option>
+            <?php
+              }
             }
-          }
-          ?>
-        </select>
-      </div>
+            ?>
+          </select>
+        </div>
 
-      <div class="modal-add-info-item">
-        <label for="status">Status</label>
-        <select class="modal-add-input-select" id="status_add" name="status_add" required>
-          <option value="">Select status</option>
-          <option value="1">Đang hoạt động</option>
-          <option value="0">Ngừng hoạt động</option>
-        </select>
+        <div class="modal-add-info-item">
+          <label for="status">Status</label>
+          <select class="modal-add-input-select" id="status_add" name="status_add" required>
+            <option value="">Select status</option>
+            <option value="1">Đang hoạt động</option>
+            <option value="0">Ngừng hoạt động</option>
+          </select>
+        </div>
       </div>
     </div>
-
-    <input class="modal-add-btn" id="add-btn" name="add-btn" type="submit" value="Save">
   </form>
   <!-- modal add end -->
 </div>
