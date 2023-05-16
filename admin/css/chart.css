@@ -73,19 +73,23 @@
   padding: 0 1rem;
 }
 
-table {
+.table-featured-product-child {
   border-collapse: collapse;
   width: 100%;
   margin-bottom: 20px;
 }
 
-table thead td{
+.table-featured-product-child td{
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
 
-table th {
+table td{
+  border: 1px solid #ddd;
+}
+
+.table-featured-product-child th {
   border: 1px solid #ddd;
   padding: 8px;
   color: #333;

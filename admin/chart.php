@@ -149,7 +149,7 @@ if (isset($result_statistic_revenue_month)) {
   </div>
 
   <div class="table-featured-product">
-    <table>
+    <table class="table-featured-product-child">
       <thead>
         <tr>
           <th>ID</th>
@@ -191,7 +191,7 @@ if (isset($result_statistic_revenue_month)) {
   <div class="wrap-char chart-1">
     <h2>Statistical Revenue</h2>
 
-    <select name="selectYear-1" id="selectYear-1" class="selectYear-1" onchange="handleUpdateCurrent()" value="2023">
+    <select name="selectYear-1" id="selectYear-1" class="selectYear-1" onchange="handleUpdateCurrent()">
       <script>
         var d = new Date();
         var year = d.getFullYear();
@@ -201,10 +201,8 @@ if (isset($result_statistic_revenue_month)) {
           var option = document.createElement("option");
           option.text = i;
           option.value = i;
+          option.classList.add(`selectYear-1-${i}`);
           var select = document.getElementById("selectYear-1");
-          if (i === 2023) {
-            option.setAttribute("selected", "selected");
-          }
           select.appendChild(option);
         }
       </script>
@@ -296,7 +294,7 @@ if (isset($result_statistic_revenue_month)) {
   <div class="wrap-char chart-3">
     <h2>Statistical Revenue</h2>
 
-    <select name="selectYear-3" id="selectYear-3" class="selectYear-3" onchange="handleUpdateCurrent()" value="2023">
+    <select name="selectYear-3" id="selectYear-3" class="selectYear-3" onchange="handleUpdateCurrent()">
       <script>
         var d = new Date();
         var year = d.getFullYear();
@@ -306,10 +304,8 @@ if (isset($result_statistic_revenue_month)) {
           var option = document.createElement("option");
           option.text = i;
           option.value = i;
+          option.classList.add(`selectYear-3-${i}`);
           var select = document.getElementById("selectYear-3");
-          if (i === 2023) {
-            option.setAttribute("selected", "selected");
-          }
           select.appendChild(option);
         }
       </script>
