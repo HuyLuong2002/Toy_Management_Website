@@ -74,7 +74,7 @@ include_once $filepath . "\lib\session.php";
     $gender = mysqli_real_escape_string($this->db->link, $data["gender"]);
     $date_birth = mysqli_real_escape_string($this->db->link, $data["date_birth"]);
     $place_of_birth = mysqli_real_escape_string($this->db->link, $data["place_of_birth"]);
-    $create_date = (string) date("d/m/Y");
+    $create_date = (string) date("Y-m-d");
 
     $hashPassword = md5($password);
 

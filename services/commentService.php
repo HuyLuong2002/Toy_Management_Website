@@ -26,7 +26,7 @@ include_once $filepath . "\database\connectDB.php";
         $product_id = mysqli_real_escape_string($this->db->link, $data["product_id"]);
         $rate = mysqli_real_escape_string($this->db->link, $data["rate"]);
         date_default_timezone_set("Asia/Ho_Chi_Minh");
-        $create_date = (string) date("d/m/Y H:i:s a");
+        $create_date = (string) date("Y-m-d H:i:s a");
         
         if (
             $content == "" ||
