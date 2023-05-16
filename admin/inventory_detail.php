@@ -143,22 +143,22 @@ if (isset($enter_id)) {
                   <td><?php echo $result[1]; ?></td>
                   <td><?php echo $result[2]; ?></td>
                   <td><?php echo $result[5]; ?></td>
-                  <td><?php echo $result[3]; ?></td>
-                  <td><?php echo $result[4]; ?></td>
+                  <td><?php echo number_format($result[3], 0, '.', ',') ?></td>
+                  <td><?php echo number_format($result[4], 0, '.', ',') ?></td>
                   <td>
                     <div class="action-btn-group">
                       <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
-                        <button class="modal-btn-edit" type="button" value="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                        <a class="modal-btn-edit" data-id="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
                           Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
-                        </button>
+                        </a>
                       </div>
                       <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
-                        <button class="modal-btn-delete" type="button" value="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                        <a class="modal-btn-delete" data-id="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
                           Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                        </button>
+                        </a>
                       </div>
                     </div>
-              </td>
+                  </td>
                 </tr>
             <?php
               }
@@ -179,8 +179,8 @@ if (isset($enter_id)) {
               <td><?php echo $result[1]; ?></td>
               <td><?php echo $result[2]; ?></td>
               <td><?php echo $result[5]; ?></td>
-              <td><?php echo $result[3]; ?></td>
-              <td><?php echo $result[4]; ?></td>
+              <td><?php echo number_format($result[3], 0, '.', ',') ?></td>
+              <td><?php echo number_format($result[4], 0, '.', ',') ?></td>
               <td>
                 <div class="action-btn-group">
                   <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">

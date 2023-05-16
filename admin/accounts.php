@@ -168,7 +168,7 @@ if ($result_pagination) {
                         </a>
                       </div>
                     </div>
-                </td>
+                  </td>
                 </tr>
             <?php }
           } else {
@@ -214,7 +214,7 @@ if ($result_pagination) {
                     </a>
                   </div>
                 </div>
-            </td>
+              </td>
             </tr>
       <?php
             }

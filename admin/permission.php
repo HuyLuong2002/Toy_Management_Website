@@ -164,15 +164,16 @@ if ($result_pagination) {
               <td><?php echo $result[0]; ?></td>
               <td><?php echo $result[1]; ?></td>
               <td>
-                <div class="action-btn-group">
-                  <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
-                    <a class="modal-btn-edit" data-id="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
-                      Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
-                    </a>
-                  </div>
-                  <?php
-                  if ($result[1] != 'Admin' || $result[1] != 'Quản lý') {
-                  ?>
+                <?php
+                if ($result[0] != 1 && $result[0] != 3) {
+                ?>
+                  <div class="action-btn-group">
+                    <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0]; ?>">
+                      <a class="modal-btn-edit" data-id="<?php echo $result[0]; ?>" onclick="EditActive(<?php echo $result[0]; ?>)">
+                        Edit <i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
+                      </a>
+                    </div>
+
                     <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0]; ?>">
                       <a class="modal-btn-delete" data-id="<?php echo $result[0]; ?>" onclick="DeleteActive(<?php echo $result[0]; ?>)">
                         Delete <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
@@ -375,13 +376,28 @@ if ($result_pagination) {
         $("#name_add_result").html("<span class='error'>Permission Name Not Valid</span>");
         $("#add-btn").prop("disabled", true);
         $("#add-btn").css("background-color", "red");
-        $("#name_add_result").css("display", "block");
-        $("#name_add_result").css("margin-top", "1rem");
+        $("#name_add_result").css("display", "inline-block");
+        // $("#name_add_result").css("margin-top", "1rem");
       } else {
         $("#name_add_result").css("display", "none");
         $("#add-btn").prop("disabled", false);
         $("#add-btn").css("background-color", "#0be881");
       }
+
+      $.ajax({
+        url: "../check_login.php",
+        data: 'permission=' + input,
+        type: "POST",
+        success: function(data) {
+          if (data != 1) {
+            $("#name_add_result").html("<span class='error'>Permission name is used</span>");
+            $("#add-btn").prop("disabled", true);
+            $("#add-btn").css("background-color", "red");
+            $("#name_add_result").css("display", "block");
+          }
+        },
+        error: function() {}
+      });
     });
 
     $("#name_edit").keyup(function() {
@@ -397,6 +413,21 @@ if ($result_pagination) {
         $("#edit-btn").prop("disabled", false);
         $("#edit-btn").css("background-color", "#ffa800");
       }
+
+      $.ajax({
+        url: "../check_login.php",
+        data: 'permission=' + input,
+        type: "POST",
+        success: function(data) {
+          if (data != 1) {
+            $("#name_edit_result").html("<span class='error'>Permission name is used</span>");
+            $("#name_edit_result").css("display", "block");
+            $("#add-btn").prop("disabled", true);
+            $("#add-btn").css("background-color", "red");
+          }
+        },
+        error: function() {}
+      });
     });
   });
 </script>

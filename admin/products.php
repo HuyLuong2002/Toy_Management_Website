@@ -136,7 +136,7 @@ if (isset($_POST["sort"])) {
                       $result[2]; ?>" alt="" width="100px" />
                   </td>
                   <td>
-                    <?php echo $result[3]; ?>
+                    <?php echo number_format($result[3], 0, '.', ',') ?>
                   </td>
                   <td>
                     <?php echo $fm->textShorten($result[4], 50); ?>
@@ -165,7 +165,7 @@ if (isset($_POST["sort"])) {
                     <?php echo $result[9]; ?>
                   </td>
                   <td>
-                    <?php echo $result[10]; ?>
+                    <?php echo number_format($result[3], 0, '.', ',') ?>
                   </td>
                   <td>
                     <div class="action-btn-group">
@@ -203,7 +203,7 @@ if (isset($_POST["sort"])) {
                   $result[2]; ?>" alt="" width="100px" />
               </td>
               <td>
-                <?php echo $result[3]; ?>
+                <?php echo number_format($result[3], 0, '.', ',') ?>
               </td>
               <td>
                 <?php echo $fm->textShorten($result[4], 50); ?>
@@ -232,7 +232,7 @@ if (isset($_POST["sort"])) {
                 <?php echo $result[9]; ?>
               </td>
               <td>
-                <?php echo $result[10]; ?>
+                <?php echo number_format($result[10], 0, '.', ',') ?>
               </td>
               <td>
                 <div class="action-btn-group">
@@ -244,7 +244,7 @@ if (isset($_POST["sort"])) {
                   </div>
                 </div>
                 <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
-              <td>
+              </td>
             </tr>
         <?php }
         } ?>
@@ -270,7 +270,7 @@ if (isset($_POST["sort"])) {
                   $result[2]; ?>" alt="" width="100px" />
               </td>
               <td>
-                <?php echo $result[3]; ?>
+                <?php echo number_format($result[3], 0, '.', ',') ?>
               </td>
               <td>
                 <?php echo $fm->textShorten($result[4], 50); ?>
@@ -299,7 +299,7 @@ if (isset($_POST["sort"])) {
                 <?php echo $result[9]; ?>
               </td>
               <td>
-                <?php echo $result[10]; ?>
+                <?php echo number_format($result[10], 0, '.', ',') ?>
               </td>
               <td>
                 <div class="action-btn-group">
@@ -312,7 +312,6 @@ if (isset($_POST["sort"])) {
                 </div>
                 <a href="product_detail.php?id=<?php echo $result[0]; ?>" class="Detail">Details <i class="fa-solid fa-circle-info" style="color: #03a945;"></i></a>
               </td>
-
             </tr>
       <?php }
         }} ?>
