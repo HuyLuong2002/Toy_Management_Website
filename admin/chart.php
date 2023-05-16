@@ -18,9 +18,9 @@ if (
   $year3 = $year2 - 1;
 }
 
-$endDate = getdate()["mday"] . "/" . getdate()["mon"] . "/" . getdate()["year"];
+$endDate = getdate()["mday"] . "-" . getdate()["mon"] . "-" . getdate()["year"];
 $lastMonth = (int) getdate()["mon"] - 1;
-$startDate = getdate()["mday"] . "/" . (string) $lastMonth . "/" . getdate()["year"];
+$startDate = getdate()["mday"] . "-" . (string) $lastMonth . "-" . getdate()["year"];
 if(isset($_POST["starDate"]) && $_POST["endDate"])
 {
   $startDate =  $fm->formatDate($_POST["starDate"]);

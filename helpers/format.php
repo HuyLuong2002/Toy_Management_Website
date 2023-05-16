@@ -6,7 +6,7 @@ class Format
 {
   public function formatDate($date)
   {
-    return date("d/m/Y", strtotime($date));
+    return date("Y-m-d", strtotime($date));
   }
 
   public function formatDateReverse($date)

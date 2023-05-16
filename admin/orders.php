@@ -86,7 +86,7 @@ if ($result_pagination) {
     <div class="bg-modal-box"></div>
     <h3>Orders List</h3>
     <div class="but">
-    <button id="show"><a href="">Show All</a></button>
+    <button><a href="">Show All</a></button>
     <button id="loc">Lọc</button>
     </div>
     <div class="notification-order">

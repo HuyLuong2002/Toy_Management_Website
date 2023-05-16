@@ -225,7 +225,7 @@ include_once $filepath . "\database\connectDB.php";
     );
     $price = mysqli_real_escape_string($this->db->link, $data["price_add"]);
     $quantity = mysqli_real_escape_string($this->db->link, $data["quantity_add"]);
-    $create_date = (string) date("d/m/Y");
+    $create_date = (string) date("Y-m-d");
     $highlight = 0;
     $review = 0;
     //Kiểm tra hình ảnh và lấy hình ảnh cho vào folder upload

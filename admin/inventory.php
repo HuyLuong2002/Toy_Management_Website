@@ -425,11 +425,8 @@ if ($result_pagination) {
           alert(res.message);
         } else if (res.status == 200) {
 
-          var dateParts = res.data.enter_date.split("/");
-          var newEnterDate = dateParts[2] + "-" + dateParts[1].padStart(2, "0") + "-" + dateParts[0].padStart(2, "0");
-
           $('#edit_id').val(res.data.id);
-          $('#enter-date_edit').val(newEnterDate);
+          $('#enter-date_edit').val(res.data.enter_date);
           $('#total-quantity_edit').val(res.data.total_quantity);
           $('#total-price_edit').val(res.data.total_price);
           $('#provider_edit').val(res.data.provider_id);

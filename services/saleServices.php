@@ -49,7 +49,7 @@ include_once $filepath . "/helpers/format.php";
     $end_date = mysqli_real_escape_string($this->db->link, $data["end_add"]);
     $start_date = $this->fm->formatDate($start_date);
     $end_date = $this->fm->formatDate($end_date);
-    $create_date = (string) date("d/m/Y");
+    $create_date = (string) date("Y-m-d");
     if (
       $saleName == "" || 
       $percent_sale == "" ||
@@ -82,7 +82,7 @@ include_once $filepath . "/helpers/format.php";
     $end_date = mysqli_real_escape_string($this->db->link, $data["end_edit"]);
     $start_date = $this->fm->formatDate($start_date);
     $end_date = $this->fm->formatDate($end_date);
-    $create_date = (string) date("d/m/Y");
+    $create_date = (string) date("Y-m-d");
     if (
       $saleName == "" || 
       $percent_sale == "" ||
