@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
                             <div class="form-group">
                                 <h2>Date of Birth</h2>
-                                <input type="date" class="date_birth" name="date_birth" id="date_birth" value="<?php echo $fm->formatDateReverse($result_account[6]) ?>">
+                                <input type="date" class="date_birth" name="date_birth" id="date_birth" value="<?php echo $result_account[6]; ?>">
                             </div>
 
                             <div class="form-group">

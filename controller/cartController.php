@@ -7,14 +7,19 @@ class CartController
   public function addCart($cartAdd, $user_id)
   {
     $total_price = (string) $cartAdd["totalPrice"];
-    $total_quantity = count($cartAdd["product"]);
+    $total_quantity = 0;
+    for($i = 0; $i < count($cartAdd["product"]); $i++)
+    {
+      $total_quantity = $total_quantity + $cartAdd["product"][$i]["quantity"];
+    }
+    
     $address = $cartAdd["address"];
     $country = $cartAdd["country"];
     $email = $cartAdd["email"];
     $ship_method = $cartAdd["shipMethod"];
     $vat = $cartAdd["vat"];
     date_default_timezone_set("Asia/Ho_Chi_Minh");
-    $date = date("d/m/Y H:i:s a");
+    $date = date("Y-m-d H:i:s a");
     $phone = $cartAdd["telephone"];
     $status = "2";
     $user_id = $cartAdd["user_id"];
