@@ -92,7 +92,7 @@ if ($result_pagination) {
             <td>Date</td>
             <td>Phone</td>
             <td>Email</td>
-            <td>Country</td>
+            <td>Payment Method</td>
             <td>Total price</td>
             <td>Status</td>
             <td>Action</td>
@@ -184,11 +184,12 @@ if ($result_pagination) {
                   <?php echo $result[3]; ?>
                   </td>
                   <td>
-                  <?php echo $result[5]; ?>
-                  </td>
-                  <td>
                   <?php echo $result[6]; ?>
                   </td>
+                  <td>
+                  <?php echo $result[5]; ?>
+                  </td>
+
                   <td>
                   <?php echo $result[10]; ?>
                   </td>
