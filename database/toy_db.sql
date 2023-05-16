@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 10, 2023 lúc 12:01 PM
+-- Thời gian đã tạo: Th5 16, 2023 lúc 11:16 AM
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 8.2.0
 
@@ -280,7 +280,9 @@ CREATE TABLE `permission` (
 
 INSERT INTO `permission` (`id`, `name`, `is_deleted`) VALUES
 (1, 'Admin', 0),
-(2, 'Khách hàng', 0);
+(2, 'Khách hàng', 0),
+(3, 'Quản lý ', 0),
+(4, 'Nhân viên', 0);
 
 -- --------------------------------------------------------
 
@@ -504,7 +506,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT cho bảng `permission`
 --
 ALTER TABLE `permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `product`
