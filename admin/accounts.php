@@ -315,7 +315,7 @@ if ($result_pagination) {
     <input type="hidden" id="edit_id" name="edit_id" class="edit_id">
     <div class="modal-edit-info">
       <div class="modal-edit-info-item">
-        <label for="gender">Permission</label>
+        <label for="permission">Permission</label>
         <select class="modal-edit-input-select" id="permission_edit" name="permission_edit" required>
           <option value="">Select permission</option>
           <?php
@@ -442,6 +442,7 @@ if ($result_pagination) {
 
   $(document).on('click', '.modal-btn-edit', function() {
     var edit_id = $(this).data('id');
+    console.log(edit_id);
 
     $.ajax({
       type: "GET",
@@ -458,7 +459,6 @@ if ($result_pagination) {
           $('#edit_id').val(res.data.id);
           $('#permission_edit').val(res.data.permission_id);
           $('#status_edit').val(res.data.status);
-
         }
       }
     })

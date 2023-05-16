@@ -142,7 +142,6 @@ include_once $filepath . "\lib\session.php";
 
   public function update_account($data, $id)
   {
-    $create_date = (string) date("d/m/Y");
     $permission_id = mysqli_real_escape_string($this->db->link, $data["permission_edit"]);
     $status = mysqli_real_escape_string($this->db->link, $data["status_edit"]);
     if (
