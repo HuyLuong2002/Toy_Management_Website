@@ -1,12 +1,13 @@
 let AdminSidebar = document.getElementById("wrap-admin-side");
-// let currentUserAPI = "http://localhost:8000/Toy_Management_Website/api/accounts/currentUser.php" 
-// let currentUserAPI = "http://localhost:8080/Toy_Management_Website/api/accounts/currentUser.php" 
-let currentUserAPI = "http://localhost:3000/api/accounts/currentUser.php" 
+let currentUserAPI =
+  "http://localhost:8000/Toy_Management_Website/api/accounts/currentUser.php";
+// let currentUserAPI = "http://localhost:8080/Toy_Management_Website/api/accounts/currentUser.php"
+// let currentUserAPI = "http://localhost:3000/api/accounts/currentUser.php"
 const fetchAPI = async (api) => {
-    return await fetch(api)
-        .then((response) => response.json())
-        .then((data) => data)
-        .catch((error) => console.error(error));
+  return await fetch(api)
+    .then((response) => response.json())
+    .then((data) => data)
+    .catch((error) => console.error(error));
 };
 
 let listBar = [
@@ -20,13 +21,13 @@ let listBar = [
     id: 2,
     title: "Products",
     href: "index.php?id=2&page=1",
-    icon: "la-cube"
+    icon: "la-cube",
   },
   {
     id: 3,
     title: "Orders",
     href: "index.php?id=3&page=1",
-    icon: "la-shopping-cart"
+    icon: "la-shopping-cart",
   },
   {
     id: 4,
@@ -89,9 +90,7 @@ const handleActiveBg = (arr = listBar) => {
                         ? `<ul class="item-child hide" id="item-child">
                       ${item.child
                         .map(
-                          (
-                            itemChild
-                          ) => `<li onclick="handleOpenForm()">
+                          (itemChild) => `<li onclick="handleOpenForm()">
                                 <a href="${itemChild.href}" class="item" id="check-${itemChild.id}">
                                     <span class="las ${itemChild.icon}"> </span>
                                     <span> ${itemChild.title} </span>
@@ -112,7 +111,7 @@ const handleActiveBg = (arr = listBar) => {
 
 const handleOpenForm = () => {
   // event.preventDefault();
-}
+};
 
 const handleOpenItemChild = () => {
   let itemChild = document.getElementById("item-child");
@@ -142,32 +141,33 @@ const ActiveBar = (arr) => {
   });
 };
 
-
 const middleWare = async () => {
-  let getCurrentUser = await fetchAPI(currentUserAPI)
-  if(getCurrentUser) {
-    if(getCurrentUser.permission_id == 1) {
-      listBar = listBar
+  const getCurrentUser = await fetchAPI(currentUserAPI);
+  if (getCurrentUser) {
+    const { permission_id } = getCurrentUser;
+    let listBarCopy = [...listBar];
+
+    if (permission_id === 1 || permission_id === 3) {
+      listBarCopy = [...listBar];
     }
-    if(getCurrentUser.permission_id == 3) {
-      listBar = listBar
+
+    if (permission_id === 4) {
+      const excludedIds = [1, 6, 5, 9];
+      listBarCopy = listBarCopy.filter(
+        (item) => !excludedIds.includes(item.id)
+      );
     }
-    if(getCurrentUser.permission_id == 4) {
-      listBar = listBar.filter(item => item.id !== 1 && item.id !== 6 && item.id !== 5 && item.id !== 9)
-    }
+
+    handleActiveBg(listBarCopy);
+    const firstActive = document.getElementById(`check-${idPage}`);
+    firstActive.classList.add("active");
+    ActiveBar(listBarCopy);
   }
+};
 
-  handleActiveBg(listBar);
-  let firstActive = document.getElementById(`check-${idPage}`);
-  firstActive.classList.add("active");
-  ActiveBar(listBar);
-}
-
-middleWare()
-
-
+middleWare();
 
 // 1 là admin
 // 2 là khách hàng
-// 3 là quản lý : Quản lý thì dc xem hết 
+// 3 là quản lý : Quản lý thì dc xem hết
 // 4 là nhân viên: account bỏ, Permission bỏ, Thống kê bên chart bỏ, Dashboard bỏ

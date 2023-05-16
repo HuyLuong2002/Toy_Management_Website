@@ -19,6 +19,13 @@ include_once $filepath . "\database\connectDB.php";
     return $result;
   }
 
+  public function check_permission($name)
+  {
+    $query = "SELECT * FROM permission WHERE name='{$name}' AND is_deleted = 0";
+    $result = $this->db->select($query);
+    return $result;
+  }
+
   public function get_permission_by_id($id)
   {
     $query = "SELECT * FROM permission WHERE id = {$id} LIMIT 1";

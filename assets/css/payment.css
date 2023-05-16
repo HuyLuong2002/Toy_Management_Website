@@ -666,3 +666,27 @@ table th {
 #content-container-product-left img {
   width: 10rem;
 }
+
+.return-btn {
+  width: 100px;
+  height: 50px;
+  border-radius: 50px;
+  background: #ccc;
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  text-decoration: none;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.3s ease-in;
+}
+
+.return-btn:hover {
+  background-color: #40c9a2;
+  color: #fff;
+}

@@ -23,11 +23,15 @@ $accountController = new AccountController();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment</title>
     <link rel="stylesheet" href="./assets/css/payment.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </head>
 
 <body>
+    <a href="./" class="return-btn">
+        <i class="fa-solid fa-arrow-left fa-2xs"></i>
+    </a>
     <div class="payment_container">
         <div id="wrap">
             <div id="grid">

@@ -89,7 +89,7 @@ class InventoryServices
     );
     $user_id = Session::get("userID");
     $status = mysqli_real_escape_string($this->db->link, $data["status_edit"]);
-    $create_date = (string) date("d/m/Y");
+    $create_date = (string) date("Y-m-d");
 
     $query = "UPDATE enter_product SET enter_date='{$enter_date}', total_quantity={$total_quantity}, total_price={$total_price}, provider_id={$provider_id}, user_id={$user_id}, status={$status}, create_date='{$create_date}' WHERE id = {$id}";
     $result = $this->db->update($query);
@@ -120,7 +120,7 @@ class InventoryServices
     );
     $user_id = Session::get("userID");
     $status = mysqli_real_escape_string($this->db->link, $data["status_add"]);
-    $create_date = (string) date("d/m/Y");
+    $create_date = (string) date("Y-m-d");
 
     $query = "INSERT INTO enter_product(enter_date, total_quantity, total_price, provider_id, user_id, status, create_date, is_deleted) VALUES ('$enter_date',$total_quantity,$total_price,$provider_id,$user_id,$status,'$create_date',0)";
     $result = $this->db->insert($query);
