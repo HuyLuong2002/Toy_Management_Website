@@ -28,7 +28,6 @@ if (isset($_COOKIE[$s_name])) {
     .wrap-key-search {
         display: flex;
         flex: 1;
-        overflow-y: scroll;
     }
 
     .wrap-key-search a {

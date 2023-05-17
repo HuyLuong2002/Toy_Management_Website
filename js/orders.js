@@ -96,7 +96,7 @@ let handleShowDetailOrder = async (idOrder) => {
 const loadProduct = async (idOrder) => {
     // let Product = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/detail_orders/show_order.php?orderID=${idOrder}`)
     // let Product = await fetchAPI(`http://localhost:8080/Toy_Management_Website/api/detail_orders/show_order.php?orderID=${idOrder}`)
-    let Product = `http://localhost:3000/api/detail_orders/show_order.php?orderID=${idOrder}`;
+    let Product = await fetchAPI(`http://localhost:3000/api/detail_orders/show_order.php?orderID=${idOrder}`);
 
     if (!Product) {
         productDetailOrder.innerHTML = "<h1>Not found Order!</h1>"
