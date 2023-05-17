@@ -111,7 +111,7 @@ include_once $filepath . "\lib\session.php";
     $gender = mysqli_real_escape_string($this->db->link, $data["gender_add"]);
     $date_birth = mysqli_real_escape_string($this->db->link, $data["dateofbirth_add"]);
     $place_of_birth = mysqli_real_escape_string($this->db->link, $data["placeofbirth_add"]);
-    $create_date = (string) date("d/m/Y");
+    $create_date = (string) date("Y-m-d");
     $permission_id = mysqli_real_escape_string($this->db->link, $data["permission_add"]);
     $status = mysqli_real_escape_string($this->db->link, $data["status_add"]);
     if (
@@ -170,7 +170,7 @@ include_once $filepath . "\lib\session.php";
     $gender = mysqli_real_escape_string($this->db->link, $data["gender"]);
     $date_birth = mysqli_real_escape_string($this->db->link, $data["date_birth"]);
     $place_of_birth = mysqli_real_escape_string($this->db->link, $data["place_of_birth"]);
-    $create_date = (string) date("d/m/Y");
+    $create_date = (string) date("Y-m-d");
     $password = mysqli_real_escape_string($this->db->link, $data["password"]);
     if (strlen($password) <= 20) {
       $hashed_string = md5($password);
