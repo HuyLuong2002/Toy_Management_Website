@@ -6,5 +6,5 @@ if (isset($_GET["id"])) {
 }
 $pdfOrder = new PDFOrder($order_id);
 $pdfOrder->export();
-// header("Location: index.php?id=3&page=1");
+header("Location: index.php?id=3&page=1");
 ?>
