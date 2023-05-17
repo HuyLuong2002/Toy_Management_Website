@@ -92,8 +92,8 @@ class PDFOrder
     //write table title
     $pdfGenerator->setFont("dejavusans", "B", 7);
     $pdfGenerator->formatText(5, 0, "TT", 1, 0, "C");
-    $pdfGenerator->formatText(20, 0, "Mã hàng", 1, 0, "C");
-    $pdfGenerator->formatText(25, 0, "Tên hàng", 1, 0, "C");
+    $pdfGenerator->formatText(18, 0, "Mã hàng", 1, 0, "C");
+    $pdfGenerator->formatText(32, 0, "Tên hàng", 1, 0, "C");
     $pdfGenerator->formatText(10, 0, "SL", 1, 0, "C");
     $pdfGenerator->formatText(20, 0, "Đơn giá", 1, 0, "C");
     $pdfGenerator->formatText(20, 0, "Thành tiền", 1, 0, "C");
@@ -108,9 +108,9 @@ class PDFOrder
     for ($i = 0; $i < $result_detail_order->num_rows; $i++) {
       $result = $result_detail_order->fetch_array();
       $pdfGenerator->formatText(5, 5, $i + 1, 1, 0, "C");
-      $pdfGenerator->formatText(20, 5, $result["product_id"], 1, 0, "L");
+      $pdfGenerator->formatText(18, 5, $result["product_id"], 1, 0, "L");
 
-      $pdfGenerator->formatText(25, 5, $result["name"], 1, 0, "L");
+      $pdfGenerator->formatText(32, 5, $result["name"], 1, 0, "L");
       $pdfGenerator->formatText(10, 5, $result[3], 1, 0, "C");
       $price = $fm->formatPriceDecimal($result[4]);
       $total_quantity = $total_quantity + $result[3];
@@ -134,7 +134,7 @@ class PDFOrder
 
     //write total price of per column
     $pdfGenerator->setFont("dejavusans", "B", 5);
-    $pdfGenerator->formatText(50, 5, "Tổng tiền", 1, 0, "C");
+    $pdfGenerator->formatText(55, 5, "Tổng tiền", 1, 0, "C");
     $pdfGenerator->formatText(10, 5, $total_quantity, 1, 0, "C");
     $pdfGenerator->formatText(20, 5, "", 1, 0, "");
     $total_money = $fm->formatPriceDecimal($total_money);
