@@ -334,13 +334,13 @@ if (isset($enter_id)) {
 
       <div class="modal-edit-info-item">
         <label for="quantity">Quantity</label>
-        <input type="text" id="quantity_edit" name="quantity_edit" required>
+        <input type="number" id="quantity_edit" name="quantity_edit" required>
         <div id="quantity_edit_result"></div>
       </div>
 
       <div class="modal-edit-info-item">
         <label for="price">Price</label>
-        <input type="text" id="price_edit" name="price_edit" required>
+        <input type="number" id="price_edit" name="price_edit" required>
         <div id="price_edit_result"></div>
       </div>
     </div>
@@ -417,67 +417,74 @@ if (isset($enter_id)) {
 <!-- coding check input value function -->
 <script type="text/javascript">
   $(document).ready(function() {
+    // add
+    $("#quantity_add, #price_add").keyup(function() {
+      var quantityInput = $("#quantity_add").val();
+      var priceInput = $("#price_add").val();
 
-    $("#quantity_add").keyup(function() {
-      var input = $(this).val();
-      if (checkAddAndEditQuantity(input) == false) {
-        $("#quantity_add_result").html("<span class='error'>Quantity Not Valid</span>");
-        $("#add-btn").prop("disabled", true);
-        $("#add-btn").css("background-color", "red");
-        $("#quantity_add_result").css("display", "block");
-        $("#quantity_add_result").css("margin-top", "1rem");
+      var isQuantityValid = checkAddAndEditQuantity(quantityInput);
+      var isPriceValid = checkAddAndEditQuantity(priceInput);
+
+      if (!isQuantityValid || !isPriceValid) {
+        if (!isQuantityValid) {
+          $("#add-btn").prop("disabled", true);
+          $("#add-btn").css("background-color", "red");
+          $("#quantity_add_result").html("<span class='error'>Quantity Not Valid</span>");
+          $("#quantity_add_result").css("display", "block");
+          $("#quantity_add_result").css("margin-top", "1rem");
+        } else {
+          $("#quantity_add_result").css("display", "none");
+        }
+        if (!isPriceValid) {
+          $("#add-btn").prop("disabled", true);
+          $("#add-btn").css("background-color", "red");
+          $("#price_add_result").html("<span class='error'>Price Not Valid</span>");
+          $("#price_add_result").css("display", "block");
+          $("#price_add_result").css("margin-top", "1rem");
+        } else {
+          $("#price_add_result").css("display", "none");
+        }
       } else {
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#ffa800");
         $("#quantity_add_result").css("display", "none");
-        $("#add-btn").prop("disabled", false);
-        $("#add-btn").css("background-color", "#0be881");
-      }
-    });
-
-    $("#price_add").keyup(function() {
-      var input = $(this).val();
-      if (checkAddAndEditQuantity(input) == false) {
-        $("#price_add_result").html("<span class='error'>Price Not Valid</span>");
-        $("#add-btn").prop("disabled", true);
-        $("#add-btn").css("background-color", "red");
-        $("#price_add_result").css("display", "block");
-        $("#price_add_result").css("margin-top", "1rem");
-      } else {
         $("#price_add_result").css("display", "none");
-        $("#add-btn").prop("disabled", false);
-        $("#add-btn").css("background-color", "#0be881");
       }
     });
-
-
 
     //edit
-    $("#quantity_edit").keyup(function() {
-      var input = $(this).val();
-      if (checkAddAndEditQuantity(input) == false) {
-        $("#total-quantity_edit_result").html("<span class='error'>Price Not Valid</span>");
-        $("#edit-btn").prop("disabled", true);
-        $("#edit-btn").css("background-color", "red");
-        $("#total-quantity_edit_result").css("display", "block");
-        $("#total-quantity_edit_result").css("margin-top", "1rem");
-      } else {
-        $("#total-quantity_edit_result").css("display", "none");
-        $("#edit-btn").prop("disabled", false);
-        $("#edit-btn").css("background-color", "#ffa800");
-      }
-    });
 
-    $("#price_edit").keyup(function() {
-      var input = $(this).val();
-      if (checkAddAndEditQuantity(input) == false) {
-        $("#quantity_edit_result").html("<span class='error'>Price Not Valid</span>");
-        $("#edit-btn").prop("disabled", true);
-        $("#edit-btn").css("background-color", "red");
-        $("#quantity_edit_result").css("display", "block");
-        $("#quantity_edit_result").css("margin-top", "1rem");
+    $("#quantity_edit, #price_edit").keyup(function() {
+      var quantityInput = $("#quantity_edit").val();
+      var priceInput = $("#price_edit").val();
+
+      var isQuantityValid = checkAddAndEditQuantity(quantityInput);
+      var isPriceValid = checkAddAndEditQuantity(priceInput);
+
+      if (!isQuantityValid || !isPriceValid) {
+        if (!isQuantityValid) {
+          $("#edit-btn").prop("disabled", true);
+          $("#edit-btn").css("background-color", "red");
+          $("#quantity_edit_result").html("<span class='error'>Quantity Not Valid</span>");
+          $("#quantity_edit_result").css("display", "block");
+          $("#quantity_edit_result").css("margin-top", "1rem");
+        } else {
+          $("#quantity_edit_result").css("display", "none");
+        }
+        if (!isPriceValid) {
+          $("#edit-btn").prop("disabled", true);
+          $("#edit-btn").css("background-color", "red");
+          $("#price_edit_result").html("<span class='error'>Price Not Valid</span>");
+          $("#price_edit_result").css("display", "block");
+          $("#price_edit_result").css("margin-top", "1rem");
+        } else {
+          $("#price_edit_result").css("display", "none");
+        }
       } else {
-        $("#price_edit_result").css("display", "none");
         $("#edit-btn").prop("disabled", false);
         $("#edit-btn").css("background-color", "#ffa800");
+        $("#quantity_edit_result").css("display", "none");
+        $("#price_edit_result").css("display", "none");
       }
     });
   });

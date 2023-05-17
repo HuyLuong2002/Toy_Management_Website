@@ -143,7 +143,7 @@ include_once $filepath . "\database\connectDB.php";
 
   public function show_product_live_search_price($input)
   {
-    $query = "SELECT * FROM product WHERE (price LIKE '%$input%' AND product.is_deleted = '0')";
+    $query = "SELECT * FROM product WHERE (price LIKE '%$input%' AND product.is_deleted = '0') LIMIT 4";
     $result = $this->db->select($query);
     return $result;
   }

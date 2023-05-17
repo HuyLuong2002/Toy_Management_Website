@@ -169,33 +169,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $("#name").keyup(function() {
-            var input = $(this).val();
-            if (checkProductName(input) == false) {
-                $("#name_add_result").html("<span class='error'>Product Name must < 25 characters and don't contain special characters</span>");
-                $("#add-btn").prop("disabled", true);
-                $("#add-btn").css("background-color", "red");
-                $("#name_add_result").css("display", "block");
-                $("#name_add_result").css("margin-top", "1rem");
-            } else {
-                $("#name_add_result").css("display", "none");
-                $("#add-btn").prop("disabled", false);
-                $("#add-btn").css("background-color", "#0be881");
-            }
-        });
+        $("#name, #price").keyup(function() {
+            var nameInput = $("#name").val();
+            var percentInput = $("#price").val();
 
-        $("#price").keyup(function() {
-            var input = $(this).val();
-            if (checkAddAndEditPrice(input) == false) {
-                $("#price_add_result").html("<span class='error'>Product Price Not Valid</span>");
-                $("#add-btn").prop("disabled", true);
-                $("#add-btn").css("background-color", "red");
-                $("#price_add_result").css("display", "block");
-                $("#price_add_result").css("margin-top", "1rem");
+            var isNameValid = checkProductName(nameInput);
+            var isPercentValid = checkAddAndEditPrice(percentInput);
+
+            if (!isNameValid || !isPercentValid) {
+                if (!isNameValid) {
+                    $("#add-btn").prop("disabled", true);
+                    $("#add-btn").css("background-color", "red");
+                    $("#name_add_result").html("<span class='error'>Product Name must < 25 characters and don't contain special characters.</span>");
+                    $("#name_add_result").css("display", "block");
+                    $("#name_add_result").css("margin-top", "1rem");
+                } else {
+                    $("#name_add_result").css("display", "none");
+                }
+                if (!isPercentValid) {
+                    $("#add-btn").prop("disabled", true);
+                    $("#add-btn").css("background-color", "red");
+                    $("#price_add_result").html("<span class='error'>Product Price Not Valid</span>");
+                    $("#price_add_result").css("display", "block");
+                    $("#price_add_result").css("margin-top", "1rem");
+                } else {
+                    $("#price_add_result").css("display", "none");
+                }
             } else {
-                $("#price_add_result").css("display", "none");
                 $("#add-btn").prop("disabled", false);
-                $("#add-btn").css("background-color", "#0be881");
+                $("#add-btn").css("background-color", "#4CAF50");
+                $("#name_add_result").css("display", "none");
+                $("#price_add_result").css("display", "none");
             }
         });
 
