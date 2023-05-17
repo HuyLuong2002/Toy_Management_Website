@@ -28,6 +28,7 @@ if (isset($_COOKIE[$s_name])) {
     .wrap-key-search {
         display: flex;
         flex: 1;
+        overflow-y: scroll;
     }
 
     .wrap-key-search a {
@@ -76,7 +77,6 @@ if (isset($_COOKIE[$s_name])) {
 <header>
     <div class="section-header">
         <a href="index.php" class="home"> Toy Shop </a>
-
         <div class="nav-bar">
             <label class="icon"><i class="fa-solid fa-bars"></i></label>
             <ul class="menu-items">
@@ -165,27 +165,6 @@ if (isset($_COOKIE[$s_name])) {
 
             </div>
 
-            <div class="key-search-list-cate hide-list" id="key-search-list-cate">
-                <div class="clip-path-key-search-cate">
-                </div>
-
-                <ul class="key-search-list-cate-child" id="key-search-list-cate-child">
-                    <?php
-                    $show_category = $categoryController->show_category();
-                    $total = mysqli_num_rows($show_category);
-                    if ($show_category) {
-                        while ($result = $show_category->fetch_assoc()) { ?>
-                            <li id="4<?php echo $result["id"]; ?>" 
-                                class="<?php echo $result["id"] == $total ? 'bg-list' : ''; ?>"
-                                onclick="ActiveBgListCate(<?php echo $result['id']; ?>)">
-                                <?php echo $result["name"]; ?>
-                            </li>
-                            <?php }
-                    }
-                    ?>
-                </ul>
-            </div>
-
             <div class="key-search-list-price hide-list" id="key-search-list-price">
                 <div class="clip-path-key-search-price">
                 </div>
@@ -233,7 +212,9 @@ if (isset($_COOKIE[$s_name])) {
             break;
         }
     }
+</script>
 
+<script>
     let search = document.getElementsByClassName('search')[0];
     let searchBar = document.getElementsByClassName('search-bar')[0];
 
@@ -244,7 +225,6 @@ if (isset($_COOKIE[$s_name])) {
         searchBar.classList.toggle("active");
     }
 </script>
-
 
 <script>
     let typeKeySearch = [{
@@ -311,7 +291,6 @@ if (isset($_COOKIE[$s_name])) {
     const handleActiveKey = (id) => {
         const listPrice = document.getElementById("key-search-list-price")
         const listStar = document.getElementById("key-search-list-star")
-        const listCate = document.getElementById("key-search-list-cate")
 
         typeKeySearch.forEach(item => {
             let keyTag = document.getElementById(item.id)
@@ -337,12 +316,6 @@ if (isset($_COOKIE[$s_name])) {
             listStar.classList.toggle("hide-list")
         } else {
             listStar.classList.add("hide-list")
-        }
-
-        if(id === 1) {
-            listCate.classList.toggle("hide-list")
-        } else {
-            listCate.classList.add("hide-list")
         }
     }
 
@@ -372,20 +345,6 @@ if (isset($_COOKIE[$s_name])) {
         }
     }
 
-    const ActiveBgListCate = (num) => {
-        let list = document.getElementById(`4${num}`)
-        list.classList.add("bg-list")
-
-        for(var i = 1; i <= 4; i++) {
-            if(i !== num) {
-                let listRemove = document.getElementById(`4${i}`)
-                if(listRemove)
-                    if(listRemove.classList.contains("bg-list"))
-                        listRemove.classList.remove("bg-list")
-            }
-        }
-    }
-
     loadKeySearch(typeKeySearch)
 </script>
 
@@ -398,7 +357,7 @@ if (isset($_COOKIE[$s_name])) {
             var input = $(this).val();
             if (checkSearchInput(input) == false) {
                 $("#searchresultproductuser").html("<span class='error'>Input Value Not Valid</span>");
-                $("#searchresultproductuser").css("display", "flex");
+                $("#searchresultproductuser").css("display", "block");
                 return;
             } else {
                 $("#searchresultproductuser").css("display", "none");
@@ -413,11 +372,11 @@ if (isset($_COOKIE[$s_name])) {
                     },
                     success: function(data) {
                         $("#searchresultproductuser").html(data);
-                        $("#searchresultproductuser").css("display", "flex");
+                        $("#searchresultproductuser").css("display", "block");
                     }
                 });
             } else {
-                $("#searchresultproductuser").css("display", "flex");
+                $("#searchresultproductuser").css("display", "block");
             }
         });
 
@@ -434,7 +393,7 @@ if (isset($_COOKIE[$s_name])) {
                     },
                     success: function(data) {
                         $("#searchresultproductuser").html(data);
-                        $("#searchresultproductuser").css("display", "flex");
+                        $("#searchresultproductuser").css("display", "block");
                     }
                 });
             }
@@ -449,7 +408,7 @@ if (isset($_COOKIE[$s_name])) {
                     },
                     success: function(data) {
                         $("#searchresultproductuser").html(data);
-                        $("#searchresultproductuser").css("display", "flex");
+                        $("#searchresultproductuser").css("display", "block");
                     }
                 });
             }
@@ -466,7 +425,7 @@ if (isset($_COOKIE[$s_name])) {
                 },
                 success: function(data) {
                     $("#searchresultproductuser").html(data);
-                    $("#searchresultproductuser").css("display", "flex");
+                    $("#searchresultproductuser").css("display", "block");
                 }
             });
         });
@@ -482,7 +441,7 @@ if (isset($_COOKIE[$s_name])) {
                 },
                 success: function(data) {
                     $("#searchresultproductuser").html(data);
-                    $("#searchresultproductuser").css("display", "flex");
+                    $("#searchresultproductuser").css("display", "block");
                 }
             });
         });
