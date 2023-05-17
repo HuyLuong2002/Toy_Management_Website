@@ -302,12 +302,14 @@ header {
 .search-bar {
   display: none;
   width: 100vw;
+  min-height: 36vh;
   animation: fadeIn;
   position: absolute;
   top: 50%;
   opacity: 0;
   transition: all .2s linear;
-  border: 1px solid #ccc;
+  border: 1px solid #ccc; 
+  overflow-y: scroll;
 
 }
 
@@ -345,6 +347,7 @@ header {
 }
 
 .wrap-product-search {
+  max-height: 85vh;
   background-color: #fff;
   border: 1px solid #ccc;
   display: flex;
@@ -531,6 +534,7 @@ header {
 
 /* Sub menu list price */
 .key-search-list-price {
+  z-index: 9999;
   position: absolute;
   right: 9.5%;
   top: 120%;
@@ -545,7 +549,7 @@ header {
   height: 2rem;
   background-color: #fff;
   top: -8%;
-  right: 40%;
+  right: 20%;
   clip-path: polygon(50% 0%, 0 45%, 100% 45%);
 }
 
@@ -575,6 +579,7 @@ header {
 
 /* List star */
 .key-search-list-star {
+  z-index: 9999;
   position: absolute;
   right: 1.5%;
   top: 110%;
@@ -609,5 +614,40 @@ header {
 }
 
 .key-search-list-star-child > li:hover {
+  background-color: #ccc;
+}
+
+/* list cate */
+.key-search-list-cate {
+  z-index: 9999;
+  position: absolute;
+  right: 15%;
+  top: 115%;
+  box-shadow: 8px 8px 30px rgba(0,0,0,.05);;
+  background-color: #fff;
+  z-index: 100;
+}
+.clip-path-key-search-cate {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  background-color: #fff;
+  top: -15%;
+  right: 9%;
+  clip-path: polygon(50% 0%, 0 45%, 100% 45%);
+}
+.key-search-list-cate-child {
+  list-style: none;
+  text-align: center;
+  border-radius: 1rem;
+}
+
+.key-search-list-cate-child > li {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.key-search-list-cate-child > li:hover {
   background-color: #ccc;
 }
