@@ -28,7 +28,6 @@ if (isset($_COOKIE[$s_name])) {
     .wrap-key-search {
         display: flex;
         flex: 1;
-        overflow-y: scroll;
     }
 
     .wrap-key-search a {
@@ -455,9 +454,40 @@ if (isset($_COOKIE[$s_name])) {
                     }
                 });
             }
+            else if(searchkey == 1)
+            {
+                searchCategoryKey = 41;
+                $.ajax({
+                url: "../controller/headerController.php",
+                method: "POST",
+                data: {
+                    searchkey: searchCategoryKey,
+                },
+                success: function(data) {
+                    $("#searchresultproductuser").html(data);
+                    $("#searchresultproductuser").css("display", "flex");
+                }
+            });
+            }
         });
 
         $('#key-search-list-price-id').bind('click', function(event) {
+            searchkey = $(event.target).attr('id');
+            
+            $.ajax({
+                url: "../controller/headerController.php",
+                method: "POST",
+                data: {
+                    searchkey: searchkey,
+                },
+                success: function(data) {
+                    $("#searchresultproductuser").html(data);
+                    $("#searchresultproductuser").css("display", "flex");
+                }
+            });
+        });
+
+        $('#key-search-list-cate-child').bind('click', function(event) {
             searchkey = $(event.target).attr('id');
             
             $.ajax({
@@ -493,4 +523,6 @@ if (isset($_COOKIE[$s_name])) {
             searchkey = $(this).attr('id');
         });
     });
+
+
 </script>

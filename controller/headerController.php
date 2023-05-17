@@ -66,18 +66,21 @@ if (isset($_POST["input"]) && isset($_POST["searchkey"])) {
     case 35:
       $show_product_live_search = $productsController->show_product_live_search_rating_5();
       break;
+    case 41:
+      $show_product_live_search = $productsController->show_product_live_search_category_id($searchkey);
+      break;
+    case 42:
+      $show_product_live_search = $productsController->show_product_live_search_category_id($searchkey);
+      break;
   }
 }
 ?>
 <?php if (isset($show_product_live_search)) {
   if ($show_product_live_search) { ?>
-    <?php while (
-      $result = $show_product_live_search->fetch_array()
-    ) { ?>
+    <?php while ($result = $show_product_live_search->fetch_array()) { ?>
       <div class="product-search">
         <div class="show-product-search">
-          <img src="<?php echo "/admin/uploads/" .
-                      $result["image"]; ?>" alt="">
+          <img src="<?php echo "/admin/uploads/" . $result["image"]; ?>" alt="">
           <div class="sub-product">
 
             <h4><a href="../product_detail.php?id=<?php echo $result[0]; ?>"><?php echo $result[1]; ?></a></h4>
@@ -85,8 +88,7 @@ if (isset($_POST["input"]) && isset($_POST["searchkey"])) {
           </div>
         </div>
       </div>
-    <?php }
-  } else { ?>
+    <?php }} else { ?>
     <div class="product-search">
       <span>No Data Found</span>
     </div>
