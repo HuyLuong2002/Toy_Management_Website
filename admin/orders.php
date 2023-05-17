@@ -264,10 +264,10 @@ if ($result_pagination) {
                 <?php echo $result[6]; ?>
               </td>
               <td>
-                <?php echo number_format($result[10], 0, '.', ',') ?>
+                <?php echo $result[11] ?>
               </td>
               <td>
-                <?php echo $result[10]; ?>
+                <?php echo number_format($result[10], 0, '.', ',') ?>
               </td>
               <td>
                 <form method="post" enctype="multipart/form-data" class="status-order">

@@ -64,7 +64,7 @@ if (isset($_GET["id"])) {
       <div>
         <h4>
           <?php echo Session::get("fullname"); ?>
-          <small>Super admin</small>
+          <small><?php echo Session::get("user")?></small>
           <small>
             <?php if (isset($_GET["action"]) && $_GET["action"] == "logout") {
               Session::destroy();
