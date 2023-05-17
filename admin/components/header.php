@@ -1,5 +1,9 @@
 <?php
+include_once "..\controller\accountController.php";
 include_once "..\lib\session.php";
+
+$accountController = new AccountController();
+
 Session::init();
 if (Session::get("userAdmin") == false) {
   Session::destroy();
@@ -64,11 +68,26 @@ if (isset($_GET["id"])) {
       <div>
         <h4>
           <?php echo Session::get("fullname"); ?>
-          <small><?php echo Session::get("user")?></small>
+          <?php
+          $id = Session::get("userID");
+          $result = $accountController->show_account_by_id($id)->fetch_assoc();
+
+          ?>
+          <small>
+            <?php
+              if ($result["permission_id"] == 1) {
+                echo "Admin";
+              } else if($result["permission_id"] == 3){
+                echo "Quản lý";
+              } else {
+                echo "Nhân viên";
+              } 
+            ?>
+          </small>
           <small>
             <?php if (isset($_GET["action"]) && $_GET["action"] == "logout") {
-              Session::destroy();
-            } ?>
+            Session::destroy();
+          } ?>
             <a href="?action=logout">Đăng xuất</a>
           </small>
         </h4>
@@ -112,8 +131,7 @@ if (isset($_GET["id"])) {
           $("#card-inventory-detail").html("<span class='error'>Input Value Not Valid</span>");
           $("#card-inventory-detail").css("display", "block");
           return;
-        }
-        else {
+        } else {
           //product
           $("#card-product").css("display", "none");
           //provider
