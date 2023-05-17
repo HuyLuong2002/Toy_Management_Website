@@ -129,10 +129,10 @@ class ProductsController
     return $result;
   }
 
-  public function show_product_by_category_id_unique($category, $id)
+  public function show_product_by_category_id_unique($id)
   {
     $productService = new ProductServices();
-    $result = $productService->show_product_by_category_id_unique($category, $id);
+    $result = $productService->show_product_by_category_id_unique($id);
     return $result;
   }
 
@@ -171,6 +171,13 @@ class ProductsController
   {
     $productService = new ProductServices();
     $result = $productService->show_product();
+    return $result;
+  }
+
+  public function show_product_receipt()
+  {
+    $productService = new ProductServices();
+    $result = $productService->show_product_receipt();
     return $result;
   }
 

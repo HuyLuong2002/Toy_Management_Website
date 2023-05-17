@@ -11,6 +11,13 @@ class PermissionController
     return $result;
   }
 
+  public function check_permission($permissionName)
+  {
+    $permissionService = new PermissionServices();
+    $result = $permissionService->check_permission($permissionName);
+    return $result;
+  }
+
   public function insert_permission($data)
   {
     $permissionService = new PermissionServices();

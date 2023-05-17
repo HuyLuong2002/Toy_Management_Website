@@ -15,7 +15,7 @@ include_once $filepath . "\helpers\\format.php";
 
   public function show_order()
   {
-    $query = "SELECT * FROM orders ORDER BY id desc";
+    $query = "SELECT * FROM orders ORDER BY orders.date desc";
     $result = $this->db->select($query);
     return $result;
   }
@@ -27,14 +27,15 @@ include_once $filepath . "\helpers\\format.php";
     AND detail_orders.order_id = orders.id 
     AND product.id = detail_orders.product_id
     AND account.id = orders.user_id
-    GROUP BY orders.id";
+    GROUP BY orders.id
+    ORDER BY orders.date DESC, orders.status DESC";
     $result = $this->db->select($query);
     return $result;
   }
 
   public function get_order_id()
   {
-    $query = "SELECT * FROM orders ORDER BY id desc LIMIT 1";
+    $query = "SELECT * FROM orders ORDER BY orders.date desc LIMIT 1";
     $result = $this->db->select($query);
     return $result;
   }
@@ -42,7 +43,7 @@ include_once $filepath . "\helpers\\format.php";
   //list orders for home page
   public function show_orders_user()
   {
-    $query = "SELECT * FROM orders, account WHERE orders.is_deleted = '0' and orders.user_id = account.id ORDER BY orders.date DESC, orders.status DESC";
+    $query = "SELECT * FROM orders, account WHERE orders.is_deleted = '0' and orders.user_id = account.id ORDER BY orders.status DESC, orders.date DESC";
     $result = $this->db->select($query);
     return $result;
   }
@@ -56,7 +57,7 @@ include_once $filepath . "\helpers\\format.php";
 
   public function show_order_by_pagination($offset, $limit_per_page)
   {
-    $query = "SELECT * FROM orders, account WHERE orders.is_deleted = '0' and orders.user_id = account.id ORDER BY orders.date DESC LIMIT $offset, $limit_per_page";
+    $query = "SELECT * FROM orders, account WHERE orders.is_deleted = '0' and orders.user_id = account.id ORDER BY orders.status DESC, orders.date DESC LIMIT $offset, $limit_per_page";
     $result = $this->db->select($query);
     return $result;
   }
@@ -71,7 +72,7 @@ include_once $filepath . "\helpers\\format.php";
   //live search for admin
   public function show_orders_live_search($input)
   {
-    $query = "SELECT * FROM orders WHERE ((orders.user_id LIKE '%$input%') 
+    $query = "SELECT * FROM orders, account WHERE ((orders.user_id LIKE '%$input%') 
     OR (orders.quantity LIKE '%$input%') 
     OR (orders.date LIKE '%$input%') 
     OR (orders.address LIKE '%$input%') 
@@ -82,7 +83,7 @@ include_once $filepath . "\helpers\\format.php";
     OR (orders.ship_method LIKE '%$input%')
     OR (orders.total_price LIKE '%$input%') 
     OR (orders.pay_method LIKE '%$input%') 
-    OR (orders.status LIKE '%$input%'))  AND is_deleted = '0'";
+    OR (orders.status LIKE '%$input%'))  AND is_deleted = '0' AND orders.user_id = account.id";
     $result = $this->db->select($query);
     return $result;
   }
@@ -102,6 +103,7 @@ include_once $filepath . "\helpers\\format.php";
     $status,
     $is_deleted
   ) {
+    $date = (string) date("Y-m-d");
     $query = "INSERT INTO orders(user_id, quantity, date, address, phone, email, country, vat, ship_method, total_price, pay_method, status, is_deleted) VALUES ('$user_id', '$total_quantity', '$date', '$address', '$phone', '$email', '$country', '$vat', '$ship_method', '$total_price', '$pay_method', '$status', '$is_deleted')";
     $result = $this->db->insert($query);
     if ($result) {

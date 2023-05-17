@@ -156,19 +156,23 @@ if ($result_pagination) {
                   ?>
                   <td><?php echo $status; ?></td>
                   <td>
-                    <div class="action-btn-group">
-                      <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
-                        <a class="modal-btn-edit" data-id="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
-                          Edit<i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
-                        </a>
+                    <?php
+                    if ($result[9] != 1 && $result[9] != 3) {
+                    ?>
+                      <div class="action-btn-group">
+                        <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
+                          <a class="modal-btn-edit" data-id="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                            Edit<i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
+                          </a>
+                        </div>
+                        <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
+                          <a class="modal-btn-delete" data-id="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                            Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                          </a>
+                        </div>
                       </div>
-                      <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
-                        <a class="modal-btn-delete" data-id="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
-                          Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                        </a>
-                      </div>
-                    </div>
-                  <td>
+                    <?php } ?>
+                  </td>
                 </tr>
             <?php }
           } else {
@@ -202,19 +206,23 @@ if ($result_pagination) {
               ?>
               <td><?php echo $status; ?></td>
               <td>
-                <div class="action-btn-group">
-                  <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
-                    <a class="modal-btn-edit" data-id="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
-                      Edit<i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
-                    </a>
+                <?php
+                if ($result[9] != 1 && $result[9] != 3) {
+                ?>
+                  <div class="action-btn-group">
+                    <div class="action-btn-edit" id="action-btn-edit-<?php echo $result[0] ?>">
+                      <a class="modal-btn-edit" data-id="<?php echo $result[0] ?>" onclick="EditActive(<?php echo $result[0] ?>)">
+                        Edit<i class="fa-solid fa-pen-to-square" style="color: #0600ff;"></i>
+                      </a>
+                    </div>
+                    <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
+                      <a class="modal-btn-delete" data-id="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
+                        Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                      </a>
+                    </div>
                   </div>
-                  <div class="action-btn-delete" id="action-btn-delete-<?php echo $result[0] ?>">
-                    <a class="modal-btn-delete" data-id="<?php echo $result[0] ?>" onclick="DeleteActive(<?php echo $result[0] ?>)">
-                      Delete<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                    </a>
-                  </div>
-                </div>
-              <td>
+                <?php } ?>
+              </td>
             </tr>
       <?php
             }
@@ -452,6 +460,10 @@ if ($result_pagination) {
         if (res.status == 404) {
           alert(res.message);
         } else if (res.status == 200) {
+
+          var dateParts = res.data.date_birth.split("-");
+          var newDateBirth = dateParts[2] + "-" + dateParts[1].padStart(2, "0") + "-" + dateParts[0].padStart(2, "0");
+
           $('#edit_id').val(res.data.id);
           $('#permission_edit').val(res.data.permission_id);
           $('#status_edit').val(res.data.status);

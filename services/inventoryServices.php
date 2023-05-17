@@ -136,8 +136,10 @@ class InventoryServices
   public function delete_inventory($id)
   {
     $query = "UPDATE enter_product SET is_deleted='1' WHERE id='$id'";
+    $query1 = "DELETE FROM detail_enter_product WHERE enter_id='{$id}'";
     $result = $this->db->update($query);
-    if ($result) {
+    $result1 = $this->db->delete($query1);
+    if ($result && $result1) {
       $alert = "<span class='success'>Receipt Deleted Sucessfully</span>";
       return $alert;
     } else {

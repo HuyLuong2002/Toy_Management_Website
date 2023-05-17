@@ -19,8 +19,8 @@ let OrderListProductDetail = []
 const handleShowListOrder = async () => {
     let getCurrentUser = await fetchAPI(currentUserAPI)
 
-    const orderApi = `http://localhost:8000/Toy_Management_Website/api/orders/show_user.php?userID=${getCurrentUser.id}`;
-    // const orderApi = `http://localhost:3000/api/orders/show_user.php?userID=${Order.user_id}`;
+    // const orderApi = `http://localhost:8000/Toy_Management_Website/api/orders/show_user.php?userID=${getCurrentUser.id}`;
+    const orderApi = `http://localhost:3000/api/orders/show_user.php?userID=${Order.user_id}`;
     // const orderApi = `http://localhost:8080/Toy_Management_Website/api/orders/show_user.php?userID=${getCurrentUser.id}`;
 
 
@@ -34,10 +34,10 @@ const handleShowListOrder = async () => {
         OrderListProductDetail.push([item.id, item.order_list])
 
         let statusText = "PENDING"
-        if (item.order_list.status === 1) {
+        if (item.order_list.status == 1) {
             statusText = "DELIVERING"
         }
-        if (item.order_list.status === 0) {
+        if (item.order_list.status == 0) {
             statusText = "SHIPPED"
         }
         return `
@@ -65,7 +65,7 @@ let handleShowDetailOrder = async (idOrder) => {
         return;
     }
 
-    let newOrder = OrderListProductDetail.find(item => item[0] === idOrder)
+    let newOrder = OrderListProductDetail.find(item => item[0] == idOrder)
 
     const listOrder = `
                 <p style="font-size: 1.5rem;">Billing: </p>
@@ -96,7 +96,7 @@ let handleShowDetailOrder = async (idOrder) => {
 const loadProduct = async (idOrder) => {
     let Product = await fetchAPI(`http://localhost:8000/Toy_Management_Website/api/detail_orders/show_order.php?orderID=${idOrder}`)
     // let Product = await fetchAPI(`http://localhost:8080/Toy_Management_Website/api/detail_orders/show_order.php?orderID=${idOrder}`)
-    // let Product = `http://localhost:3000/api/detail_orders/show_order.php?orderID=${idOrder}`;
+    let Product = `http://localhost:3000/api/detail_orders/show_order.php?orderID=${idOrder}`;
 
     if (!Product) {
         productDetailOrder.innerHTML = "<h1>Not found Order!</h1>"
