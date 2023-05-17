@@ -133,7 +133,7 @@ if ($result_pagination) {
                   <td><?php echo $result[0]; ?></td>
                   <td><?php echo $result[1]; ?></td>
                   <td><?php echo number_format($result[2], 0, '.', ',') ?></td>
-                  <td><?php echo number_format($result[3], 0, '.', ',')?></td>
+                  <td><?php echo number_format($result[3], 0, '.', ',') ?></td>
                   <td><?php echo $result[9]; ?></td>
                   <td><?php echo $result[10] . " " . $result[11]; ?></td>
                   <td><?php echo $result[6] == 1 ?  "Đã giao" : "Đang giao hàng"; ?></td>
@@ -303,13 +303,13 @@ if ($result_pagination) {
 
       <div class="modal-edit-info-item">
         <label for="total-quantity_edit">Total Quantity</label>
-        <input type="text" id="total-quantity_edit" name="total-quantity_edit" required>
+        <input type="number" id="total-quantity_edit" name="total-quantity_edit" required>
         <div id="total-quantity_edit_result"></div>
       </div>
 
       <div class="modal-edit-info-item">
         <label for="total-price_edit">Total Price</label>
-        <input type="text" id="total-price_edit" name="total-price_edit" required>
+        <input type="number" id="total-price_edit" name="total-price_edit" required>
         <div id="total-price_edit_result"></div>
       </div>
 
@@ -442,64 +442,74 @@ if ($result_pagination) {
 <!-- coding check input value function -->
 <script type="text/javascript">
   $(document).ready(function() {
-    $("#total-quantity_add").keyup(function() {
-      var input = $(this).val();
-      if (checkAddAndEditQuantity(input) == false) {
-        $("#total-quantity_add_result").html("<span class='error'>Total Quantity Not Valid</span>");
-        $("#add-btn").prop("disabled", true);
-        $("#add-btn").css("background-color", "red");
-        $("#total-quantity_add_result").css("display", "block");
-        $("#total-quantity_add_result").css("margin-top", "1rem");
-      } else {
-        $("#total-quantity_add_result").css("display", "none");
-        $("#add-btn").prop("disabled", false);
-        $("#add-btn").css("background-color", "#0be881");
-      }
-    });
+    //add
+    $("#total-quantity_add, #total-price_add").keyup(function() {
+      var quantityInput = $("#total-quantity_add").val();
+      var priceInput = $("#total-price_add").val();
+      console.log(quantityInput);
 
-    $("#total-price_add").keyup(function() {
-      var input = $(this).val();
-      if (checkAddAndEditQuantity(input) == false) {
-        $("#total-price_add_result").html("<span class='error'>Total Price Not Valid</span>");
-        $("#add-btn").prop("disabled", true);
-        $("#add-btn").css("background-color", "red");
-        $("#total-price_add_result").css("display", "block");
-        $("#total-price_add_result").css("margin-top", "1rem");
+      var isQuantityValid = checkAddAndEditQuantity(quantityInput);
+      var isPriceValid = checkAddAndEditQuantity(priceInput);
+      
+      if (!isQuantityValid || !isPriceValid) {
+        if (!isQuantityValid) {
+          $("#add-btn").prop("disabled", true);
+          $("#add-btn").css("background-color", "red");
+          $("#total-quantity_add_result").html("<span class='error'>Total Quantity Not Valid</span>");
+          $("#total-quantity_add_result").css("display", "block");
+          $("#total-quantity_add_result").css("margin-top", "1rem");
+        } else {
+          $("#total-quantity_add_result").css("display", "none");
+        }
+        if (!isPriceValid) {
+          $("#add-btn").prop("disabled", true);
+          $("#add-btn").css("background-color", "red");
+          $("#total-price_add_result").html("<span class='error'>Total Price Not Valid</span>");
+          $("#total-price_add_result").css("display", "block");
+          $("#total-price_add_result").css("margin-top", "1rem");
+        } else {
+          $("#total-price_add_result").css("display", "none");
+        }
       } else {
-        $("#total-price_add_result").css("display", "none");
         $("#add-btn").prop("disabled", false);
-        $("#add-btn").css("background-color", "#0be881");
+        $("#add-btn").css("background-color", "#ffa800");
+        $("#total-quantity_add_result").css("display", "none");
+        $("#total-price_add_result").css("display", "none");
       }
     });
 
     //edit
-    $("#total-quantity_edit").keyup(function() {
-      var input = $(this).val();
-      if (checkAddAndEditQuantity(input) == false) {
-        $("#total-quantity_edit_result").html("<span class='error'>Total Price Not Valid</span>");
-        $("#edit-btn").prop("disabled", true);
-        $("#edit-btn").css("background-color", "red");
-        $("#total-quantity_edit_result").css("display", "block");
-        $("#total-quantity_edit_result").css("margin-top", "1rem");
-      } else {
-        $("#total-quantity_edit_result").css("display", "none");
-        $("#edit-btn").prop("disabled", false);
-        $("#edit-btn").css("background-color", "#ffa800");
-      }
-    });
+    $("#total-quantity_edit, #total-price_edit").keyup(function() {
+      var quantityInput = $("#total-quantity_edit").val();
+      var priceInput = $("#total-price_edit").val();
 
-    $("#total-price_edit").keyup(function() {
-      var input = $(this).val();
-      if (checkAddAndEditQuantity(input) == false) {
-        $("#total-price_edit_result").html("<span class='error'>Total Price Not Valid</span>");
-        $("#edit-btn").prop("disabled", true);
-        $("#edit-btn").css("background-color", "red");
-        $("#total-price_edit_result").css("display", "block");
-        $("#total-price_edit_result").css("margin-top", "1rem");
+      var isQuantityValid = checkAddAndEditQuantity(quantityInput);
+      var isPriceValid = checkAddAndEditQuantity(priceInput);
+
+      if (!isQuantityValid || !isPriceValid) {
+        if (!isQuantityValid) {
+          $("#edit-btn").prop("disabled", true);
+          $("#edit-btn").css("background-color", "red");
+          $("#total-quantity_edit_result").html("<span class='error'>Total Quantity Not Valid</span>");
+          $("#total-quantity_edit_result").css("display", "block");
+          $("#total-quantity_edit_result").css("margin-top", "1rem");
+        } else {
+          $("#total-quantity_edit_result").css("display", "none");
+        }
+        if (!isPriceValid) {
+          $("#edit-btn").prop("disabled", true);
+          $("#edit-btn").css("background-color", "red");
+          $("#total-price_edit_result").html("<span class='error'>Total Price Not Valid</span>");
+          $("#total-price_edit_result").css("display", "block");
+          $("#total-price_edit_result").css("margin-top", "1rem");
+        } else {
+          $("#total-price_edit_result").css("display", "none");
+        }
       } else {
-        $("#total-price_edit_result").css("display", "none");
         $("#edit-btn").prop("disabled", false);
         $("#edit-btn").css("background-color", "#ffa800");
+        $("#total-quantity_edit_result").css("display", "none");
+        $("#total-price_edit_result").css("display", "none");
       }
     });
   });

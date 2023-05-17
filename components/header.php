@@ -28,6 +28,7 @@ if (isset($_COOKIE[$s_name])) {
     .wrap-key-search {
         display: flex;
         flex: 1;
+        overflow-y: scroll;
     }
 
     .wrap-key-search a {
@@ -76,7 +77,6 @@ if (isset($_COOKIE[$s_name])) {
 <header>
     <div class="section-header">
         <a href="index.php" class="home"> Toy Shop </a>
-
         <div class="nav-bar">
             <label class="icon"><i class="fa-solid fa-bars"></i></label>
             <ul class="menu-items">

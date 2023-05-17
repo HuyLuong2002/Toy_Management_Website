@@ -455,63 +455,75 @@ if (isset($_POST["input"])) {
 <!-- coding check input value function -->
 <script type="text/javascript">
   $(document).ready(function() {
-    $("#name_add").keyup(function() {
-      var input = $(this).val();
-      if (checkProductName(input) == false) {
-        $("#name_add_result").html("<span class='error'>Sale Name must < 25 characters and don't contain special characters</span>");
-        $("#add-btn").prop("disabled", true);
-        $("#add-btn").css("background-color", "red");
-        $("#name_add_result").css("display", "block");
-        $("#name_add_result").css("margin-top", "1rem");
+    // add
+
+    $("#name_add, #percent_add").keyup(function() {
+      var nameInput = $("#name_add").val();
+      var percentInput = $("#percent_add").val();
+
+      var isNameValid = checkProductName(nameInput);
+      var isPercentValid = checkSalePercent(percentInput);
+
+      if (!isNameValid || !isPercentValid) {
+        if (!isNameValid) {
+          $("#add-btn").prop("disabled", true);
+          $("#add-btn").css("background-color", "red");
+          $("#name_add_result").html("<span class='error'>Sale Name must < 25 characters and don't contain special characters.</span>");
+          $("#name_add_result").css("display", "block");
+          $("#name_add_result").css("margin-top", "1rem");
+        } else {
+          $("#name_add_result").css("display", "none");
+        }
+        if (!isPercentValid) {
+          $("#add-btn").prop("disabled", true);
+          $("#add-btn").css("background-color", "red");
+          $("#percent_add_result").html("<span class='error'>Sale Percent Not Valid</span>");
+          $("#percent_add_result").css("display", "block");
+          $("#percent_add_result").css("margin-top", "1rem");
+        } else {
+          $("#percent_add_result").css("display", "none");
+        }
       } else {
+        $("#add-btn").prop("disabled", false);
+        $("#add-btn").css("background-color", "#0be881");
         $("#name_add_result").css("display", "none");
-        $("#add-btn").prop("disabled", false);
-        $("#add-btn").css("background-color", "#0be881");
-      }
-    });
-
-    $("#percent_add").keyup(function() {
-      var input = $(this).val();
-      if (checkSalePercent(input) == false) {
-        $("#percent_add_result").html("<span class='error'>Sale Percent Not Valid</span>");
-        $("#add-btn").prop("disabled", true);
-        $("#add-btn").css("background-color", "red");
-        $("#percent_add_result").css("display", "block");
-        $("#percent_add_result").css("margin-top", "1rem");
-      } else {
         $("#percent_add_result").css("display", "none");
-        $("#add-btn").prop("disabled", false);
-        $("#add-btn").css("background-color", "#0be881");
       }
     });
 
-    $("#name_edit").keyup(function() {
-      var input = $(this).val();
-      if (checkProductName(input) == false) {
-        $("#name_edit_result").html("<span class='error'>Sale Name must < 25 characters and don't contain special characters</span>");
-        $("#edit-btn").prop("disabled", true);
-        $("#edit-btn").css("background-color", "red");
-        $("#name_edit_result").css("display", "block");
-        $("#name_edit_result").css("margin-top", "1rem");
+    // edit
+    
+    $("#name_edit, #percent_edit").keyup(function() {
+      var nameInput = $("#name_edit").val();
+      var percentInput = $("#percent_edit").val();
+
+      var isNameValid = checkProductName(nameInput);
+      var isPercentValid = checkSalePercent(percentInput);
+
+      if (!isNameValid || !isPercentValid) {
+        if (!isNameValid) {
+          $("#edit-btn").prop("disabled", true);
+          $("#edit-btn").css("background-color", "red");
+          $("#name_edit_result").html("<span class='error'>Sale Name must < 25 characters and don't contain special characters.</span>");
+          $("#name_edit_result").css("display", "block");
+          $("#name_edit_result").css("margin-top", "1rem");
+        } else {
+          $("#name_edit_result").css("display", "none");
+        }
+        if (!isPercentValid) {
+          $("#edit-btn").prop("disabled", true);
+          $("#edit-btn").css("background-color", "red");
+          $("#percent_edit_result").html("<span class='error'>Sale Percent Not Valid</span>");
+          $("#percent_edit_result").css("display", "block");
+          $("#percent_edit_result").css("margin-top", "1rem");
+        } else {
+          $("#percent_edit_result").css("display", "none");
+        }
       } else {
+        $("#edit-btn").prop("disabled", false);
+        $("#edit-btn").css("background-color", "#ffa800");
         $("#name_edit_result").css("display", "none");
-        $("#edit-btn").prop("disabled", false);
-        $("#edit-btn").css("background-color", "#ffa800");
-      }
-    });
-
-    $("#percent_edit").keyup(function() {
-      var input = $(this).val();
-      if (checkSalePercent(input) == false) {
-        $("#percent_edit_result").html("<span class='error'>Sale Percent Not Valid</span>");
-        $("#edit-btn").prop("disabled", true);
-        $("#edit-btn").css("background-color", "red");
-        $("#percent_edit_result").css("display", "block");
-        $("#percent_edit_result").css("margin-top", "1rem");
-      } else {
         $("#percent_edit_result").css("display", "none");
-        $("#edit-btn").prop("disabled", false);
-        $("#edit-btn").css("background-color", "#ffa800");
       }
     });
   });
