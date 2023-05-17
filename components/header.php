@@ -190,8 +190,10 @@ if (isset($_COOKIE[$s_name])) {
             </div>
         </div>
         <div class="wrap-product-search" id="searchresultproductuser">
-
+        
         </div>
+
+
     </div>
 
 </header>
