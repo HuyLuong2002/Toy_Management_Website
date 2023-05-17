@@ -120,7 +120,7 @@ if ($result_pagination != false) {
     } ?>
 </div>
 <?php
-if ($page_total > 1) {
+if (isset($page_total) && $page_total > 1) {
 ?>
     <div class="bottom-pagination">
         <ul class="pagination" id="pagination">
