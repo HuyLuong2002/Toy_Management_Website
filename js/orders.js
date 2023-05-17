@@ -103,7 +103,7 @@ const loadProduct = async (idOrder) => {
         return;
     }
 
-    let listProduct = Product.detail_orders.map((item) => {
+    let listProduct = Product.detail_orders?.map((item) => {
         let total = item.detail_order_list.price * item.detail_order_list.quantity
         return `
             <tr key=${item.id}>

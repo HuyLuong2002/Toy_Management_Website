@@ -101,6 +101,15 @@ class ProductsController
     return $result;
   }
 
+  public function show_product_live_search_category_id($id)
+  {
+    if($id == 41) $id = 2;
+    else if($id == 42) $id = 1;
+    $productService = new ProductServices();
+    $result = $productService->show_product_live_search_category_id($id);
+    return $result;
+  }
+
   public function show_product_live_search_name($input)
   {
     $productService = new ProductServices();
