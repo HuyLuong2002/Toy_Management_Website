@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 17, 2023 lúc 09:06 AM
+-- Thời gian đã tạo: Th5 22, 2023 lúc 11:02 AM
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 8.2.0
 
@@ -49,8 +49,10 @@ CREATE TABLE `account` (
 INSERT INTO `account` (`id`, `username`, `password`, `firstname`, `lastname`, `gender`, `date_birth`, `place_of_birth`, `create_date`, `permission_id`, `status`, `is_deleted`) VALUES
 (1, 'huyluong', 'e10adc3949ba59abbe56e057f20f883e', 'Huy', 'Lương', 'Nam', '2002-05-16', 'TPHCM', '2023-05-16', 1, 1, 0),
 (3, 'dieukiet', 'e10adc3949ba59abbe56e057f20f883e', 'kiet', 'luong', 'Nam', '2002-05-16', 'vietnam', '2023-05-16', 4, 1, 0),
-(4, 'lucdaccau', 'e10adc3949ba59abbe56e057f20f883e', 'luc', 'nguyen', 'Nữ', '2002-05-16', 'vietnam', '2023-05-16', 3, 1, 0),
-(7, 'Loi', '70b4269b412a8af42b1f7b0d26eceff2', 'Lợi', 'Loidawd', 'Nam', '2022-02-20', 'TPHCM', '2023-05-17', 4, 1, 0);
+(4, 'luc', 'e10adc3949ba59abbe56e057f20f883e', 'luc', 'nguyen', 'Nữ', '2002-05-16', 'vietnam', '2023-05-16', 3, 1, 0),
+(7, 'Loi', '70b4269b412a8af42b1f7b0d26eceff2', 'Lợi', 'Loidawd', 'Nam', '2022-02-20', 'TPHCM', '2023-05-17', 4, 1, 0),
+(8, 'kha', '70b4269b412a8af42b1f7b0d26eceff2', 'Loi', 'Nguyen', 'Nam', '2002-12-20', 'HCM', '2023-05-17', 2, 1, 0),
+(9, 'abc', '19257dbc75b0c79b18224982b159c578', 'abc', 'abc', 'Nam', '2002-07-02', 'HCM', '2023-05-17', 2, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -96,7 +98,9 @@ INSERT INTO `comment` (`id`, `content`, `user_id`, `product_id`, `rate`, `time`)
 (2, 'nhu cac', 1, 1, 3, '2023-05-15 17:08:25'),
 (3, 'chim này hơi nhỏ', 1, 17, 3, '2023-05-16 22:14:19'),
 (4, 'oke chim này cx được', 1, 17, 5, '2023-05-16 22:14:58'),
-(5, 'nghĩ lại chim như cc', 1, 17, 2, '2023-05-16 22:15:21');
+(5, 'nghĩ lại chim như cc', 1, 17, 2, '2023-05-16 22:15:21'),
+(6, 'hihi', 9, 8, 4, '2023-05-17 15:01:20'),
+(7, 'hihi', 9, 8, 2, '2023-05-17 15:01:39');
 
 --
 -- Bẫy `comment`
@@ -193,7 +197,10 @@ INSERT INTO `detail_orders` (`id`, `order_id`, `product_id`, `quantity`, `price`
 (5, 3, 14, 12, 2000),
 (6, 3, 4, 19, 5500),
 (7, 3, 8, 4, 2500),
-(8, 6, 6, 4, 2500);
+(8, 6, 6, 4, 2500),
+(9, 7, 8, 1, 2500),
+(10, 7, 7, 1, 2125),
+(11, 7, 6, 1, 2500);
 
 --
 -- Bẫy `detail_orders`
@@ -271,11 +278,11 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `quantity`, `date`, `address`, `phone`, `email`, `country`, `vat`, `ship_method`, `total_price`, `pay_method`, `status`, `is_deleted`) VALUES
-(1, 1, 1, '2023-05-09 17:08:37', 'Ngô Quyền', '0764286798', 'chum19923@gmail.com', 'VietNam', 300, 'Standard Shipping ($6)', 3306, 'payment in cash', 2, 0),
-(2, 1, 1, '2023-05-10 17:08:51', 'àasfsafasfsafsa', '0909090909', 'dieukiet1479@gmail.com', 'VietNam', 213, 'Overnight Shipping ($12)', 2350, 'payment in cash', 2, 0),
-(3, 1, 2, '2023-05-10 17:09:02', 'ngo quyen 2', '0901323123', 'asfhfd@gmail.com', 'VietNam', 500, 'Express Shipping ($8)', 5508, 'payment in cash', 2, 0),
-(5, 1, 1, '0000-00-00 00:00:00', 'Viet Nam', '0383296438', 'phuocloi@gmail.com', 'VietNam', 1000, 'Express Shipping ($8)', 11008, 'payment in cash', 2, 0),
-(6, 1, 1, '2023-05-16 00:00:00', 'Viet Nam', '0383296438', 'phuocloi@gmail.com', 'VietNam', 1000, 'Express Shipping ($8)', 11008, 'payment in cash', 2, 0);
+(1, 4, 1, '2023-05-09 17:08:37', 'Ngô Quyền', '0764286798', 'chum19923@gmail.com', 'VietNam', 300, 'Standard Shipping ($6)', 3306, 'payment in cash', 0, 0),
+(2, 4, 1, '2023-05-10 17:08:51', 'àasfsafasfsafsa', '0909090909', 'dieukiet1479@gmail.com', 'VietNam', 213, 'Overnight Shipping ($12)', 2350, 'payment in cash', 1, 0),
+(3, 4, 2, '2023-05-10 17:09:02', 'ngo quyen 2', '0901323123', 'asfhfd@gmail.com', 'VietNam', 500, 'Express Shipping ($8)', 5508, 'payment in cash', 2, 0),
+(6, 1, 1, '2023-05-16 00:00:00', 'Viet Nam', '0383296438', 'phuocloi@gmail.com', 'VietNam', 1000, 'Express Shipping ($8)', 11008, 'payment in cash', 0, 0),
+(7, 9, 3, '2023-05-17 00:00:00', 'abc', '0764286789', 'abc@gmail.com', 'VietNam', 713, 'Standard Shipping ($6)', 7844, 'payment in cash', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -297,7 +304,8 @@ INSERT INTO `permission` (`id`, `name`, `is_deleted`) VALUES
 (1, 'Admin', 0),
 (2, 'Khách hàng', 0),
 (3, 'Quản lý ', 0),
-(4, 'Nhân viên', 0);
+(4, 'Nhân viên', 0),
+(5, 'abc', 0);
 
 -- --------------------------------------------------------
 
@@ -325,24 +333,24 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `image`, `price`, `description`, `create_date`, `highlight`, `category_id`, `sale_id`, `review`, `quantity`, `is_deleted`) VALUES
-(1, 'Mô hình Captain dòng Mech Strike 6 inch', 'home-img-1.png', '3000', 'Sản phẩm mới', '2023-05-16', 1, 1, 1, 4, 29, 1),
-(2, 'Mô hình Iron Man dòng Mech Strike tối thượng giáp 8 inch', '967f68e964.png', '2500', '<p><strong>Sản phẩm mới</strong></p>', '2023-05-16', 1, 1, 1, 0, 30, 1),
-(3, 'Mô hình Hulk dòng Mech Strike 6 inch', '53fe90a5a8.png', '2500', '<p>Sản phẩm mới</p>', '2023-05-16', 1, 1, 2, 0, 9, 0),
-(4, 'Vũ khí chiến đấu siêu sức mạnh Spiderman', '2f45633d26.png', '5500', 'Giới thiệu sản phẩm: Đồ chơi Vũ khí chiến đấu siêu suc manh Spiderman 1 Găng tay Spider-man 3 Mô hình nòng phi tiêu Neft 1 Hướng dẫn sử dụng', '2023-05-15', 1, 1, 1, 0, 3481, 0),
+(1, 'Mô hình Captain Mech Strike', 'home-img-1.png', '3000', 'Sản phẩm mới', '2023-05-16', 1, 1, 1, 4, 29, 1),
+(2, 'Mô hình Iron Man Mech Strike', '967f68e964.png', '2500', '<p><strong>Sản phẩm mới</strong></p>', '2023-05-16', 1, 1, 1, 0, 30, 1),
+(3, 'Mô hình Hulk dòng Mech Strike ', '53fe90a5a8.png', '2500', '<p>Sản phẩm mới</p>', '2023-05-16', 1, 1, 2, 0, 9, 0),
+(4, 'Vũ khí chiến đấu Spiderman', '2f45633d26.png', '5500', 'Giới thiệu sản phẩm: Đồ chơi Vũ khí chiến đấu siêu suc manh Spiderman 1 Găng tay Spider-man 3 Mô hình nòng phi tiêu Neft 1 Hướng dẫn sử dụng', '2023-05-15', 1, 1, 1, 0, 3481, 0),
 (5, 'Người Dơi Batman 4inch', '1cfb0656b7.png', '2500', '<p>Sản phẩm mới</p>', '2023-05-15', 0, 1, 2, 0, 2500, 1),
-(6, 'Mô Hình anh hùng công lý 4 inch', '6e79b7601e.png', '2500', '<p>Sản phẩm mới</p>', '2023-05-09', 0, 2, 1, 0, 45, 0),
-(7, 'Siêu anh hùng Captain America tối tân 30cm', '01fa875229.png', '2500', '<p>Sản phẩm mới</p>', '2023-05-04', 0, 2, 2, 0, 20, 0),
-(8, 'Siêu anh hùng IRON MAN phiên bản Bend and Flex', '33f9818354.png', '2500', '<p>Sản phẩm mới</p>', '2023-05-09', 0, 2, 1, 0, 15, 0),
+(6, 'Mô Hình anh hùng công lý', '6e79b7601e.png', '2500', '<p>Sản phẩm mới</p>', '2023-05-09', 0, 2, 1, 0, 44, 0),
+(7, 'Siêu anh hùng Captain America mới', '01fa875229.png', '2500', '<p>Sản phẩm mới</p>', '2023-05-04', 0, 2, 2, 0, 19, 0),
+(8, 'IRON MAN phiên bản Bend and Flex', '33f9818354.png', '2500', '<p>Sản phẩm mới</p>', '2023-05-09', 0, 2, 1, 3, 14, 0),
 (9, 'Mô hình Thanos quyền năng', '61421926a7.png', '2500', '<p>Sản phẩm mới</p>', '2023-05-09', 0, 1, 2, 0, 10, 1),
 (10, 'Mô hình Hulk dũng mãnh', '61fe1a2c2b.png', '2500', '<p>Sản phẩm mới</p>', '2023-05-04', 0, 1, 1, 0, 42, 0),
-(11, 'Mô hình siêu anh hùng Spiderman 30cm', 'e1f6dc76fe.png', '2500', '<p>Sản phẩm mới</p>', '2023-05-12', 0, 1, 1, 0, 20, 0),
+(11, 'Mô hình siêu anh hùng Spiderman', 'e1f6dc76fe.png', '2500', '<p>Sản phẩm mới</p>', '2023-05-12', 0, 1, 1, 0, 20, 0),
 (13, 'Mô hình Venom Flex and Bend', '1303e24c74.png', '2500', '<p>&lt;p&gt;Sản phẩm mới&lt;/p&gt;</p>', '2023-05-10', 1, 1, 1, 0, 50, 0),
-(14, 'Figure superman tối thượng size 30 inch', '6243bc2a5a.png', '2000', '<p>Sản phẩm mới</p>', '2023-05-10', 0, 1, 1, 0, 0, 0),
-(15, 'Figure anh hùng đại bàng size 30 inch', '6da2a5f4f2.png', '1500', '<p>sản phẩm mới</p>', '2023-05-11', 0, 1, 2, 0, 30, 0),
-(16, 'Figure iron man siêu to khổng lồ size 30 inch', '57b5f35d05.png', '3000', '<p><strong>Sản phẩm limited</strong></p>', '2023-05-11', 0, 1, 1, 0, 2, 0),
-(17, 'Figure anh hùng xạ điêu size 30 inch', 'e64461ebbf.png', '1800', '<p>sản phẩm tồn kho</p>', '2023-05-10', 0, 2, 2, 3, 34, 0),
-(18, 'Figure phù thủy tối thượng 20inch', '7a492fd185.png', '1900', '<p>H&agrave;ng si&ecirc;u tồn kho</p>', '2023-05-19', 0, 1, 2, 0, 123, 0),
-(19, 'Figure Lý Tiểu Long bản lỗi size 10 inch', '170fbd1479.png', '2000', '<p>Sản phẩm cũng được</p>', '2023-05-12', 0, 1, 1, 0, 9, 0);
+(14, 'Figure superman tối thượng', '6243bc2a5a.png', '2000', '<p>Sản phẩm mới</p>', '2023-05-10', 0, 1, 1, 0, 0, 0),
+(15, 'Figure anh hùng đại bàng', '6da2a5f4f2.png', '1500', '<p>sản phẩm mới</p>', '2023-05-11', 0, 1, 2, 0, 30, 0),
+(16, 'Figure iron man siêu to khổng lồ', '57b5f35d05.png', '3000', '<p><strong>Sản phẩm limited</strong></p>', '2023-05-11', 0, 1, 1, 0, 2, 0),
+(17, 'Figure anh hùng xạ điêu size', 'e64461ebbf.png', '1800', '<p>sản phẩm tồn kho</p>', '2023-05-10', 0, 2, 2, 3, 34, 0),
+(18, 'Figure phù thủy tối thượng', '7a492fd185.png', '1900', '<p>H&agrave;ng si&ecirc;u tồn kho</p>', '2023-05-19', 0, 1, 2, 0, 123, 0),
+(19, 'Figure Lý Tiểu Long size 10 inch', '170fbd1479.png', '2000', '<p>Sản phẩm cũng được</p>', '2023-05-12', 0, 1, 1, 0, 9, 0);
 
 -- --------------------------------------------------------
 
@@ -480,7 +488,7 @@ ALTER TABLE `sale`
 -- AUTO_INCREMENT cho bảng `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `category`
@@ -492,7 +500,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT cho bảng `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `detail_enter_product`
@@ -504,7 +512,7 @@ ALTER TABLE `detail_enter_product`
 -- AUTO_INCREMENT cho bảng `detail_orders`
 --
 ALTER TABLE `detail_orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT cho bảng `enter_product`
@@ -516,13 +524,13 @@ ALTER TABLE `enter_product`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `permission`
 --
 ALTER TABLE `permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `product`
