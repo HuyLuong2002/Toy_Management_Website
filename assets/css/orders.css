@@ -84,15 +84,17 @@ table th {
 }
 
 .status-0 {
-  color: #4CAF50;
+  color: #f39c12;
+  
 }
 
 .status-1 {
-  color: #e74c3c;
+  color: #4CAF50;
+
 }
 
 .status-2 {
-  color: #f39c12;
+  color: #e74c3c;
 }
 
 .modal {

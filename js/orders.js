@@ -34,11 +34,11 @@ const handleShowListOrder = async () => {
         OrderListProductDetail.push([item.id, item.order_list])
 
         let statusText = "PENDING"
-        if (item.order_list.status == 1) {
+        if (item.order_list.status == 0) {
             statusText = "DELIVERING"
         }
-        if (item.order_list.status == 0) {
-            statusText = "SHIPPED"
+        if (item.order_list.status == 1) {
+            statusText = "DELIVERED"
         }
         return `
             <tr key=${index}>
